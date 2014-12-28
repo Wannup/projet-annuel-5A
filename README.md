@@ -1,2 +1,2 @@
-projet-annuel-5A
+projet-annuel 5ème année: logiciel de gestion de parc informatique
 ================
