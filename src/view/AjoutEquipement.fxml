@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="631.0" prefWidth="653.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AjoutEquipement">
+   <children>
+      <Label layoutX="235.0" layoutY="54.0" text="Nouveau équipement">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="numPoste" layoutX="146.0" layoutY="120.0" prefHeight="31.0" prefWidth="200.0" />
+      <TextField fx:id="numCPAgent" editable="false" layoutX="146.0" layoutY="233.0" prefHeight="31.0" prefWidth="200.0" />
+      <Label layoutX="14.0" layoutY="125.0" text="Numero de poste" />
+      <Button fx:id="btnSelectAgent" layoutX="367.0" layoutY="233.0" mnemonicParsing="false" onAction="#selectionAgent" text="Sélection Agent" />
+      <Label layoutX="54.0" layoutY="238.0" text="Agent" />
+      <Label layoutX="44.0" layoutY="297.0" text="Logiciels:" />
+      <Button fx:id="btnSelectLogiciels" layoutX="177.0" layoutY="514.0" mnemonicParsing="false" onAction="#selectionLogiciels" text="Sélection logiciels" />
+      <Label layoutX="60.0" layoutY="179.0" text="Prix" />
+      <TextField fx:id="prix" layoutX="146.0" layoutY="174.0" prefHeight="31.0" prefWidth="200.0" />
+      <Button fx:id="btnEnregistrer" layoutX="508.0" layoutY="561.0" mnemonicParsing="false" onAction="#enregistrerEquipement" prefHeight="31.0" prefWidth="104.0" text="Enregistrer" />
+      <ListView fx:id="lstLogiciel" layoutX="146.0" layoutY="297.0" prefHeight="200.0" prefWidth="200.0" />
+   </children>
+</AnchorPane>
