@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="631.0" prefWidth="653.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AjoutEquipement">
+<AnchorPane prefHeight="600.0" prefWidth="698.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AjoutEquipement">
    <children>
-      <Label layoutX="235.0" layoutY="54.0" text="Nouveau équipement">
+      <Label layoutX="235.0" layoutY="54.0" text="Nouvel équipement">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.control.*?>
 <?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.*?>
 
-<AnchorPane minHeight="500.0" minWidth="550.0" prefHeight="500.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Accueil">
-   <children>
-      <Button fx:id="btnAjoutEquip" layoutX="35.0" layoutY="201.0" mnemonicParsing="false" onAction="#ajoutEquip" prefHeight="31.0" prefWidth="190.0" text="Ajout" />
-      <Button fx:id="btnLogicielGest" layoutX="35.0" layoutY="331.0" mnemonicParsing="false" onAction="#logicielGest" prefHeight="31.0" prefWidth="190.0" text="Gestion logiciels" />
-      <Button fx:id="btnAgentGest" layoutX="333.0" layoutY="331.0" mnemonicParsing="false" onAction="#agentGest" prefHeight="31.0" prefWidth="190.0" text="Gestion des agents" />
-      <Button fx:id="btnStatPrev" layoutX="193.0" layoutY="393.0" mnemonicParsing="false" onAction="#statPrev" prefHeight="31.0" prefWidth="164.0" text="Statistique/Prévision" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="175.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-         <image>
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1100.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.Accueil">
+  <children>
+    <AnchorPane fx:id="menuPanel" layoutX="0.0" layoutY="0.0" prefHeight="600.0" prefWidth="200.0">
+      <children>
+        <Button id="btnAjoutEquip" onAction="#ajoutEquip" layoutX="16.0" layoutY="177.0" mnemonicParsing="false" prefWidth="168.0" text="Ajouter un équipement" />
+        <Button id="btnLogicielGest" onAction="#logicielGest" layoutX="16.0" layoutY="233.0" mnemonicParsing="false" prefWidth="168.0" text="Gestion des logiciels" />
+        <Button id="btnAgentGest" onAction="#agentGest" layoutX="16.0" layoutY="290.0" mnemonicParsing="false" prefWidth="168.0" text="Gestion des agents" />
+        <Button id="btnStatPrev" onAction="#statPrev" layoutX="15.0" layoutY="347.0" mnemonicParsing="false" prefWidth="168.0" text="Statistiques/Prévisions" />
+        <ImageView fitHeight="92.0" fitWidth="122.66666666666666" layoutX="39.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+          <image>
             <Image url="@../res/logo-sncf.jpg" />
-         </image>
-      </ImageView>
-      <Label layoutX="149.0" layoutY="155.0" text="Gestion des équipements:" AnchorPane.leftAnchor="149.0" AnchorPane.rightAnchor="149.0">
-         <font>
-            <Font name="System Bold" size="19.0" />
-         </font>
-      </Label>
-      <Button fx:id="btnConsultEquip" layoutX="333.0" layoutY="201.0" mnemonicParsing="false" onAction="#consultEquip" prefHeight="31.0" prefWidth="190.0" text="Consultation/Recherche" />
-   </children>
+          </image>
+        </ImageView>
+      </children>
+    </AnchorPane>
+    <AnchorPane fx:id="bodyPanel" layoutX="200.0" layoutY="0.0" prefHeight="800.0" prefWidth="900.0" style="-fx-background-color: #D8D8D8">
+    	<children>
+	    </children>
+	</AnchorPane>
+  </children>
 </AnchorPane>

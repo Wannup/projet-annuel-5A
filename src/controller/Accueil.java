@@ -8,10 +8,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class Accueil implements Initializable{
@@ -37,53 +36,62 @@ public class Accueil implements Initializable{
 	private Button btnStatPrev;
 	
 	@FXML
+	private AnchorPane bodyPanel;
+
+	private FXMLLoader loader;
+	@FXML
 	private void agentGest(ActionEvent event) throws IOException{
-		Parent agent_gest_page = FXMLLoader.load(getClass().getResource("/view/GestionAgent.fxml"));
-		Scene agent_gest_scene = new Scene(agent_gest_page);
-		Stage app_stage = new Stage();
-		app_stage.setScene(agent_gest_scene);
-		persoStage(app_stage);
-		app_stage.show();
+		loader = new FXMLLoader(getClass().getResource("/view/GestionAgent.fxml"));
+		bodyPanel.getChildren().setAll(loader.load());
+		AnchorPane.setTopAnchor(bodyPanel, (double) 0);
+		AnchorPane.setTopAnchor(bodyPanel.getChildren().get(0), (double) 0);
+		AnchorPane.setRightAnchor(bodyPanel.getChildren().get(0), (double) 0);
+		AnchorPane.setLeftAnchor(bodyPanel.getChildren().get(0), (double) 0);
+		AnchorPane.setBottomAnchor(bodyPanel.getChildren().get(0), (double) 0);
 	}
 	
 	@FXML
-	private void ajoutEquip(ActionEvent event) throws IOException{
-		Parent ajout_equip_page = FXMLLoader.load(getClass().getResource("/view/AjoutEquipement.fxml"));
-		Scene ajout_equip_scene = new Scene(ajout_equip_page);
-		Stage app_stage = new Stage();
-		app_stage.setScene(ajout_equip_scene);
-		persoStage(app_stage);
-		app_stage.show();
+	private void ajoutEquip(ActionEvent event) throws IOException{		
+		loader = new FXMLLoader(getClass().getResource("/view/AjoutEquipement.fxml"));
+		bodyPanel.getChildren().setAll(loader.load());
+		AnchorPane.setTopAnchor(bodyPanel, (double) 0);
+		AnchorPane.setTopAnchor(bodyPanel.getChildren().get(0), (double) 0);
+		AnchorPane.setRightAnchor(bodyPanel.getChildren().get(0), (double) 0);
+		AnchorPane.setLeftAnchor(bodyPanel.getChildren().get(0), (double) 0);
+		AnchorPane.setBottomAnchor(bodyPanel.getChildren().get(0), (double) 0);
 	}
 	
 	@FXML
 	private void consultEquip(ActionEvent event) throws IOException{
-		Parent consult_equip_page = FXMLLoader.load(getClass().getResource("/view/ConsultationEquipement.fxml"));
-		Scene consult_equip_scene = new Scene(consult_equip_page);
-		Stage app_stage = new Stage();
-		app_stage.setScene(consult_equip_scene);
-		persoStage(app_stage);
-		app_stage.show();
+		loader = new FXMLLoader(getClass().getResource("/view/ConsultationEquipement.fxml"));
+		bodyPanel.getChildren().setAll(loader.load());
+		AnchorPane.setTopAnchor(bodyPanel, (double) 0);
+		AnchorPane.setTopAnchor(bodyPanel.getChildren().get(0), (double) 0);
+		AnchorPane.setRightAnchor(bodyPanel.getChildren().get(0), (double) 0);
+		AnchorPane.setLeftAnchor(bodyPanel.getChildren().get(0), (double) 0);
+		AnchorPane.setBottomAnchor(bodyPanel.getChildren().get(0), (double) 0);
 	}
 	
 	@FXML
 	private void logicielGest(ActionEvent event) throws IOException{
-		Parent lociciel_gest_page = FXMLLoader.load(getClass().getResource("/view/GestionLogiciel.fxml"));
-		Scene logiciel_gest_scene = new Scene(lociciel_gest_page);
-		Stage app_stage = new Stage();
-		app_stage.setScene(logiciel_gest_scene);
-		persoStage(app_stage);
-		app_stage.show();
+		loader = new FXMLLoader(getClass().getResource("/view/GestionLogiciel.fxml"));
+		bodyPanel.getChildren().setAll(loader.load());
+		AnchorPane.setTopAnchor(bodyPanel, (double) 0);
+		AnchorPane.setTopAnchor(bodyPanel.getChildren().get(0), (double) 0);
+		AnchorPane.setRightAnchor(bodyPanel.getChildren().get(0), (double) 0);
+		AnchorPane.setLeftAnchor(bodyPanel.getChildren().get(0), (double) 0);
+		AnchorPane.setBottomAnchor(bodyPanel.getChildren().get(0), (double) 0);
 	}
 	
 	@FXML
 	private void statPrev(ActionEvent event) throws IOException{
-		Parent stat_prev_page = FXMLLoader.load(getClass().getResource("/view/StatEtPrevision.fxml"));
-		Scene stat_prev_scene = new Scene(stat_prev_page);
-		Stage app_stage = new Stage();
-		app_stage.setScene(stat_prev_scene);
-		persoStage(app_stage);
-		app_stage.show();
+		loader = new FXMLLoader(getClass().getResource("/view/StatEtPrevision.fxml"));
+		bodyPanel.getChildren().setAll(loader.load());
+		AnchorPane.setTopAnchor(bodyPanel, (double) 0);
+		AnchorPane.setTopAnchor(bodyPanel.getChildren().get(0), (double) 0);
+		AnchorPane.setRightAnchor(bodyPanel.getChildren().get(0), (double) 0);
+		AnchorPane.setLeftAnchor(bodyPanel.getChildren().get(0), (double) 0);
+		AnchorPane.setBottomAnchor(bodyPanel.getChildren().get(0), (double) 0);
 	}
 	
 	private void persoStage(Stage app_stage){
