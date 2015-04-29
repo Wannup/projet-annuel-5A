@@ -1,8 +1,13 @@
 package controller;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
+import application.Database;
 import model.Logiciel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -52,6 +57,7 @@ public class AjoutEquipement implements Initializable{
 	
 	@FXML
 	private void enregistrerEquipement(ActionEvent event){
-		System.out.println("Clic enregistrer equipement: todo");
+		//System.out.println("ajout d'équipement");
+		Database.doRequest("INSERT INTO equipements (numPoste, prix, numCPAgent) VALUES ('" + numPoste.getText() + "', '" + prix.getText() + "', '" + numCPAgent.getText() + "')");
 	}
 }

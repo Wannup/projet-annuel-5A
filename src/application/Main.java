@@ -1,5 +1,9 @@
 package application;
 	
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +16,10 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			// DATABASE
+			Database.init();
+			
+			// GUI
 			Parent root = FXMLLoader.load(getClass().getResource("/view/Accueil.fxml"));
 			Scene scene = new Scene(root);
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
