@@ -11,10 +11,10 @@
   <children>
     <AnchorPane fx:id="menuPanel" layoutX="0.0" layoutY="0.0" prefHeight="800.0" prefWidth="200.0">
       <children>
-        <Button id="btnAjoutEquip" layoutX="16.0" layoutY="177.0" mnemonicParsing="false" onAction="#ajoutEquip" prefWidth="168.0" text="Ajouter un équipement" />
-        <Button id="btnLogicielGest" layoutX="16.0" layoutY="233.0" mnemonicParsing="false" onAction="#logicielGest" prefWidth="168.0" text="Gestion des logiciels" />
-        <Button id="btnAgentGest" layoutX="16.0" layoutY="290.0" mnemonicParsing="false" onAction="#agentGest" prefWidth="168.0" text="Gestion des agents" />
-        <Button id="btnStatPrev" layoutX="16.0" layoutY="347.0" mnemonicParsing="false" onAction="#statPrev" prefWidth="168.0" text="Statistiques/Prévisions" />
+        <Button id="btnAjoutEquip" layoutX="8.0" layoutY="177.0" mnemonicParsing="false" onAction="#ajoutEquip" prefWidth="184.0" text="Gestion des équipements" />
+        <Button id="btnLogicielGest" layoutX="8.0" layoutY="233.0" mnemonicParsing="false" onAction="#logicielGest" prefWidth="184.0" text="Gestion des logiciels" />
+        <Button id="btnAgentGest" layoutX="8.0" layoutY="290.0" mnemonicParsing="false" onAction="#agentGest" prefWidth="184.0" text="Gestion des agents" />
+        <Button id="btnStatPrev" layoutX="8.0" layoutY="347.0" mnemonicParsing="false" onAction="#statPrev" prefWidth="184.0" text="Statistiques/Prévisions" />
         <ImageView fitHeight="92.0" fitWidth="122.66666666666666" layoutX="39.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
           <image>
             <Image url="@../res/logo-sncf.jpg" />

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="bodyPanel" prefHeight="800.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.AjoutAgent">
+  <children>
+    <Label layoutX="344.0" layoutY="85.0" text="Ajouter un nouvel agent">
+      <font>
+        <Font name="System Bold" size="17.0" />
+      </font>
+    </Label>
+    <Separator layoutX="0.0" layoutY="63.0" prefWidth="900.0" />
+    <Button id="btnEditDelete" layoutX="341.0" layoutY="22.0" mnemonicParsing="false" onAction="#displayEditDelete" text="Modifier/Supprimer des agents" />
+    <TextField layoutX="351.0" layoutY="220.0" prefWidth="200.0" />
+    <TextField layoutX="351.0" layoutY="271.0" prefWidth="200.0" />
+    <TextField layoutX="351.0" layoutY="325.0" prefWidth="200.0" />
+    <TextField layoutX="351.0" layoutY="378.0" prefWidth="200.0" />
+    <Label layoutX="263.0" layoutY="223.0" text="Nom" />
+    <Label layoutX="254.0" layoutY="274.0" text="Prénom" />
+    <Label layoutX="220.0" layoutY="328.0" text="Date de naissance" />
+    <Label layoutX="260.0" layoutY="381.0" text="N° CP" />
+    <TextField layoutX="351.0" layoutY="428.0" prefWidth="200.0" />
+    <Label layoutX="241.0" layoutY="431.0" text="N° de poste" />
+    <Button layoutX="563.0" layoutY="428.0" mnemonicParsing="false" text="Rechercher le poste" />
+  </children>
+</AnchorPane>
