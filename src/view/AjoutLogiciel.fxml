@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="bodyPanel" prefHeight="800.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.AjoutLogiciel">
+  <children>
+    <Label layoutX="329.0" layoutY="85.0" text="Ajouter un nouveau logiciel">
+      <font>
+        <Font name="System Bold" size="17.0" />
+      </font>
+    </Label>
+    <Separator layoutX="0.0" layoutY="63.0" prefWidth="900.0" />
+    <Button id="btnEditDelete" layoutX="336.0" layoutY="22.0" mnemonicParsing="false" onAction="#displayEditDelete" text="Modifier/Supprimer des logiciels" />
+    <TextField layoutX="351.0" layoutY="220.0" prefWidth="200.0" />
+    <TextField layoutX="351.0" layoutY="271.0" prefWidth="200.0" />
+    <TextField layoutX="351.0" layoutY="325.0" prefWidth="200.0" />
+    <Label layoutX="243.0" layoutY="223.0" text="Libelle" />
+    <Label layoutX="203.0" layoutY="274.0" text="Durée de la licence" />
+    <Label layoutX="208.0" layoutY="328.0" text="Prix d'une licence" />
+    <Button layoutX="416.0" layoutY="495.0" mnemonicParsing="false" text="Ajouter" />
+  </children>
+</AnchorPane>

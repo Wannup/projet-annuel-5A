@@ -41,7 +41,7 @@ public class Accueil implements Initializable{
 	private FXMLLoader loader;
 	@FXML
 	private void agentGest(ActionEvent event) throws IOException{
-		loader = new FXMLLoader(getClass().getResource("/view/AjoutAgent.fxml"));
+		loader = new FXMLLoader(getClass().getResource("/view/GestionAgent.fxml"));
 		bodyPanel.getChildren().setAll(loader.load());
 		AnchorPane.setTopAnchor(bodyPanel, (double) 0);
 		AnchorPane.setTopAnchor(bodyPanel.getChildren().get(0), (double) 0);
@@ -52,7 +52,7 @@ public class Accueil implements Initializable{
 	
 	@FXML
 	private void ajoutEquip(ActionEvent event) throws IOException{		
-		loader = new FXMLLoader(getClass().getResource("/view/AjoutEquipement.fxml"));
+		loader = new FXMLLoader(getClass().getResource("/view/GestionEquipement.fxml"));
 		bodyPanel.getChildren().setAll(loader.load());
 		AnchorPane.setTopAnchor(bodyPanel, (double) 0);
 		AnchorPane.setTopAnchor(bodyPanel.getChildren().get(0), (double) 0);

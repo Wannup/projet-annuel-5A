@@ -10,7 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 
-public class GestionAgent implements Initializable{
+public class GestionLogiciel implements Initializable {
 
 	@FXML
 	private AnchorPane bodyPanel;
@@ -22,10 +22,10 @@ public class GestionAgent implements Initializable{
 		// TODO Auto-generated method stub
 		
 	}
-	
+
 	@FXML
-	private void displayAddAgent(ActionEvent event) throws IOException{
-		loader = new FXMLLoader(getClass().getResource("/view/AjoutEquipement.fxml"));
+	private void displayAddLogiciel(ActionEvent event) throws IOException{
+		loader = new FXMLLoader(getClass().getResource("/view/AjoutLogiciel.fxml"));
 		bodyPanel.getChildren().setAll(loader.load());
 		AnchorPane.setTopAnchor(bodyPanel, (double) 0);
 		AnchorPane.setTopAnchor(bodyPanel.getChildren().get(0), (double) 0);
@@ -33,5 +33,4 @@ public class GestionAgent implements Initializable{
 		AnchorPane.setLeftAnchor(bodyPanel.getChildren().get(0), (double) 0);
 		AnchorPane.setBottomAnchor(bodyPanel.getChildren().get(0), (double) 0);
 	}
-
 }
