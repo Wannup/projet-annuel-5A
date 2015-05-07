@@ -14,7 +14,7 @@
       </font>
     </Label>
     <Separator layoutX="0.0" layoutY="63.0" prefWidth="900.0" />
-    <Button id="btnEditDelete" layoutX="341.0" layoutY="22.0" mnemonicParsing="false" onAction="#displayEditDelete" text="Modifier/Supprimer des agents" />
+    <Button id="btnEditDelete" layoutX="349.0" layoutY="22.0" mnemonicParsing="false" onAction="#displayEditDelete" text="Modifier/Supprimer des agents" />
     <TextField layoutX="351.0" layoutY="220.0" prefWidth="200.0" />
     <TextField layoutX="351.0" layoutY="271.0" prefWidth="200.0" />
     <TextField layoutX="351.0" layoutY="325.0" prefWidth="200.0" />

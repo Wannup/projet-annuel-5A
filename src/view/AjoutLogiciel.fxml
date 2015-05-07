@@ -8,13 +8,13 @@
 
 <AnchorPane fx:id="bodyPanel" prefHeight="800.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.AjoutLogiciel">
   <children>
-    <Label layoutX="329.0" layoutY="85.0" text="Ajouter un nouveau logiciel">
+    <Label layoutX="339.0" layoutY="85.0" text="Ajouter un nouveau logiciel">
       <font>
         <Font name="System Bold" size="17.0" />
       </font>
     </Label>
     <Separator layoutX="0.0" layoutY="63.0" prefWidth="900.0" />
-    <Button id="btnEditDelete" layoutX="336.0" layoutY="22.0" mnemonicParsing="false" onAction="#displayEditDelete" text="Modifier/Supprimer des logiciels" />
+    <Button id="btnEditDelete" layoutX="349.0" layoutY="22.0" mnemonicParsing="false" onAction="#displayEditDelete" text="Modifier/Supprimer des logiciels" />
     <TextField layoutX="351.0" layoutY="220.0" prefWidth="200.0" />
     <TextField layoutX="351.0" layoutY="271.0" prefWidth="200.0" />
     <TextField layoutX="351.0" layoutY="325.0" prefWidth="200.0" />

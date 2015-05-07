@@ -9,7 +9,7 @@
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1100.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.Accueil">
   <children>
-    <AnchorPane fx:id="menuPanel" prefHeight="800.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="900.0" AnchorPane.topAnchor="0.0">
+    <AnchorPane fx:id="menuPanel" prefHeight="800.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="900.0" AnchorPane.topAnchor="0.0">
       <children>
         <Button id="btnAjoutEquip" layoutX="8.0" layoutY="177.0" mnemonicParsing="false" onAction="#ajoutEquip" prefWidth="184.0" text="Gestion des équipements" />
         <Button id="btnLogicielGest" layoutX="8.0" layoutY="233.0" mnemonicParsing="false" onAction="#logicielGest" prefWidth="184.0" text="Gestion des logiciels" />

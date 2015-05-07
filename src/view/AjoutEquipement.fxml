@@ -24,7 +24,7 @@
     <TextField fx:id="prix" layoutX="350.0" layoutY="220.0" prefHeight="31.0" prefWidth="200.0" />
     <Button fx:id="btnEnregistrer" layoutX="398.0" layoutY="586.0" mnemonicParsing="false" onAction="#enregistrerEquipement" prefHeight="31.0" prefWidth="104.0" text="Enregistrer" />
     <ListView fx:id="lstLogiciel" layoutX="350.0" layoutY="345.0" prefHeight="200.0" prefWidth="200.0" />
-    <Button fx:id="btnEditDelete" layoutX="321.0" layoutY="22.0" mnemonicParsing="false" onAction="#displayEditDelete" text="Modifier/Supprimer des équipements" />
+    <Button fx:id="btnEditDelete" layoutX="341.0" layoutY="22.0" mnemonicParsing="false" onAction="#displayEditDelete" text="Modifier/Supprimer des équipements" />
     <Separator layoutX="0.0" layoutY="63.0" prefWidth="900.0" />
   </children>
 </AnchorPane>
