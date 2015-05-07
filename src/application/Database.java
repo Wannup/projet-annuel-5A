@@ -12,7 +12,9 @@ public class Database {
 			Class.forName("org.hsqldb.jdbcDriver").newInstance();
 			Connection connexion = DriverManager.getConnection("jdbc:hsqldb:file:database/lgpi", "lgpi",  "lgpi");
 			Statement statement = connexion.createStatement() ;
-			statement.executeUpdate("CREATE TABLE IF NOT EXISTS equipements (idEquipement INT IDENTITY, numPoste VARCHAR(64), prix INT, numCPAgent int)");
+			statement.executeUpdate("CREATE TABLE IF NOT EXISTS equipements (idEquipement INT IDENTITY, numPoste VARCHAR(64), prix INT, numCPAgent INT)");
+			statement.executeUpdate("CREATE TABLE IF NOT EXISTS logiciels (idLogiciel INT IDENTITY, libelle VARCHAR(64), valeur INT, duree INT)");
+			statement.executeUpdate("CREATE TABLE IF NOT EXISTS agents (idAgent INT IDENTITY, nom VARCHAR(64), prenom VARCHAR(64), dateDeNaissance DATE, numCPAgent INT, numPoste INT)");
 			statement.executeQuery("SHUTDOWN");
 			statement.close();
 			connexion.close() ;
@@ -25,11 +27,10 @@ public class Database {
 		try {
 			Connection connexion = DriverManager.getConnection("jdbc:hsqldb:file:database/lgpi", "lgpi",  "lgpi");
 			
-			Statement statement;
-			statement = connexion.createStatement();
+		    Statement statement = connexion.createStatement();
 			statement.executeUpdate(request);
-			statement.executeQuery("SHUTDOWN");
 			
+			statement.executeQuery("SHUTDOWN");			
 			statement.close();			
 			connexion.close() ;
 		} catch (SQLException e) {
