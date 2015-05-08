@@ -2,20 +2,27 @@ package model;
 
 import java.util.List;
 
+import javafx.beans.property.SimpleStringProperty;
+
 
 public class Equipement {
 
+	private SimpleStringProperty nom;
 	private int numeroPoste;
 	private Agent agent; // ou une liste d'agents ?
 	private List<Logiciel> logiciels;
 	private double prix;
 	
-	public Equipement(int numeroPoste, Agent agent, List<Logiciel> logiciels, double prix) {
-		
+	public Equipement(String nom, int numeroPoste, Agent agent, List<Logiciel> logiciels, double prix) {
+		this.nom = new SimpleStringProperty (nom);
 		this.numeroPoste = numeroPoste;
 		this.agent = agent;
 		this.logiciels = logiciels;
 		this.prix = prix;
+	}
+	
+	public SimpleStringProperty  getNom() {
+		return this.nom;
 	}
 
 	public int getNumeroPoste() {
