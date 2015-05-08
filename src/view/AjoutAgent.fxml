@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,17 +16,31 @@
     </Label>
     <Separator layoutX="0.0" layoutY="63.0" prefWidth="900.0" />
     <Button id="btnEditDelete" layoutX="349.0" layoutY="22.0" mnemonicParsing="false" onAction="#displayEditDelete" text="Modifier/Supprimer des agents" />
-    <TextField layoutX="351.0" layoutY="220.0" prefWidth="200.0" />
-    <TextField layoutX="351.0" layoutY="271.0" prefWidth="200.0" />
-    <TextField layoutX="351.0" layoutY="325.0" prefWidth="200.0" />
-    <TextField layoutX="351.0" layoutY="378.0" prefWidth="200.0" />
+    <TextField id="name" fx:id="nom" layoutX="351.0" layoutY="220.0" prefWidth="200.0" />
+    <TextField fx:id="prenom" layoutX="351.0" layoutY="271.0" prefWidth="200.0" />
+    <TextField fx:id="numCP" layoutX="351.0" layoutY="378.0" prefWidth="200.0" />
     <Label layoutX="263.0" layoutY="223.0" text="Nom" />
     <Label layoutX="254.0" layoutY="274.0" text="Prénom" />
     <Label layoutX="220.0" layoutY="328.0" text="Date de naissance" />
     <Label layoutX="260.0" layoutY="381.0" text="N° CP" />
-    <TextField layoutX="351.0" layoutY="428.0" prefWidth="200.0" />
+    <TextField id="numPost" fx:id="numPoste" layoutX="351.0" layoutY="428.0" prefWidth="200.0" />
     <Label layoutX="241.0" layoutY="431.0" text="N° de poste" />
     <Button layoutX="563.0" layoutY="428.0" mnemonicParsing="false" text="Rechercher le poste" />
-    <Button layoutX="416.0" layoutY="641.0" mnemonicParsing="false" text="Ajouter" />
+    <Button layoutX="416.0" layoutY="641.0" mnemonicParsing="false" text="Ajouter" onAction="#enregistrerAgent"/>
+    <ComboBox fx:id="jour" layoutX="351.0" layoutY="326.0" minWidth="31.0" prefHeight="21.0" prefWidth="57.0">
+      <items>
+        <FXCollections fx:factory="observableArrayList" />
+      </items>
+    </ComboBox>
+    <ComboBox fx:id="mois" layoutX="413.0" layoutY="326.0" minWidth="42.0" prefHeight="21.0" prefWidth="57.0">
+      <items>
+        <FXCollections fx:factory="observableArrayList" />
+      </items>
+    </ComboBox>
+    <ComboBox fx:id="annee" layoutX="475.0" layoutY="326.0" minWidth="49.0" prefHeight="21.0" prefWidth="74.0">
+      <items>
+        <FXCollections fx:factory="observableArrayList" />
+      </items>
+    </ComboBox>
   </children>
 </AnchorPane>

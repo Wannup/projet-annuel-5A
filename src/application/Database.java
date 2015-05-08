@@ -2,6 +2,7 @@ package application;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -23,12 +24,13 @@ public class Database {
 		}		
 	}
 	
-	public static void doRequest(String request){
+	public static ResultSet doRequest(String request){
+		ResultSet rs = null;
 		try {
 			Connection connexion = DriverManager.getConnection("jdbc:hsqldb:file:database/lgpi", "lgpi",  "lgpi");
 			
 		    Statement statement = connexion.createStatement();
-			statement.executeUpdate(request);
+			rs = statement.executeQuery(request);
 			
 			statement.executeQuery("SHUTDOWN");			
 			statement.close();			
@@ -36,6 +38,8 @@ public class Database {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		return rs;
 	}
 	
 }

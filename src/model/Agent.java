@@ -4,13 +4,17 @@ public class Agent {
 
 	private String nom;
 	private String prenom;
-	private String numeroCP;
+	private String dateDeNaissance;
+	private String numCP;
+	private String numPoste;
 	
-	public Agent(String nom, String prenom, String numeroCP) {
+	public Agent(String nom, String prenom, String dateDeNaissance, String numCP, String numPoste) {
 		
 		this.nom = nom;
 		this.prenom = prenom;
-		this.numeroCP = numeroCP;
+		this.dateDeNaissance = dateDeNaissance;
+		this.numCP = numCP;
+		this.numPoste = numPoste;
 	}
 
 	public String getNom() {
@@ -29,13 +33,28 @@ public class Agent {
 		this.prenom = prenom;
 	}
 
-	public String getNumeroCP() {
-		return numeroCP;
+	public String getDateDeNaissance() {
+		return dateDeNaissance;
 	}
 
-	public void setNumeroCP(String numeroCP) {
-		this.numeroCP = numeroCP;
+	public void setDateDeNaissance(String dateDeNaissance) {
+		this.dateDeNaissance = dateDeNaissance;
 	}
-	
+
+	public String getNumCP() {
+		return numCP;
+	}
+
+	public void setNumCP(String numCP) {
+		this.numCP = numCP;
+	}
+
+	public String getNumPoste() {
+		return numPoste;
+	}
+
+	public void setNumPoste(String numPoste) {
+		this.numPoste = numPoste;
+	}
 	
 }

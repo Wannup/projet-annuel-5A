@@ -6,27 +6,27 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="bodyPanel" prefHeight="800.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.GestionAgent">
+<AnchorPane fx:id="bodyPanel" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.GestionAgent">
   <children>
     <Label layoutX="313.0" layoutY="85.0" text="Modifier/Supprimer des agents">
       <font>
         <Font name="System Bold" size="17.0" />
       </font>
     </Label>
-    <Separator layoutX="0.0" layoutY="63.0" prefWidth="900.0" />
+    <Separator layoutY="63.0" prefWidth="900.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
     <Button id="btnEditDelete" layoutX="380.0" layoutY="22.0" mnemonicParsing="false" onAction="#displayAddAgent" text="Ajouter des agents" />
-    <TableView layoutX="29.0" layoutY="172.0" prefHeight="596.0" prefWidth="842.0">
+    <TableView fx:id="searchTab" layoutY="172.0" prefHeight="596.0" prefWidth="842.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="29.0">
       <columns>
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="192.0" text="Nom" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="130.0" text="Prénom" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="154.0" text="Date de naissance" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="112.0" text="N° de CP" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="104.0" text="N° de Poste" />
-        <TableColumn maxWidth="5000.0" minWidth="0.0" prefWidth="74.0" text="Modifier" />
-        <TableColumn prefWidth="75.0" text="Supprimer" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="192.0" text="Nom" fx:id="nomCol" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="130.0" text="Prénom" fx:id="prenomCol" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="154.0" text="Date de naissance" fx:id="dateDeNaissanceCol" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="112.0" text="N° de CP" fx:id="numCPCol" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="104.0" text="N° de Poste" fx:id="numPosteCol" />
+        <TableColumn maxWidth="5000.0" minWidth="0.0" prefWidth="74.0" text="Modifier" fx:id="cmodifierCol" />
+        <TableColumn prefWidth="75.0" text="Supprimer" fx:id="csupprimer" />
       </columns>
     </TableView>
-    <TextField layoutX="29.0" layoutY="134.0" prefWidth="696.0" />
-    <Button layoutX="738.0" layoutY="134.0" mnemonicParsing="false" prefHeight="21.999900000002526" prefWidth="133.0" text="Rechercher" />
+    <TextField fx:id="searchBar" layoutX="29.0" layoutY="134.0" prefWidth="696.0" />
+    <Button fx:id="searchButton" layoutX="738.0" layoutY="134.0" mnemonicParsing="false" onAction="#searchAgent" prefHeight="21.999900000002526" prefWidth="133.0" text="Rechercher" />
   </children>
 </AnchorPane>
