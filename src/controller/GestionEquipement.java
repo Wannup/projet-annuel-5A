@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -7,6 +8,8 @@ import java.util.ResourceBundle;
 
 import model.Equipement;
 import application.DataTest;
+import application.ExcelGenerator;
+import application.PDFGenerator;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +22,8 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
 import javafx.util.Callback;
 
 public class GestionEquipement implements Initializable{
@@ -59,6 +64,26 @@ public class GestionEquipement implements Initializable{
 		AnchorPane.setRightAnchor(bodyPanel.getChildren().get(0), (double) 0);
 		AnchorPane.setLeftAnchor(bodyPanel.getChildren().get(0), (double) 0);
 		AnchorPane.setBottomAnchor(bodyPanel.getChildren().get(0), (double) 0);
+	}
+	
+	@FXML
+	private void exportTable(ActionEvent event) throws IOException {
+		ExcelGenerator excelGenerator = new ExcelGenerator();
+		PDFGenerator pdfGenerator = new PDFGenerator();
+		FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Excel");
+        File file;
+        file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
+        if (file != null) {
+        	excelGenerator.generate(file);
+        }
+        fileChooser.setTitle("Save PDF");
+        file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
+        if (file != null) {
+        	pdfGenerator.generate(file);
+        }
+		
+		
 	}
 
 }

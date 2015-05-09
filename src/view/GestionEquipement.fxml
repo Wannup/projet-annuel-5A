@@ -27,6 +27,6 @@
         <Font name="System Bold" size="18.0" />
       </font>
     </Label>
-    <Button layoutX="745.0" layoutY="22.0" mnemonicParsing="false" text="Exporter le tableau" />
+    <Button layoutX="745.0" layoutY="22.0" mnemonicParsing="false" onAction="#exportTable" text="Exporter le tableau" />
   </children>
 </AnchorPane>
