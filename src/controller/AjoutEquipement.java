@@ -2,29 +2,26 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ResourceBundle;
 
-import application.Database;
-import model.Logiciel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import model.Logiciel;
+import application.Database;
 
 public class AjoutEquipement implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		
+		// initialisé choicebox avec les types d'équipements
 	}
 	
 	@FXML
@@ -48,11 +45,20 @@ public class AjoutEquipement implements Initializable{
 	@FXML 
 	private TextField numCPAgent;
 	
+	@FXML
+	private TextField nbJourPrev;
+	
 	@FXML 
 	private ListView<Logiciel> lstLogiciel;
 	
 	@FXML
 	private AnchorPane bodyPanel;
+	
+	@FXML
+	private AnchorPane sectionOrdinateur;
+	
+	@FXML
+	private ChoiceBox<String> typeEquipement;
 	
 	private FXMLLoader loader;
 	
@@ -79,7 +85,15 @@ public class AjoutEquipement implements Initializable{
 	
 	@FXML
 	private void enregistrerEquipement(ActionEvent event){
-		//System.out.println("ajout d'Ã©quipement");
+		/*
+		 * if(formulaireValide())
+		 * 		appel d'une fonction dans le model "Equipement" pour faire l'insertion
+		 */
 		Database.doRequest("INSERT INTO equipements (numPoste, prix, numCPAgent) VALUES ('" + numPoste.getText() + "', '" + prix.getText() + "', '" + numCPAgent.getText() + "')");
 	}
+	
+	/*private boolean formulaireValide(){
+		return false;
+		// TODO
+	}*/
 }
