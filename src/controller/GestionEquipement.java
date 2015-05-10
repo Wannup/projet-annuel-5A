@@ -20,9 +20,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.util.Callback;
 import model.Equipement;
-import application.DataTest;
-import application.ExcelGenerator;
-import application.PDFGenerator;
+import application.excel.export.ExcelGenerator;
+import application.pdf.export.PDFGenerator;
+import application.test.DataTest;
 
 public class GestionEquipement implements Initializable{
 

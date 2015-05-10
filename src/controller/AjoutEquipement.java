@@ -14,7 +14,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import model.Logiciel;
-import application.Database;
+import application.database.Database;
 
 public class AjoutEquipement implements Initializable{
 

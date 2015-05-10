@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import application.DataTest;
+import application.test.DataTest;
 import model.Equipement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
