@@ -1,13 +1,23 @@
 package model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Agent {
 
+	@Id
+	@GeneratedValue
+	private int idAgent;
+	
 	private String nom;
 	private String prenom;
 	private String dateDeNaissance;
 	private String numCP;
 	private String numPoste;
 	
+	public Agent(){}
 	public Agent(String nom, String prenom, String dateDeNaissance, String numCP, String numPoste) {
 		
 		this.nom = nom;

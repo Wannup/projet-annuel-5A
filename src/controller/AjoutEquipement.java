@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import tools.ManipInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +15,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import model.Logiciel;
-import application.database.Database;
 
 public class AjoutEquipement implements Initializable{
 
@@ -70,12 +70,7 @@ public class AjoutEquipement implements Initializable{
 	@FXML
 	private void displayEditDelete(ActionEvent event) throws IOException{
 		loader = new FXMLLoader(getClass().getResource("/view/GestionEquipement.fxml"));
-		bodyPanel.getChildren().setAll(loader.load());
-		AnchorPane.setTopAnchor(bodyPanel, (double) 0);
-		AnchorPane.setTopAnchor(bodyPanel.getChildren().get(0), (double) 0);
-		AnchorPane.setRightAnchor(bodyPanel.getChildren().get(0), (double) 0);
-		AnchorPane.setLeftAnchor(bodyPanel.getChildren().get(0), (double) 0);
-		AnchorPane.setBottomAnchor(bodyPanel.getChildren().get(0), (double) 0);
+		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 
 	@FXML
@@ -89,7 +84,7 @@ public class AjoutEquipement implements Initializable{
 		 * if(formulaireValide())
 		 * 		appel d'une fonction dans le model "Equipement" pour faire l'insertion
 		 */
-		Database.doRequest("INSERT INTO equipements (numPoste, prix, numCPAgent) VALUES ('" + numPoste.getText() + "', '" + prix.getText() + "', '" + numCPAgent.getText() + "')");
+		//Database.doRequest("INSERT INTO equipements (numPoste, prix, numCPAgent) VALUES ('" + numPoste.getText() + "', '" + prix.getText() + "', '" + numCPAgent.getText() + "')");
 	}
 	
 	/*private boolean formulaireValide(){

@@ -6,5 +6,8 @@
 	<classpathentry kind="lib" path="lib/hsqldb.jar"/>
 	<classpathentry kind="lib" path="lib/poi-3.11-20141221.jar"/>
 	<classpathentry kind="lib" path="lib/itextpdf-5.5.5.jar"/>
+	<classpathentry kind="lib" path="lib/eclipselink-2.6.0.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.persistence.jpa-2.6.0.jar"/>
+	<classpathentry kind="lib" path="lib/persistence-api-1.0.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

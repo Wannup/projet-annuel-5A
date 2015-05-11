@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import tools.ManipInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,11 +27,6 @@ public class GestionLogiciel implements Initializable {
 	@FXML
 	private void displayAddLogiciel(ActionEvent event) throws IOException{
 		loader = new FXMLLoader(getClass().getResource("/view/AjoutLogiciel.fxml"));
-		bodyPanel.getChildren().setAll(loader.load());
-		AnchorPane.setTopAnchor(bodyPanel, (double) 0);
-		AnchorPane.setTopAnchor(bodyPanel.getChildren().get(0), (double) 0);
-		AnchorPane.setRightAnchor(bodyPanel.getChildren().get(0), (double) 0);
-		AnchorPane.setLeftAnchor(bodyPanel.getChildren().get(0), (double) 0);
-		AnchorPane.setBottomAnchor(bodyPanel.getChildren().get(0), (double) 0);
+		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 }

@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,6 +21,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.util.Callback;
 import model.Equipement;
+import tools.ManipInterface;
 import application.excel.export.ExcelGenerator;
 import application.pdf.export.PDFGenerator;
 import application.test.DataTest;
@@ -48,7 +50,7 @@ public class GestionEquipement implements Initializable{
 		firstCol.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
 		     public ObservableValue<String> call(CellDataFeatures<Equipement, String> p) {
 		         // p.getValue() returns the Person instance for a particular TableView row
-		         return p.getValue().getNom();
+		         return new SimpleStringProperty(p.getValue().getNom());
 		     }
 		  });
 	}
@@ -56,12 +58,7 @@ public class GestionEquipement implements Initializable{
 	@FXML
 	private void displayAddEquipment(ActionEvent event) throws IOException{
 		loader = new FXMLLoader(getClass().getResource("/view/AjoutEquipement.fxml"));
-		bodyPanel.getChildren().setAll(loader.load());
-		AnchorPane.setTopAnchor(bodyPanel, (double) 0);
-		AnchorPane.setTopAnchor(bodyPanel.getChildren().get(0), (double) 0);
-		AnchorPane.setRightAnchor(bodyPanel.getChildren().get(0), (double) 0);
-		AnchorPane.setLeftAnchor(bodyPanel.getChildren().get(0), (double) 0);
-		AnchorPane.setBottomAnchor(bodyPanel.getChildren().get(0), (double) 0);
+		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 	
 	@FXML

@@ -2,12 +2,10 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import application.database.Database;
-import model.Agent;
+import tools.ManipInterface;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,6 +17,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import model.Agent;
 
 public class GestionAgent implements Initializable{
 
@@ -66,10 +65,10 @@ public class GestionAgent implements Initializable{
 		    numCPCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("numCP"));
 		    numPosteCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("numPoste"));
 		    
-		    ResultSet rs = Database.doRequest("select nom, prenom, dateDeNaissance, numCPAgent, numPoste from agents where numCPAgent='"+ searchBar.getText() +"'");
+		   /* ResultSet rs = Database.doRequest("select nom, prenom, dateDeNaissance, numCPAgent, numPoste from agents where numCPAgent='"+ searchBar.getText() +"'");
 		    while (rs.next()) {
 			    agents.add(new Agent(rs.getString("nom"), rs.getString("prenom"), rs.getString("dateDeNaissance"), rs.getString("numCPAgent"), rs.getString("numCPAgent")));
-		    }
+		    }*/
 		    
 		    searchTab.setItems(agents);
 		}
@@ -78,12 +77,7 @@ public class GestionAgent implements Initializable{
 	@FXML
 	private void displayAddAgent(ActionEvent event) throws IOException{
 		loader = new FXMLLoader(getClass().getResource("/view/AjoutAgent.fxml"));
-		bodyPanel.getChildren().setAll(loader.load());
-		AnchorPane.setTopAnchor(bodyPanel, (double) 0);
-		AnchorPane.setTopAnchor(bodyPanel.getChildren().get(0), (double) 0);
-		AnchorPane.setRightAnchor(bodyPanel.getChildren().get(0), (double) 0);
-		AnchorPane.setLeftAnchor(bodyPanel.getChildren().get(0), (double) 0);
-		AnchorPane.setBottomAnchor(bodyPanel.getChildren().get(0), (double) 0);
+		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 
 }

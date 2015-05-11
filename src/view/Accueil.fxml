@@ -11,7 +11,7 @@
   <children>
     <AnchorPane fx:id="menuPanel" prefHeight="800.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="900.0" AnchorPane.topAnchor="0.0">
       <children>
-        <Button id="btnAjoutEquip" layoutX="8.0" layoutY="177.0" mnemonicParsing="false" onAction="#ajoutEquip" prefWidth="184.0" text="Gestion des équipements" />
+        <Button id="btnAjoutEquip" layoutX="8.0" layoutY="177.0" mnemonicParsing="false" onAction="#equipementGest" prefWidth="184.0" text="Gestion des équipements" />
         <Button id="btnLogicielGest" layoutX="8.0" layoutY="233.0" mnemonicParsing="false" onAction="#logicielGest" prefWidth="184.0" text="Gestion des logiciels" />
         <Button id="btnAgentGest" layoutX="8.0" layoutY="290.0" mnemonicParsing="false" onAction="#agentGest" prefWidth="184.0" text="Gestion des agents" />
         <Button id="btnStatPrev" layoutX="8.0" layoutY="347.0" mnemonicParsing="false" onAction="#statPrev" prefWidth="184.0" text="Statistiques/Prévisions" />
