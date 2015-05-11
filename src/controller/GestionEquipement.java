@@ -49,6 +49,7 @@ public class GestionEquipement implements Initializable{
 			items.add(equip);
 		}
 		tableViewEquipement.setItems(items);
+		@SuppressWarnings("unchecked")
 		TableColumn<Equipement,String> firstCol = (TableColumn<Equipement, String>) tableViewEquipement.getColumns().get(0);
 		firstCol.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
 		     public ObservableValue<String> call(CellDataFeatures<Equipement, String> p) {
