@@ -28,6 +28,18 @@ public class PDFGenerator {
 	private Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);
 	private Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
 	
+	public void generate (File file, PDFDataExport dataExport) {
+		try {
+			Document document = new Document();
+			PdfWriter.getInstance(document, new FileOutputStream(file));
+			document.open();
+			dataExport.write(document);
+			document.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void generate (File file) {
 		try {
 			Document document = new Document();

@@ -23,6 +23,7 @@ import javafx.util.Callback;
 import model.Equipement;
 import tools.ManipInterface;
 import application.excel.export.ExcelGenerator;
+import application.pdf.export.PDFEquipementListExport;
 import application.pdf.export.PDFGenerator;
 import application.test.DataTest;
 
@@ -36,11 +37,13 @@ public class GestionEquipement implements Initializable{
 	
 	private FXMLLoader loader;
 	
+	private List<Equipement> list;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		DataTest dataTest = new DataTest();
-		List<Equipement> list = dataTest.getEquipements();
+		list = dataTest.getEquipements();
 		ObservableList<Equipement> items = FXCollections.observableArrayList();
 		for (Equipement equip : list) {
 			items.add(equip);
@@ -75,7 +78,7 @@ public class GestionEquipement implements Initializable{
         fileChooser.setTitle("Save PDF");
         file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
         if (file != null) {
-        	pdfGenerator.generate(file);
+        	pdfGenerator.generate(file, new PDFEquipementListExport(list));
         }
 		
 		
