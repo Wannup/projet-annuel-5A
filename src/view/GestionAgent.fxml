@@ -28,7 +28,7 @@
     </TableView>
     <TextField fx:id="searchBar" layoutX="29.0" layoutY="134.0" prefWidth="696.0" />
     <Button fx:id="searchButton" layoutX="738.0" layoutY="134.0" mnemonicParsing="false" onAction="#searchAgent" prefHeight="21.999900000002526" prefWidth="133.0" text="Rechercher" />
-    <MenuButton id="exportButton" layoutX="763.0" layoutY="23.0" mnemonicParsing="false" text="Exporter" textAlignment="CENTER">
+    <MenuButton id="exportButton" layoutX="785.0" layoutY="22.0" mnemonicParsing="false" text="Exporter" textAlignment="CENTER">
       <items>
         <MenuItem mnemonicParsing="false" onAction="#exportTablePDF" text="PDF" />
         <MenuItem mnemonicParsing="false" onAction="#exportTableExcel" text="Excel" />
