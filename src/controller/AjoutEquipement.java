@@ -9,11 +9,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import model.Logiciel;
 
 public class AjoutEquipement implements Initializable{
@@ -63,8 +65,8 @@ public class AjoutEquipement implements Initializable{
 	private FXMLLoader loader;
 	
 	@FXML
-	private void selectionAgent(ActionEvent event){
-		System.out.println("Clic selection Agent: todo");
+	private void selectionAgent(ActionEvent event) throws IOException{
+		ManipInterface.newWindow("Selection de l'agent", FXMLLoader.load(getClass().getResource("/view/RecherchePopup.fxml")));
 	}
 	
 	@FXML
@@ -74,8 +76,8 @@ public class AjoutEquipement implements Initializable{
 	}
 
 	@FXML
-	private void selectionLogiciels(ActionEvent event){
-		System.out.println("Clic selection Logiciel: todo");
+	private void selectionLogiciels(ActionEvent event) throws IOException{
+		ManipInterface.newWindow("Selection des logiciels", FXMLLoader.load(getClass().getResource("/view/RecherchePopup.fxml")));		
 	}
 	
 	@FXML
