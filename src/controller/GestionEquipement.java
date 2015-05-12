@@ -93,5 +93,10 @@ public class GestionEquipement implements Initializable{
         	excelGenerator.generate(file);
         }
 	}
+	
+	@FXML
+	private void importExcel(ActionEvent event) throws IOException {
+		
+	}
 
 }

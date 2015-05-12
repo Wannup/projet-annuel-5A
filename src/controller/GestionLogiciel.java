@@ -68,4 +68,9 @@ public class GestionLogiciel implements Initializable {
         	excelGenerator.generate(file);
         }
 	}
+	
+	@FXML
+	private void importExcel(ActionEvent event) throws IOException {
+		
+	}
 }

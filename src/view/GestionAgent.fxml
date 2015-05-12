@@ -34,5 +34,6 @@
         <MenuItem mnemonicParsing="false" onAction="#exportTableExcel" text="Excel" />
       </items>
     </MenuButton>
+    <Button layoutX="669.0" layoutY="22.0" mnemonicParsing="false" onAction="#importExcel" text="Import Excel" />
   </children>
 </AnchorPane>
