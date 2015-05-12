@@ -81,6 +81,18 @@ public class AjoutEquipement implements Initializable{
 	}
 	
 	@FXML
+	private void ajoutLogiciel(ActionEvent event) throws IOException{
+		System.out.println("Ouvre une fenetre pour ajouter un nouveau logiciel");
+		ManipInterface.newWindow("Ajouter un logiciel", FXMLLoader.load(getClass().getResource("/view/AjoutLogicielPopup.fxml")));	
+	}
+
+	@FXML
+	private void ajoutAgent(ActionEvent event) throws IOException{
+		System.out.println("Ouvre une fenetre pour ajouter un nouvel agent");
+		ManipInterface.newWindow("Ajouter un agent", FXMLLoader.load(getClass().getResource("/view/AjoutAgentPopup.fxml")));	
+	}
+	
+	@FXML
 	private void enregistrerEquipement(ActionEvent event){
 		/*
 		 * if(formulaireValide())

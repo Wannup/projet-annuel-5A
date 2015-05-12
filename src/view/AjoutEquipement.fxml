@@ -31,8 +31,8 @@
         <Label layoutX="112.0" layoutY="33.0" text="N° CP Agent" />
         <Button fx:id="btnSelectAgent" layoutX="478.0" layoutY="31.0" mnemonicParsing="false" onAction="#selectionAgent" prefWidth="115.0" text="Sélection Agent" />
         <TextField fx:id="numCPAgent" editable="false" layoutX="248.0" layoutY="28.0" prefHeight="31.0" prefWidth="200.0" />
-        <Button layoutX="600.0" layoutY="33.0" mnemonicParsing="false" text="+" />
-        <Button layoutX="600.0" layoutY="87.0" mnemonicParsing="false" text="+" />
+        <Button layoutX="600.0" layoutY="33.0" mnemonicParsing="false" text="+" onAction="#ajoutAgent"/>
+        <Button layoutX="600.0" layoutY="87.0" mnemonicParsing="false" text="+" onAction="#ajoutLogiciel"/>
       </children>
     </AnchorPane>
     <Button fx:id="btnEnregistrer" layoutX="399.0" layoutY="744.0" mnemonicParsing="false" onAction="#enregistrerEquipement" prefHeight="31.0" prefWidth="104.0" text="Enregistrer" />
