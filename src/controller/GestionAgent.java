@@ -24,6 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import model.Agent;
 
 public class GestionAgent implements Initializable{
@@ -93,8 +94,10 @@ public class GestionAgent implements Initializable{
 	private void exportTablePDF(ActionEvent event) throws IOException {
 		PDFGenerator pdfGenerator = new PDFGenerator();
 		FileChooser fileChooser = new FileChooser();
-        File file;
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Pdf", "*.pdf"));
+		fileChooser.setInitialFileName("agents");
         fileChooser.setTitle("Save PDF");
+        File file;
         file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
         if (file != null) {
         	pdfGenerator.generate(file, new PDFAgentListExport(list));
@@ -105,6 +108,8 @@ public class GestionAgent implements Initializable{
 	private void exportTableExcel(ActionEvent event) throws IOException {
 		ExcelGenerator excelGenerator = new ExcelGenerator();
 		FileChooser fileChooser = new FileChooser();
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Excel", "*.xls"));
+		fileChooser.setInitialFileName("agents");
         fileChooser.setTitle("Save Excel");
         File file;
         file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());

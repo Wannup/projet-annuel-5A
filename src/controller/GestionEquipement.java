@@ -19,6 +19,7 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
 import model.Equipement;
 import tools.ManipInterface;
@@ -69,8 +70,10 @@ public class GestionEquipement implements Initializable{
 	private void exportTablePDF(ActionEvent event) throws IOException {
 		PDFGenerator pdfGenerator = new PDFGenerator();
 		FileChooser fileChooser = new FileChooser();
-        File file;
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Pdf", "*.pdf"));
+		fileChooser.setInitialFileName("equipements");
         fileChooser.setTitle("Save PDF");
+        File file;
         file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
         if (file != null) {
         	pdfGenerator.generate(file, new PDFEquipementListExport(list));
@@ -81,6 +84,8 @@ public class GestionEquipement implements Initializable{
 	private void exportTableExcel(ActionEvent event) throws IOException {
 		ExcelGenerator excelGenerator = new ExcelGenerator();
 		FileChooser fileChooser = new FileChooser();
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Excel", "*.xls"));
+		fileChooser.setInitialFileName("equipements");
         fileChooser.setTitle("Save Excel");
         File file;
         file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());

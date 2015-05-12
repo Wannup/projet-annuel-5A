@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 public class GestionLogiciel implements Initializable {
 
@@ -44,8 +45,10 @@ public class GestionLogiciel implements Initializable {
 	private void exportTablePDF(ActionEvent event) throws IOException {
 		PDFGenerator pdfGenerator = new PDFGenerator();
 		FileChooser fileChooser = new FileChooser();
-        File file;
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Pdf", "*.pdf"));
+		fileChooser.setInitialFileName("logiciels");
         fileChooser.setTitle("Save PDF");
+        File file;
         file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
         if (file != null) {
         	pdfGenerator.generate(file, new PDFLogicielListExport(list));
@@ -56,6 +59,8 @@ public class GestionLogiciel implements Initializable {
 	private void exportTableExcel(ActionEvent event) throws IOException {
 		ExcelGenerator excelGenerator = new ExcelGenerator();
 		FileChooser fileChooser = new FileChooser();
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Excel", "*.xls"));
+		fileChooser.setInitialFileName("logiciels");
         fileChooser.setTitle("Save Excel");
         File file;
         file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
