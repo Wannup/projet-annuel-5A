@@ -23,6 +23,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import model.Agent;
 import tools.ManipInterface;
 import application.database.DatabaseConnection;
+import application.excel.export.ExcelAgentListExport;
 import application.excel.export.ExcelGenerator;
 import application.pdf.export.PDFAgentListExport;
 import application.pdf.export.PDFGenerator;
@@ -115,13 +116,20 @@ public class GestionAgent implements Initializable{
         File file;
         file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
         if (file != null) {
-        	excelGenerator.generate(file);
+        	excelGenerator.generate(file, new ExcelAgentListExport(list));
         }
 	}
 	
 	@FXML
 	private void importExcel(ActionEvent event) throws IOException {
-		
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Excel", "*.xls"));
+        fileChooser.setTitle("Load Excel");
+        File file;
+        file = fileChooser.showOpenDialog(bodyPanel.getParent().getScene().getWindow());
+        if (file != null) {
+        	
+        }
 	}
 
 }
