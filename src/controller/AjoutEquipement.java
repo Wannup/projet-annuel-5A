@@ -21,7 +21,7 @@ public class AjoutEquipement implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		// initialisé choicebox avec les types d'équipements
+		
 	}
 	
 	@FXML
@@ -78,17 +78,22 @@ public class AjoutEquipement implements Initializable{
 		System.out.println("Clic selection Logiciel: todo");
 	}
 	
+	private boolean validationFormulaire(){
+		//Todo
+		return true;
+	}
+	
 	@FXML
 	private void enregistrerEquipement(ActionEvent event){
 		/*
 		 * if(formulaireValide())
-		 * 		appel d'une fonction dans le model "Equipement" pour faire l'insertion
+		  		appel d'une fonction dans le model "Equipement" pour faire l'insertion
 		 */
+	
 		//Database.doRequest("INSERT INTO equipements (numPoste, prix, numCPAgent) VALUES ('" + numPoste.getText() + "', '" + prix.getText() + "', '" + numCPAgent.getText() + "')");
+		if(validationFormulaire()){
+			
+		}
 	}
 	
-	/*private boolean formulaireValide(){
-		return false;
-		// TODO
-	}*/
 }

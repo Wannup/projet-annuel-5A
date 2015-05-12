@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import dao.AgentDao;
-import application.database.DatabaseConnection;
-import model.Agent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +11,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import model.Agent;
 import tools.ManipInterface;
+import application.database.DatabaseConnection;
+import dao.AgentDao;
 
 public class AjoutAgent implements Initializable{
 	
@@ -50,9 +50,13 @@ public class AjoutAgent implements Initializable{
 		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 	
-	/*private String formatDate(){
-		return jour.getValue()+"/"+mois.getValue()+"/"+annee.getValue();
-	}*/
+	private String formatDateNaiss(){
+		if(!dateNaiss.getValue().toString().isEmpty()){
+			String[] date = dateNaiss.getValue().toString().split("-");
+			return date[2]+"/"+date[1]+"/"+date[0];
+		}
+		return "";
+	}
 	
 	private boolean validationFormulaire(){
 		//Todo
@@ -62,13 +66,11 @@ public class AjoutAgent implements Initializable{
 	@FXML
 	private void enregistrerAgent(ActionEvent event){
 		if(validationFormulaire()){
-			Agent newAgent = new Agent(nom.getText(), prenom.getText(), dateNaiss.getValue().toString(), numCP.getText(), numPoste.getText());
+			Agent newAgent = new Agent(nom.getText(), prenom.getText(), formatDateNaiss(), numCP.getText(), numPoste.getText());
 			AgentDao agentDao = new AgentDao();
 			DatabaseConnection.startConnection();
 			agentDao.save(newAgent);
 			DatabaseConnection.closeConnection();
-		}
-		
+		}	
 	}
-
 }

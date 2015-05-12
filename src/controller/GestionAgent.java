@@ -2,10 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import tools.ManipInterface;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,6 +16,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import model.Agent;
+import tools.ManipInterface;
+import application.database.DatabaseConnection;
+import dao.AgentDao;
 
 public class GestionAgent implements Initializable{
 
@@ -55,9 +56,8 @@ public class GestionAgent implements Initializable{
 	}
 	
 	@FXML
-	private void searchAgent(ActionEvent event) throws IOException, SQLException{
-		if(!searchBar.getText().isEmpty()){
-		    ObservableList<Agent> agents = FXCollections.observableArrayList();     
+	private void searchAgent(ActionEvent event) {
+		if(!searchBar.getText().isEmpty()){     
 		    
 		    nomCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("nom"));        
 		    prenomCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("prenom"));
@@ -65,10 +65,11 @@ public class GestionAgent implements Initializable{
 		    numCPCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("numCP"));
 		    numPosteCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("numPoste"));
 		    
-		   /* ResultSet rs = Database.doRequest("select nom, prenom, dateDeNaissance, numCPAgent, numPoste from agents where numCPAgent='"+ searchBar.getText() +"'");
-		    while (rs.next()) {
-			    agents.add(new Agent(rs.getString("nom"), rs.getString("prenom"), rs.getString("dateDeNaissance"), rs.getString("numCPAgent"), rs.getString("numCPAgent")));
-		    }*/
+		    
+		    AgentDao agentDao = new AgentDao();
+			DatabaseConnection.startConnection();
+			ObservableList<Agent> agents = FXCollections.observableArrayList(agentDao.searchWithAttributes(searchBar.getText()));
+			DatabaseConnection.closeConnection();
 		    
 		    searchTab.setItems(agents);
 		}
