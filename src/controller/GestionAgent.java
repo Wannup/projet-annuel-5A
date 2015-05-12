@@ -121,7 +121,14 @@ public class GestionAgent implements Initializable{
 	
 	@FXML
 	private void importExcel(ActionEvent event) throws IOException {
-		
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Excel", "*.xls"));
+        fileChooser.setTitle("Load Excel");
+        File file;
+        file = fileChooser.showOpenDialog(bodyPanel.getParent().getScene().getWindow());
+        if (file != null) {
+        	
+        }
 	}
 
 }
