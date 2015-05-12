@@ -27,6 +27,12 @@
         <Font name="System Bold" size="18.0" />
       </font>
     </Label>
-    <Button layoutX="745.0" layoutY="22.0" mnemonicParsing="false" onAction="#exportTable" text="Exporter le tableau" />
+    <MenuButton id="exportButton" layoutX="785.0" layoutY="22.0" mnemonicParsing="false" text="Exporter" textAlignment="CENTER">
+      <items>
+        <MenuItem mnemonicParsing="false" onAction="#exportTablePDF" text="PDF" />
+        <MenuItem mnemonicParsing="false" onAction="#exportTableExcel" text="Excel" />
+      </items>
+    </MenuButton>
+    <Button layoutX="671.0" layoutY="22.0" mnemonicParsing="false" onAction="#importExcel" text="Import Excel" textAlignment="CENTER" />
   </children>
 </AnchorPane>

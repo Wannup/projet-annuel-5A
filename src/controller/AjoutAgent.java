@@ -73,4 +73,9 @@ public class AjoutAgent implements Initializable{
 			DatabaseConnection.closeConnection();
 		}	
 	}
+	
+	@FXML
+	private void selectionPoste(ActionEvent event) throws IOException{
+		ManipInterface.newWindow("Selection des logiciels", FXMLLoader.load(getClass().getResource("/view/RecherchePopup.fxml")));		
+	}
 }
