@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="bodyPanel" minHeight="641.0" prefHeight="641.0" prefWidth="718.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.AjoutAgent">
+  <children>
+    <Label layoutX="262.0" layoutY="31.0" text="Ajouter un nouvel agent">
+      <font>
+        <Font name="System Bold" size="17.0" />
+      </font>
+    </Label>
+    <TextField id="name" fx:id="nom" layoutX="269.0" layoutY="166.0" prefWidth="200.0" />
+    <TextField fx:id="prenom" layoutX="269.0" layoutY="217.0" prefWidth="200.0" />
+    <TextField fx:id="numCP" layoutX="269.0" layoutY="324.0" prefWidth="200.0" />
+    <Label layoutX="181.0" layoutY="169.0" text="Nom" />
+    <Label layoutX="172.0" layoutY="220.0" text="Prénom" />
+    <Label layoutX="138.0" layoutY="274.0" text="Date de naissance" />
+    <Label layoutX="178.0" layoutY="327.0" text="N° CP" />
+    <TextField id="numPost" fx:id="numPoste" layoutX="269.0" layoutY="374.0" prefWidth="200.0" />
+    <Label layoutX="159.0" layoutY="377.0" text="N° de poste" />
+    <Button layoutX="481.0" layoutY="374.0" mnemonicParsing="false" onAction="#selectionPoste" text="Rechercher le poste" />
+    <Button layoutX="334.0" layoutY="587.0" mnemonicParsing="false" onAction="#enregistrerAgent" text="Ajouter" />
+    <DatePicker fx:id="dateNaiss" layoutX="269.0" layoutY="269.0" prefHeight="31.0" prefWidth="200.0" />
+  </children>
+</AnchorPane>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="bodyPanel" prefHeight="556.0" prefWidth="698.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.AjoutLogiciel">
+  <children>
+    <Label layoutX="243.0" layoutY="73.0" text="Ajouter un nouveau logiciel">
+      <font>
+        <Font name="System Bold" size="17.0" />
+      </font>
+    </Label>
+    <TextField layoutX="309.0" layoutY="208.0" prefWidth="200.0" />
+    <TextField layoutX="309.0" layoutY="259.0" prefWidth="200.0" />
+    <TextField layoutX="309.0" layoutY="313.0" prefWidth="200.0" />
+    <Label layoutX="201.0" layoutY="211.0" text="Libelle" />
+    <Label layoutX="161.0" layoutY="262.0" text="Durée de la licence" />
+    <Label layoutX="166.0" layoutY="316.0" text="Prix d'une licence" />
+    <Button layoutX="320.0" layoutY="483.0" mnemonicParsing="false" text="Ajouter" />
+  </children>
+</AnchorPane>
