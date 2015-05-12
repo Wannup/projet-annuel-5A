@@ -1,10 +1,16 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import application.excel.export.ExcelGenerator;
+import application.pdf.export.PDFAgentListExport;
+import application.pdf.export.PDFGenerator;
 import tools.ManipInterface;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +23,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import model.Agent;
 
 public class GestionAgent implements Initializable{
@@ -48,10 +55,12 @@ public class GestionAgent implements Initializable{
 	
 	private FXMLLoader loader;
 	
+	private List<Agent> list;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		
+		this.list = new ArrayList<>();
 	}
 	
 	@FXML
@@ -78,6 +87,30 @@ public class GestionAgent implements Initializable{
 	private void displayAddAgent(ActionEvent event) throws IOException{
 		loader = new FXMLLoader(getClass().getResource("/view/AjoutAgent.fxml"));
 		ManipInterface.chargementBodyPanel(bodyPanel, loader);
+	}
+	
+	@FXML
+	private void exportTablePDF(ActionEvent event) throws IOException {
+		PDFGenerator pdfGenerator = new PDFGenerator();
+		FileChooser fileChooser = new FileChooser();
+        File file;
+        fileChooser.setTitle("Save PDF");
+        file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
+        if (file != null) {
+        	pdfGenerator.generate(file, new PDFAgentListExport(list));
+        }
+	}
+	
+	@FXML
+	private void exportTableExcel(ActionEvent event) throws IOException {
+		ExcelGenerator excelGenerator = new ExcelGenerator();
+		FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Excel");
+        File file;
+        file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
+        if (file != null) {
+        	excelGenerator.generate(file);
+        }
 	}
 
 }

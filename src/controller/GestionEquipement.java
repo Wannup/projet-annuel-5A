@@ -66,9 +66,20 @@ public class GestionEquipement implements Initializable{
 	}
 	
 	@FXML
-	private void exportTable(ActionEvent event) throws IOException {
-		ExcelGenerator excelGenerator = new ExcelGenerator();
+	private void exportTablePDF(ActionEvent event) throws IOException {
 		PDFGenerator pdfGenerator = new PDFGenerator();
+		FileChooser fileChooser = new FileChooser();
+        File file;
+        fileChooser.setTitle("Save PDF");
+        file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
+        if (file != null) {
+        	pdfGenerator.generate(file, new PDFEquipementListExport(list));
+        }
+	}
+	
+	@FXML
+	private void exportTableExcel(ActionEvent event) throws IOException {
+		ExcelGenerator excelGenerator = new ExcelGenerator();
 		FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Excel");
         File file;
@@ -76,13 +87,6 @@ public class GestionEquipement implements Initializable{
         if (file != null) {
         	excelGenerator.generate(file);
         }
-        fileChooser.setTitle("Save PDF");
-        file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
-        if (file != null) {
-        	pdfGenerator.generate(file, new PDFEquipementListExport(list));
-        }
-		
-		
 	}
 
 }
