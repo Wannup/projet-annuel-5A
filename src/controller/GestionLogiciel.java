@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 
 import model.Logiciel;
 import application.excel.export.ExcelGenerator;
+import application.excel.export.ExcelLogicielListExport;
 import application.pdf.export.PDFGenerator;
 import application.pdf.export.PDFLogicielListExport;
 import tools.ManipInterface;
@@ -65,7 +66,7 @@ public class GestionLogiciel implements Initializable {
         File file;
         file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
         if (file != null) {
-        	excelGenerator.generate(file);
+        	excelGenerator.generate(file, new ExcelLogicielListExport(list));
         }
 	}
 	

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import application.excel.export.ExcelAgentListExport;
 import application.excel.export.ExcelGenerator;
 import application.pdf.export.PDFAgentListExport;
 import application.pdf.export.PDFGenerator;
@@ -114,7 +115,7 @@ public class GestionAgent implements Initializable{
         File file;
         file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
         if (file != null) {
-        	excelGenerator.generate(file);
+        	excelGenerator.generate(file, new ExcelAgentListExport(list));
         }
 	}
 	

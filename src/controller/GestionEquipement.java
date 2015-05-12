@@ -23,6 +23,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
 import model.Equipement;
 import tools.ManipInterface;
+import application.excel.export.ExcelEquipementListExport;
 import application.excel.export.ExcelGenerator;
 import application.pdf.export.PDFEquipementListExport;
 import application.pdf.export.PDFGenerator;
@@ -90,7 +91,7 @@ public class GestionEquipement implements Initializable{
         File file;
         file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
         if (file != null) {
-        	excelGenerator.generate(file);
+        	excelGenerator.generate(file, new ExcelEquipementListExport(list));
         }
 	}
 	
