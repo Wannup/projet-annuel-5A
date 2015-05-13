@@ -25,6 +25,8 @@ import model.Equipement;
 import tools.ManipInterface;
 import application.excel.export.ExcelEquipementListExport;
 import application.excel.export.ExcelGenerator;
+import application.excel.importer.ExcelEquipementImport;
+import application.excel.importer.ExcelImport;
 import application.pdf.export.PDFEquipementListExport;
 import application.pdf.export.PDFGenerator;
 import application.test.DataTest;
@@ -103,7 +105,8 @@ public class GestionEquipement implements Initializable{
         File file;
         file = fileChooser.showOpenDialog(bodyPanel.getParent().getScene().getWindow());
         if (file != null) {
-        	
+        	ExcelImport excelImport = new ExcelImport();
+        	excelImport.importFile(file, new ExcelEquipementImport(list));
         }
 	}
 
