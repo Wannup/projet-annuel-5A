@@ -25,6 +25,8 @@ import tools.ManipInterface;
 import application.database.DatabaseConnection;
 import application.excel.export.ExcelAgentListExport;
 import application.excel.export.ExcelGenerator;
+import application.excel.importer.ExcelAgentImport;
+import application.excel.importer.ExcelImport;
 import application.pdf.export.PDFAgentListExport;
 import application.pdf.export.PDFGenerator;
 import dao.AgentDao;
@@ -62,27 +64,22 @@ public class GestionAgent implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
 		this.list = new ArrayList<>();
+		nomCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("nom"));        
+	    prenomCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("prenom"));
+	    dateDeNaissanceCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("dateDeNaissance"));
+	    numCPCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("numCP"));
+	    numPosteCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("numPoste"));
 	}
 	
 	@FXML
 	private void searchAgent(ActionEvent event) {
-		if(!searchBar.getText().isEmpty()){     
-		    
-		    nomCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("nom"));        
-		    prenomCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("prenom"));
-		    dateDeNaissanceCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("dateDeNaissance"));
-		    numCPCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("numCP"));
-		    numPosteCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("numPoste"));
-		    
-		    
+		if (!searchBar.getText().isEmpty()) {
 		    AgentDao agentDao = new AgentDao();
 			DatabaseConnection.startConnection();
-			ObservableList<Agent> agents = FXCollections.observableArrayList(agentDao.searchWithAttributes(searchBar.getText()));
+			this.list = agentDao.searchWithAttributes(searchBar.getText());
 			DatabaseConnection.closeConnection();
-		    
-		    searchTab.setItems(agents);
+			refreshTable ();
 		}
 	}
 	
@@ -128,8 +125,15 @@ public class GestionAgent implements Initializable{
         File file;
         file = fileChooser.showOpenDialog(bodyPanel.getParent().getScene().getWindow());
         if (file != null) {
-        	
+        	ExcelImport excelImport = new ExcelImport();
+        	excelImport.importFile(file, new ExcelAgentImport(list));
+        	refreshTable ();
         }
+	}
+	
+	private void refreshTable () {
+		ObservableList<Agent> items = FXCollections.observableArrayList(list);
+		searchTab.setItems(items);
 	}
 
 }
