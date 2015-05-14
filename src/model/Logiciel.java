@@ -24,6 +24,10 @@ public class Logiciel {
 		this.prix = prix;
 		this.nbJourLicence = nbJourLicence;
 	}
+	
+	public int getId () {
+		return this.idLogiciel;
+	}
 
 	public String getNom() {
 		return nom;

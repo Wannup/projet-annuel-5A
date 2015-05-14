@@ -23,8 +23,8 @@ public class ExcelLogicielListExport extends ExcelDataExport {
 		HSSFRow row = sheet.createRow(0);
 		
 		row.createCell(0, HSSFCell.CELL_TYPE_STRING).setCellValue("Nom");
-		row.createCell(4, HSSFCell.CELL_TYPE_STRING).setCellValue("Prix");
-		row.createCell(3, HSSFCell.CELL_TYPE_STRING).setCellValue("Nombre de jours");
+		row.createCell(1, HSSFCell.CELL_TYPE_STRING).setCellValue("Prix");
+		row.createCell(2, HSSFCell.CELL_TYPE_STRING).setCellValue("Nombre de jours");
 	    
 		int ligne = 1;
 	    for (Logiciel logiciel : logiciels) {

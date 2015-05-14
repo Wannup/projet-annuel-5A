@@ -33,7 +33,7 @@ public class PDFLogicielListExport extends PDFDataExport {
 		document.add(new Paragraph(" "));
 		document.add(new Paragraph(" "));
 		
-		PdfPTable table = new PdfPTable(5);
+		PdfPTable table = new PdfPTable(3);
 
 	    PdfPCell c1 = new PdfPCell(new Phrase("Nom"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);

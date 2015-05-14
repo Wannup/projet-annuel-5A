@@ -4,19 +4,29 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import dao.LogicielDao;
 import model.Logiciel;
+import application.database.DatabaseConnection;
 import application.excel.export.ExcelGenerator;
 import application.excel.export.ExcelLogicielListExport;
+import application.excel.importer.ExcelImport;
+import application.excel.importer.ExcelLogicielImport;
 import application.pdf.export.PDFGenerator;
 import application.pdf.export.PDFLogicielListExport;
 import tools.ManipInterface;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -26,14 +36,34 @@ public class GestionLogiciel implements Initializable {
 	@FXML
 	private AnchorPane bodyPanel;
 	
+	@FXML
+	private TableView<Logiciel> tableLogiciel = new TableView<Logiciel>();
+	
+	@FXML
+	private TableColumn<Logiciel, String> columnLibelle;
+	
+	@FXML
+	private TableColumn<Logiciel, Double> columnPrix;
+	
+	@FXML
+	private TableColumn<Logiciel, Integer> columnDuree;
+	
 	private FXMLLoader loader;
 	
 	private List<Logiciel> list;
+	private LogicielDao logicielDao;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
 		this.list = new ArrayList<>();
+		columnLibelle.setCellValueFactory(new PropertyValueFactory<Logiciel,String>("nom"));        
+		columnPrix.setCellValueFactory(new PropertyValueFactory<Logiciel,Double>("prix"));
+		columnDuree.setCellValueFactory(new PropertyValueFactory<Logiciel,Integer>("nbJourLicence"));
+		logicielDao = new LogicielDao();
+	    DatabaseConnection.startConnection();
+		this.list = logicielDao.findByAttributes(new HashMap<String, String>());
+		DatabaseConnection.closeConnection();
+		refreshTable ();
 	}
 
 	@FXML
@@ -78,7 +108,21 @@ public class GestionLogiciel implements Initializable {
         File file;
         file = fileChooser.showOpenDialog(bodyPanel.getParent().getScene().getWindow());
         if (file != null) {
-        	
+        	ExcelImport excelImport = new ExcelImport();
+        	excelImport.importFile(file, new ExcelLogicielImport(list));
+        	DatabaseConnection.startConnection();
+			for (Logiciel logiciel : this.list) {
+				if (logicielDao.find(logiciel.getId()) == null) {
+					logicielDao.save(logiciel);
+				}
+			}
+			DatabaseConnection.closeConnection();
+        	refreshTable ();
         }
+	}
+	
+	private void refreshTable () {
+		ObservableList<Logiciel> items = FXCollections.observableArrayList(list);
+		tableLogiciel.setItems(items);
 	}
 }
