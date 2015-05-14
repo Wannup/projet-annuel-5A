@@ -62,9 +62,6 @@ public class ExcelAgentImport extends ExcelDataImport {
 			}
 			numLigne++;
 		}
-		for (Agent agent : this.agents) {
-			System.out.println(agent.getNom());
-		}
 	}
 
 }

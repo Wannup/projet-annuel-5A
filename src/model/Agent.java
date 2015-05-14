@@ -26,6 +26,10 @@ public class Agent {
 		this.numCP = numCP;
 		this.numPoste = numPoste;
 	}
+	
+	public int getId () {
+		return this.idAgent;
+	}
 
 	public String getNom() {
 		return nom;

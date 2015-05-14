@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -59,8 +60,9 @@ public class GestionAgent implements Initializable{
 	
 	
 	private FXMLLoader loader;
-	
+
 	private List<Agent> list;
+	private AgentDao agentDao;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -70,12 +72,16 @@ public class GestionAgent implements Initializable{
 	    dateDeNaissanceCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("dateDeNaissance"));
 	    numCPCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("numCP"));
 	    numPosteCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("numPoste"));
+	    agentDao = new AgentDao();
+	    DatabaseConnection.startConnection();
+		this.list = agentDao.findByAttributes(new HashMap<String, String>());
+		DatabaseConnection.closeConnection();
+		refreshTable ();
 	}
 	
 	@FXML
 	private void searchAgent(ActionEvent event) {
 		if (!searchBar.getText().isEmpty()) {
-		    AgentDao agentDao = new AgentDao();
 			DatabaseConnection.startConnection();
 			this.list = agentDao.searchWithAttributes(searchBar.getText());
 			DatabaseConnection.closeConnection();
@@ -127,6 +133,13 @@ public class GestionAgent implements Initializable{
         if (file != null) {
         	ExcelImport excelImport = new ExcelImport();
         	excelImport.importFile(file, new ExcelAgentImport(list));
+        	DatabaseConnection.startConnection();
+			for (Agent agent : this.list) {
+				if (agentDao.find(agent.getId()) == null) {
+					agentDao.save(agent);
+				}
+			}
+			DatabaseConnection.closeConnection();
         	refreshTable ();
         }
 	}
