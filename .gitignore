@@ -1,5 +1,7 @@
 bin/
 database/lgpi.properties
+database/lgpi.lck
+database/lgpi.log
 
 # OS generated files #
 ######################
