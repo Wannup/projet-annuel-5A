@@ -33,7 +33,8 @@ public class ExcelEquipementListExport extends ExcelDataExport {
 	    	row = sheet.createRow(ligne);
 	    	row.createCell(0, HSSFCell.CELL_TYPE_STRING).setCellValue(equipement.getNom());
 			row.createCell(1, HSSFCell.CELL_TYPE_NUMERIC).setCellValue(equipement.getNumeroPoste());
-			row.createCell(2, HSSFCell.CELL_TYPE_STRING).setCellValue(equipement.getAgent().getNom());
+			//row.createCell(2, HSSFCell.CELL_TYPE_STRING).setCellValue(equipement.getAgent().getNom());
+			row.createCell(2, HSSFCell.CELL_TYPE_STRING).setCellValue(""); // temporaire car agent null
 			row.createCell(3, HSSFCell.CELL_TYPE_STRING).setCellValue("");
 			row.createCell(4, HSSFCell.CELL_TYPE_NUMERIC).setCellValue(equipement.getPrix());
 			ligne++;

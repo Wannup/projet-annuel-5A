@@ -3,37 +3,28 @@ package controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import model.Equipement;
 import model.Logiciel;
 import tools.ManipInterface;
+import tools.TransformationDonnees;
+import application.database.DatabaseConnection;
+import dao.EquipementDao;
 
 public class AjoutEquipement implements Initializable{
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@FXML
-	private Button btnSelectAgent;
-	
-	@FXML
-	private Button btnSelectLogiciels;
-	
-	@FXML
-	private Button btnEnregistrer;
-	
-	@FXML
-	private Button btnEditDelete;
 	
 	@FXML
 	private TextField numPoste;
@@ -45,7 +36,16 @@ public class AjoutEquipement implements Initializable{
 	private TextField numCPAgent;
 	
 	@FXML
-	private TextField nbJourPrev;
+	private TextField nbJoursPrev;
+	
+	@FXML
+	private ComboBox<String> typeEquipement;
+	
+	@FXML
+	private DatePicker dateAchat;
+	
+	@FXML
+	private CheckBox logicielsOuiNon;
 	
 	@FXML 
 	private ListView<Logiciel> lstLogiciel;
@@ -54,12 +54,46 @@ public class AjoutEquipement implements Initializable{
 	private AnchorPane bodyPanel;
 	
 	@FXML
-	private AnchorPane sectionOrdinateur;
+	private AnchorPane sectionLogiciel;
 	
 	@FXML
-	private ChoiceBox<String> typeEquipement;
+	private Label msgAjoutOk;
 	
 	private FXMLLoader loader;
+	
+	private EventHandler<MouseEvent> enleverMessageAjout = new EventHandler<MouseEvent>() {
+	    public void handle(MouseEvent me) {
+		       if(msgAjoutOk.isVisible())
+		    	  msgAjoutOk.setVisible(false);
+		}
+	};
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		
+		sectionLogiciel.setVisible(false);
+		
+		logicielsOuiNon.setOnAction(new EventHandler<ActionEvent>() {
+		    public void handle(ActionEvent me) {
+			       if(logicielsOuiNon.isSelected())
+			    	   sectionLogiciel.setVisible(true);
+			       else
+			    	   sectionLogiciel.setVisible(false);
+			       
+			       if(msgAjoutOk.isVisible())
+				    	  msgAjoutOk.setVisible(false);
+			    }
+			});
+		
+		numPoste.setOnMouseClicked(enleverMessageAjout);	
+		prix.setOnMouseClicked(enleverMessageAjout);
+		numCPAgent.setOnMouseClicked(enleverMessageAjout);
+		nbJoursPrev.setOnMouseClicked(enleverMessageAjout);
+		typeEquipement.setOnMouseClicked(enleverMessageAjout);
+		dateAchat.setOnMouseClicked(enleverMessageAjout);
+		lstLogiciel.setOnMouseClicked(enleverMessageAjout);
+			
+	}
 	
 	@FXML
 	private void selectionAgent(ActionEvent event) throws IOException{
@@ -79,13 +113,11 @@ public class AjoutEquipement implements Initializable{
 	
 	@FXML
 	private void ajoutLogiciel(ActionEvent event) throws IOException{
-		System.out.println("Ouvre une fenetre pour ajouter un nouveau logiciel");
 		ManipInterface.newWindow("Ajouter un logiciel", FXMLLoader.load(getClass().getResource("/view/AjoutLogicielPopup.fxml")));	
 	}
 
 	@FXML
 	private void ajoutAgent(ActionEvent event) throws IOException{
-		System.out.println("Ouvre une fenetre pour ajouter un nouvel agent");
 		ManipInterface.newWindow("Ajouter un agent", FXMLLoader.load(getClass().getResource("/view/AjoutAgentPopup.fxml")));	
 	}
 	
@@ -96,15 +128,32 @@ public class AjoutEquipement implements Initializable{
 	
 	@FXML
 	private void enregistrerEquipement(ActionEvent event){
-		/*
-		 * if(formulaireValide())
-		  		appel d'une fonction dans le model "Equipement" pour faire l'insertion
-		 */
-	
-		//Database.doRequest("INSERT INTO equipements (numPoste, prix, numCPAgent) VALUES ('" + numPoste.getText() + "', '" + prix.getText() + "', '" + numCPAgent.getText() + "')");
+		
 		if(validationFormulaire()){
-			
+			// à revoir la récupération de l'agent
+			Equipement newEquipement = new Equipement(typeEquipement.getValue(), TransformationDonnees.getIntValue(numPoste), null, TransformationDonnees.getDoubleValue(prix), TransformationDonnees.getIntValue(nbJoursPrev), TransformationDonnees.formatDate(dateAchat));
+			EquipementDao equipementDao = new EquipementDao();
+			DatabaseConnection.startConnection();
+			equipementDao.save(newEquipement);
+			DatabaseConnection.closeConnection();
+			informerValidation();
 		}
 	}
 	
+	private void informerValidation(){
+		viderTousLesChamps();
+		msgAjoutOk.setVisible(true);
+	}
+	
+	private void viderTousLesChamps(){
+		
+		numPoste.clear();	
+		prix.clear();
+		numCPAgent.clear();
+		nbJoursPrev.clear();
+		typeEquipement.getEditor().clear();
+		dateAchat.getEditor().clear();
+		logicielsOuiNon.setSelected(false);
+		lstLogiciel.getItems().clear();
+	}
 }

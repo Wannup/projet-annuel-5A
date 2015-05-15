@@ -17,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import model.Agent;
 import tools.ManipInterface;
+import tools.TransformationDonnees;
 import application.database.DatabaseConnection;
 import dao.AgentDao;
 
@@ -44,7 +45,7 @@ public class AjoutAgent implements Initializable{
 	private Label msgAjoutOk;
 	
 	private FXMLLoader loader;
-
+	
 	private EventHandler<MouseEvent> enleverMessageAjout = new EventHandler<MouseEvent>() {
 	    public void handle(MouseEvent me) {
 		       if(msgAjoutOk.isVisible())
@@ -76,14 +77,6 @@ public class AjoutAgent implements Initializable{
 		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 	
-	private String formatDateNaiss(){
-		if(!dateNaiss.getValue().toString().isEmpty()){
-			String[] date = dateNaiss.getValue().toString().split("-");
-			return date[2]+"/"+date[1]+"/"+date[0];
-		}
-		return "";
-	}
-	
 	private boolean validationFormulaire(){
 		//Todo
 		//ajouter un controle sur le numeroCP pour voir si l'agent n'est pas déjà enregistré
@@ -93,7 +86,7 @@ public class AjoutAgent implements Initializable{
 	@FXML
 	private void enregistrerAgent(ActionEvent event){
 		if(validationFormulaire()){
-			Agent newAgent = new Agent(nom.getText(), prenom.getText(), formatDateNaiss(), numCP.getText(), numPoste.getText());
+			Agent newAgent = new Agent(nom.getText(), prenom.getText(), TransformationDonnees.formatDate(dateNaiss), numCP.getText(), numPoste.getText());
 			AgentDao agentDao = new AgentDao();
 			DatabaseConnection.startConnection();
 			agentDao.save(newAgent);
@@ -117,6 +110,8 @@ public class AjoutAgent implements Initializable{
 	
 	@FXML
 	private void selectionPoste(ActionEvent event) throws IOException{
-		ManipInterface.newWindow("Selection des logiciels", FXMLLoader.load(getClass().getResource("/view/RecherchePopup.fxml")));		
+		// à changer
+		ManipInterface.newWindow("Selection d'un poste", FXMLLoader.load(getClass().getResource("/view/RecherchePopup.fxml")));
+		
 	}
 }

@@ -1,6 +1,5 @@
 package model;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -15,33 +14,34 @@ public class Equipement {
 	private int idEquipement;
 	
 	private int numeroEquipement;
-	private String nom;
+	private String typeEquipement;
 	private int nbJoursPrevUtilisation;
-	private Date dateAchat;
+	private String dateAchat;
 	private Agent agent;
 	private List<Logiciel> logiciels;
 	private double prix;
 	
 	public Equipement(){}
 	
-	public Equipement(String nom, int numeroPoste, Agent agent, List<Logiciel> logiciels, double prix) {
-		this.nom = nom;
+	public Equipement(String typeEquip, int numeroPoste,  Agent agent, double prix, int nbJourPrev, String dateAchatEquip) {
+		this.typeEquipement = typeEquip;
 		this.numeroEquipement = numeroPoste;
 		this.agent = agent;
-		this.logiciels = logiciels;
 		this.prix = prix;
+		this.nbJoursPrevUtilisation = nbJourPrev;
+		this.dateAchat = dateAchatEquip;
 	}
 	
 	public int getId () {
 		return this.idEquipement;
 	}
 	
-	public void setNom (String nom) {
-		this.nom = nom;
+	public void setNom (String typeEquip) {
+		this.typeEquipement = typeEquip;
 	}
 	
 	public String getNom() {
-		return this.nom;
+		return this.typeEquipement;
 	}
 	
 	public int getNumeroPoste() {
@@ -92,11 +92,11 @@ public class Equipement {
 		this.nbJoursPrevUtilisation = nbJoursPrevUtilisation;
 	}
 
-	public Date getDateAchat() {
+	public String getDateAchat() {
 		return dateAchat;
 	}
 
-	public void setDateAchat(Date dateAchat) {
+	public void setDateAchat(String dateAchat) {
 		this.dateAchat = dateAchat;
 	}
 	
