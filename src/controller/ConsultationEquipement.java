@@ -1,10 +1,10 @@
 package controller;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import application.test.DataTest;
 import model.Equipement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,8 +17,7 @@ public class ConsultationEquipement implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		DataTest dataTest = new DataTest();
-		List<Equipement> list = dataTest.getEquipements();
+		List<Equipement> list = new ArrayList<>();
 		ObservableList<String> items = FXCollections.observableArrayList();
 		for (Equipement equip : list) {
 			items.add(equip.toString());

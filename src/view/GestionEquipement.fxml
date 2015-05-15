@@ -11,10 +11,10 @@
     <Button layoutX="360.0" layoutY="22.0" mnemonicParsing="false" onAction="#displayAddEquipment" text="Ajouter des équipements" />
     <TableView fx:id="tableViewEquipement" layoutX="29.0" layoutY="172.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="596.0" prefWidth="842.0">
       <columns>
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="128.0" text="N° d'équipement" />
-        <TableColumn prefWidth="75.0" text="Valeur (€)" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="107.0" text="N° CP Agent" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="370.0" text="Logiciel(s) installé(s)" />
+        <TableColumn fx:id="columnNumero" maxWidth="5000.0" minWidth="10.0" prefWidth="128.0" text="N° d'équipement" />
+        <TableColumn fx:id="columnPrix" prefWidth="75.0" text="Valeur (€)" />
+        <TableColumn fx:id="columnAgent" maxWidth="5000.0" minWidth="10.0" prefWidth="107.0" text="N° CP Agent" />
+        <TableColumn fx:id="columnLogiciels" maxWidth="5000.0" minWidth="10.0" prefWidth="370.0" text="Logiciel(s) installé(s)" />
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="83.0" text="Modifier" />
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="77.0" text="Supprimer" />
       </columns>

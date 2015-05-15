@@ -3,9 +3,12 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import dao.EquipementDao;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -16,20 +19,22 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
 import model.Equipement;
+import model.Logiciel;
 import tools.ManipInterface;
+import application.database.DatabaseConnection;
 import application.excel.export.ExcelEquipementListExport;
 import application.excel.export.ExcelGenerator;
 import application.excel.importer.ExcelEquipementImport;
 import application.excel.importer.ExcelImport;
 import application.pdf.export.PDFEquipementListExport;
 import application.pdf.export.PDFGenerator;
-import application.test.DataTest;
 
 public class GestionEquipement implements Initializable{
 
@@ -39,28 +44,47 @@ public class GestionEquipement implements Initializable{
 	@FXML
 	private TableView<Equipement> tableViewEquipement;
 	
+	@FXML
+	private TableColumn<Equipement, Integer> columnNumero;
+	
+	@FXML
+	private TableColumn<Equipement, Double> columnPrix;
+	
+	@FXML
+	private TableColumn<Equipement, String> columnAgent;
+	
+	@FXML
+	private TableColumn<Equipement, String> columnLogiciels;
+	
 	private FXMLLoader loader;
 	
 	private List<Equipement> list;
+	private EquipementDao equipementDao;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		DataTest dataTest = new DataTest();
-		list = dataTest.getEquipements();
-		ObservableList<Equipement> items = FXCollections.observableArrayList();
-		for (Equipement equip : list) {
-			items.add(equip);
-		}
-		tableViewEquipement.setItems(items);
-		@SuppressWarnings("unchecked")
-		TableColumn<Equipement,String> firstCol = (TableColumn<Equipement, String>) tableViewEquipement.getColumns().get(0);
-		firstCol.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
-		     public ObservableValue<String> call(CellDataFeatures<Equipement, String> p) {
-		         // p.getValue() returns the Person instance for a particular TableView row
-		         return new SimpleStringProperty(p.getValue().getNom());
-		     }
-		  });
+		this.list = new ArrayList<>();
+		columnNumero.setCellValueFactory(new PropertyValueFactory<Equipement,Integer>("numeroEquipement"));        
+		columnPrix.setCellValueFactory(new PropertyValueFactory<Equipement,Double>("prix"));
+		columnAgent.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<Equipement, String> p) {
+				return new SimpleStringProperty(p.getValue().getAgent().getNumCP());
+			}
+		});
+		columnLogiciels.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<Equipement, String> p) {
+				String Logiciels  = "";
+				for (Logiciel logiciel : p.getValue().getLogiciels()) {
+					Logiciels += logiciel.getNom() + ",";
+				}
+				return new SimpleStringProperty(Logiciels);
+			}
+		});
+		equipementDao = new EquipementDao();
+	    DatabaseConnection.startConnection();
+		this.list = equipementDao.findByAttributes(new HashMap<String, String>());
+		DatabaseConnection.closeConnection();
+		refreshTable ();
 	}
 	
 	@FXML
@@ -107,7 +131,20 @@ public class GestionEquipement implements Initializable{
         if (file != null) {
         	ExcelImport excelImport = new ExcelImport();
         	excelImport.importFile(file, new ExcelEquipementImport(list));
+        	DatabaseConnection.startConnection();
+			for (Equipement equipement : this.list) {
+				if (equipementDao.find(equipement.getId()) == null) {
+					equipementDao.save(equipement);
+				}
+			}
+			DatabaseConnection.closeConnection();
+        	refreshTable();
         }
+	}
+	
+	private void refreshTable () {
+		ObservableList<Equipement> items = FXCollections.observableArrayList(list);
+		tableViewEquipement.setItems(items);
 	}
 
 }

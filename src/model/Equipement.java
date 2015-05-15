@@ -32,6 +32,14 @@ public class Equipement {
 		this.prix = prix;
 	}
 	
+	public int getId () {
+		return this.idEquipement;
+	}
+	
+	public void setNom (String nom) {
+		this.nom = nom;
+	}
+	
 	public String getNom() {
 		return this.nom;
 	}
