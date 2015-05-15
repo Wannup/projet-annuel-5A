@@ -24,6 +24,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -48,6 +49,9 @@ public class GestionLogiciel implements Initializable {
 	@FXML
 	private TableColumn<Logiciel, Integer> columnDuree;
 	
+	@FXML
+	private Button buttonNext;
+	
 	private FXMLLoader loader;
 	
 	private List<Logiciel> list;
@@ -64,6 +68,7 @@ public class GestionLogiciel implements Initializable {
 		this.list = logicielDao.findByAttributes(new HashMap<String, String>());
 		DatabaseConnection.closeConnection();
 		refreshTable ();
+		buttonNext.setDisable(true);
 	}
 
 	@FXML
@@ -124,5 +129,10 @@ public class GestionLogiciel implements Initializable {
 	private void refreshTable () {
 		ObservableList<Logiciel> items = FXCollections.observableArrayList(list);
 		tableLogiciel.setItems(items);
+	}
+	
+	@FXML
+	private void viewMore(ActionEvent event) throws IOException {
+		
 	}
 }

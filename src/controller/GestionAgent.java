@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -58,6 +59,9 @@ public class GestionAgent implements Initializable{
 	@FXML
 	private TableColumn<Agent, String> numPosteCol;
 	
+	@FXML
+	private Button buttonNext;
+	
 	
 	private FXMLLoader loader;
 
@@ -77,6 +81,7 @@ public class GestionAgent implements Initializable{
 		this.list = agentDao.findByAttributes(new HashMap<String, String>());
 		DatabaseConnection.closeConnection();
 		refreshTable ();
+		buttonNext.setDisable(true);
 	}
 	
 	@FXML
@@ -147,6 +152,11 @@ public class GestionAgent implements Initializable{
 	private void refreshTable () {
 		ObservableList<Agent> items = FXCollections.observableArrayList(list);
 		searchTab.setItems(items);
+	}
+	
+	@FXML
+	private void viewMore(ActionEvent event) throws IOException {
+		
 	}
 
 }
