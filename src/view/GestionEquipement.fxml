@@ -8,7 +8,7 @@
 
 <AnchorPane fx:id="bodyPanel" prefHeight="600.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.GestionEquipement">
   <children>
-    <Button layoutX="360.0" layoutY="22.0" mnemonicParsing="false" onAction="#displayAddEquipment" text="Ajouter des équipements" />
+    <Button layoutX="362.0" layoutY="25.0" mnemonicParsing="false" onAction="#displayAddEquipment" text="Ajouter des équipements" />
     <TableView fx:id="tableViewEquipement" layoutX="29.0" layoutY="172.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="380.0" prefWidth="842.0">
       <columns>
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="128.0" text="N° d'équipement" fx:id="columnNumero" />
@@ -21,19 +21,20 @@
     </TableView>
     <TextField layoutX="29.0" layoutY="134.0" prefWidth="696.0" />
     <Button layoutX="738.0" layoutY="134.0" mnemonicParsing="false" prefHeight="21.999900000002526" prefWidth="133.0" text="Rechercher" />
-    <Separator layoutY="63.0" prefWidth="900.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-    <Label layoutX="276.0" layoutY="85.0" text="Modifier/Supprimer des équipements">
+    <Separator layoutY="75.0" prefWidth="900.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+    <Label layoutX="277.0" layoutY="91.0" text="Modifier/Supprimer des équipements">
       <font>
         <Font name="System Bold" size="18.0" />
       </font>
     </Label>
-    <MenuButton id="exportButton" layoutX="785.0" layoutY="22.0" mnemonicParsing="false" text="Exporter" textAlignment="CENTER">
+    <MenuButton id="exportButton" layoutX="747.0" layoutY="43.0" mnemonicParsing="false" text="Exporter" textAlignment="CENTER">
       <items>
         <MenuItem mnemonicParsing="false" onAction="#exportTablePDF" text="PDF" />
         <MenuItem mnemonicParsing="false" onAction="#exportTableExcel" text="Excel" />
       </items>
     </MenuButton>
-    <Button layoutX="671.0" layoutY="22.0" mnemonicParsing="false" onAction="#importExcel" text="Import Excel" textAlignment="CENTER" />
+    <Button layoutX="623.0" layoutY="25.0" mnemonicParsing="false" onAction="#importExcel" text="Import Excel" textAlignment="CENTER" />
     <Button fx:id="buttonNext" layoutX="485.0" layoutY="570.0" mnemonicParsing="false" onAction="#viewMore" text="Suivant" textAlignment="CENTER" />
+    <CheckBox layoutX="747.0" layoutY="17.0" mnemonicParsing="false" text="Exporter le tableau" />
   </children>
 </AnchorPane>
