@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="bodyPanel" minHeight="641.0" prefHeight="641.0" prefWidth="718.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.AjoutAgent">
+<AnchorPane fx:id="bodyPanel" minHeight="641.0" prefHeight="641.0" prefWidth="718.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AjoutAgent">
   <children>
     <Label layoutX="262.0" layoutY="31.0" text="Ajouter un nouvel agent">
       <font>
@@ -26,5 +26,10 @@
     <Button layoutX="481.0" layoutY="374.0" mnemonicParsing="false" onAction="#selectionPoste" text="Rechercher le poste" />
     <Button layoutX="334.0" layoutY="587.0" mnemonicParsing="false" onAction="#enregistrerAgent" text="Ajouter" />
     <DatePicker fx:id="dateNaiss" layoutX="269.0" layoutY="269.0" prefHeight="31.0" prefWidth="200.0" />
+      <Label fx:id="msgAjoutOk" layoutX="244.0" layoutY="485.0" prefHeight="21.0" prefWidth="250.0" text="Nouvel agent ajouté avec succès !" textAlignment="CENTER" textFill="#0db915" visible="false">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
   </children>
 </AnchorPane>

@@ -2,14 +2,18 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import model.Agent;
 import tools.ManipInterface;
@@ -36,12 +40,34 @@ public class AjoutAgent implements Initializable{
 	@FXML 
 	private TextField numPoste;
 	
+	@FXML
+	private Label msgAjoutOk;
+	
 	private FXMLLoader loader;
 
+	private EventHandler<MouseEvent> enleverMessageAjout = new EventHandler<MouseEvent>() {
+	    public void handle(MouseEvent me) {
+		       if(msgAjoutOk.isVisible())
+		    	  msgAjoutOk.setVisible(false);
+		}
+	};
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		//dateNaiss.setValue(LocalDate.now());
+		dateNaiss.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		    public void handle(MouseEvent me) {
+		       if(dateNaiss.getValue() == null)
+		    	   dateNaiss.setValue(LocalDate.of(1970, 6, 15));
+		       if(msgAjoutOk.isVisible())
+			    	  msgAjoutOk.setVisible(false);
+		    }
+		});
+		
+		nom.setOnMouseClicked(enleverMessageAjout);
+		prenom.setOnMouseClicked(enleverMessageAjout);
+		numCP.setOnMouseClicked(enleverMessageAjout);
+		numPoste.setOnMouseClicked(enleverMessageAjout);
 	}
 	
 	@FXML
@@ -60,6 +86,7 @@ public class AjoutAgent implements Initializable{
 	
 	private boolean validationFormulaire(){
 		//Todo
+		//ajouter un controle sur le numeroCP pour voir si l'agent n'est pas déjà enregistré
 		return true;
 	}
 	
@@ -71,7 +98,21 @@ public class AjoutAgent implements Initializable{
 			DatabaseConnection.startConnection();
 			agentDao.save(newAgent);
 			DatabaseConnection.closeConnection();
+			informerValidation();
 		}	
+	}
+	
+	private void informerValidation(){
+		viderTousLesChamps();
+		msgAjoutOk.setVisible(true);
+	}
+	
+	private void viderTousLesChamps(){
+		nom.clear();
+		prenom.clear();
+		dateNaiss.getEditor().clear();
+		numCP.clear();
+		numPoste.clear();
 	}
 	
 	@FXML

@@ -28,5 +28,10 @@
     <Button layoutX="563.0" layoutY="428.0" mnemonicParsing="false" onAction="#selectionPoste" text="Rechercher le poste" />
     <Button layoutX="416.0" layoutY="641.0" mnemonicParsing="false" onAction="#enregistrerAgent" text="Ajouter" />
       <DatePicker fx:id="dateNaiss" layoutX="354.0" layoutY="323.0" prefHeight="31.0" prefWidth="200.0" />
+      <Label fx:id="msgAjoutOk" layoutX="326.0" layoutY="539.0" prefHeight="21.0" prefWidth="248.0" text="Nouvel agent ajouté avec succès !" textAlignment="CENTER" textFill="#0db915" visible="false">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
   </children>
 </AnchorPane>
