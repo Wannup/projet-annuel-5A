@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -23,6 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import model.Agent;
+import tools.Config;
 import tools.ManipInterface;
 import application.database.DatabaseConnection;
 import application.excel.export.ExcelAgentListExport;
@@ -67,6 +67,8 @@ public class GestionAgent implements Initializable{
 
 	private List<Agent> list;
 	private AgentDao agentDao;
+	private int maxResult;
+	private int limit;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -78,10 +80,15 @@ public class GestionAgent implements Initializable{
 	    numPosteCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("numPoste"));
 	    agentDao = new AgentDao();
 	    DatabaseConnection.startConnection();
-		this.list = agentDao.findByAttributes(new HashMap<String, String>());
+	    maxResult = agentDao.getMaxResult(null);
+	    limit = Integer.parseInt(Config.getPropertie("tableau_nb_ligne"));
+	    if (maxResult < limit) {
+	    	this.list = agentDao.findByAttributes(null);
+	    } else {
+	    	this.list = agentDao.findByAttributesWithLimit(null, 0, limit);
+	    }
 		DatabaseConnection.closeConnection();
 		refreshTable ();
-		buttonNext.setDisable(true);
 	}
 	
 	@FXML
@@ -152,11 +159,24 @@ public class GestionAgent implements Initializable{
 	private void refreshTable () {
 		ObservableList<Agent> items = FXCollections.observableArrayList(list);
 		searchTab.setItems(items);
+		System.out.println("maxResult = " + maxResult);
+		System.out.println("this.list.size() = " + this.list.size());
+		if (maxResult > this.list.size()) {
+			buttonNext.setDisable(false);
+		} else {
+			buttonNext.setDisable(true);
+		}
 	}
 	
 	@FXML
 	private void viewMore(ActionEvent event) throws IOException {
-		
+		DatabaseConnection.startConnection();
+		List<Agent> results = agentDao.findByAttributesWithLimit(null, this.list.size(), limit);
+		for (Agent agent : results) {
+			this.list.add(agent);
+		}
+		DatabaseConnection.closeConnection();
+		refreshTable ();
 	}
 
 }
