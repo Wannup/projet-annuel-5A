@@ -15,7 +15,7 @@
     </Label>
     <Separator layoutY="63.0" prefWidth="900.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
     <Button id="btnEditDelete" layoutX="380.0" layoutY="22.0" mnemonicParsing="false" onAction="#displayAddAgent" text="Ajouter des agents" />
-    <TableView fx:id="searchTab" layoutY="172.0" prefHeight="581.0" prefWidth="842.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="29.0">
+    <TableView fx:id="searchTab" layoutY="172.0" prefHeight="380.0" prefWidth="842.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="29.0">
       <columns>
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="192.0" text="Nom" fx:id="nomCol" />
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="130.0" text="Prénom" fx:id="prenomCol" />
@@ -35,6 +35,6 @@
       </items>
     </MenuButton>
     <Button layoutX="669.0" layoutY="22.0" mnemonicParsing="false" onAction="#importExcel" text="Import Excel" />
-    <Button fx:id="buttonNext" layoutX="472.0" layoutY="766.0" mnemonicParsing="false" onAction="#viewMore" text="Suivant" textAlignment="CENTER" />
+    <Button fx:id="buttonNext" layoutX="472.0" layoutY="570.0" mnemonicParsing="false" onAction="#viewMore" text="Suivant" textAlignment="CENTER" />
   </children>
 </AnchorPane>

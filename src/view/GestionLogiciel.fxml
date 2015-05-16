@@ -9,7 +9,7 @@
 <AnchorPane fx:id="bodyPanel" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.GestionLogiciel">
   <children>
     <Button layoutX="375.0" layoutY="22.0" mnemonicParsing="false" onAction="#displayAddLogiciel" text="Ajouter des logiciels" />
-    <TableView fx:id="tableLogiciel" layoutY="172.0" prefHeight="575.0" prefWidth="842.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="29.0">
+    <TableView fx:id="tableLogiciel" layoutY="172.0" prefHeight="380.0" prefWidth="842.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="29.0">
       <columns>
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="438.0" text="Libelle logiciel" fx:id="columnLibelle" />
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="131.0" text="Valeur licence (€)" fx:id="columnPrix" />
@@ -33,6 +33,6 @@
       </items>
     </MenuButton>
     <Button layoutX="666.0" layoutY="22.0" mnemonicParsing="false" onAction="#importExcel" text="Import Excel" />
-    <Button fx:id="buttonNext" layoutX="474.0" layoutY="766.0" mnemonicParsing="false" text="Suivant" textAlignment="CENTER" />
+    <Button fx:id="buttonNext" layoutX="474.0" layoutY="570.0" mnemonicParsing="false" text="Suivant" textAlignment="CENTER" />
   </children>
 </AnchorPane>
