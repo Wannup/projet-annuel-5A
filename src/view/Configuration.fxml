@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="495.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.Configuration">
+  <!-- TODO Add Nodes -->
+  <children>
+    <TabPane layoutX="0.0" layoutY="0.0" prefHeight="416.0" prefWidth="482.0" tabClosingPolicy="UNAVAILABLE">
+      <tabs>
+        <Tab text="Tableau">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <CheckBox fx:id="checkBoxTableauNbLigne" layoutX="138.0" layoutY="58.0" mnemonicParsing="false" text="Limiter le nombre d'enregistrement" />
+                <Label layoutX="76.0" layoutY="124.0" prefWidth="105.0" text="Nombre de ligne" />
+                <TextField fx:id="textFieldTableauNbLigne" layoutX="241.0" layoutY="121.0" prefWidth="200.0" />
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab text="Database">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <Label layoutX="84.0" layoutY="45.0" text="Driver" />
+                <Label layoutX="84.0" layoutY="107.0" text="Location" />
+                <Label layoutX="84.0" layoutY="174.0" text="User" />
+                <Label layoutX="84.0" layoutY="240.0" text="Password" />
+                <TextField fx:id="textFieldDatabaseDriver" layoutX="241.0" layoutY="42.0" prefWidth="200.0" />
+                <TextField fx:id="textFieldDatabaseLocation" layoutX="241.0" layoutY="104.0" prefWidth="200.0" />
+                <TextField fx:id="textFieldDatabaseUser" layoutX="241.0" layoutY="171.0" prefWidth="200.0" />
+                <TextField fx:id="textFieldDatabasePassword" layoutX="241.0" layoutY="237.0" prefWidth="200.0" />
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab text="Mail">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          </content>
+        </Tab>
+      </tabs>
+    </TabPane>
+    <Button layoutX="191.0" layoutY="442.0" mnemonicParsing="false" text="Enregistrement" />
+  </children>
+</AnchorPane>

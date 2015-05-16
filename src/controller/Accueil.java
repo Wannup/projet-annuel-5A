@@ -69,5 +69,11 @@ public class Accueil implements Initializable{
 		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 	
+	@FXML
+	private void configuration(ActionEvent event) throws IOException{
+		loader = new FXMLLoader(getClass().getResource("/view/Configuration.fxml"));
+		ManipInterface.chargementBodyPanel(bodyPanel, loader);
+	}
+	
 	
 }

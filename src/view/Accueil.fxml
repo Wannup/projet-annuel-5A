@@ -20,7 +20,7 @@
             <Image url="@../res/logo-sncf.jpg" />
           </image>
         </ImageView>
-        <Button layoutX="54.0" layoutY="540.0" mnemonicParsing="false" text="Configuration" />
+        <Button layoutX="54.0" layoutY="540.0" mnemonicParsing="false" onAction="#configuration" text="Configuration" />
         <Button layoutX="17.0" layoutY="500.0" mnemonicParsing="false" text="Import / Export de données" />
       </children>
     </AnchorPane>
