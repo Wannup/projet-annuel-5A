@@ -70,11 +70,11 @@ public class GestionEquipement implements Initializable{
 		this.list = new ArrayList<>();
 		columnNumero.setCellValueFactory(new PropertyValueFactory<Equipement,Integer>("numeroEquipement"));        
 		columnPrix.setCellValueFactory(new PropertyValueFactory<Equipement,Double>("prix"));
-		columnAgent.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
+		/*columnAgent.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<Equipement, String> p) {
 				return new SimpleStringProperty(p.getValue().getAgent().getNumCP());
 			}
-		});
+		});*/
 		columnLogiciels.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<Equipement, String> p) {
 				String Logiciels  = "";

@@ -59,7 +59,8 @@ public class PDFEquipementListExport extends PDFDataExport {
 	    for (Equipement equipement : equipements) {
 	    	table.addCell(equipement.getNom());
 		    table.addCell(String.valueOf(equipement.getNumeroPoste()));
-		    table.addCell(equipement.getAgent().getNom());
+		   // table.addCell(equipement.getAgent().getNom());
+		    table.addCell(""); // temporaire car agent null
 		    String logiciels = "";
 		    table.addCell(logiciels);
 		    table.addCell(String.valueOf(equipement.getPrix()));
