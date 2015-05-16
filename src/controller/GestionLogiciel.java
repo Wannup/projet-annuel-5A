@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -17,6 +16,7 @@ import application.excel.importer.ExcelImport;
 import application.excel.importer.ExcelLogicielImport;
 import application.pdf.export.PDFGenerator;
 import application.pdf.export.PDFLogicielListExport;
+import tools.Config;
 import tools.ManipInterface;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -56,6 +56,8 @@ public class GestionLogiciel implements Initializable {
 	
 	private List<Logiciel> list;
 	private LogicielDao logicielDao;
+	private int maxResult;
+	private int limit;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -65,10 +67,21 @@ public class GestionLogiciel implements Initializable {
 		columnDuree.setCellValueFactory(new PropertyValueFactory<Logiciel,Integer>("nbJourLicence"));
 		logicielDao = new LogicielDao();
 	    DatabaseConnection.startConnection();
-		this.list = logicielDao.findByAttributes(new HashMap<String, String>());
+	    boolean isLimit = Config.getPropertie("tableau_limite").equals("yes");
+	    if (isLimit) {
+		    maxResult = logicielDao.getMaxResult(null);
+		    limit = Integer.parseInt(Config.getPropertie("tableau_nb_ligne"));
+		    if (maxResult < limit) {
+		    	this.list = logicielDao.findByAttributes(null);
+		    } else {
+		    	this.list = logicielDao.findByAttributesWithLimit(null, 0, limit);
+		    }
+	    } else {
+	    	this.list = logicielDao.findByAttributes(null);
+	    	maxResult = this.list.size();
+	    }
 		DatabaseConnection.closeConnection();
 		refreshTable ();
-		buttonNext.setDisable(true);
 	}
 
 	@FXML
@@ -129,10 +142,21 @@ public class GestionLogiciel implements Initializable {
 	private void refreshTable () {
 		ObservableList<Logiciel> items = FXCollections.observableArrayList(list);
 		tableLogiciel.setItems(items);
+		if (maxResult > this.list.size()) {
+			buttonNext.setDisable(false);
+		} else {
+			buttonNext.setDisable(true);
+		}
 	}
 	
 	@FXML
 	private void viewMore(ActionEvent event) throws IOException {
-		
+		DatabaseConnection.startConnection();
+		List<Logiciel> results = logicielDao.findByAttributesWithLimit(null, this.list.size(), limit);
+		for (Logiciel logiciel : results) {
+			this.list.add(logiciel);
+		}
+		DatabaseConnection.closeConnection();
+		refreshTable ();
 	}
 }

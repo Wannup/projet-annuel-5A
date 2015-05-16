@@ -80,12 +80,18 @@ public class GestionAgent implements Initializable{
 	    numPosteCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("numPoste"));
 	    agentDao = new AgentDao();
 	    DatabaseConnection.startConnection();
-	    maxResult = agentDao.getMaxResult(null);
-	    limit = Integer.parseInt(Config.getPropertie("tableau_nb_ligne"));
-	    if (maxResult < limit) {
-	    	this.list = agentDao.findByAttributes(null);
+	    boolean isLimit = Config.getPropertie("tableau_limite").equals("yes");
+	    if (isLimit) {
+		    maxResult = agentDao.getMaxResult(null);
+		    limit = Integer.parseInt(Config.getPropertie("tableau_nb_ligne"));
+		    if (maxResult < limit) {
+		    	this.list = agentDao.findByAttributes(null);
+		    } else {
+		    	this.list = agentDao.findByAttributesWithLimit(null, 0, limit);
+		    }
 	    } else {
-	    	this.list = agentDao.findByAttributesWithLimit(null, 0, limit);
+	    	this.list = agentDao.findByAttributes(null);
+	    	maxResult = this.list.size();
 	    }
 		DatabaseConnection.closeConnection();
 		refreshTable ();
@@ -159,8 +165,6 @@ public class GestionAgent implements Initializable{
 	private void refreshTable () {
 		ObservableList<Agent> items = FXCollections.observableArrayList(list);
 		searchTab.setItems(items);
-		System.out.println("maxResult = " + maxResult);
-		System.out.println("this.list.size() = " + this.list.size());
 		if (maxResult > this.list.size()) {
 			buttonNext.setDisable(false);
 		} else {

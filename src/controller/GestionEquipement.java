@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -28,6 +27,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
 import model.Equipement;
 import model.Logiciel;
+import tools.Config;
 import tools.ManipInterface;
 import application.database.DatabaseConnection;
 import application.excel.export.ExcelEquipementListExport;
@@ -64,17 +64,22 @@ public class GestionEquipement implements Initializable{
 	
 	private List<Equipement> list;
 	private EquipementDao equipementDao;
+	private int maxResult;
+	private int limit;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.list = new ArrayList<>();
 		columnNumero.setCellValueFactory(new PropertyValueFactory<Equipement,Integer>("numeroEquipement"));        
 		columnPrix.setCellValueFactory(new PropertyValueFactory<Equipement,Double>("prix"));
-		/*columnAgent.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
+		columnAgent.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<Equipement, String> p) {
+				if (p.getValue().getAgent() == null) {
+					return new SimpleStringProperty("");
+				}
 				return new SimpleStringProperty(p.getValue().getAgent().getNumCP());
 			}
-		});*/
+		});
 		columnLogiciels.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<Equipement, String> p) {
 				String Logiciels  = "";
@@ -86,10 +91,21 @@ public class GestionEquipement implements Initializable{
 		});
 		equipementDao = new EquipementDao();
 	    DatabaseConnection.startConnection();
-		this.list = equipementDao.findByAttributes(new HashMap<String, String>());
+	    boolean isLimit = Config.getPropertie("tableau_limite").equals("yes");
+	    if (isLimit) {
+		    maxResult = equipementDao.getMaxResult(null);
+		    limit = Integer.parseInt(Config.getPropertie("tableau_nb_ligne"));
+		    if (maxResult < limit) {
+		    	this.list = equipementDao.findByAttributes(null);
+		    } else {
+		    	this.list = equipementDao.findByAttributesWithLimit(null, 0, limit);
+		    }
+	    } else {
+	    	this.list = equipementDao.findByAttributes(null);
+	    	maxResult = this.list.size();
+	    }
 		DatabaseConnection.closeConnection();
 		refreshTable ();
-		buttonNext.setDisable(true);
 	}
 	
 	@FXML
@@ -150,11 +166,22 @@ public class GestionEquipement implements Initializable{
 	private void refreshTable () {
 		ObservableList<Equipement> items = FXCollections.observableArrayList(list);
 		tableViewEquipement.setItems(items);
+		if (maxResult > this.list.size()) {
+			buttonNext.setDisable(false);
+		} else {
+			buttonNext.setDisable(true);
+		}
 	}
 	
 	@FXML
 	private void viewMore(ActionEvent event) throws IOException {
-		
+		DatabaseConnection.startConnection();
+		List<Equipement> results = equipementDao.findByAttributesWithLimit(null, this.list.size(), limit);
+		for (Equipement equipement : results) {
+			this.list.add(equipement);
+		}
+		DatabaseConnection.closeConnection();
+		refreshTable ();
 	}
 
 }
