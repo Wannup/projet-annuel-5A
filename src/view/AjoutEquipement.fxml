@@ -6,43 +6,43 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="bodyPanel" prefHeight="820.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AjoutEquipement">
+<AnchorPane fx:id="bodyPanel" prefHeight="820.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.AjoutEquipement">
   <children>
-    <Label layoutX="365.0" layoutY="85.0" text="Nouvel équipement">
+    <Label layoutX="373.0" layoutY="85.0" text="Nouvel équipement">
       <font>
         <Font name="System Bold" size="17.0" />
       </font>
     </Label>
-    <TextField fx:id="numPoste" layoutX="350.0" layoutY="143.0" prefHeight="31.0" prefWidth="200.0" />
-    <Label layoutX="200.0" layoutY="148.0" text="N° d'équipement" />
-    <Label layoutX="234.0" layoutY="210.0" text="Valeur (€)" />
-    <TextField fx:id="prix" layoutX="350.0" layoutY="205.0" prefHeight="31.0" prefWidth="200.0" />
+    <TextField fx:id="numPoste" layoutX="222.0" layoutY="143.0" prefHeight="31.0" prefWidth="200.0" />
+    <Label layoutX="72.0" layoutY="148.0" text="N° d'équipement" />
+    <Label layoutX="106.0" layoutY="210.0" text="Valeur (€)" />
+    <TextField fx:id="prix" layoutX="222.0" layoutY="205.0" prefHeight="31.0" prefWidth="200.0" />
     <Button fx:id="btnEditDelete" layoutX="341.0" layoutY="22.0" mnemonicParsing="false" onAction="#displayEditDelete" text="Modifier/Supprimer des équipements" />
     <Separator layoutX="0.0" layoutY="63.0" prefWidth="900.0" />
-    <TextField fx:id="nbJoursPrev" layoutX="350.0" layoutY="269.0" prefHeight="31.0" prefWidth="200.0" />
-    <Label layoutX="61.0" layoutY="274.0" text="Nombre de jours prévisionnel d'utilisation" />
-    <Label layoutX="224.0" layoutY="336.0" text="Date d'achat" />
-    <DatePicker fx:id="dateAchat" layoutX="350.0" layoutY="331.0" prefHeight="31.0" prefWidth="200.0" />
-    <AnchorPane fx:id="sectionLogiciel" layoutX="103.0" layoutY="532.0" prefHeight="152.0" prefWidth="696.0">
+    <TextField fx:id="nbJoursPrev" layoutX="222.0" layoutY="269.0" prefHeight="31.0" prefWidth="200.0" />
+    <Label layoutX="52.0" layoutY="277.0" text="Jours avant renouvellement" />
+    <Label layoutX="510.0" layoutY="148.0" text="Date d'achat" />
+    <DatePicker fx:id="dateAchat" layoutX="663.0" layoutY="148.0" prefHeight="31.0" prefWidth="200.0" />
+    <AnchorPane fx:id="sectionLogiciel" layoutX="39.0" layoutY="402.0" prefHeight="152.0" prefWidth="824.0">
       <children>
-        <ListView fx:id="lstLogiciel" layoutX="248.0" layoutY="33.0" prefHeight="200.0" prefWidth="200.0" />
-        <Button fx:id="btnSelectLogiciels" layoutX="479.0" layoutY="33.0" mnemonicParsing="false" onAction="#selectionLogiciels" prefHeight="31.0" prefWidth="145.0" text="Sélection logiciels" />
-        <Label layoutX="125.0" layoutY="86.0" text="Logiciels" />
-        <Button layoutX="637.0" layoutY="33.0" mnemonicParsing="false" onAction="#ajoutLogiciel" text="+" />
+        <ListView fx:id="lstLogiciel" layoutX="178.0" layoutY="14.0" prefHeight="108.0" prefWidth="200.0" />
+        <Button fx:id="btnSelectLogiciels" layoutX="412.0" layoutY="9.0" mnemonicParsing="false" onAction="#selectionLogiciels" prefHeight="31.0" prefWidth="145.0" text="Sélection logiciels" />
+        <Label layoutX="51.0" layoutY="32.0" text="Logiciels" />
+        <Button layoutX="571.0" layoutY="14.0" mnemonicParsing="false" onAction="#ajoutLogiciel" text="+" />
       </children>
     </AnchorPane>
-    <Button fx:id="btnEnregistrer" layoutX="399.0" layoutY="776.0" mnemonicParsing="false" onAction="#enregistrerEquipement" prefHeight="31.0" prefWidth="104.0" text="Enregistrer" />
-    <Label layoutX="180.0" layoutY="401.0" text="Type d'équipement" />
-      <ComboBox fx:id="typeEquipement" editable="true" layoutX="351.0" layoutY="396.0" prefHeight="31.0" prefWidth="200.0" />
-  <Label layoutX="216.0" layoutY="463.0" text="N° CP Agent" />
-  <TextField fx:id="numCPAgent" editable="false" layoutX="351.0" layoutY="458.0" prefHeight="31.0" prefWidth="200.0" />
-  <Button fx:id="btnSelectAgent" layoutX="580.0" layoutY="459.0" mnemonicParsing="false" onAction="#selectionAgent" prefHeight="31.0" prefWidth="128.0" text="Sélection Agent" />
-  <Button layoutX="724.0" layoutY="459.0" mnemonicParsing="false" onAction="#ajoutAgent" text="+" />
-      <CheckBox fx:id="logicielsOuiNon" layoutX="373.0" layoutY="511.0" mnemonicParsing="false" text="Logiciels associés" />
-      <Label fx:id="msgAjoutOk" layoutX="550.0" layoutY="781.0" text="Nouvel équipement ajouté avec succès !" textFill="#0db915" visible="false">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </Label>
+    <Button fx:id="btnEnregistrer" layoutX="396.0" layoutY="534.0" mnemonicParsing="false" onAction="#enregistrerEquipement" prefHeight="31.0" prefWidth="104.0" text="Enregistrer" />
+    <Label layoutX="492.0" layoutY="213.0" text="Type d'équipement" />
+    <ComboBox fx:id="typeEquipement" editable="true" layoutX="663.0" layoutY="208.0" prefHeight="31.0" prefWidth="200.0" />
+    <Label layoutX="84.0" layoutY="327.0" text="N° CP Agent" />
+    <TextField fx:id="numCPAgent" editable="false" layoutX="219.0" layoutY="322.0" prefHeight="31.0" prefWidth="200.0" />
+    <Button fx:id="btnSelectAgent" layoutX="448.0" layoutY="323.0" mnemonicParsing="false" onAction="#selectionAgent" prefHeight="31.0" prefWidth="128.0" text="Sélection Agent" />
+    <Button layoutX="592.0" layoutY="328.0" mnemonicParsing="false" onAction="#ajoutAgent" text="+" />
+    <CheckBox fx:id="logicielsOuiNon" layoutX="241.0" layoutY="375.0" mnemonicParsing="false" text="Logiciels associés" />
+    <Label fx:id="msgAjoutOk" layoutX="217.0" layoutY="568.0" prefHeight="23.0" prefWidth="453.0" text="Nouvel équipement ajouté avec succès !" textFill="#0db915" visible="false">
+      <font>
+        <Font name="System Bold" size="15.0" />
+      </font>
+    </Label>
   </children>
 </AnchorPane>
