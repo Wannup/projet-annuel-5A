@@ -22,8 +22,8 @@
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="154.0" text="Date de naissance" fx:id="dateDeNaissanceCol" />
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="112.0" text="N° de CP" fx:id="numCPCol" />
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="104.0" text="N° de Poste" fx:id="numPosteCol" />
-        <TableColumn maxWidth="5000.0" minWidth="0.0" prefWidth="74.0" text="Modifier" fx:id="cmodifierCol" />
-        <TableColumn prefWidth="75.0" text="Supprimer" fx:id="csupprimer" />
+        <TableColumn maxWidth="5000.0" minWidth="0.0" prefWidth="74.0" text="Modifier" fx:id="columnModifier" />
+        <TableColumn prefWidth="75.0" text="Supprimer" fx:id="columnSupprimer" />
       </columns>
     </TableView>
     <TextField fx:id="searchBar" layoutX="29.0" layoutY="134.0" prefWidth="696.0" />
