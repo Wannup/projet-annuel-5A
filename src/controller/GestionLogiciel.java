@@ -25,6 +25,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -36,6 +37,9 @@ public class GestionLogiciel implements Initializable {
 
 	@FXML
 	private AnchorPane bodyPanel;
+	
+	@FXML
+	private CheckBox checkBoxExportTable;
 	
 	@FXML
 	private TableView<Logiciel> tableLogiciel = new TableView<Logiciel>();
@@ -100,7 +104,16 @@ public class GestionLogiciel implements Initializable {
         File file;
         file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
         if (file != null) {
-        	pdfGenerator.generate(file, new PDFLogicielListExport(list));
+        	if (checkBoxExportTable.isSelected()) {
+        		pdfGenerator.generate(file, new PDFLogicielListExport(list));
+    		} else if (maxResult == this.list.size()) {
+    			pdfGenerator.generate(file, new PDFLogicielListExport(list));
+    		} else {
+    			DatabaseConnection.startConnection();
+    			List<Logiciel> results = logicielDao.findByAttributes(null);
+    			DatabaseConnection.closeConnection();
+    			pdfGenerator.generate(file, new PDFLogicielListExport(results));
+    		}
         }
 	}
 	
@@ -114,7 +127,16 @@ public class GestionLogiciel implements Initializable {
         File file;
         file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
         if (file != null) {
-        	excelGenerator.generate(file, new ExcelLogicielListExport(list));
+        	if (checkBoxExportTable.isSelected()) {
+        		excelGenerator.generate(file, new ExcelLogicielListExport(list));
+    		} else if (maxResult == this.list.size()) {
+    			excelGenerator.generate(file, new ExcelLogicielListExport(list));
+    		} else {
+    			DatabaseConnection.startConnection();
+    			List<Logiciel> results = logicielDao.findByAttributes(null);
+    			DatabaseConnection.closeConnection();
+    			excelGenerator.generate(file, new ExcelLogicielListExport(results));
+    		}
         }
 	}
 	

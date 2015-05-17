@@ -34,6 +34,6 @@
     </MenuButton>
     <Button layoutX="589.0" layoutY="28.0" mnemonicParsing="false" onAction="#importExcel" text="Import Excel" />
     <Button fx:id="buttonNext" layoutX="474.0" layoutY="570.0" mnemonicParsing="false" text="Suivant" textAlignment="CENTER" />
-    <CheckBox layoutX="725.0" layoutY="17.0" mnemonicParsing="false" text="Exporter le tableau" />
+    <CheckBox fx:id="checkBoxExportTable" layoutX="725.0" layoutY="17.0" mnemonicParsing="false" text="Exporter le tableau" />
   </children>
 </AnchorPane>

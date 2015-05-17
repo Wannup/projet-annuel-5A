@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -37,6 +38,9 @@ public class GestionAgent implements Initializable{
 
 	@FXML
 	private AnchorPane bodyPanel;
+	
+	@FXML
+	private CheckBox checkBoxExportTable;
 	
 	@FXML
 	private TableView<Agent> searchTab = new TableView<Agent>();
@@ -123,7 +127,16 @@ public class GestionAgent implements Initializable{
         File file;
         file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
         if (file != null) {
-        	pdfGenerator.generate(file, new PDFAgentListExport(list));
+        	if (checkBoxExportTable.isSelected()) {
+        		pdfGenerator.generate(file, new PDFAgentListExport(list));
+    		} else if (maxResult == this.list.size()) {
+    			pdfGenerator.generate(file, new PDFAgentListExport(list));
+    		} else {
+    			DatabaseConnection.startConnection();
+    			List<Agent> results = agentDao.findByAttributes(null);
+    			DatabaseConnection.closeConnection();
+    			pdfGenerator.generate(file, new PDFAgentListExport(results));
+    		}
         }
 	}
 	
@@ -137,7 +150,16 @@ public class GestionAgent implements Initializable{
         File file;
         file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
         if (file != null) {
-        	excelGenerator.generate(file, new ExcelAgentListExport(list));
+        	if (checkBoxExportTable.isSelected()) {
+        		excelGenerator.generate(file, new ExcelAgentListExport(list));
+    		} else if (maxResult == this.list.size()) {
+    			excelGenerator.generate(file, new ExcelAgentListExport(list));
+    		} else {
+    			DatabaseConnection.startConnection();
+    			List<Agent> results = agentDao.findByAttributes(null);
+    			DatabaseConnection.closeConnection();
+    			excelGenerator.generate(file, new ExcelAgentListExport(results));
+    		}
         }
 	}
 	

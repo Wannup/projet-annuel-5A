@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -41,6 +42,9 @@ public class GestionEquipement implements Initializable{
 
 	@FXML
 	private AnchorPane bodyPanel;
+	
+	@FXML
+	private CheckBox checkBoxExportTable;
 	
 	@FXML
 	private TableView<Equipement> tableViewEquipement;
@@ -124,7 +128,16 @@ public class GestionEquipement implements Initializable{
         File file;
         file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
         if (file != null) {
-        	pdfGenerator.generate(file, new PDFEquipementListExport(list));
+        	if (checkBoxExportTable.isSelected()) {
+        		pdfGenerator.generate(file, new PDFEquipementListExport(list));
+    		} else if (maxResult == this.list.size()) {
+    			pdfGenerator.generate(file, new PDFEquipementListExport(list));
+    		} else {
+    			DatabaseConnection.startConnection();
+    			List<Equipement> results = equipementDao.findByAttributes(null);
+    			DatabaseConnection.closeConnection();
+    			pdfGenerator.generate(file, new PDFEquipementListExport(results));
+    		}
         }
 	}
 	
@@ -138,7 +151,16 @@ public class GestionEquipement implements Initializable{
         File file;
         file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
         if (file != null) {
-        	excelGenerator.generate(file, new ExcelEquipementListExport(list));
+        	if (checkBoxExportTable.isSelected()) {
+        		excelGenerator.generate(file, new ExcelEquipementListExport(list));
+    		} else if (maxResult == this.list.size()) {
+    			excelGenerator.generate(file, new ExcelEquipementListExport(list));
+    		} else {
+    			DatabaseConnection.startConnection();
+    			List<Equipement> results = equipementDao.findByAttributes(null);
+    			DatabaseConnection.closeConnection();
+    			excelGenerator.generate(file, new ExcelEquipementListExport(results));
+    		}
         }
 	}
 	
