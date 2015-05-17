@@ -7,22 +7,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.util.Callback;
 import model.Agent;
+import model.Equipement;
 import tools.Config;
 import tools.ManipInterface;
 import application.database.DatabaseConnection;
@@ -64,6 +72,12 @@ public class GestionAgent implements Initializable{
 	private TableColumn<Agent, String> numPosteCol;
 	
 	@FXML
+	private TableColumn<Agent, Agent> columnModifier;
+	
+	@FXML
+	private TableColumn<Agent, Agent> columnSupprimer;
+	
+	@FXML
 	private Button buttonNext;
 	
 	
@@ -82,6 +96,75 @@ public class GestionAgent implements Initializable{
 	    dateDeNaissanceCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("dateDeNaissance"));
 	    numCPCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("numCP"));
 	    numPosteCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("numPoste"));
+	    
+	    columnModifier.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Agent, Agent>, ObservableValue<Agent>>() {
+	      @Override public ObservableValue<Agent> call(TableColumn.CellDataFeatures<Agent, Agent> features) {
+	    	  return new ReadOnlyObjectWrapper(features.getValue());
+	      }
+	    });
+	 
+	    columnModifier.setCellFactory(new Callback<TableColumn<Agent, Agent>, TableCell<Agent, Agent>>() {
+	      @Override public TableCell<Agent, Agent> call(TableColumn<Agent, Agent> personBooleanTableColumn) {
+	    	  return new TableCell<Agent, Agent>() {
+	              //final ImageView buttonGraphic = new ImageView();
+	              final Button button = new Button(); {
+	             //   button.setGraphic(buttonGraphic);
+	                button.setMinWidth(70);
+	              }
+	              public void updateItem(Agent person, boolean empty) {
+	                super.updateItem(person, empty);
+	                if (person != null) {
+	                	button.setText("Voir");
+	                	//buttonGraphic.setImage(Image);
+
+	                  setGraphic(button);
+	                  button.setOnAction(new EventHandler<ActionEvent>() {
+	                    @Override public void handle(ActionEvent event) {
+	                     
+	                    }
+	                  });
+	                } else {
+	                  setGraphic(null);
+	                }
+	              }
+	            };
+	          }
+	    });
+	    
+	    columnSupprimer.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Agent, Agent>, ObservableValue<Agent>>() {
+		      @Override public ObservableValue<Agent> call(TableColumn.CellDataFeatures<Agent, Agent> features) {
+		    	  return new ReadOnlyObjectWrapper(features.getValue());
+		      }
+		    });
+		 
+	    columnSupprimer.setCellFactory(new Callback<TableColumn<Agent, Agent>, TableCell<Agent, Agent>>() {
+		      @Override public TableCell<Agent, Agent> call(TableColumn<Agent, Agent> personBooleanTableColumn) {
+		    	  return new TableCell<Agent, Agent>() {
+		              //final ImageView buttonGraphic = new ImageView();
+		              final Button button = new Button(); {
+		             //   button.setGraphic(buttonGraphic);
+		                button.setMinWidth(70);
+		              }
+		              public void updateItem(Agent person, boolean empty) {
+		                super.updateItem(person, empty);
+		                if (person != null) {
+		                	button.setText("X");
+		                	//buttonGraphic.setImage(Image);
+
+		                  setGraphic(button);
+		                  button.setOnAction(new EventHandler<ActionEvent>() {
+		                    @Override public void handle(ActionEvent event) {
+		                     
+		                    }
+		                  });
+		                } else {
+		                  setGraphic(null);
+		                }
+		              }
+		            };
+		          }
+		    });
+	    
 	    agentDao = new AgentDao();
 	    DatabaseConnection.startConnection();
 	    boolean isLimit = Config.getPropertie("tableau_limite").equals("yes");

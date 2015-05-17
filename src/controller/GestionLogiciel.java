@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import dao.LogicielDao;
+import model.Agent;
 import model.Logiciel;
 import application.database.DatabaseConnection;
 import application.excel.export.ExcelGenerator;
@@ -18,20 +19,26 @@ import application.pdf.export.PDFGenerator;
 import application.pdf.export.PDFLogicielListExport;
 import tools.Config;
 import tools.ManipInterface;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.util.Callback;
 
 public class GestionLogiciel implements Initializable {
 
@@ -54,7 +61,16 @@ public class GestionLogiciel implements Initializable {
 	private TableColumn<Logiciel, Integer> columnDuree;
 	
 	@FXML
+	private TableColumn<Logiciel, Logiciel> columnModifier;
+	
+	@FXML
+	private TableColumn<Logiciel, Logiciel> columnSupprimer;
+	
+	@FXML
 	private Button buttonNext;
+	
+	@FXML
+	private TextField searchBar = new TextField();
 	
 	private FXMLLoader loader;
 	
@@ -69,6 +85,75 @@ public class GestionLogiciel implements Initializable {
 		columnLibelle.setCellValueFactory(new PropertyValueFactory<Logiciel,String>("nom"));        
 		columnPrix.setCellValueFactory(new PropertyValueFactory<Logiciel,Double>("prix"));
 		columnDuree.setCellValueFactory(new PropertyValueFactory<Logiciel,Integer>("nbJourLicence"));
+		
+		columnModifier.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Logiciel, Logiciel>, ObservableValue<Logiciel>>() {
+		      @Override public ObservableValue<Logiciel> call(TableColumn.CellDataFeatures<Logiciel, Logiciel> features) {
+		    	  return new ReadOnlyObjectWrapper(features.getValue());
+		      }
+		    });
+		 
+		    columnModifier.setCellFactory(new Callback<TableColumn<Logiciel, Logiciel>, TableCell<Logiciel, Logiciel>>() {
+		      @Override public TableCell<Logiciel, Logiciel> call(TableColumn<Logiciel, Logiciel> personBooleanTableColumn) {
+		    	  return new TableCell<Logiciel, Logiciel>() {
+		              //final ImageView buttonGraphic = new ImageView();
+		              final Button button = new Button(); {
+		             //   button.setGraphic(buttonGraphic);
+		                button.setMinWidth(70);
+		              }
+		              public void updateItem(Logiciel person, boolean empty) {
+		                super.updateItem(person, empty);
+		                if (person != null) {
+		                	button.setText("Voir");
+		                	//buttonGraphic.setImage(Image);
+
+		                  setGraphic(button);
+		                  button.setOnAction(new EventHandler<ActionEvent>() {
+		                    @Override public void handle(ActionEvent event) {
+		                     
+		                    }
+		                  });
+		                } else {
+		                  setGraphic(null);
+		                }
+		              }
+		            };
+		          }
+		    });
+		    
+		    columnSupprimer.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Logiciel, Logiciel>, ObservableValue<Logiciel>>() {
+			      @Override public ObservableValue<Logiciel> call(TableColumn.CellDataFeatures<Logiciel, Logiciel> features) {
+			    	  return new ReadOnlyObjectWrapper(features.getValue());
+			      }
+			    });
+			 
+		    columnSupprimer.setCellFactory(new Callback<TableColumn<Logiciel, Logiciel>, TableCell<Logiciel, Logiciel>>() {
+			      @Override public TableCell<Logiciel, Logiciel> call(TableColumn<Logiciel, Logiciel> personBooleanTableColumn) {
+			    	  return new TableCell<Logiciel, Logiciel>() {
+			              //final ImageView buttonGraphic = new ImageView();
+			              final Button button = new Button(); {
+			             //   button.setGraphic(buttonGraphic);
+			                button.setMinWidth(70);
+			              }
+			              public void updateItem(Logiciel person, boolean empty) {
+			                super.updateItem(person, empty);
+			                if (person != null) {
+			                	button.setText("X");
+			                	//buttonGraphic.setImage(Image);
+
+			                  setGraphic(button);
+			                  button.setOnAction(new EventHandler<ActionEvent>() {
+			                    @Override public void handle(ActionEvent event) {
+			                     
+			                    }
+			                  });
+			                } else {
+			                  setGraphic(null);
+			                }
+			              }
+			            };
+			          }
+			    });
+		
 		logicielDao = new LogicielDao();
 	    DatabaseConnection.startConnection();
 	    boolean isLimit = Config.getPropertie("tableau_limite").equals("yes");
@@ -92,6 +177,17 @@ public class GestionLogiciel implements Initializable {
 	private void displayAddLogiciel(ActionEvent event) throws IOException{
 		loader = new FXMLLoader(getClass().getResource("/view/AjoutLogiciel.fxml"));
 		ManipInterface.chargementBodyPanel(bodyPanel, loader);
+	}
+	
+	@FXML
+	private void searchLogiciel(ActionEvent event) {
+		if (!searchBar.getText().isEmpty()) {
+			logicielDao = new LogicielDao();
+			DatabaseConnection.startConnection();
+			this.list = logicielDao.searchWithAttributes(searchBar.getText());
+			DatabaseConnection.closeConnection();
+			refreshTable ();
+		}
 	}
 	
 	@FXML

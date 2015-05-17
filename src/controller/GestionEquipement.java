@@ -8,17 +8,22 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import dao.EquipementDao;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableView;
@@ -26,6 +31,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
+import model.Agent;
 import model.Equipement;
 import model.Logiciel;
 import tools.Config;
@@ -62,7 +68,16 @@ public class GestionEquipement implements Initializable{
 	private TableColumn<Equipement, String> columnLogiciels;
 	
 	@FXML
+	private TableColumn<Equipement, Equipement> columnModifier;
+	
+	@FXML
+	private TableColumn<Equipement, Equipement> columnSupprimer;
+	
+	@FXML
 	private Button buttonNext;
+	
+	@FXML
+	private TextField searchBar = new TextField();
 	
 	private FXMLLoader loader;
 	
@@ -93,6 +108,75 @@ public class GestionEquipement implements Initializable{
 				return new SimpleStringProperty(Logiciels);
 			}
 		});
+		
+		columnModifier.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Equipement, Equipement>, ObservableValue<Equipement>>() {
+		      @Override public ObservableValue<Equipement> call(TableColumn.CellDataFeatures<Equipement, Equipement> features) {
+		    	  return new ReadOnlyObjectWrapper(features.getValue());
+		      }
+		    });
+		 
+		    columnModifier.setCellFactory(new Callback<TableColumn<Equipement, Equipement>, TableCell<Equipement, Equipement>>() {
+		      @Override public TableCell<Equipement, Equipement> call(TableColumn<Equipement, Equipement> personBooleanTableColumn) {
+		    	  return new TableCell<Equipement, Equipement>() {
+		              //final ImageView buttonGraphic = new ImageView();
+		              final Button button = new Button(); {
+		             //   button.setGraphic(buttonGraphic);
+		                button.setMinWidth(70);
+		              }
+		              public void updateItem(Equipement person, boolean empty) {
+		                super.updateItem(person, empty);
+		                if (person != null) {
+		                	button.setText("Voir");
+		                	//buttonGraphic.setImage(Image);
+
+		                  setGraphic(button);
+		                  button.setOnAction(new EventHandler<ActionEvent>() {
+		                    @Override public void handle(ActionEvent event) {
+		                     
+		                    }
+		                  });
+		                } else {
+		                  setGraphic(null);
+		                }
+		              }
+		            };
+		          }
+		    });
+		    
+		    columnSupprimer.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Equipement, Equipement>, ObservableValue<Equipement>>() {
+			      @Override public ObservableValue<Equipement> call(TableColumn.CellDataFeatures<Equipement, Equipement> features) {
+			    	  return new ReadOnlyObjectWrapper(features.getValue());
+			      }
+			    });
+			 
+		    columnSupprimer.setCellFactory(new Callback<TableColumn<Equipement, Equipement>, TableCell<Equipement, Equipement>>() {
+			      @Override public TableCell<Equipement, Equipement> call(TableColumn<Equipement, Equipement> personBooleanTableColumn) {
+			    	  return new TableCell<Equipement, Equipement>() {
+			              //final ImageView buttonGraphic = new ImageView();
+			              final Button button = new Button(); {
+			             //   button.setGraphic(buttonGraphic);
+			                button.setMinWidth(70);
+			              }
+			              public void updateItem(Equipement person, boolean empty) {
+			                super.updateItem(person, empty);
+			                if (person != null) {
+			                	button.setText("X");
+			                	//buttonGraphic.setImage(Image);
+
+			                  setGraphic(button);
+			                  button.setOnAction(new EventHandler<ActionEvent>() {
+			                    @Override public void handle(ActionEvent event) {
+			                     
+			                    }
+			                  });
+			                } else {
+			                  setGraphic(null);
+			                }
+			              }
+			            };
+			          }
+			    });
+		
 		equipementDao = new EquipementDao();
 	    DatabaseConnection.startConnection();
 	    boolean isLimit = Config.getPropertie("tableau_limite").equals("yes");
@@ -110,6 +194,17 @@ public class GestionEquipement implements Initializable{
 	    }
 		DatabaseConnection.closeConnection();
 		refreshTable ();
+	}
+	
+	@FXML
+	private void searchEquipement(ActionEvent event) {
+		if (!searchBar.getText().isEmpty()) {
+			equipementDao = new EquipementDao();
+			DatabaseConnection.startConnection();
+			this.list = equipementDao.searchWithAttributes(searchBar.getText());
+			DatabaseConnection.closeConnection();
+			refreshTable ();
+		}
 	}
 	
 	@FXML
