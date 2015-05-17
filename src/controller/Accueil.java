@@ -75,5 +75,13 @@ public class Accueil implements Initializable{
 		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 	
+	@FXML
+	private void exportDatabase(ActionEvent event) throws IOException{
+	}
+	
+	@FXML
+	private void importDatabase(ActionEvent event) throws IOException{
+	}
+	
 	
 }

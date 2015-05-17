@@ -22,6 +22,12 @@
         </ImageView>
         <Button layoutX="54.0" layoutY="540.0" mnemonicParsing="false" onAction="#configuration" text="Configuration" />
         <Button layoutX="17.0" layoutY="500.0" mnemonicParsing="false" text="Import / Export de données" />
+        <MenuButton layoutX="47.0" layoutY="460.0" mnemonicParsing="false" text="Base de données">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#exportDatabase" text="Importer" />
+            <MenuItem mnemonicParsing="false" onAction="#importDatabase" text="Exporter" />
+          </items>
+        </MenuButton>
       </children>
     </AnchorPane>
     <AnchorPane fx:id="bodyPanel" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" style="-fx-background-color: #D8D8D8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
