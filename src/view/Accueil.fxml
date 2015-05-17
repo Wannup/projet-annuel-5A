@@ -21,11 +21,10 @@
           </image>
         </ImageView>
         <Button layoutX="54.0" layoutY="540.0" mnemonicParsing="false" onAction="#configuration" text="Configuration" />
-        <Button layoutX="17.0" layoutY="500.0" mnemonicParsing="false" text="Import / Export de données" />
-        <MenuButton layoutX="47.0" layoutY="460.0" mnemonicParsing="false" text="Base de données">
+        <MenuButton layoutX="35.0" layoutY="493.0" mnemonicParsing="false" text="Base de données" textAlignment="CENTER">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#exportDatabase" text="Importer" />
-            <MenuItem mnemonicParsing="false" onAction="#importDatabase" text="Exporter" />
+            <MenuItem mnemonicParsing="false" onAction="#importDatabase" text="Importer" />
+            <MenuItem mnemonicParsing="false" onAction="#exportDatabase" text="Exporter" />
           </items>
         </MenuButton>
       </children>

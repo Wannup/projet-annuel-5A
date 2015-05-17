@@ -8,7 +8,7 @@ import java.util.zip.ZipOutputStream;
 
 public class Zip {
 
-	public void zipFolder(String srcFolder, String destZipFile) throws Exception {
+	public void zipFolder(String srcFolder, File destZipFile) throws Exception {
 		ZipOutputStream zip = null;
 	    FileOutputStream fileWriter = null;
 	    fileWriter = new FileOutputStream(destZipFile);
