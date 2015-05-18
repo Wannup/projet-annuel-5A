@@ -71,4 +71,9 @@ public class Agent {
 		this.numPoste = numPoste;
 	}
 	
+	@Override
+	public String toString() {
+		return "" + nom + " " + prenom;
+	}
+
 }
