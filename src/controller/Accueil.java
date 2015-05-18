@@ -5,8 +5,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.database.export.DatabaseExport;
+import application.database.importer.DatabaseImport;
 import tools.ManipInterface;
-import tools.Zip;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -88,17 +89,22 @@ public class Accueil implements Initializable{
         File file;
         file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
         if (file != null) {
-        	Zip zip = new Zip();
-    		try {
-    			zip.zipFolder("database", file);
-    		} catch (Exception e) {
-    			e.printStackTrace();
-    		}
+        	DatabaseExport databaseExport = new DatabaseExport();
+        	databaseExport.exportDatabase(file);
         }
 	}
 	
 	@FXML
-	private void importDatabase(ActionEvent event) throws IOException{
+	private void importDatabase(ActionEvent event) throws IOException {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Zip", "*.zip"));
+        fileChooser.setTitle("Import database");
+        File file;
+        file = fileChooser.showOpenDialog(bodyPanel.getParent().getScene().getWindow());
+        if (file != null) {
+        	DatabaseImport databaseImport = new DatabaseImport();
+        	databaseImport.importDatabase(file);
+        }
 	}
 	
 	
