@@ -29,13 +29,37 @@ public class EquipementDao extends AbstractDao<Equipement>{
 
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		
+		int nombre = 0;
+		boolean isInteger = false;
+		try{
+			nombre = Integer.parseInt(search);
+			isInteger = true;
+		}
+		catch(NumberFormatException e){
+			
+		}
+		
+		double doubleValue = 0;
+		boolean isDouble = false;
+		try{
+			doubleValue = Double.parseDouble(search);
+			System.out.println(doubleValue);
+		}
+		catch(NumberFormatException e){
+			
+		}
+		
+		if(!isInteger && !isDouble)
 		predicates.add(
-				cb.or(cb.like(cb.lower((Expression) table.get("numeroEquipement")), "%"+ search.toLowerCase() + "%"), 
-				cb.like(cb.lower((Expression) table.get("nbJoursPrevUtilisation")), "%"+ search.toLowerCase() + "%"), 
-				cb.like(cb.lower((Expression) table.get("dateAchat")), "%"+ search.toLowerCase() + "%"),
-				cb.like(cb.lower((Expression)  table.get("prix")), "%"+ search.toLowerCase() + "%"), 
+				cb.or(cb.like(cb.lower((Expression) table.get("dateAchat")), "%"+ search.toLowerCase() + "%"), 
 				cb.like(cb.lower((Expression)  table.get("typeEquipement")), "%"+ search.toLowerCase() + "%")));
-
+		else if(isInteger)
+			predicates.add(cb.or(cb.equal((Expression) table.get("numeroEquipement"), nombre), 
+					cb.equal((Expression) table.get("nbJoursPrevUtilisation"), nombre),  cb.equal((Expression)  table.get("prix"), nombre)));
+		else{
+			predicates.add(cb.equal((Expression)  table.get("prix"), doubleValue));
+		}
+		
 		cq.where(predicates.toArray(new Predicate[] {}));
 		TypedQuery q = DatabaseConnection.em.createQuery(cq);
         
