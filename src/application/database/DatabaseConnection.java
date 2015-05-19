@@ -15,6 +15,11 @@ public class DatabaseConnection {
         em.getTransaction().begin();
         return em;
     }
+    
+    public static void refresh () {
+    	/*em.getEntityManagerFactory().getCache().evictAll();
+    	em.clear();*/
+    }
  
     public static  void closeConnection(){
         em.getTransaction().commit();

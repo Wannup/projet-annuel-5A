@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.database.DatabaseConnection;
 import application.database.export.DatabaseExport;
 import application.database.importer.DatabaseImport;
 import tools.ManipInterface;
@@ -104,6 +105,9 @@ public class Accueil implements Initializable{
         if (file != null) {
         	DatabaseImport databaseImport = new DatabaseImport();
         	databaseImport.importDatabase(file);
+        	DatabaseConnection.startConnection();
+        	DatabaseConnection.refresh();
+        	DatabaseConnection.closeConnection();
         }
 	}
 	
