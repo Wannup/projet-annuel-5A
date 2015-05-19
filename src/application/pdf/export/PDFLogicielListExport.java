@@ -35,15 +35,15 @@ public class PDFLogicielListExport extends PDFDataExport {
 		
 		PdfPTable table = new PdfPTable(3);
 
-	    PdfPCell c1 = new PdfPCell(new Phrase("Nom"));
+	    PdfPCell c1 = new PdfPCell(new Phrase("Libelle logiciel"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 
-	    c1 = new PdfPCell(new Phrase("Prix"));
+	    c1 = new PdfPCell(new Phrase("Valeur licence (€)"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 
-	    c1 = new PdfPCell(new Phrase("Nombre de jours"));
+	    c1 = new PdfPCell(new Phrase("Durée licence (en Jour)"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 	    table.setHeaderRows(1);

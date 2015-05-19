@@ -25,8 +25,8 @@ public class ExcelAgentListExport extends ExcelDataExport {
 		row.createCell(0, HSSFCell.CELL_TYPE_STRING).setCellValue("Nom");
 		row.createCell(1, HSSFCell.CELL_TYPE_STRING).setCellValue("Prénom");
 		row.createCell(2, HSSFCell.CELL_TYPE_STRING).setCellValue("Date de naissance");
-		row.createCell(3, HSSFCell.CELL_TYPE_STRING).setCellValue("Numéro cp");
-		row.createCell(4, HSSFCell.CELL_TYPE_STRING).setCellValue("Numéro de poste");
+		row.createCell(3, HSSFCell.CELL_TYPE_STRING).setCellValue("N° de CP");
+		row.createCell(4, HSSFCell.CELL_TYPE_STRING).setCellValue("N° de poste");
 	    
 		int ligne = 1;
 	    for (Agent agent : agents) {

@@ -3,6 +3,7 @@ package application.pdf.export;
 import java.util.List;
 
 import model.Equipement;
+import model.Logiciel;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -33,37 +34,38 @@ public class PDFEquipementListExport extends PDFDataExport {
 		document.add(new Paragraph(" "));
 		document.add(new Paragraph(" "));
 		
-		PdfPTable table = new PdfPTable(5);
+		PdfPTable table = new PdfPTable(4);
 
-	    PdfPCell c1 = new PdfPCell(new Phrase("Nom"));
+	    PdfPCell c1 = new PdfPCell(new Phrase("N° d'équipement"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 
-	    c1 = new PdfPCell(new Phrase("Numéro de poste"));
+	    c1 = new PdfPCell(new Phrase("Valeur (€)"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 
-	    c1 = new PdfPCell(new Phrase("Agent"));
+	    c1 = new PdfPCell(new Phrase("N° CP Agent"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 
-	    c1 = new PdfPCell(new Phrase("Logiciels"));
-	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-	    table.addCell(c1);
-
-	    c1 = new PdfPCell(new Phrase("Prix"));
+	    c1 = new PdfPCell(new Phrase("Logiciel(s) installé(s)"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 	    table.setHeaderRows(1);
 	    
 	    for (Equipement equipement : equipements) {
-	    	table.addCell(equipement.getNom());
 		    table.addCell(String.valueOf(equipement.getNumeroPoste()));
-		   // table.addCell(equipement.getAgent().getNom());
-		    table.addCell(""); // temporaire car agent null
-		    String logiciels = "";
-		    table.addCell(logiciels);
 		    table.addCell(String.valueOf(equipement.getPrix()));
+		    if (equipement.getAgent() != null) {
+		    	table.addCell(equipement.getAgent().getNumCP());
+		    } else {
+		    	table.addCell("");
+		    }
+		    String logiciels = "";
+		    for (Logiciel logiciel : equipement.getLogiciels()) {
+		    	logiciels += ","+logiciel.getNom();
+		    }
+		    table.addCell(logiciels);
 	    }
 	    
 	    table.setHorizontalAlignment(Element.ALIGN_CENTER);

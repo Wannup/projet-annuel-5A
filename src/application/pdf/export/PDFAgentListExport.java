@@ -47,11 +47,11 @@ public class PDFAgentListExport extends PDFDataExport {
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 
-	    c1 = new PdfPCell(new Phrase("Numéro cp"));
+	    c1 = new PdfPCell(new Phrase("N° de CP"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 
-	    c1 = new PdfPCell(new Phrase("Numéro de poste"));
+	    c1 = new PdfPCell(new Phrase("N° de poste"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 	    table.setHeaderRows(1);

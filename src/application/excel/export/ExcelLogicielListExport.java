@@ -22,9 +22,9 @@ public class ExcelLogicielListExport extends ExcelDataExport {
 		HSSFSheet sheet = wb.createSheet("logiciels");
 		HSSFRow row = sheet.createRow(0);
 		
-		row.createCell(0, HSSFCell.CELL_TYPE_STRING).setCellValue("Nom");
-		row.createCell(1, HSSFCell.CELL_TYPE_STRING).setCellValue("Prix");
-		row.createCell(2, HSSFCell.CELL_TYPE_STRING).setCellValue("Nombre de jours");
+		row.createCell(0, HSSFCell.CELL_TYPE_STRING).setCellValue("Libelle logiciel");
+		row.createCell(1, HSSFCell.CELL_TYPE_STRING).setCellValue("Valeur licence (€)");
+		row.createCell(2, HSSFCell.CELL_TYPE_STRING).setCellValue("Durée licence (en Jour)");
 	    
 		int ligne = 1;
 	    for (Logiciel logiciel : logiciels) {
