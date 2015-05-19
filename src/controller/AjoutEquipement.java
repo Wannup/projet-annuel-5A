@@ -37,7 +37,7 @@ public class AjoutEquipement implements Initializable{
 	
 	@FXML
 	private TextField nbJoursPrev;
-	
+
 	@FXML
 	private ComboBox<String> typeEquipement;
 	
@@ -97,7 +97,7 @@ public class AjoutEquipement implements Initializable{
 	
 	@FXML
 	private void selectionAgent(ActionEvent event) throws IOException{
-		ManipInterface.newWindow("Selection de l'agent", FXMLLoader.load(getClass().getResource("/view/RecherchePopup.fxml")));
+		ManipInterface.newWindow("Selection de l'agent", FXMLLoader.load(getClass().getResource("/view/RechercheAgentPopup.fxml")));
 	}
 	
 	@FXML
