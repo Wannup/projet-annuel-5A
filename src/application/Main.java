@@ -23,7 +23,6 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			
 			// GUI
 			Parent root = FXMLLoader.load(getClass().getResource("/view/Accueil.fxml"));
 			Scene scene = new Scene(root);
