@@ -10,14 +10,34 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
+/**
+ * ExcelEquipementListExport est la classe permettant d'exporter une liste d'equipement au format excel.
+ * 
+ * @version 1.0
+ */
 public class ExcelEquipementListExport extends ExcelDataExport {
 	
 	private List<Equipement> equipements;
 	
+	/**
+	 * Constructeur de la classe
+	 *
+	 * @param equipements
+	 *     La liste des equipements
+	 * @see List
+	 * @see Equipement
+	 */
 	public ExcelEquipementListExport (List<Equipement> equipements) {
 		this.equipements = equipements;
 	}
 	
+	/**
+	 * Ecrit le fichier excel
+	 *
+	 * @param wb
+	 *     FIchier excel
+	 * @see HSSFWorkbook
+	 */
 	public void write (HSSFWorkbook wb) {
 		
 		HSSFSheet sheet = wb.createSheet("equipements");

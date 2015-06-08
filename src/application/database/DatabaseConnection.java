@@ -18,6 +18,8 @@ public class DatabaseConnection {
      * Retourne un manager de la base de données.
      * 
      * @return EntityManager.
+     * 
+     * @see EntityManager
      */
     public static EntityManager startConnection(){
         emf = Persistence.createEntityManagerFactory("lgpiPersistence");
@@ -26,6 +28,10 @@ public class DatabaseConnection {
         return em;
     }
     
+    /**
+     * Rafraichi la base de données.
+     * 
+     */
     public static void refresh () {
     	/*em.getEntityManagerFactory().getCache().evictAll();
     	em.clear();*/
@@ -34,7 +40,7 @@ public class DatabaseConnection {
     /**
      * ferme la connection.
      */
-    public static  void closeConnection(){
+    public static void closeConnection(){
         em.getTransaction().commit();
         em.close();
         emf.close();

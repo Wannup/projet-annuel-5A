@@ -19,6 +19,7 @@ public class Main extends Application {
 	 *
 	 * @param primaryStage
 	 *     Stage
+	 * @see Stage
 	 */
 	@Override
 	public void start(Stage primaryStage) {

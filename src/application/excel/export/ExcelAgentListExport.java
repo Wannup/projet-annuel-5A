@@ -9,14 +9,34 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import model.Agent;
 
+/**
+ * ExcelAgentListExport est la classe permettant d'exporter une liste d'agent au format excel.
+ * 
+ * @version 1.0
+ */
 public class ExcelAgentListExport extends ExcelDataExport {
 	
 	private List<Agent> agents;
 	
+	/**
+	 * Constructeur de la classe
+	 *
+	 * @param agents
+	 *     La liste des agents
+	 * @see List
+	 * @see Agent
+	 */
 	public ExcelAgentListExport (List<Agent> agents) {
 		this.agents = agents;
 	}
 	
+	/**
+	 * Ecrit le fichier excel
+	 *
+	 * @param wb
+	 *     FIchier excel
+	 * @see HSSFWorkbook
+	 */
 	public void write (HSSFWorkbook wb) {
 		
 		HSSFSheet sheet = wb.createSheet("agents");

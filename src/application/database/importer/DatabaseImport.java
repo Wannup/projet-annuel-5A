@@ -16,6 +16,7 @@ public class DatabaseImport {
 	 *
 	 * @param file
 	 *     Le fichier zip contenant la base de données
+	 * @see File
 	 */
 	public void importDatabase (File file) {
 		Zip zip = new Zip();

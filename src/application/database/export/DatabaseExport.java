@@ -16,6 +16,7 @@ public class DatabaseExport {
 	 *
 	 * @param file
 	 *     Le dossier dans lequel la base de données sera exporter
+	 * @see File
 	 */
 	public void exportDatabase (File file) {
 		Zip zip = new Zip();
