@@ -7,7 +7,11 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-
+/**
+ * Main est la classe principal qui permet de lancer l'apllication.
+ * 
+ * @version 1.0
+ */
 public class Main extends Application {
 	
 	/**
