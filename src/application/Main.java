@@ -9,6 +9,13 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
+	
+	/**
+	 * Lance l'application
+	 *
+	 * @param primaryStage
+	 *     Stage
+	 */
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -16,7 +23,6 @@ public class Main extends Application {
 			// GUI
 			Parent root = FXMLLoader.load(getClass().getResource("/view/Accueil.fxml"));
 			Scene scene = new Scene(root);
-			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setTitle("LGPI SNCF");
 			primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("../res/icon-sncf.jpg")));
 			primaryStage.setResizable(false);
