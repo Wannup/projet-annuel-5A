@@ -90,7 +90,6 @@ public class AjoutEquipement implements Initializable{
 		numCPAgent.setOnMouseClicked(enleverMessageAjout);
 		nbJoursPrev.setOnMouseClicked(enleverMessageAjout);
 		typeEquipement.setOnMouseClicked(enleverMessageAjout);
-		dateAchat.setOnMouseClicked(enleverMessageAjout);
 		lstLogiciel.setOnMouseClicked(enleverMessageAjout);
 			
 	}
@@ -130,7 +129,7 @@ public class AjoutEquipement implements Initializable{
 	private void enregistrerEquipement(ActionEvent event){
 		
 		if(validationFormulaire()){
-			// à revoir la récupération de l'agent
+			// ï¿½ revoir la rï¿½cupï¿½ration de l'agent
 			Equipement newEquipement = new Equipement(typeEquipement.getValue(), TransformationDonnees.getIntValue(numPoste), null, TransformationDonnees.getDoubleValue(prix), TransformationDonnees.getIntValue(nbJoursPrev), TransformationDonnees.formatDate(dateAchat));
 			EquipementDao equipementDao = new EquipementDao();
 			DatabaseConnection.startConnection();

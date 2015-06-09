@@ -14,7 +14,7 @@
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
-                <CheckBox fx:id="checkBoxTableauNbLigne" onAction="#changeTableauLimite" layoutX="138.0" layoutY="58.0" mnemonicParsing="false" text="Limiter le nombre d'enregistrement" />
+                <CheckBox fx:id="checkBoxTableauNbLigne" layoutX="138.0" layoutY="58.0" mnemonicParsing="false" onAction="#changeTableauLimite" text="Limiter le nombre d'enregistrement" />
                 <Label layoutX="76.0" layoutY="124.0" prefWidth="105.0" text="Nombre de ligne" />
                 <TextField fx:id="textFieldTableauNbLigne" layoutX="241.0" layoutY="121.0" prefWidth="200.0" />
               </children>
@@ -40,6 +40,18 @@
         <Tab text="Mail">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          </content>
+        </Tab>
+        <Tab text="Types d'équipements">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <ListView layoutX="33.0" layoutY="31.0" prefHeight="326.0" prefWidth="200.0" />
+                <Button layoutX="241.0" layoutY="31.0" mnemonicParsing="false" prefWidth="33.0" text="+" />
+                <Button layoutX="241.0" layoutY="59.0" mnemonicParsing="false" prefWidth="33.0" text="-" />
+                <TextField layoutX="283.0" layoutY="30.0" prefWidth="177.0" />
+              </children>
+            </AnchorPane>
           </content>
         </Tab>
       </tabs>
