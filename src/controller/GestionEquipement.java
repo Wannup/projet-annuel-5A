@@ -18,6 +18,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableCell;
@@ -26,8 +28,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
 import model.Equipement;
@@ -63,7 +67,10 @@ public class GestionEquipement implements Initializable{
 	private TableColumn<Equipement, String> columnAgent;
 	
 	@FXML
-	private TableColumn<Equipement, String> columnLogiciels;
+	private TableColumn<Equipement, String> columnType;
+	
+	@FXML
+	private TableColumn<Equipement, String> columnCalife;
 	
 	@FXML
 	private TableColumn<Equipement, Equipement> columnModifier;
@@ -97,16 +104,8 @@ public class GestionEquipement implements Initializable{
 				return new SimpleStringProperty(p.getValue().getAgent().getNumCP());
 			}
 		});
-		columnLogiciels.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
-			public ObservableValue<String> call(CellDataFeatures<Equipement, String> p) {
-				String Logiciels  = "";
-				for (Logiciel logiciel : p.getValue().getLogiciels()) {
-					Logiciels += logiciel.getNom() + ",";
-				}
-				return new SimpleStringProperty(Logiciels);
-			}
-		});
-		
+		columnType.setCellValueFactory(new PropertyValueFactory<Equipement,String>("typeEquipement")); 
+		columnCalife.setCellValueFactory(new PropertyValueFactory<Equipement,String>("calife")); 
 		columnModifier.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Equipement, Equipement>, ObservableValue<Equipement>>() {
 		      @Override public ObservableValue<Equipement> call(TableColumn.CellDataFeatures<Equipement, Equipement> features) {
 		    	  return new ReadOnlyObjectWrapper<Equipement>(features.getValue());
@@ -121,16 +120,36 @@ public class GestionEquipement implements Initializable{
 		             //   button.setGraphic(buttonGraphic);
 		                button.setMinWidth(70);
 		              }
-		              public void updateItem(Equipement person, boolean empty) {
-		                super.updateItem(person, empty);
-		                if (person != null) {
+		              public void updateItem(Equipement equipement, boolean empty) {
+		                super.updateItem(equipement, empty);
+		                if (equipement != null) {
 		                	button.setText("Voir");
 		                	//buttonGraphic.setImage(Image);
 
 		                  setGraphic(button);
 		                  button.setOnAction(new EventHandler<ActionEvent>() {
-		                    @Override public void handle(ActionEvent event) {
-		                     
+		                    @Override public void handle(ActionEvent event){
+		                    	try {
+		                    		Stage stage = new Stage();
+		                    		FXMLLoader fxmlLoader =  new FXMLLoader(getClass().getResource("/view/InformationEquipementPopup.fxml"));
+		                    		Parent root = (Parent)fxmlLoader.load(); 
+		                    		InformationEquipement controller = fxmlLoader.<InformationEquipement>getController();
+		                    		controller.setValues(equipement.getId());
+		                    		Scene scene = new Scene(root); 
+				                    stage.setScene(scene);    
+				                    stage.show(); 
+		                    		/*
+			                        stage.setTitle("Information");
+			                        stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
+			                        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/InformationEquipementPopup.fxml"))));
+			                        stage.getProperties().put("rowValue", equipement.getId());
+			                        stage.show();
+			                        */
+;
+			                         
+			                    } catch (IOException e) {
+									e.printStackTrace();
+								}	                    	
 		                    }
 		                  });
 		                } else {

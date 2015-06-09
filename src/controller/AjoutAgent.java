@@ -84,6 +84,7 @@ public class AjoutAgent implements Initializable{
 			DatabaseConnection.closeConnection();
 			informerValidation();
 		}	
+		
 	}
 	
 	private void informerValidation(){
