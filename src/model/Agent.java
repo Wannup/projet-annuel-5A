@@ -1,9 +1,16 @@
 package model;
 
+import javafx.stage.Stage;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+/**
+ * Agent est la classe représentant un agent.
+ * 
+ * @version 1.0
+ */
 @Entity
 public class Agent {
 
@@ -17,7 +24,18 @@ public class Agent {
 	private String numCP;
 	private String numPoste;
 	
+	/**
+	 * Constructeur par défaut
+	 */
 	public Agent(){}
+	
+	/**
+	 * Constructeur agent
+	 *
+	 * @param nom
+	 *     nom de l'agent
+	 * @see Stage
+	 */
 	public Agent(String nom, String prenom, String dateDeNaissance, String numCP, String numPoste) {
 		
 		this.nom = nom;

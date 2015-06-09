@@ -12,6 +12,11 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
+/**
+ * ExcelLogicielImport est la classe permettant d'importer des logiciels depuis un fichier excel.
+ * 
+ * @version 1.0
+ */
 public class ExcelLogicielImport extends ExcelDataImport {
 	
 	private List<Logiciel> logiciels;
@@ -20,10 +25,25 @@ public class ExcelLogicielImport extends ExcelDataImport {
 	private final int ID_CELL_PRIX = 2;
 	private final int ID_CELL_JOUR = 3;
 	
+	/**
+	 * Constructeur de la classe
+	 *
+	 * @param logiciels
+	 *     La liste des logiciels
+	 * @see List
+	 * @see Logiciel
+	 */
 	public ExcelLogicielImport (List<Logiciel> logiciels) {
 		this.logiciels = logiciels;
 	}
 
+	/**
+	 * Lit le fichier excel
+	 *
+	 * @param wb
+	 *     FIchier excel
+	 * @see HSSFWorkbook
+	 */
 	@Override
 	public void read(HSSFWorkbook wb) {
 		HSSFSheet sheet = wb.getSheetAt(0);

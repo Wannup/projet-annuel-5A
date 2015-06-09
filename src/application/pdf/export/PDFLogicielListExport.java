@@ -13,14 +13,36 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 
+/**
+ * PDFLogicielListExport est la classe permettant d'exporter une liste de logiciel au format PDF.
+ * 
+ * @version 1.0
+ */
 public class PDFLogicielListExport extends PDFDataExport {
 	
 	private List<Logiciel> logiciels;
 	
+	/**
+	 * Constructeur de la classe
+	 *
+	 * @param logiciels
+	 *     La liste des logiciels
+	 * @see List
+	 * @see Logiciel
+	 */
 	public PDFLogicielListExport (List<Logiciel> logiciels) {
 		this.logiciels = logiciels;
 	}
 	
+	/**
+	 * Ecrit le fichier PDF
+	 *
+	 * @param document
+	 *     Fichier PDF
+	 * @see Document
+	 * 
+	 * @throws DocumentException  Si jamais le document est incorect
+	 */
 	public void write (Document document) throws DocumentException {
 		
 		Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);

@@ -13,14 +13,36 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 
+/**
+ * PDFAgentListExport est la classe permettant d'exporter une liste d'agent au format PDF.
+ * 
+ * @version 1.0
+ */
 public class PDFAgentListExport extends PDFDataExport {
 	
 	private List<Agent> agents;
 	
+	/**
+	 * Constructeur de la classe
+	 *
+	 * @param agents
+	 *     La liste des agents
+	 * @see List
+	 * @see Agent
+	 */
 	public PDFAgentListExport (List<Agent> agents) {
 		this.agents = agents;
 	}
 	
+	/**
+	 * Ecrit le fichier PDF
+	 *
+	 * @param document
+	 *     Fichier PDF
+	 * @see Document
+	 * 
+	 * @throws DocumentException  Si jamais le document est incorect
+	 */
 	public void write (Document document) throws DocumentException {
 		
 		Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);

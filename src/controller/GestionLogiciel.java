@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import dao.LogicielDao;
-import model.Agent;
 import model.Logiciel;
 import application.database.DatabaseConnection;
 import application.excel.export.ExcelGenerator;
@@ -88,7 +87,7 @@ public class GestionLogiciel implements Initializable {
 		
 		columnModifier.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Logiciel, Logiciel>, ObservableValue<Logiciel>>() {
 		      @Override public ObservableValue<Logiciel> call(TableColumn.CellDataFeatures<Logiciel, Logiciel> features) {
-		    	  return new ReadOnlyObjectWrapper(features.getValue());
+		    	  return new ReadOnlyObjectWrapper<Logiciel>(features.getValue());
 		      }
 		    });
 		 
@@ -122,7 +121,7 @@ public class GestionLogiciel implements Initializable {
 		    
 		    columnSupprimer.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Logiciel, Logiciel>, ObservableValue<Logiciel>>() {
 			      @Override public ObservableValue<Logiciel> call(TableColumn.CellDataFeatures<Logiciel, Logiciel> features) {
-			    	  return new ReadOnlyObjectWrapper(features.getValue());
+			    	  return new ReadOnlyObjectWrapper<Logiciel>(features.getValue());
 			      }
 			    });
 			 

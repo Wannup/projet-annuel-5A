@@ -18,6 +18,11 @@ import org.apache.poi.ss.usermodel.Row;
 import application.database.DatabaseConnection;
 import dao.AgentDao;
 
+/**
+ * ExcelEquipementImport est la classe permettant d'importer des équipements depuis un fichier excel.
+ * 
+ * @version 1.0
+ */
 public class ExcelEquipementImport extends ExcelDataImport {
 	
 	private List<Equipement> equipements;
@@ -28,10 +33,25 @@ public class ExcelEquipementImport extends ExcelDataImport {
 	private final int ID_CELL_LOGICIEL = 4;
 	private final int ID_CELL_PRIX = 5;
 	
+	/**
+	 * Constructeur de la classe
+	 *
+	 * @param equipements
+	 *     La liste des equipements
+	 * @see List
+	 * @see Equipement
+	 */
 	public ExcelEquipementImport (List<Equipement> equipements) {
 		this.equipements = equipements;
 	}
 
+	/**
+	 * Lit le fichier excel
+	 *
+	 * @param wb
+	 *     FIchier excel
+	 * @see HSSFWorkbook
+	 */
 	@Override
 	public void read(HSSFWorkbook wb) {
 		HSSFSheet sheet = wb.getSheetAt(0);
