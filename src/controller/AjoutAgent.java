@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -32,9 +33,6 @@ public class AjoutAgent implements Initializable{
 	@FXML 
 	private TextField prenom;
 	
-	@FXML
-	private DatePicker dateNaiss;
-	
 	@FXML 
 	private TextField numCP;
 	
@@ -43,6 +41,9 @@ public class AjoutAgent implements Initializable{
 	
 	@FXML
 	private Label msgAjoutOk;
+	
+	@FXML
+	private ComboBox pole;
 	
 	private FXMLLoader loader;
 	
@@ -54,17 +55,7 @@ public class AjoutAgent implements Initializable{
 	};
 	
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		
-		dateNaiss.setOnMouseClicked(new EventHandler<MouseEvent>() {
-		    public void handle(MouseEvent me) {
-		       if(dateNaiss.getValue() == null)
-		    	   dateNaiss.setValue(LocalDate.of(1970, 6, 15));
-		       if(msgAjoutOk.isVisible())
-			    	  msgAjoutOk.setVisible(false);
-		    }
-		});
-		
+	public void initialize(URL location, ResourceBundle resources) {		
 		nom.setOnMouseClicked(enleverMessageAjout);
 		prenom.setOnMouseClicked(enleverMessageAjout);
 		numCP.setOnMouseClicked(enleverMessageAjout);
@@ -79,14 +70,14 @@ public class AjoutAgent implements Initializable{
 	
 	private boolean validationFormulaire(){
 		//Todo
-		//ajouter un controle sur le numeroCP pour voir si l'agent n'est pas déjà enregistré
+		//ajouter un controle sur le numeroCP pour voir si l'agent n'est pas dï¿½jï¿½ enregistrï¿½
 		return true;
 	}
 	
 	@FXML
 	private void enregistrerAgent(ActionEvent event){
 		if(validationFormulaire()){
-			Agent newAgent = new Agent(nom.getText(), prenom.getText(), TransformationDonnees.formatDate(dateNaiss), numCP.getText(), numPoste.getText());
+			Agent newAgent = new Agent(nom.getText(), prenom.getText(), /*todo pole */ "", numCP.getText(), numPoste.getText());
 			AgentDao agentDao = new AgentDao();
 			DatabaseConnection.startConnection();
 			agentDao.save(newAgent);
@@ -103,14 +94,13 @@ public class AjoutAgent implements Initializable{
 	private void viderTousLesChamps(){
 		nom.clear();
 		prenom.clear();
-		dateNaiss.getEditor().clear();
 		numCP.clear();
 		numPoste.clear();
 	}
 	
 	@FXML
 	private void selectionPoste(ActionEvent event) throws IOException{
-		// à changer
+		// ï¿½ changer
 		ManipInterface.newWindow("Selection d'un poste", FXMLLoader.load(getClass().getResource("/view/RecherchePopup.fxml")));
 		
 	}
