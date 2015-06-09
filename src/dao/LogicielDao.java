@@ -11,7 +11,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import application.database.DatabaseConnection;
-import model.Agent;
 import model.Logiciel;
 
 public class LogicielDao extends AbstractDao<Logiciel>{

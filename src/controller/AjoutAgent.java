@@ -43,7 +43,7 @@ public class AjoutAgent implements Initializable{
 	private Label msgAjoutOk;
 	
 	@FXML
-	private ComboBox pole;
+	private ComboBox<String> pole;
 	
 	private FXMLLoader loader;
 	
@@ -96,6 +96,7 @@ public class AjoutAgent implements Initializable{
 		prenom.clear();
 		numCP.clear();
 		numPoste.clear();
+		pole.getEditor().clear();
 	}
 	
 	@FXML

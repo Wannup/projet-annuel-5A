@@ -16,22 +16,86 @@ public class Equipement {
 	private int numeroEquipement;
 	private String typeEquipement;
 	private int nbJoursPrevUtilisation;
-	private String dateAchat;
+	private String dateGarantie;
+	private String marque;
+	private String modele;
+	private String calife;
+	private String info;
 	private Agent agent;
 	private List<Logiciel> logiciels;
 	private double prix;
 	
 	public Equipement(){}
 	
-	public Equipement(String typeEquip, int numeroPoste,  Agent agent, double prix, int nbJourPrev, String dateAchatEquip) {
+	public Equipement(String typeEquip, int numeroPoste,  Agent agent, double prix, int nbJourPrev, String dateGarantie, String marque, String modele, String calife, String info) {
 		this.typeEquipement = typeEquip;
 		this.numeroEquipement = numeroPoste;
 		this.agent = agent;
 		this.prix = prix;
 		this.nbJoursPrevUtilisation = nbJourPrev;
-		this.dateAchat = dateAchatEquip;
+		this.dateGarantie = dateGarantie;
+		this.marque = marque;
+		this.modele = modele;
+		this.calife = calife;
+		this.info = info;
 	}
 	
+	public String getInfo() {
+		return info;
+	}
+
+	public void setInfo(String info) {
+		this.info = info;
+	}
+
+	public int getIdEquipement() {
+		return idEquipement;
+	}
+
+	public void setIdEquipement(int idEquipement) {
+		this.idEquipement = idEquipement;
+	}
+
+	public String getTypeEquipement() {
+		return typeEquipement;
+	}
+
+	public void setTypeEquipement(String typeEquipement) {
+		this.typeEquipement = typeEquipement;
+	}
+
+	public String getDateGarantie() {
+		return dateGarantie;
+	}
+
+	public void setDateGarantie(String dateGarantie) {
+		this.dateGarantie = dateGarantie;
+	}
+
+	public String getMarque() {
+		return marque;
+	}
+
+	public void setMarque(String marque) {
+		this.marque = marque;
+	}
+
+	public String getModele() {
+		return modele;
+	}
+
+	public void setModele(String modele) {
+		this.modele = modele;
+	}
+
+	public String getCalife() {
+		return calife;
+	}
+
+	public void setCalife(String calife) {
+		this.calife = calife;
+	}
+
 	public int getId () {
 		return this.idEquipement;
 	}
@@ -93,11 +157,11 @@ public class Equipement {
 	}
 
 	public String getDateAchat() {
-		return dateAchat;
+		return dateGarantie;
 	}
 
 	public void setDateAchat(String dateAchat) {
-		this.dateAchat = dateAchat;
+		this.dateGarantie = dateAchat;
 	}
 	
 	

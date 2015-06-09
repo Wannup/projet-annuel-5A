@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,15 +15,18 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import model.Equipement;
 import model.Logiciel;
+import model.TypeEquipement;
 import tools.ManipInterface;
 import tools.TransformationDonnees;
 import application.database.DatabaseConnection;
 import dao.EquipementDao;
+import dao.TypeEquipementDao;
 
 public class AjoutEquipement implements Initializable{
 	
@@ -39,10 +43,22 @@ public class AjoutEquipement implements Initializable{
 	private TextField nbJoursPrev;
 
 	@FXML
-	private ComboBox<String> typeEquipement;
+	private TextField modele;
 	
 	@FXML
-	private DatePicker dateAchat;
+	private TextField marque;
+	
+	@FXML
+	private TextArea info;
+	
+	@FXML
+	private TextField calife;
+	
+	@FXML
+	private ComboBox<TypeEquipement> typeEquipement;
+	
+	@FXML
+	private DatePicker dateGarantie;
 	
 	@FXML
 	private CheckBox logicielsOuiNon;
@@ -59,6 +75,8 @@ public class AjoutEquipement implements Initializable{
 	@FXML
 	private Label msgAjoutOk;
 	
+	private TypeEquipementDao typeEquipementDao;
+	
 	private FXMLLoader loader;
 	
 	private EventHandler<MouseEvent> enleverMessageAjout = new EventHandler<MouseEvent>() {
@@ -72,6 +90,12 @@ public class AjoutEquipement implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		sectionLogiciel.setVisible(false);
+		
+		typeEquipementDao = new TypeEquipementDao();
+		DatabaseConnection.startConnection();
+		typeEquipement.getItems().addAll(FXCollections.observableArrayList(typeEquipementDao.findByAttributes(null)));
+		DatabaseConnection.closeConnection();
+				
 		
 		logicielsOuiNon.setOnAction(new EventHandler<ActionEvent>() {
 		    public void handle(ActionEvent me) {
@@ -130,7 +154,8 @@ public class AjoutEquipement implements Initializable{
 		
 		if(validationFormulaire()){
 			// � revoir la r�cup�ration de l'agent
-			Equipement newEquipement = new Equipement(typeEquipement.getValue(), TransformationDonnees.getIntValue(numPoste), null, TransformationDonnees.getDoubleValue(prix), TransformationDonnees.getIntValue(nbJoursPrev), TransformationDonnees.formatDate(dateAchat));
+			System.out.println(typeEquipement.getValue().getNom());
+			Equipement newEquipement = new Equipement(typeEquipement.getValue().getNom(), TransformationDonnees.getIntValue(numPoste), null, TransformationDonnees.getDoubleValue(prix), TransformationDonnees.getIntValue(nbJoursPrev), TransformationDonnees.formatDate(dateGarantie), marque.getText(), modele.getText(), calife.getText(), info.getText());
 			EquipementDao equipementDao = new EquipementDao();
 			DatabaseConnection.startConnection();
 			equipementDao.save(newEquipement);
@@ -147,11 +172,15 @@ public class AjoutEquipement implements Initializable{
 	private void viderTousLesChamps(){
 		
 		numPoste.clear();	
+		marque.clear();	
+		modele.clear();	
+		calife.clear();	
 		prix.clear();
+		info.clear();
 		numCPAgent.clear();
 		nbJoursPrev.clear();
 		typeEquipement.getEditor().clear();
-		dateAchat.getEditor().clear();
+		dateGarantie.getEditor().clear();
 		logicielsOuiNon.setSelected(false);
 		lstLogiciel.getItems().clear();
 	}
