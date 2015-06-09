@@ -19,7 +19,7 @@
       <columns>
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="192.0" text="Nom" fx:id="nomCol" />
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="130.0" text="Prénom" fx:id="prenomCol" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="154.0" text="Date de naissance" fx:id="dateDeNaissanceCol" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="154.0" text="Pôle/Service" fx:id="poleCol" />
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="112.0" text="N° de CP" fx:id="numCPCol" />
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="104.0" text="N° de Poste" fx:id="numPosteCol" />
         <TableColumn maxWidth="5000.0" minWidth="0.0" prefWidth="74.0" text="Modifier" fx:id="columnModifier" />

@@ -65,7 +65,7 @@ public class PDFLogicielListExport extends PDFDataExport {
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 
-	    c1 = new PdfPCell(new Phrase("Durée licence (en Jour)"));
+	    c1 = new PdfPCell(new Phrase("Numero licence"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 	    table.setHeaderRows(1);
@@ -73,7 +73,7 @@ public class PDFLogicielListExport extends PDFDataExport {
 	    for (Logiciel logiciel : logiciels) {
 	    	table.addCell(logiciel.getNom());
 		    table.addCell(String.valueOf(logiciel.getPrix()));
-		    table.addCell(String.valueOf(logiciel.getNbJourLicence()));
+		    table.addCell(String.valueOf(logiciel.getlicenceNumber()));
 	    }
 	    
 	    table.setHorizontalAlignment(Element.ALIGN_CENTER);

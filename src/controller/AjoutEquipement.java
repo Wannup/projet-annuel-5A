@@ -33,9 +33,6 @@ import dao.TypeEquipementDao;
 
 public class AjoutEquipement implements Initializable{
 	
-	@FXML
-	private TextField numPoste;
-	
 	@FXML 
 	private TextField prix;
 	
@@ -112,7 +109,6 @@ public class AjoutEquipement implements Initializable{
 			    }
 			});
 		
-		numPoste.setOnMouseClicked(enleverMessageAjout);	
 		prix.setOnMouseClicked(enleverMessageAjout);
 		numCPAgent.setOnMouseClicked(enleverMessageAjout);
 		nbJoursPrev.setOnMouseClicked(enleverMessageAjout);
@@ -163,7 +159,7 @@ public class AjoutEquipement implements Initializable{
 		if(validationFormulaire()){
 			// todo recupération de l'agent
 			System.out.println(typeEquipement.getValue().getNom());
-			Equipement newEquipement = new Equipement(typeEquipement.getValue().getNom(), TransformationDonnees.getIntValue(numPoste), null, TransformationDonnees.getDoubleValue(prix), TransformationDonnees.getIntValue(nbJoursPrev), TransformationDonnees.formatDate(dateGarantie), marque.getText(), modele.getText(), calife.getText(), info.getText());
+			Equipement newEquipement = new Equipement(typeEquipement.getValue().getNom(), null, TransformationDonnees.getDoubleValue(prix), TransformationDonnees.getIntValue(nbJoursPrev), TransformationDonnees.formatDate(dateGarantie), marque.getText(), modele.getText(), calife.getText(), info.getText());
 			EquipementDao equipementDao = new EquipementDao();
 			DatabaseConnection.startConnection();
 			equipementDao.save(newEquipement);
@@ -177,9 +173,7 @@ public class AjoutEquipement implements Initializable{
 		msgAjoutOk.setVisible(true);
 	}
 	
-	private void viderTousLesChamps(){
-		
-		numPoste.clear();	
+	private void viderTousLesChamps(){	
 		marque.clear();	
 		modele.clear();	
 		calife.clear();	

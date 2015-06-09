@@ -13,14 +13,12 @@
         <Font name="System Bold" size="17.0" />
       </font>
     </Label>
-    <TextField fx:id="numPoste" layoutX="188.0" layoutY="193.0" prefHeight="31.0" prefWidth="200.0" />
-    <Label layoutX="58.0" layoutY="198.0" text="N° d'équipement" />
     <Label layoutX="81.0" layoutY="260.0" text="Valeur (€)" />
     <TextField fx:id="prix" layoutX="188.0" layoutY="255.0" prefHeight="31.0" prefWidth="200.0" />
     <Button fx:id="btnEditDelete" layoutX="341.0" layoutY="22.0" mnemonicParsing="false" onAction="#displayEditDelete" text="Modifier/Supprimer des équipements" />
     <Separator layoutX="0.0" layoutY="63.0" prefWidth="900.0" />
     <TextField fx:id="nbJoursPrev" layoutX="637.0" layoutY="193.0" prefHeight="31.0" prefWidth="200.0" />
-    <Label layoutX="448.0" layoutY="201.0" text="Jours avant renouvellement" />
+    <Label layoutX="473.0" layoutY="200.0" text="Jours avant renouvellement" />
     <AnchorPane fx:id="sectionLogiciel" layoutX="37.0" layoutY="505.0" prefHeight="152.0" prefWidth="824.0">
       <children>
         <ListView fx:id="lstLogiciel" layoutX="149.0" layoutY="14.0" prefHeight="108.0" prefWidth="200.0" />
@@ -42,15 +40,15 @@
         <Font name="System Bold" size="15.0" />
       </font>
     </Label>
-    <Label layoutX="500.0" layoutY="263.0" text="Nom Calife" />
-    <TextField fx:id="calife" layoutX="637.0" layoutY="255.0" prefHeight="31.0" prefWidth="200.0" />
+    <Label layoutX="78.0" layoutY="201.0" text="Nom Calife" />
+    <TextField fx:id="calife" layoutX="188.0" layoutY="193.0" prefHeight="31.0" prefWidth="200.0" />
     <Label layoutX="87.0" layoutY="317.0" text="Marque" />
     <TextField fx:id="marque" layoutX="188.0" layoutY="312.0" prefHeight="31.0" prefWidth="200.0" />
-    <Label layoutX="512.0" layoutY="320.0" text="Modèle" />
-    <TextField fx:id="modele" layoutX="637.0" layoutY="312.0" prefHeight="31.0" prefWidth="200.0" />
+    <Label layoutX="527.0" layoutY="262.0" text="Modèle" />
+    <TextField fx:id="modele" layoutX="637.0" layoutY="256.0" prefHeight="31.0" prefWidth="200.0" />
     <Label layoutX="58.0" layoutY="373.0" text="Date fin garantie" />
-    <DatePicker fx:id="dateGarantie" layoutX="207.0" layoutY="366.0" prefHeight="31.0" prefWidth="200.0" />
-    <TextArea fx:id="info" layoutX="639.0" layoutY="372.0" prefHeight="266.0" prefWidth="200.0" wrapText="true" />
-    <Label layoutX="476.0" layoutY="373.0" text="Autres informations" />
+    <DatePicker fx:id="dateGarantie" layoutX="186.0" layoutY="366.0" prefHeight="31.0" prefWidth="200.0" />
+    <TextArea fx:id="info" layoutX="637.0" layoutY="316.0" prefHeight="266.0" prefWidth="200.0" wrapText="true" />
+    <Label layoutX="495.0" layoutY="317.0" text="Autres informations" />
   </children>
 </AnchorPane>

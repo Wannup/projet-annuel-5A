@@ -57,7 +57,7 @@ public class GestionLogiciel implements Initializable {
 	private TableColumn<Logiciel, Double> columnPrix;
 	
 	@FXML
-	private TableColumn<Logiciel, Integer> columnDuree;
+	private TableColumn<Logiciel, Integer> columnLicenceNumber;
 	
 	@FXML
 	private TableColumn<Logiciel, Logiciel> columnModifier;
@@ -83,7 +83,7 @@ public class GestionLogiciel implements Initializable {
 		this.list = new ArrayList<>();
 		columnLibelle.setCellValueFactory(new PropertyValueFactory<Logiciel,String>("nom"));        
 		columnPrix.setCellValueFactory(new PropertyValueFactory<Logiciel,Double>("prix"));
-		columnDuree.setCellValueFactory(new PropertyValueFactory<Logiciel,Integer>("nbJourLicence"));
+		columnLicenceNumber.setCellValueFactory(new PropertyValueFactory<Logiciel,Integer>("licenceNumber"));
 		
 		columnModifier.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Logiciel, Logiciel>, ObservableValue<Logiciel>>() {
 		      @Override public ObservableValue<Logiciel> call(TableColumn.CellDataFeatures<Logiciel, Logiciel> features) {

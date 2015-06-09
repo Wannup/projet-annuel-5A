@@ -25,7 +25,7 @@ public class AjoutLogiciel implements Initializable{
 	private TextField libelle;
 	
 	@FXML
-	private TextField duree;
+	private TextField licenceNumber;
 	
 	@FXML
 	private TextField prix;
@@ -54,7 +54,7 @@ public class AjoutLogiciel implements Initializable{
 	@FXML
 	private void enregistrerLogiciel(ActionEvent event){
 		if(validationFormulaire()){
-			Logiciel newLogiciel = new Logiciel(libelle.getText(), Double.parseDouble(duree.getText()), Integer.parseInt(prix.getText()));
+			Logiciel newLogiciel = new Logiciel(libelle.getText(), Double.parseDouble(licenceNumber.getText()), Integer.parseInt(prix.getText()));
 			LogicielDao logicielDao = new LogicielDao();
 			DatabaseConnection.startConnection();
 			logicielDao.save(newLogiciel);
@@ -70,7 +70,7 @@ public class AjoutLogiciel implements Initializable{
 	
 	private void viderTousLesChamps(){
 		libelle.clear();
-		duree.clear();
+		licenceNumber.clear();
 		prix.clear();
 	}
 }

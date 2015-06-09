@@ -60,7 +60,7 @@ public class GestionAgent implements Initializable{
 	private TableColumn<Agent, String> prenomCol;
 	
 	@FXML
-	private TableColumn<Agent, String> dateDeNaissanceCol;
+	private TableColumn<Agent, String> poleCol;
 	
 	@FXML
 	private TableColumn<Agent, String> numCPCol;
@@ -90,7 +90,7 @@ public class GestionAgent implements Initializable{
 		this.list = new ArrayList<>();
 		nomCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("nom"));        
 	    prenomCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("prenom"));
-	    dateDeNaissanceCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("dateDeNaissance"));
+	    poleCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("pole"));
 	    numCPCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("numCP"));
 	    numPosteCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("numPoste"));
 	    

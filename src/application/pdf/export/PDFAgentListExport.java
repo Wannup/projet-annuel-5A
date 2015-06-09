@@ -65,7 +65,7 @@ public class PDFAgentListExport extends PDFDataExport {
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 
-	    c1 = new PdfPCell(new Phrase("Date de naissance"));
+	    c1 = new PdfPCell(new Phrase("Tel"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 
@@ -81,7 +81,7 @@ public class PDFAgentListExport extends PDFDataExport {
 	    for (Agent agent : agents) {
 	    	table.addCell(agent.getNom());
 		    table.addCell(agent.getPrenom());
-		    table.addCell(agent.getDateDeNaissance());
+		    table.addCell(agent.getTel());
 		    table.addCell(agent.getNumCP());
 		    table.addCell(agent.getNumPoste());
 	    }

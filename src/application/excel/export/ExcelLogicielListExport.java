@@ -44,14 +44,14 @@ public class ExcelLogicielListExport extends ExcelDataExport {
 		
 		row.createCell(0, HSSFCell.CELL_TYPE_STRING).setCellValue("Libelle logiciel");
 		row.createCell(1, HSSFCell.CELL_TYPE_STRING).setCellValue("Valeur licence (€)");
-		row.createCell(2, HSSFCell.CELL_TYPE_STRING).setCellValue("Durée licence (en Jour)");
+		row.createCell(2, HSSFCell.CELL_TYPE_STRING).setCellValue("Numero de licence");
 	    
 		int ligne = 1;
 	    for (Logiciel logiciel : logiciels) {
 	    	row = sheet.createRow(ligne);
 	    	row.createCell(0, HSSFCell.CELL_TYPE_STRING).setCellValue(logiciel.getNom());
 			row.createCell(1, HSSFCell.CELL_TYPE_NUMERIC).setCellValue(logiciel.getPrix());
-			row.createCell(2, HSSFCell.CELL_TYPE_NUMERIC).setCellValue(logiciel.getNbJourLicence());
+			row.createCell(2, HSSFCell.CELL_TYPE_NUMERIC).setCellValue(logiciel.getlicenceNumber());
 			ligne++;
 	    }
 	}

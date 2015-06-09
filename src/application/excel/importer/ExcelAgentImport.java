@@ -67,7 +67,7 @@ public class ExcelAgentImport extends ExcelDataImport {
 							agent.setPrenom(cell.getStringCellValue());
 							break;
 						case ID_CELL_DATE :
-							agent.setDateDeNaissance(cell.getStringCellValue());
+							agent.setTel(cell.getStringCellValue());
 							break;
 						case ID_CELL_CP :
 							agent.setNumCP(cell.getStringCellValue());

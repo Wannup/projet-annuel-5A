@@ -5,6 +5,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,10 +18,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import model.Agent;
+import model.Pole;
 import tools.ManipInterface;
 import tools.TransformationDonnees;
 import application.database.DatabaseConnection;
 import dao.AgentDao;
+import dao.PoleDao;
+import dao.TypeEquipementDao;
 
 public class AjoutAgent implements Initializable{
 	
@@ -37,15 +41,20 @@ public class AjoutAgent implements Initializable{
 	private TextField numCP;
 	
 	@FXML 
+	private TextField tel;
+	
+	@FXML 
 	private TextField numPoste;
 	
 	@FXML
 	private Label msgAjoutOk;
 	
 	@FXML
-	private ComboBox<String> pole;
+	private ComboBox<Pole> pole;
 	
 	private FXMLLoader loader;
+	
+	private PoleDao poleDao;
 	
 	private EventHandler<MouseEvent> enleverMessageAjout = new EventHandler<MouseEvent>() {
 	    public void handle(MouseEvent me) {
@@ -60,6 +69,11 @@ public class AjoutAgent implements Initializable{
 		prenom.setOnMouseClicked(enleverMessageAjout);
 		numCP.setOnMouseClicked(enleverMessageAjout);
 		numPoste.setOnMouseClicked(enleverMessageAjout);
+		
+		poleDao = new PoleDao();
+		DatabaseConnection.startConnection();
+		pole.getItems().addAll(FXCollections.observableArrayList(poleDao.findByAttributes(null)));
+		DatabaseConnection.closeConnection();
 	}
 	
 	@FXML
@@ -77,7 +91,7 @@ public class AjoutAgent implements Initializable{
 	@FXML
 	private void enregistrerAgent(ActionEvent event){
 		if(validationFormulaire()){
-			Agent newAgent = new Agent(nom.getText(), prenom.getText(), /*todo pole */ "", numCP.getText(), numPoste.getText());
+			Agent newAgent = new Agent(nom.getText(), prenom.getText(), /*todo pole */ "", tel.getText(), numCP.getText(), numPoste.getText());
 			AgentDao agentDao = new AgentDao();
 			DatabaseConnection.startConnection();
 			agentDao.save(newAgent);

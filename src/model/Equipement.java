@@ -60,9 +60,8 @@ public class Equipement {
 	 *     information de l'équipement
 	 * @see Agent
 	 */
-	public Equipement(String typeEquip, int numeroPoste,  Agent agent, double prix, int nbJourPrev, String dateGarantie, String marque, String modele, String calife, String info) {
+	public Equipement(String typeEquip, Agent agent, double prix, int nbJourPrev, String dateGarantie, String marque, String modele, String calife, String info) {
 		this.typeEquipement = typeEquip;
-		this.numeroEquipement = numeroPoste;
 		this.agent = agent;
 		this.prix = prix;
 		this.nbJoursPrevUtilisation = nbJourPrev;

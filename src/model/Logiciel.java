@@ -20,7 +20,7 @@ public class Logiciel {
 	
 	private double prix;
 	
-	private int nbJourLicence;
+	private int licenceNumber;
 
 	/**
 	 * Constructeur par défaut
@@ -37,11 +37,11 @@ public class Logiciel {
 	 * @param nbJourLicence
 	 *     nombre de jour du logiciel
 	 */
-	public Logiciel(String nom, double prix, int nbJourLicence) {
+	public Logiciel(String nom, double prix, int licenceNumber) {
 		
 		this.nom = nom;
 		this.prix = prix;
-		this.nbJourLicence = nbJourLicence;
+		this.licenceNumber = licenceNumber;
 	}
 	
 	/**
@@ -98,8 +98,8 @@ public class Logiciel {
      * 
      * @return un entier correspondant au nombre de jour du logiciel.
     */
-	public int getNbJourLicence() {
-		return nbJourLicence;
+	public int getlicenceNumber() {
+		return licenceNumber;
 	}
 
 	/**
@@ -109,8 +109,8 @@ public class Logiciel {
 	*     nombre de jour du logiciel
 	*     
 	*/
-	public void setNbJourLicence(int nbJourLicence) {
-		this.nbJourLicence = nbJourLicence;
+	public void setNbJourLicence(int licenceNumber) {
+		this.licenceNumber = licenceNumber;
 	}
 	
 

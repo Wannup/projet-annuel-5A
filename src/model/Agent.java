@@ -18,9 +18,10 @@ public class Agent {
 	
 	private String nom;
 	private String prenom;
-	private String dateDeNaissance;
+	private String tel;
 	private String numCP;
 	private String numPoste;
+	private String pole;
 	
 	/**
 	 * Constructeur par défaut
@@ -42,13 +43,13 @@ public class Agent {
 	 *     numéro de poste de l'agent
 	 *     
 	 */
-	public Agent(String nom, String prenom, String dateDeNaissance, String numCP, String numPoste) {
-		
+	public Agent(String nom, String prenom, String pole, String tel, String numCP, String numPoste) {		
 		this.nom = nom;
 		this.prenom = prenom;
-		this.dateDeNaissance = dateDeNaissance;
+		this.tel = tel;
 		this.numCP = numCP;
 		this.numPoste = numPoste;
+		this.pole = pole;
 	}
 	
 	/**
@@ -58,6 +59,22 @@ public class Agent {
      */
 	public int getId () {
 		return this.idAgent;
+	}
+
+	public int getIdAgent() {
+		return idAgent;
+	}
+
+	public void setIdAgent(int idAgent) {
+		this.idAgent = idAgent;
+	}
+
+	public String getPole() {
+		return pole;
+	}
+
+	public void setPole(String pole) {
+		this.pole = pole;
 	}
 
 	/**
@@ -105,8 +122,8 @@ public class Agent {
      * 
      * @return une chaine de caractère correspondant au nom de l'agent.
      */
-	public String getDateDeNaissance() {
-		return dateDeNaissance;
+	public String getTel() {
+		return tel;
 	}
 
 	/**
@@ -116,8 +133,8 @@ public class Agent {
 	*     date de naissance de l'agent
 	*     
 	*/
-	public void setDateDeNaissance(String dateDeNaissance) {
-		this.dateDeNaissance = dateDeNaissance;
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
 
 	/**
