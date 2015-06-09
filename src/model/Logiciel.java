@@ -4,6 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+/**
+ * Logiciel est la classe représentant un logiciel.
+ * 
+ * @version 1.0
+ */
 @Entity
 public class Logiciel {
 	
@@ -17,7 +22,21 @@ public class Logiciel {
 	
 	private int nbJourLicence;
 
+	/**
+	 * Constructeur par défaut
+	 */
 	public Logiciel(){}
+	
+	/**
+	 * Constructeur logiciel
+	 *
+	 * @param nom
+	 *     nom du logiciel
+	 * @param prix
+	 *     prix du logiciel
+	 * @param nbJourLicence
+	 *     nombre de jour du logiciel
+	 */
 	public Logiciel(String nom, double prix, int nbJourLicence) {
 		
 		this.nom = nom;
@@ -25,34 +44,74 @@ public class Logiciel {
 		this.nbJourLicence = nbJourLicence;
 	}
 	
+	/**
+     * Retourne l'identifiant du logiciel.
+     * 
+     * @return un entier correspondant à l'identifiant du logiciel.
+    */
 	public int getId () {
 		return this.idLogiciel;
 	}
 
+	/**
+     * Retourne le nom du logiciel.
+     * 
+     * @return une chaine de caractère correspondant au nom du logiciel.
+    */
 	public String getNom() {
 		return nom;
 	}
 
+	/**
+	* Affecte un nouveau nom au logiciel
+	*
+	* @param nom
+	*     nom du logiciel
+	*     
+	*/
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
 
+	/**
+     * Retourne le prix du logiciel.
+     * 
+     * @return prix du logiciel.
+    */
 	public double getPrix() {
 		return prix;
 	}
 
+	/**
+	* Affecte un nouveau prix au logiciel
+	*
+	* @param prix
+	*     prix du logiciel
+	*     
+	*/
 	public void setPrix(double prix) {
 		this.prix = prix;
 	}
 
+	/**
+     * Retourne le nombre de jour du logiciel.
+     * 
+     * @return un entier correspondant au nombre de jour du logiciel.
+    */
 	public int getNbJourLicence() {
 		return nbJourLicence;
 	}
 
+	/**
+	* Affecte un nouveau nombre de jour au logiciel
+	*
+	* @param nbJourLicence
+	*     nombre de jour du logiciel
+	*     
+	*/
 	public void setNbJourLicence(int nbJourLicence) {
 		this.nbJourLicence = nbJourLicence;
 	}
-	
 	
 
 }
