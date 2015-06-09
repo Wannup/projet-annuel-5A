@@ -16,7 +16,6 @@ public class ConsultationEquipement implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
 		List<Equipement> list = new ArrayList<>();
 		ObservableList<String> items = FXCollections.observableArrayList();
 		for (Equipement equip : list) {

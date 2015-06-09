@@ -14,14 +14,36 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 
+/**
+ * PDFEquipementListExport est la classe permettant d'exporter une liste équipement au format PDF.
+ * 
+ * @version 1.0
+ */
 public class PDFEquipementListExport extends PDFDataExport {
 	
 	private List<Equipement> equipements;
 	
+	/**
+	 * Constructeur de la classe
+	 *
+	 * @param equipements
+	 *     La liste des equipements
+	 * @see List
+	 * @see Equipement
+	 */
 	public PDFEquipementListExport (List<Equipement> equipements) {
 		this.equipements = equipements;
 	}
 	
+	/**
+	 * Ecrit le fichier PDF
+	 *
+	 * @param document
+	 *     Fichier PDF
+	 * @see Document
+	 * 
+	 * @throws DocumentException  Si jamais le document est incorect
+	 */
 	public void write (Document document) throws DocumentException {
 		
 		Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);

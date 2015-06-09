@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,14 +22,12 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
 import model.Agent;
-import model.Equipement;
 import tools.Config;
 import tools.ManipInterface;
 import application.database.DatabaseConnection;
@@ -99,7 +96,7 @@ public class GestionAgent implements Initializable{
 	    
 	    columnModifier.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Agent, Agent>, ObservableValue<Agent>>() {
 	      @Override public ObservableValue<Agent> call(TableColumn.CellDataFeatures<Agent, Agent> features) {
-	    	  return new ReadOnlyObjectWrapper(features.getValue());
+	    	  return new ReadOnlyObjectWrapper<Agent>(features.getValue());
 	      }
 	    });
 	 
@@ -133,7 +130,7 @@ public class GestionAgent implements Initializable{
 	    
 	    columnSupprimer.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Agent, Agent>, ObservableValue<Agent>>() {
 		      @Override public ObservableValue<Agent> call(TableColumn.CellDataFeatures<Agent, Agent> features) {
-		    	  return new ReadOnlyObjectWrapper(features.getValue());
+		    	  return new ReadOnlyObjectWrapper<Agent>(features.getValue());
 		      }
 		    });
 		 

@@ -4,13 +4,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import model.Agent;
 import model.Logiciel;
 import application.database.DatabaseConnection;
-import dao.AgentDao;
 import dao.LogicielDao;
 import tools.ManipInterface;
-import tools.TransformationDonnees;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,7 +37,6 @@ public class AjoutLogiciel implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
 		
 	}
 

@@ -9,7 +9,6 @@ import java.util.ResourceBundle;
 
 import dao.EquipementDao;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -31,7 +30,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
-import model.Agent;
 import model.Equipement;
 import model.Logiciel;
 import tools.Config;
@@ -111,7 +109,7 @@ public class GestionEquipement implements Initializable{
 		
 		columnModifier.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Equipement, Equipement>, ObservableValue<Equipement>>() {
 		      @Override public ObservableValue<Equipement> call(TableColumn.CellDataFeatures<Equipement, Equipement> features) {
-		    	  return new ReadOnlyObjectWrapper(features.getValue());
+		    	  return new ReadOnlyObjectWrapper<Equipement>(features.getValue());
 		      }
 		    });
 		 
@@ -145,7 +143,7 @@ public class GestionEquipement implements Initializable{
 		    
 		    columnSupprimer.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Equipement, Equipement>, ObservableValue<Equipement>>() {
 			      @Override public ObservableValue<Equipement> call(TableColumn.CellDataFeatures<Equipement, Equipement> features) {
-			    	  return new ReadOnlyObjectWrapper(features.getValue());
+			    	  return new ReadOnlyObjectWrapper<Equipement>(features.getValue());
 			      }
 			    });
 			 

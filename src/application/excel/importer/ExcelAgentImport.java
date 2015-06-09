@@ -12,6 +12,11 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
+/**
+ * ExcelAgentImport est la classe permettant d'importer des agents depuis un fichier excel.
+ * 
+ * @version 1.0
+ */
 public class ExcelAgentImport extends ExcelDataImport {
 	
 	private List<Agent> agents;
@@ -22,10 +27,25 @@ public class ExcelAgentImport extends ExcelDataImport {
 	private final int ID_CELL_CP = 4;
 	private final int ID_CELL_POSTE = 5;
 	
+	/**
+	 * Constructeur de la classe
+	 *
+	 * @param agents
+	 *     La liste des agents
+	 * @see List
+	 * @see Agent
+	 */
 	public ExcelAgentImport (List<Agent> agents) {
 		this.agents = agents;
 	}
 
+	/**
+	 * Lit le fichier excel
+	 *
+	 * @param wb
+	 *     FIchier excel
+	 * @see HSSFWorkbook
+	 */
 	@Override
 	public void read(HSSFWorkbook wb) {
 		HSSFSheet sheet = wb.getSheetAt(0);
