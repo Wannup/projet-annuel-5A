@@ -38,6 +38,7 @@ public class Equipement {
 		this.modele = modele;
 		this.calife = calife;
 		this.info = info;
+		
 	}
 	
 	public String getInfo() {

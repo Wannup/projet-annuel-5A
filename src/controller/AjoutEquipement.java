@@ -153,7 +153,7 @@ public class AjoutEquipement implements Initializable{
 	private void enregistrerEquipement(ActionEvent event){
 		
 		if(validationFormulaire()){
-			// � revoir la r�cup�ration de l'agent
+			// todo recupération de l'agent
 			System.out.println(typeEquipement.getValue().getNom());
 			Equipement newEquipement = new Equipement(typeEquipement.getValue().getNom(), TransformationDonnees.getIntValue(numPoste), null, TransformationDonnees.getDoubleValue(prix), TransformationDonnees.getIntValue(nbJoursPrev), TransformationDonnees.formatDate(dateGarantie), marque.getText(), modele.getText(), calife.getText(), info.getText());
 			EquipementDao equipementDao = new EquipementDao();

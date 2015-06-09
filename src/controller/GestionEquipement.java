@@ -159,7 +159,7 @@ public class GestionEquipement implements Initializable{
 			                super.updateItem(person, empty);
 			                if (person != null) {
 			                	button.setText("X");
-			                	//buttonGraphic.setImage(Image);
+			                	//buttonGraphic.setImage(Image); 
 
 			                  setGraphic(button);
 			                  button.setOnAction(new EventHandler<ActionEvent>() {

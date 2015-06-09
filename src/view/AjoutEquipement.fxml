@@ -49,7 +49,7 @@
     <Label layoutX="512.0" layoutY="320.0" text="Modèle" />
     <TextField fx:id="modele" layoutX="637.0" layoutY="312.0" prefHeight="31.0" prefWidth="200.0" />
     <Label layoutX="58.0" layoutY="373.0" text="Date fin garantie" />
-    <DatePicker fx:id="dateGarantie" layoutX="208.0" layoutY="366.0" prefHeight="31.0" prefWidth="200.0" />
+    <DatePicker fx:id="dateGarantie" layoutX="207.0" layoutY="366.0" prefHeight="31.0" prefWidth="200.0" />
     <TextArea fx:id="info" layoutX="639.0" layoutY="372.0" prefHeight="266.0" prefWidth="200.0" wrapText="true" />
     <Label layoutX="476.0" layoutY="373.0" text="Autres informations" />
   </children>

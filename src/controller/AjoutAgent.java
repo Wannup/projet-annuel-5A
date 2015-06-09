@@ -70,7 +70,7 @@ public class AjoutAgent implements Initializable{
 	
 	private boolean validationFormulaire(){
 		//Todo
-		//ajouter un controle sur le numeroCP pour voir si l'agent n'est pas d�j� enregistr�
+		//ajouter un controle sur le numeroCP pour voir si l'agent n'est pas deja enregistré
 		return true;
 	}
 	
