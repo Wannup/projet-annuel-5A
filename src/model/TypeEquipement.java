@@ -17,6 +17,7 @@ public class TypeEquipement {
 	private int idType;
 	
 	private String nom;
+	private int nbMonthRenewal;
 	
 	/**
 	 * Constructeur par défaut
@@ -26,11 +27,15 @@ public class TypeEquipement {
 	/**
 	 * Constructeur pole
 	 *
-	 * @param nom
+	 * @param nomType
 	 *     nom du type d'équipement
+	 *     
+	 *  @param nbMonth
+	 *     nombre de mois par défaut pour le renouvellement de ce type d'équipement 
 	 */
-	public TypeEquipement(String nom) {
-		this.nom = nom;
+	public TypeEquipement(String nomType, int nbMonth) {
+		nom = nomType;
+		nbMonthRenewal = nbMonth;
 	}
 	
 	/**
@@ -39,7 +44,7 @@ public class TypeEquipement {
      * @return un entier correspondant à l'identifiant du type d'équipement.
     */
 	public int getId () {
-		return this.idType;
+		return idType;
 	}
 
 	/**
@@ -54,14 +59,34 @@ public class TypeEquipement {
 	/**
 	* Affecte un nouveau nom au type d'équipement
 	*
-	* @param nom
+	* @param nomType
 	*     nom du type d'équipement
 	*     
 	*/
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setNom(String nomType) {
+		nom = nomType;
 	}
 	
+	/**
+     * Retourne le nombre de mois pour le renouvellement de ce type d'équipement.
+     * 
+     * @return un entier.
+    */
+	public int getNbMonthRenewal() {
+		return nbMonthRenewal;
+	}
+
+	/**
+	* Affecte une nouvelle durée de renouvellement au type d'équipement
+	*
+	* @param nbMonthRenewalType
+	*     nombre de mois par défaut pour le renouvellement de ce type d'équipement
+	*     
+	*/
+	public void setNbMonthRenewal(int nbMonthRenewalType) {
+		nbMonthRenewal = nbMonthRenewalType;
+	}
+
 	/**
      * Retourne un type d'équipement sous forme de chaine.
      * 

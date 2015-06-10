@@ -15,7 +15,7 @@ public class TransformationDonnees {
 
 	public static int getIntValue(TextField champ) {
 		try {
-			return Integer.parseInt(champ.getText());
+			return Integer.parseInt(champ.getText().trim());
 		} catch (NumberFormatException e) {
 			return -1;
 		}
@@ -23,7 +23,7 @@ public class TransformationDonnees {
 
 	public static double getDoubleValue(TextField champ) {
 		try {
-			return Double.parseDouble(champ.getText());
+			return Double.parseDouble(champ.getText().trim());
 		} catch (NumberFormatException e) {
 			return -1;
 		}

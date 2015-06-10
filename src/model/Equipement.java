@@ -46,8 +46,6 @@ public class Equipement {
 	 *     agent lié à l'équipement
 	 * @param prix
 	 *     prix de l'équipement
-	 * @param nbJourPrev
-	 *     nombre de jour
 	 * @param dateGarantie
 	 *     date de garantie
 	 * @param marque
@@ -60,11 +58,10 @@ public class Equipement {
 	 *     information de l'équipement
 	 * @see Agent
 	 */
-	public Equipement(String typeEquip, Agent agent, double prix, int nbJourPrev, String dateGarantie, String marque, String modele, String calife, String info) {
+	public Equipement(String typeEquip, Agent agent, double prix, String dateGarantie, String marque, String modele, String calife, String info) {
 		this.typeEquipement = typeEquip;
 		this.agent = agent;
 		this.prix = prix;
-		this.nbJoursPrevUtilisation = nbJourPrev;
 		this.dateGarantie = dateGarantie;
 		this.marque = marque;
 		this.modele = modele;

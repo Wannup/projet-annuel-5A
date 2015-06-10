@@ -11,15 +11,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Equipement;
@@ -28,6 +28,7 @@ import model.TypeEquipement;
 import tools.ManipInterface;
 import tools.TransformationDonnees;
 import application.database.DatabaseConnection;
+import dao.AgentDao;
 import dao.EquipementDao;
 import dao.TypeEquipementDao;
 
@@ -38,9 +39,6 @@ public class AjoutEquipement implements Initializable{
 	
 	@FXML 
 	private TextField numCPAgent;
-	
-	@FXML
-	private TextField nbJoursPrev;
 
 	@FXML
 	private TextField modele;
@@ -61,6 +59,9 @@ public class AjoutEquipement implements Initializable{
 	private DatePicker dateGarantie;
 	
 	@FXML
+	private DatePicker dateLivraison;
+	
+	@FXML
 	private CheckBox logicielsOuiNon;
 	
 	@FXML 
@@ -72,19 +73,14 @@ public class AjoutEquipement implements Initializable{
 	@FXML
 	private AnchorPane sectionLogiciel;
 	
-	@FXML
-	private Label msgAjoutOk;
-	
 	private TypeEquipementDao typeEquipementDao;
+	
+	private AgentDao agentDao;
 	
 	private FXMLLoader loader;
 	
-	private EventHandler<MouseEvent> enleverMessageAjout = new EventHandler<MouseEvent>() {
-	    public void handle(MouseEvent me) {
-		       if(msgAjoutOk.isVisible())
-		    	  msgAjoutOk.setVisible(false);
-		}
-	};
+	private String errorMessage = "";
+	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -92,6 +88,8 @@ public class AjoutEquipement implements Initializable{
 		sectionLogiciel.setVisible(false);
 		
 		typeEquipementDao = new TypeEquipementDao();
+		agentDao = new AgentDao();
+		
 		DatabaseConnection.startConnection();
 		typeEquipement.getItems().addAll(FXCollections.observableArrayList(typeEquipementDao.findByAttributes(null)));
 		DatabaseConnection.closeConnection();
@@ -103,17 +101,8 @@ public class AjoutEquipement implements Initializable{
 			    	   sectionLogiciel.setVisible(true);
 			       else
 			    	   sectionLogiciel.setVisible(false);
-			       
-			       if(msgAjoutOk.isVisible())
-				    	  msgAjoutOk.setVisible(false);
 			    }
 			});
-		
-		prix.setOnMouseClicked(enleverMessageAjout);
-		numCPAgent.setOnMouseClicked(enleverMessageAjout);
-		nbJoursPrev.setOnMouseClicked(enleverMessageAjout);
-		typeEquipement.setOnMouseClicked(enleverMessageAjout);
-		lstLogiciel.setOnMouseClicked(enleverMessageAjout);
 			
 	}
 	
@@ -149,8 +138,41 @@ public class AjoutEquipement implements Initializable{
 	}
 	
 	private boolean validationFormulaire(){
-		//Todo
-		return true;
+		
+		boolean formValid = true;
+		
+		if(typeEquipement.getSelectionModel().getSelectedItem() == null){
+			errorMessage += "Type d'équipement non renseigné.\n";
+			formValid = false;
+		}
+		if(calife.getText().trim().equals("")){
+			errorMessage += "Calife non renseigné.\n";
+			formValid = false;
+		}
+		if(prix.getText().trim().equals("")){
+			errorMessage += "Valeur non renseignée.\n";
+			formValid = false;
+		}
+		else{
+			if(TransformationDonnees.getDoubleValue(prix) == -1){
+				errorMessage += "Valeur saisie incorrecte (mauvais format).\n";
+				formValid = false;
+			}
+		}
+		
+		if(numCPAgent.getText().trim().equals("")){
+			errorMessage += "Agent non renseigné.\n";
+			formValid = false;
+		}
+		
+		if(logicielsOuiNon.isSelected()){
+			if(lstLogiciel.getItems().isEmpty()){
+				errorMessage += "Aucun logiciel associé à l'équipement, décochez la case.\n";
+				formValid = false;
+			}
+		}
+		
+		return formValid;
 	}
 	
 	@FXML
@@ -159,18 +181,29 @@ public class AjoutEquipement implements Initializable{
 		if(validationFormulaire()){
 			// todo recupÃ©ration de l'agent
 			System.out.println(typeEquipement.getValue().getNom());
-			Equipement newEquipement = new Equipement(typeEquipement.getValue().getNom(), null, TransformationDonnees.getDoubleValue(prix), TransformationDonnees.getIntValue(nbJoursPrev), TransformationDonnees.formatDate(dateGarantie), marque.getText(), modele.getText(), calife.getText(), info.getText());
+			Equipement newEquipement = new Equipement(typeEquipement.getValue().getNom(), null, TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), marque.getText(), modele.getText(), calife.getText(), info.getText());
 			EquipementDao equipementDao = new EquipementDao();
 			DatabaseConnection.startConnection();
 			equipementDao.save(newEquipement);
 			DatabaseConnection.closeConnection();
 			informerValidation();
 		}
+		else{
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erreur enregistrement equipement");
+			alert.setHeaderText("Les champs ci-dessous sont incorrectes ou non renseignés.");
+			alert.setContentText(errorMessage);
+			alert.showAndWait();
+		}
 	}
 	
 	private void informerValidation(){
 		viderTousLesChamps();
-		msgAjoutOk.setVisible(true);
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Ajout equipement");
+		alert.setHeaderText(null);
+		alert.setContentText("Equipement ajouté avec succès !");
+		alert.showAndWait();
 	}
 	
 	private void viderTousLesChamps(){	
@@ -180,7 +213,6 @@ public class AjoutEquipement implements Initializable{
 		prix.clear();
 		info.clear();
 		numCPAgent.clear();
-		nbJoursPrev.clear();
 		typeEquipement.getEditor().clear();
 		dateGarantie.getEditor().clear();
 		logicielsOuiNon.setSelected(false);
