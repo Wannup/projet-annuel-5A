@@ -70,16 +70,16 @@ public class Equipement {
 	}
 	
 	/**
-     * Retourne les information de l'équipement.
+     * Retourne les informations de l'équipement.
      * 
-     * @return une chaine de caractère correspondant aux information de l'équipement.
+     * @return une chaine de caractère correspondant aux informations de l'équipement.
     */
 	public String getInfo() {
 		return info;
 	}
 
 	/**
-	* Affecte un nouveau nom à l'agent
+	* Affecte de nouvelles informations
 	*
 	* @param info
 	*     information

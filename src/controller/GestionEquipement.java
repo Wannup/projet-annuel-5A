@@ -198,15 +198,15 @@ public class GestionEquipement implements Initializable{
 	    DatabaseConnection.startConnection();
 	    boolean isLimit = Config.getPropertie("tableau_limite").equals("yes");
 	    if (isLimit) {
-		    maxResult = equipementDao.getMaxResult(null);
+		    maxResult = equipementDao.getNbResultLike(null);
 		    limit = Integer.parseInt(Config.getPropertie("tableau_nb_ligne"));
 		    if (maxResult < limit) {
-		    	this.list = equipementDao.findByAttributes(null);
+		    	this.list = equipementDao.findByAttributesLike(null);
 		    } else {
-		    	this.list = equipementDao.findByAttributesWithLimit(null, 0, limit);
+		    	this.list = equipementDao.findByAttributesLikeWithLimits(null, 0, limit);
 		    }
 	    } else {
-	    	this.list = equipementDao.findByAttributes(null);
+	    	this.list = equipementDao.findByAttributesLike(null);
 	    	maxResult = this.list.size();
 	    }
 		DatabaseConnection.closeConnection();
@@ -246,7 +246,7 @@ public class GestionEquipement implements Initializable{
     			pdfGenerator.generate(file, new PDFEquipementListExport(list));
     		} else {
     			DatabaseConnection.startConnection();
-    			List<Equipement> results = equipementDao.findByAttributes(null);
+    			List<Equipement> results = equipementDao.findByAttributesLike(null);
     			DatabaseConnection.closeConnection();
     			pdfGenerator.generate(file, new PDFEquipementListExport(results));
     		}
@@ -269,7 +269,7 @@ public class GestionEquipement implements Initializable{
     			excelGenerator.generate(file, new ExcelEquipementListExport(list));
     		} else {
     			DatabaseConnection.startConnection();
-    			List<Equipement> results = equipementDao.findByAttributes(null);
+    			List<Equipement> results = equipementDao.findByAttributesLike(null);
     			DatabaseConnection.closeConnection();
     			excelGenerator.generate(file, new ExcelEquipementListExport(results));
     		}
@@ -310,7 +310,7 @@ public class GestionEquipement implements Initializable{
 	@FXML
 	private void viewMore(ActionEvent event) throws IOException {
 		DatabaseConnection.startConnection();
-		List<Equipement> results = equipementDao.findByAttributesWithLimit(null, this.list.size(), limit);
+		List<Equipement> results = equipementDao.findByAttributesLikeWithLimits(null, this.list.size(), limit);
 		for (Equipement equipement : results) {
 			this.list.add(equipement);
 		}

@@ -157,15 +157,15 @@ public class GestionLogiciel implements Initializable {
 	    DatabaseConnection.startConnection();
 	    boolean isLimit = Config.getPropertie("tableau_limite").equals("yes");
 	    if (isLimit) {
-		    maxResult = logicielDao.getMaxResult(null);
+		    maxResult = logicielDao.getNbResultLike(null);
 		    limit = Integer.parseInt(Config.getPropertie("tableau_nb_ligne"));
 		    if (maxResult < limit) {
-		    	this.list = logicielDao.findByAttributes(null);
+		    	this.list = logicielDao.findByAttributesLike(null);
 		    } else {
-		    	this.list = logicielDao.findByAttributesWithLimit(null, 0, limit);
+		    	this.list = logicielDao.findByAttributesLikeWithLimits(null, 0, limit);
 		    }
 	    } else {
-	    	this.list = logicielDao.findByAttributes(null);
+	    	this.list = logicielDao.findByAttributesLike(null);
 	    	maxResult = this.list.size();
 	    }
 		DatabaseConnection.closeConnection();
@@ -205,7 +205,7 @@ public class GestionLogiciel implements Initializable {
     			pdfGenerator.generate(file, new PDFLogicielListExport(list));
     		} else {
     			DatabaseConnection.startConnection();
-    			List<Logiciel> results = logicielDao.findByAttributes(null);
+    			List<Logiciel> results = logicielDao.findByAttributesLike(null);
     			DatabaseConnection.closeConnection();
     			pdfGenerator.generate(file, new PDFLogicielListExport(results));
     		}
@@ -228,7 +228,7 @@ public class GestionLogiciel implements Initializable {
     			excelGenerator.generate(file, new ExcelLogicielListExport(list));
     		} else {
     			DatabaseConnection.startConnection();
-    			List<Logiciel> results = logicielDao.findByAttributes(null);
+    			List<Logiciel> results = logicielDao.findByAttributesLike(null);
     			DatabaseConnection.closeConnection();
     			excelGenerator.generate(file, new ExcelLogicielListExport(results));
     		}
@@ -269,7 +269,7 @@ public class GestionLogiciel implements Initializable {
 	@FXML
 	private void viewMore(ActionEvent event) throws IOException {
 		DatabaseConnection.startConnection();
-		List<Logiciel> results = logicielDao.findByAttributesWithLimit(null, this.list.size(), limit);
+		List<Logiciel> results = logicielDao.findByAttributesLikeWithLimits(null, this.list.size(), limit);
 		for (Logiciel logiciel : results) {
 			this.list.add(logiciel);
 		}

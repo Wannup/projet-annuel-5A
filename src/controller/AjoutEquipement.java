@@ -91,7 +91,7 @@ public class AjoutEquipement implements Initializable{
 		agentDao = new AgentDao();
 		
 		DatabaseConnection.startConnection();
-		typeEquipement.getItems().addAll(FXCollections.observableArrayList(typeEquipementDao.findByAttributes(null)));
+		typeEquipement.getItems().addAll(FXCollections.observableArrayList(typeEquipementDao.findByAttributesLike(null)));
 		DatabaseConnection.closeConnection();
 				
 		

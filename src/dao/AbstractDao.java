@@ -42,7 +42,7 @@ public abstract class AbstractDao<T> {
 
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public List<T> findByAttributes(Map<String, String> attributes) {
+	public List<T> findByAttributesLike(Map<String, String> attributes) {
 
 		List<T> results;
 		// set up the Criteria query
@@ -65,9 +65,31 @@ public abstract class AbstractDao<T> {
 		return results;
 	}
 
-
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public List<T> findByAttributesWithLimit(Map<String, String> attributes, int debut, int nbLigne) {
+	public List<T> findByAttributesEquals(Map<String, String> attributes) {
+
+		List<T> results;
+		// set up the Criteria query
+		CriteriaBuilder cb = DatabaseConnection.em.getCriteriaBuilder();
+		CriteriaQuery<T> cq = (CriteriaQuery<T>) cb.createQuery();
+		Root<T> foo = cq.from(entityClass);
+		if (attributes != null) {
+			List<Predicate> predicates = new ArrayList<Predicate>();
+			for (String s : attributes.keySet()) {
+				if (foo.get(s) != null) {
+					predicates.add(cb.equal((Expression) foo.get(s), attributes.get(s)));
+				}
+			}
+			cq.where(predicates.toArray(new Predicate[] {}));
+		}
+		TypedQuery<T> q = DatabaseConnection.em.createQuery(cq);
+
+		results = q.getResultList();
+		return results;
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public List<T> findByAttributesLikeWithLimits(Map<String, String> attributes, int debut, int nbLigne) {
 
 		List<T> results;
 		// set up the Criteria query
@@ -94,7 +116,7 @@ public abstract class AbstractDao<T> {
 
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public int getMaxResult(Map<String, String> attributes) {
+	public int getNbResultLike(Map<String, String> attributes) {
 		// set up the Criteria query
 		CriteriaBuilder cb = DatabaseConnection.em.getCriteriaBuilder();
 		CriteriaQuery<T> cq = (CriteriaQuery<T>) cb.createQuery();

@@ -72,7 +72,7 @@ public class AjoutAgent implements Initializable{
 		
 		poleDao = new PoleDao();
 		DatabaseConnection.startConnection();
-		pole.getItems().addAll(FXCollections.observableArrayList(poleDao.findByAttributes(null)));
+		pole.getItems().addAll(FXCollections.observableArrayList(poleDao.findByAttributesLike(null)));
 		DatabaseConnection.closeConnection();
 	}
 	

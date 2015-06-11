@@ -166,15 +166,15 @@ public class GestionAgent implements Initializable{
 	    DatabaseConnection.startConnection();
 	    boolean isLimit = Config.getPropertie("tableau_limite").equals("yes");
 	    if (isLimit) {
-		    maxResult = agentDao.getMaxResult(null);
+		    maxResult = agentDao.getNbResultLike(null);
 		    limit = Integer.parseInt(Config.getPropertie("tableau_nb_ligne"));
 		    if (maxResult < limit) {
-		    	this.list = agentDao.findByAttributes(null);
+		    	this.list = agentDao.findByAttributesLike(null);
 		    } else {
-		    	this.list = agentDao.findByAttributesWithLimit(null, 0, limit);
+		    	this.list = agentDao.findByAttributesLikeWithLimits(null, 0, limit);
 		    }
 	    } else {
-	    	this.list = agentDao.findByAttributes(null);
+	    	this.list = agentDao.findByAttributesLike(null);
 	    	maxResult = this.list.size();
 	    }
 		DatabaseConnection.closeConnection();
@@ -213,7 +213,7 @@ public class GestionAgent implements Initializable{
     			pdfGenerator.generate(file, new PDFAgentListExport(list));
     		} else {
     			DatabaseConnection.startConnection();
-    			List<Agent> results = agentDao.findByAttributes(null);
+    			List<Agent> results = agentDao.findByAttributesLike(null);
     			DatabaseConnection.closeConnection();
     			pdfGenerator.generate(file, new PDFAgentListExport(results));
     		}
@@ -236,7 +236,7 @@ public class GestionAgent implements Initializable{
     			excelGenerator.generate(file, new ExcelAgentListExport(list));
     		} else {
     			DatabaseConnection.startConnection();
-    			List<Agent> results = agentDao.findByAttributes(null);
+    			List<Agent> results = agentDao.findByAttributesLike(null);
     			DatabaseConnection.closeConnection();
     			excelGenerator.generate(file, new ExcelAgentListExport(results));
     		}
@@ -277,7 +277,7 @@ public class GestionAgent implements Initializable{
 	@FXML
 	private void viewMore(ActionEvent event) throws IOException {
 		DatabaseConnection.startConnection();
-		List<Agent> results = agentDao.findByAttributesWithLimit(null, this.list.size(), limit);
+		List<Agent> results = agentDao.findByAttributesLikeWithLimits(null, this.list.size(), limit);
 		for (Agent agent : results) {
 			this.list.add(agent);
 		}

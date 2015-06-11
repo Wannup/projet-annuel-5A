@@ -58,7 +58,7 @@ public class Configuration implements Initializable {
 		typeEquipementDao = new TypeEquipementDao();
 		
 		DatabaseConnection.startConnection();
-		listType.getItems().addAll(FXCollections.observableArrayList(typeEquipementDao.findByAttributes(null)));
+		listType.getItems().addAll(FXCollections.observableArrayList(typeEquipementDao.findByAttributesLike(null)));
 		DatabaseConnection.closeConnection();
 		
 		String limiteTableau = Config.getPropertie("tableau_limite");
@@ -109,7 +109,7 @@ public class Configuration implements Initializable {
 			DatabaseConnection.startConnection();
 			typeEquipementDao.save(newType);
 			listType.getItems().clear();
-			listType.getItems().addAll(FXCollections.observableArrayList(typeEquipementDao.findByAttributes(null)));
+			listType.getItems().addAll(FXCollections.observableArrayList(typeEquipementDao.findByAttributesLike(null)));
 			DatabaseConnection.closeConnection();
 			
 			textFieldType.clear();
@@ -151,6 +151,11 @@ public class Configuration implements Initializable {
 			    formValid = false;
 			}
 		}
+		
+		// vérification non existence du type
+		/*DatabaseConnection.startConnection();
+		typeEquipementDao.save(newType);
+		DatabaseConnection.closeConnection();*/
 		
 		return formValid;
 	}

@@ -82,7 +82,7 @@ public class ExcelEquipementImport extends ExcelDataImport {
 							String cp = cell.getStringCellValue();
 							Map<String, String> attributes = new HashMap<String, String>();
 							attributes.put("numCP", cp);
-							List<Agent> agents = agentDao.findByAttributes(attributes);
+							List<Agent> agents = agentDao.findByAttributesLike(attributes);
 							if (agents.size() == 1) {
 								equipement.setAgent(agents.get(0));
 							}
