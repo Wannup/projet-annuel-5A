@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
- * Equipement est la classe représentant un équipement.
+ * Equipement est la classe reprï¿½sentant un ï¿½quipement.
  * 
  * @version 1.0
  */
@@ -17,62 +17,61 @@ public class Equipement {
 	@Id
 	@GeneratedValue
 	private int idEquipement;
-	
-	private int numeroEquipement;
 	private String typeEquipement;
 	private int nbJoursPrevUtilisation;
 	private String dateGarantie;
+	private String dateLivraison;
 	private String marque;
 	private String modele;
-	private String calife;
+	private String nomCalife;
 	private String info;
 	private Agent agent;
 	private List<Logiciel> logiciels;
 	private double prix;
 	
 	/**
-	 * Constructeur par défaut
+	 * Constructeur par dï¿½faut
 	 */
 	public Equipement(){}
 	
 	/**
-	 * Constructeur équipement
+	 * Constructeur ï¿½quipement
 	 *
 	 * @param typeEquip
-	 *     type de l'équipement
+	 *     type de l'ï¿½quipement
 	 * @param numeroPoste
-	 *     numéro de poste de l'équipement
+	 *     numï¿½ro de poste de l'ï¿½quipement
 	 * @param agent
-	 *     agent lié à l'équipement
+	 *     agent liï¿½ ï¿½ l'ï¿½quipement
 	 * @param prix
-	 *     prix de l'équipement
+	 *     prix de l'ï¿½quipement
 	 * @param dateGarantie
 	 *     date de garantie
 	 * @param marque
-	 *     marque de l'équipement
+	 *     marque de l'ï¿½quipement
 	 * @param modele
-	 *     modèle de l'équipement
+	 *     modï¿½le de l'ï¿½quipement
 	 * @param calife
-	 *     calife de l'équipement
+	 *     calife de l'ï¿½quipement
 	 * @param info
-	 *     information de l'équipement
+	 *     information de l'ï¿½quipement
 	 * @see Agent
 	 */
-	public Equipement(String typeEquip, Agent agent, double prix, String dateGarantie, String marque, String modele, String calife, String info) {
+	public Equipement(String typeEquip, Agent agent, double prix, String dateGarantie, String dateLivraison, String marque, String modele, String calife, String info) {
 		this.typeEquipement = typeEquip;
 		this.agent = agent;
 		this.prix = prix;
 		this.dateGarantie = dateGarantie;
 		this.marque = marque;
 		this.modele = modele;
-		this.calife = calife;
+		this.nomCalife = calife;
 		this.info = info;
 	}
 	
 	/**
-     * Retourne les informations de l'équipement.
+     * Retourne les informations de l'ï¿½quipement.
      * 
-     * @return une chaine de caractère correspondant aux informations de l'équipement.
+     * @return une chaine de caractï¿½re correspondant aux informations de l'ï¿½quipement.
     */
 	public String getInfo() {
 		return info;
@@ -90,19 +89,19 @@ public class Equipement {
 	}
 
 	/**
-     * Retourne l'identifiant de l'équipement.
+     * Retourne l'identifiant de l'ï¿½quipement.
      * 
-     * @return un entier correspondant à l'identifiant de l'équipement.
+     * @return un entier correspondant ï¿½ l'identifiant de l'ï¿½quipement.
     */
 	public int getIdEquipement() {
 		return idEquipement;
 	}
 
 	/**
-	* Affecte un nouvelle identifiant à l'équipement
+	* Affecte un nouvelle identifiant ï¿½ l'ï¿½quipement
 	*
 	* @param idEquipement
-	*     identifiant de l'équipement
+	*     identifiant de l'ï¿½quipement
 	*     
 	*/
 	public void setIdEquipement(int idEquipement) {
@@ -110,19 +109,19 @@ public class Equipement {
 	}
 
 	/**
-     * Retourne le type de l'équipement.
+     * Retourne le type de l'ï¿½quipement.
      * 
-     * @return une chaine de caractère correspondant au type de l'équipement.
+     * @return une chaine de caractï¿½re correspondant au type de l'ï¿½quipement.
     */
 	public String getTypeEquipement() {
 		return typeEquipement;
 	}
 
 	/**
-	* Affecte un nouveau type à l'équipement
+	* Affecte un nouveau type ï¿½ l'ï¿½quipement
 	*
 	* @param typeEquipement
-	*     type de l'équipement
+	*     type de l'ï¿½quipement
 	*     
 	*/
 	public void setTypeEquipement(String typeEquipement) {
@@ -130,19 +129,19 @@ public class Equipement {
 	}
 
 	/**
-     * Retourne la date de garantie de l'équipement.
+     * Retourne la date de garantie de l'ï¿½quipement.
      * 
-     * @return une chaine de caractère correspondant à la date de garantie de l'équipement.
+     * @return une chaine de caractï¿½re correspondant ï¿½ la date de garantie de l'ï¿½quipement.
     */
 	public String getDateGarantie() {
 		return dateGarantie;
 	}
 
 	/**
-	* Affecte une nouvelle date de garantie à l'équipement
+	* Affecte une nouvelle date de garantie ï¿½ l'ï¿½quipement
 	*
 	* @param dateGarantie
-	*     date de garantie de l'équipement
+	*     date de garantie de l'ï¿½quipement
 	*     
 	*/
 	public void setDateGarantie(String dateGarantie) {
@@ -150,19 +149,19 @@ public class Equipement {
 	}
 
 	/**
-     * Retourne la marque de l'équipement.
+     * Retourne la marque de l'ï¿½quipement.
      * 
-     * @return une chaine de caractère correspondant à la marque de l'équipement.
+     * @return une chaine de caractï¿½re correspondant ï¿½ la marque de l'ï¿½quipement.
     */
 	public String getMarque() {
 		return marque;
 	}
 
 	/**
-	* Affecte une nouvelle marque à l'équipement
+	* Affecte une nouvelle marque ï¿½ l'ï¿½quipement
 	*
 	* @param marque
-	*     marque de l'équipement
+	*     marque de l'ï¿½quipement
 	*     
 	*/
 	public void setMarque(String marque) {
@@ -170,19 +169,19 @@ public class Equipement {
 	}
 
 	/**
-     * Retourne le modèle de l'équipement.
+     * Retourne le modï¿½le de l'ï¿½quipement.
      * 
-     * @return une chaine de caractère correspondant au modèle de l'équipement.
+     * @return une chaine de caractï¿½re correspondant au modï¿½le de l'ï¿½quipement.
     */
 	public String getModele() {
 		return modele;
 	}
 
 	/**
-	* Affecte un nouveau modele à l'équipement
+	* Affecte un nouveau modele ï¿½ l'ï¿½quipement
 	*
 	* @param modele
-	*     modele de l'équipement
+	*     modele de l'ï¿½quipement
 	*     
 	*/
 	public void setModele(String modele) {
@@ -190,39 +189,39 @@ public class Equipement {
 	}
 
 	/**
-     * Retourne le calife de l'équipement.
+     * Retourne le calife de l'ï¿½quipement.
      * 
-     * @return une chaine de caractère correspondant au calife de l'équipement.
+     * @return une chaine de caractï¿½re correspondant au calife de l'ï¿½quipement.
     */
 	public String getCalife() {
-		return calife;
+		return nomCalife;
 	}
 
 	/**
-	* Affecte un nouveau calife à l'équipement
+	* Affecte un nouveau calife ï¿½ l'ï¿½quipement
 	*
 	* @param calife
-	*     calife de l'équipement
+	*     calife de l'ï¿½quipement
 	*     
 	*/
 	public void setCalife(String calife) {
-		this.calife = calife;
+		this.nomCalife = calife;
 	}
 
 	/**
-     * Retourne l'identifiant de l'équipement.
+     * Retourne l'identifiant de l'ï¿½quipement.
      * 
-     * @return un entier correspondant à l'identifiant de l'équipement.
+     * @return un entier correspondant ï¿½ l'identifiant de l'ï¿½quipement.
     */
 	public int getId () {
 		return this.idEquipement;
 	}
 	
 	/**
-	* Affecte un nouveau nom à l'équipement
+	* Affecte un nouveau nom ï¿½ l'ï¿½quipement
 	*
 	* @param typeEquip
-	*     nom de l'équipement
+	*     nom de l'ï¿½quipement
 	*     
 	*/
 	public void setNom (String typeEquip) {
@@ -230,38 +229,18 @@ public class Equipement {
 	}
 	
 	/**
-     * Retourne le nom de l'équipement.
+     * Retourne le nom de l'ï¿½quipement.
      * 
-     * @return une chaine de caractère correspondant au nom de l'équipement.
+     * @return une chaine de caractï¿½re correspondant au nom de l'ï¿½quipement.
     */
 	public String getNom() {
 		return this.typeEquipement;
 	}
-	
-	/**
-     * Retourne le numéro de poste de l'équipement.
-     * 
-     * @return une chaine de caractère correspondant au numéro de poste de l'équipement.
-    */
-	public int getNumeroPoste() {
-		return numeroEquipement;
-	}
 
 	/**
-	* Affecte un nouveau numéro de poste à l'équipement
-	*
-	* @param numeroPoste
-	*     numéro de poste de l'équipement
-	*     
-	*/
-	public void setNumeroPoste(int numeroPoste) {
-		this.numeroEquipement = numeroPoste;
-	}
-
-	/**
-     * Retourne l'agent de l'équipement.
+     * Retourne l'agent de l'ï¿½quipement.
      * 
-     * @return l'agent de l'équipement.
+     * @return l'agent de l'ï¿½quipement.
      * 
      * @see Agent
     */
@@ -270,10 +249,10 @@ public class Equipement {
 	}
 
 	/**
-	* Affecte un nouvelle agent à l'équipement
+	* Affecte un nouvelle agent ï¿½ l'ï¿½quipement
 	*
 	* @param agent
-	*     agent de l'équipement
+	*     agent de l'ï¿½quipement
 	* @see Agent
 	*/
 	public void setAgent(Agent agent) {
@@ -281,9 +260,9 @@ public class Equipement {
 	}
 
 	/**
-     * Retourne les logiciels de l'équipement.
+     * Retourne les logiciels de l'ï¿½quipement.
      * 
-     * @return les logiciels de l'équipement.
+     * @return les logiciels de l'ï¿½quipement.
      * 
      * @see List
      * @see Logiciel
@@ -293,10 +272,10 @@ public class Equipement {
 	}
 
 	/**
-	* Affecte une nouvelle liste de logiciels à l'équipement
+	* Affecte une nouvelle liste de logiciels ï¿½ l'ï¿½quipement
 	*
 	* @param logiciels
-	*     liste de logiciels de l'équipement
+	*     liste de logiciels de l'ï¿½quipement
 	* @see List
 	* @see Logiciel
 	*/
@@ -305,9 +284,9 @@ public class Equipement {
 	}
 
 	/**
-     * Retourne le prix de l'équipement.
+     * Retourne le prix de l'ï¿½quipement.
      * 
-     * @return le prix de l'équipement.
+     * @return le prix de l'ï¿½quipement.
      * 
     */
 	public double getPrix() {
@@ -315,10 +294,10 @@ public class Equipement {
 	}
 
 	/**
-	* Affecte un nouveau prix à l'équipement
+	* Affecte un nouveau prix ï¿½ l'ï¿½quipement
 	*
 	* @param prix
-	*     prix de l'équipement
+	*     prix de l'ï¿½quipement
 	*     
 	*/
 	public void setPrix(double prix) {
@@ -326,30 +305,9 @@ public class Equipement {
 	}
 
 	/**
-     * Retourne le numéro de l'équipement.
+     * Retourne le nombre de jour de l'ï¿½quipement.
      * 
-     * @return le numéro de l'équipement.
-     * 
-    */
-	public int getNumeroEquipement() {
-		return numeroEquipement;
-	}
-
-	/**
-	* Affecte un nouveau numéro à l'équipement
-	*
-	* @param numeroEquipement
-	*     numéro de l'équipement
-	*     
-	*/
-	public void setNumeroEquipement(int numeroEquipement) {
-		this.numeroEquipement = numeroEquipement;
-	}
-
-	/**
-     * Retourne le nombre de jour de l'équipement.
-     * 
-     * @return le nombre de l'équipement.
+     * @return le nombre de l'ï¿½quipement.
      * 
     */
 	public int getNbJoursPrevUtilisation() {
@@ -357,10 +315,10 @@ public class Equipement {
 	}
 
 	/**
-	* Affecte un nouveau nombre de jour à l'équipement
+	* Affecte un nouveau nombre de jour ï¿½ l'ï¿½quipement
 	*
 	* @param nbJoursPrevUtilisation
-	*     nombre de jour de l'équipement
+	*     nombre de jour de l'ï¿½quipement
 	*     
 	*/
 	public void setNbJoursPrevUtilisation(int nbJoursPrevUtilisation) {
@@ -368,20 +326,36 @@ public class Equipement {
 	}
 
 	/**
-     * Retourne la date d'achat de l'équipement.
+     * Retourne la date d'achat de l'ï¿½quipement.
      * 
-     * @return la date d'achat de l'équipement.
+     * @return la date d'achat de l'ï¿½quipement.
      * 
     */
 	public String getDateAchat() {
 		return dateGarantie;
 	}
 
+	public String getDateLivraison() {
+		return dateLivraison;
+	}
+
+	public void setDateLivraison(String dateLivraison) {
+		this.dateLivraison = dateLivraison;
+	}
+
+	public String getNomCalife() {
+		return nomCalife;
+	}
+
+	public void setNomCalife(String nomCalife) {
+		this.nomCalife = nomCalife;
+	}
+
 	/**
-	* Affecte une nouvelle date d'achat à l'équipement
+	* Affecte une nouvelle date d'achat ï¿½ l'ï¿½quipement
 	*
 	* @param dateAchat
-	*     date d'achat de l'équipement
+	*     date d'achat de l'ï¿½quipement
 	*     
 	*/
 	public void setDateAchat(String dateAchat) {

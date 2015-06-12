@@ -15,7 +15,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 
 /**
- * PDFEquipementListExport est la classe permettant d'exporter une liste équipement au format PDF.
+ * PDFEquipementListExport est la classe permettant d'exporter une liste ï¿½quipement au format PDF.
  * 
  * @version 1.0
  */
@@ -48,7 +48,7 @@ public class PDFEquipementListExport extends PDFDataExport {
 		
 		Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
 		
-		Paragraph title = new Paragraph("Liste des équipements", catFont);
+		Paragraph title = new Paragraph("Liste des ï¿½quipements", catFont);
 		title.setAlignment(Element.ALIGN_CENTER);
 		
 		document.add(title);
@@ -58,25 +58,25 @@ public class PDFEquipementListExport extends PDFDataExport {
 		
 		PdfPTable table = new PdfPTable(4);
 
-	    PdfPCell c1 = new PdfPCell(new Phrase("N° d'équipement"));
+	    PdfPCell c1 = new PdfPCell(new Phrase("Nï¿½ d'ï¿½quipement"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 
-	    c1 = new PdfPCell(new Phrase("Valeur (€)"));
+	    c1 = new PdfPCell(new Phrase("Valeur (ï¿½)"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 
-	    c1 = new PdfPCell(new Phrase("N° CP Agent"));
+	    c1 = new PdfPCell(new Phrase("Nï¿½ CP Agent"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 
-	    c1 = new PdfPCell(new Phrase("Logiciel(s) installé(s)"));
+	    c1 = new PdfPCell(new Phrase("Logiciel(s) installï¿½(s)"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 	    table.setHeaderRows(1);
 	    
 	    for (Equipement equipement : equipements) {
-		    table.addCell(String.valueOf(equipement.getNumeroPoste()));
+		    table.addCell(String.valueOf(equipement.getNomCalife()));
 		    table.addCell(String.valueOf(equipement.getPrix()));
 		    if (equipement.getAgent() != null) {
 		    	table.addCell(equipement.getAgent().getNumCP());

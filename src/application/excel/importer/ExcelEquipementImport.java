@@ -19,7 +19,7 @@ import application.database.DatabaseConnection;
 import dao.AgentDao;
 
 /**
- * ExcelEquipementImport est la classe permettant d'importer des équipements depuis un fichier excel.
+ * ExcelEquipementImport est la classe permettant d'importer des ï¿½quipements depuis un fichier excel.
  * 
  * @version 1.0
  */
@@ -73,9 +73,9 @@ public class ExcelEquipementImport extends ExcelDataImport {
 							break;
 						case ID_CELL_NUMERO :
 							if (cell.getCellType() == HSSFCell.CELL_TYPE_NUMERIC) {
-								equipement.setNumeroEquipement((int)cell.getNumericCellValue());
+								equipement.setNomCalife(cell.getStringCellValue());
 							} else if (cell.getCellType() == HSSFCell.CELL_TYPE_STRING) {
-								equipement.setNumeroEquipement(Integer.valueOf(cell.getStringCellValue()));
+								equipement.setNomCalife(cell.getStringCellValue());
 							}
 							break;
 						case ID_CELL_AGENT :

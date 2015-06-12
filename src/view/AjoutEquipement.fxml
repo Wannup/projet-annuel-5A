@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="bodyPanel" prefHeight="820.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AjoutEquipement">
+<AnchorPane fx:id="bodyPanel" prefHeight="820.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.AjoutEquipement">
   <children>
     <Label layoutX="373.0" layoutY="85.0" text="Nouvel équipement">
       <font>
@@ -17,33 +17,33 @@
     <TextField fx:id="prix" layoutX="188.0" layoutY="312.0" prefHeight="31.0" prefWidth="200.0" />
     <Button fx:id="btnEditDelete" layoutX="341.0" layoutY="22.0" mnemonicParsing="false" onAction="#displayEditDelete" text="Modifier/Supprimer des équipements" />
     <Separator layoutX="0.0" layoutY="63.0" prefWidth="900.0" />
-    <AnchorPane fx:id="sectionLogiciel" layoutX="29.0" layoutY="559.0" prefHeight="152.0" prefWidth="824.0">
+    <AnchorPane fx:id="sectionLogiciel" layoutX="29.0" layoutY="543.0" prefHeight="152.0" prefWidth="824.0">
       <children>
-        <ListView fx:id="lstLogiciel" layoutX="148.0" layoutY="14.0" prefHeight="108.0" prefWidth="200.0" />
-        <Button fx:id="btnSelectLogiciels" layoutX="357.0" layoutY="14.0" mnemonicParsing="false" onAction="#selectionLogiciels" prefHeight="31.0" prefWidth="138.0" text="Sélection logiciels" />
+        <ListView fx:id="lstLogiciel" layoutX="158.0" layoutY="14.0" prefHeight="108.0" prefWidth="200.0" />
+        <Button fx:id="btnSelectLogiciels" layoutX="367.0" layoutY="14.0" mnemonicParsing="false" onAction="#selectionLogiciels" prefHeight="31.0" prefWidth="138.0" text="Sélection logiciels" />
         <Label layoutX="37.0" layoutY="24.0" text="Logiciels" />
-        <Button layoutX="502.0" layoutY="14.0" mnemonicParsing="false" onAction="#ajoutLogiciel" text="+" />
+        <Button layoutX="512.0" layoutY="14.0" mnemonicParsing="false" onAction="#ajoutLogiciel" text="+" />
       </children>
     </AnchorPane>
-    <Button fx:id="btnEnregistrer" layoutX="401.0" layoutY="722.0" mnemonicParsing="false" onAction="#enregistrerEquipement" prefHeight="31.0" prefWidth="104.0" text="Enregistrer" />
+    <Button fx:id="btnEnregistrer" layoutX="402.0" layoutY="711.0" mnemonicParsing="false" onAction="#enregistrerEquipement" prefHeight="31.0" prefWidth="104.0" text="Enregistrer" />
     <Label layoutX="256.0" layoutY="133.0" text="Type d'équipement" />
     <ComboBox fx:id="typeEquipement" editable="true" layoutX="427.0" layoutY="128.0" prefHeight="31.0" prefWidth="200.0" />
-    <Label layoutX="72.0" layoutY="472.0" text="N° CP Agent" />
-    <TextField fx:id="numCPAgent" editable="false" layoutX="186.0" layoutY="467.0" prefHeight="31.0" prefWidth="200.0" />
-    <Button fx:id="btnSelectAgent" layoutX="389.0" layoutY="467.0" mnemonicParsing="false" onAction="#selectionAgent" prefHeight="31.0" prefWidth="128.0" text="Sélection Agent" />
-    <Button layoutX="527.0" layoutY="467.0" mnemonicParsing="false" onAction="#ajoutAgent" prefHeight="31.0" prefWidth="31.0" text="+" />
+    <Label layoutX="75.0" layoutY="428.0" text="N° CP Agent" />
+    <TextField fx:id="numCPAgent" editable="false" layoutX="188.0" layoutY="421.0" prefHeight="31.0" prefWidth="200.0" />
+    <Button fx:id="btnSelectAgent" layoutX="391.0" layoutY="421.0" mnemonicParsing="false" onAction="#selectionAgent" prefHeight="31.0" prefWidth="128.0" text="Sélection Agent" />
+    <Button layoutX="529.0" layoutY="421.0" mnemonicParsing="false" onAction="#ajoutAgent" prefHeight="31.0" prefWidth="31.0" text="+" />
     <CheckBox fx:id="logicielsOuiNon" layoutX="185.0" layoutY="513.0" mnemonicParsing="false" text="Logiciels associés" />
     <Label layoutX="78.0" layoutY="201.0" text="Nom Calife" />
     <TextField fx:id="calife" layoutX="188.0" layoutY="193.0" prefHeight="31.0" prefWidth="200.0" />
     <Label layoutX="87.0" layoutY="252.0" text="Marque" />
     <TextField fx:id="marque" layoutX="188.0" layoutY="247.0" prefHeight="31.0" prefWidth="200.0" />
-    <Label layoutX="517.0" layoutY="252.0" text="Modèle" />
-    <TextField fx:id="modele" layoutX="637.0" layoutY="247.0" prefHeight="31.0" prefWidth="200.0" />
-    <Label layoutX="58.0" layoutY="423.0" text="Date fin garantie" />
-    <TextArea fx:id="info" layoutX="637.0" layoutY="334.0" prefHeight="266.0" prefWidth="200.0" wrapText="true" />
-    <DatePicker fx:id="dateGarantie" layoutX="186.0" layoutY="418.0" prefHeight="31.0" prefWidth="200.0" />
-    <Label layoutX="486.0" layoutY="333.0" text="Autres informations" />
-      <Label layoutX="68.0" layoutY="373.0" text="Date livraison" />
-      <DatePicker fx:id="dateLivraison" layoutX="188.0" layoutY="368.0" prefHeight="31.0" prefWidth="200.0" />
+    <Label layoutX="90.0" layoutY="372.0" text="Modèle" />
+    <TextField fx:id="modele" layoutX="188.0" layoutY="367.0" prefHeight="31.0" prefWidth="200.0" />
+    <Label layoutX="495.0" layoutY="252.0" text="Date fin garantie" />
+    <TextArea fx:id="info" layoutX="637.0" layoutY="312.0" prefHeight="195.0" prefWidth="200.0" wrapText="true" />
+    <DatePicker fx:id="dateGarantie" layoutX="637.0" layoutY="247.0" prefHeight="31.0" prefWidth="200.0" />
+    <Label layoutX="486.0" layoutY="317.0" text="Autres informations" />
+    <Label layoutX="506.0" layoutY="201.0" text="Date livraison" />
+    <DatePicker fx:id="dateLivraison" layoutX="637.0" layoutY="193.0" prefHeight="31.0" prefWidth="200.0" />
   </children>
 </AnchorPane>

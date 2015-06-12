@@ -142,15 +142,15 @@ public class AjoutEquipement implements Initializable{
 		boolean formValid = true;
 		
 		if(typeEquipement.getSelectionModel().getSelectedItem() == null){
-			errorMessage += "Type d'équipement non renseigné.\n";
+			errorMessage += "Type d'ï¿½quipement non renseignï¿½.\n";
 			formValid = false;
 		}
 		if(calife.getText().trim().equals("")){
-			errorMessage += "Calife non renseigné.\n";
+			errorMessage += "Calife non renseignï¿½.\n";
 			formValid = false;
 		}
 		if(prix.getText().trim().equals("")){
-			errorMessage += "Valeur non renseignée.\n";
+			errorMessage += "Valeur non renseignï¿½e.\n";
 			formValid = false;
 		}
 		else{
@@ -161,13 +161,13 @@ public class AjoutEquipement implements Initializable{
 		}
 		
 		if(numCPAgent.getText().trim().equals("")){
-			errorMessage += "Agent non renseigné.\n";
+			errorMessage += "Agent non renseignï¿½.\n";
 			formValid = false;
 		}
 		
 		if(logicielsOuiNon.isSelected()){
 			if(lstLogiciel.getItems().isEmpty()){
-				errorMessage += "Aucun logiciel associé à l'équipement, décochez la case.\n";
+				errorMessage += "Aucun logiciel associï¿½ ï¿½ l'ï¿½quipement, dï¿½cochez la case.\n";
 				formValid = false;
 			}
 		}
@@ -181,7 +181,7 @@ public class AjoutEquipement implements Initializable{
 		if(validationFormulaire()){
 			// todo recupÃ©ration de l'agent
 			System.out.println(typeEquipement.getValue().getNom());
-			Equipement newEquipement = new Equipement(typeEquipement.getValue().getNom(), null, TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), marque.getText(), modele.getText(), calife.getText(), info.getText());
+			Equipement newEquipement = new Equipement(typeEquipement.getValue().getNom(), null, TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), marque.getText(), modele.getText(), calife.getText(), info.getText());
 			EquipementDao equipementDao = new EquipementDao();
 			DatabaseConnection.startConnection();
 			equipementDao.save(newEquipement);
@@ -191,7 +191,7 @@ public class AjoutEquipement implements Initializable{
 		else{
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Erreur enregistrement equipement");
-			alert.setHeaderText("Les champs ci-dessous sont incorrectes ou non renseignés.");
+			alert.setHeaderText("Les champs ci-dessous sont incorrectes ou non renseignï¿½s.");
 			alert.setContentText(errorMessage);
 			alert.showAndWait();
 		}
@@ -202,7 +202,7 @@ public class AjoutEquipement implements Initializable{
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Ajout equipement");
 		alert.setHeaderText(null);
-		alert.setContentText("Equipement ajouté avec succès !");
+		alert.setContentText("Equipement ajoutï¿½ avec succï¿½s !");
 		alert.showAndWait();
 	}
 	

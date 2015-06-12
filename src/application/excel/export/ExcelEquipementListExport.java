@@ -43,15 +43,15 @@ public class ExcelEquipementListExport extends ExcelDataExport {
 		HSSFSheet sheet = wb.createSheet("equipements");
 		HSSFRow row = sheet.createRow(0);
 		
-		row.createCell(1, HSSFCell.CELL_TYPE_STRING).setCellValue("N° d'équipement");
-		row.createCell(2, HSSFCell.CELL_TYPE_STRING).setCellValue("Valeur (€)");
-		row.createCell(3, HSSFCell.CELL_TYPE_STRING).setCellValue("N° CP Agent");
-		row.createCell(4, HSSFCell.CELL_TYPE_STRING).setCellValue("Logiciel(s) installé(s)");
+		row.createCell(1, HSSFCell.CELL_TYPE_STRING).setCellValue("Nï¿½ d'ï¿½quipement");
+		row.createCell(2, HSSFCell.CELL_TYPE_STRING).setCellValue("Valeur (ï¿½)");
+		row.createCell(3, HSSFCell.CELL_TYPE_STRING).setCellValue("Nï¿½ CP Agent");
+		row.createCell(4, HSSFCell.CELL_TYPE_STRING).setCellValue("Logiciel(s) installï¿½(s)");
 	    
 		int ligne = 1;
 	    for (Equipement equipement : equipements) {
 	    	row = sheet.createRow(ligne);
-			row.createCell(0, HSSFCell.CELL_TYPE_NUMERIC).setCellValue(equipement.getNumeroPoste());
+			row.createCell(0, HSSFCell.CELL_TYPE_NUMERIC).setCellValue(equipement.getNomCalife());
 			row.createCell(1, HSSFCell.CELL_TYPE_NUMERIC).setCellValue(equipement.getPrix());
 			if (equipement.getAgent() != null) {
 				row.createCell(2, HSSFCell.CELL_TYPE_STRING).setCellValue(equipement.getAgent().getNumCP());
