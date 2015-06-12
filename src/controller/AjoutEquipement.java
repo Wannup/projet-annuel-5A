@@ -23,6 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.Agent;
 import model.Equipement;
 import model.Logiciel;
 import model.TypeEquipement;
@@ -37,9 +38,6 @@ public class AjoutEquipement implements Initializable{
 	
 	@FXML 
 	private TextField prix;
-	
-	@FXML 
-	private TextField numCPAgent;
 
 	@FXML
 	private TextField modele;
@@ -75,7 +73,7 @@ public class AjoutEquipement implements Initializable{
 	private AnchorPane sectionLogiciel;
 	
 	@FXML
-	private Button ajoutAgent;
+	private ComboBox<Agent> numCPAgent;
 	
 	private TypeEquipementDao typeEquipementDao;
 	
@@ -96,6 +94,7 @@ public class AjoutEquipement implements Initializable{
 		
 		DatabaseConnection.startConnection();
 		typeEquipement.getItems().addAll(FXCollections.observableArrayList(typeEquipementDao.findByAttributesLike(null)));
+		numCPAgent.getItems().addAll(FXCollections.observableArrayList(agentDao.findByAttributesLike(null)));
 		DatabaseConnection.closeConnection();
 				
 		
@@ -108,11 +107,6 @@ public class AjoutEquipement implements Initializable{
 			    }
 			});
 			
-	}
-	
-	@FXML
-	private void selectionAgent(ActionEvent event) throws IOException{
-		ManipInterface.newWindow("Selection de l'agent", FXMLLoader.load(getClass().getResource("/view/RechercheAgentPopup.fxml")));
 	}
 	
 	@FXML
@@ -129,11 +123,6 @@ public class AjoutEquipement implements Initializable{
 	@FXML
 	private void ajoutLogiciel(ActionEvent event) throws IOException{
 		ManipInterface.newWindow("Ajouter un logiciel", FXMLLoader.load(getClass().getResource("/view/AjoutLogicielPopup.fxml")));	
-	}
-
-	@FXML
-	private void ajoutAgent(ActionEvent event) throws IOException{
-		//ManipInterface.newWindow("Ajouter un agent", FXMLLoader.load(getClass().getResource("/view/AjoutAgentPopup.fxml")));	
 	}
 	
 	private boolean validationFormulaire(){
@@ -159,7 +148,7 @@ public class AjoutEquipement implements Initializable{
 			}
 		}
 		
-		if(numCPAgent.getText().trim().equals("")){
+		if(numCPAgent.getSelectionModel().getSelectedItem() == null){
 			errorMessage += "Agent non renseigné.\n";
 			formValid = false;
 		}
@@ -179,8 +168,7 @@ public class AjoutEquipement implements Initializable{
 		
 		if(validationFormulaire()){
 			// todo recupération de l'agent
-			System.out.println(typeEquipement.getValue().getNom());
-			Equipement newEquipement = new Equipement(typeEquipement.getValue().getNom(), null, TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), marque.getText(), modele.getText(), calife.getText(), info.getText());
+			Equipement newEquipement = new Equipement(typeEquipement.getValue().getNom(), numCPAgent.getValue(), TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), marque.getText(), modele.getText(), calife.getText(), info.getText());
 			EquipementDao equipementDao = new EquipementDao();
 			DatabaseConnection.startConnection();
 			equipementDao.save(newEquipement);
@@ -190,7 +178,7 @@ public class AjoutEquipement implements Initializable{
 		else{
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Erreur enregistrement equipement");
-			alert.setHeaderText("Les champs ci-dessous sont incorrectes ou non renseign�s.");
+			alert.setHeaderText("Les champs ci-dessous sont incorrectes ou non renseignés.");
 			alert.setContentText(errorMessage);
 			alert.showAndWait();
 		}
@@ -201,7 +189,7 @@ public class AjoutEquipement implements Initializable{
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Ajout equipement");
 		alert.setHeaderText(null);
-		alert.setContentText("Equipement ajout� avec succ�s !");
+		alert.setContentText("Equipement ajouté avec succès !");
 		alert.showAndWait();
 	}
 	
@@ -211,7 +199,7 @@ public class AjoutEquipement implements Initializable{
 		calife.clear();	
 		prix.clear();
 		info.clear();
-		numCPAgent.clear();
+		numCPAgent.getEditor().clear();
 		typeEquipement.getEditor().clear();
 		dateGarantie.getEditor().clear();
 		logicielsOuiNon.setSelected(false);

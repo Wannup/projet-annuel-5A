@@ -43,9 +43,6 @@ public class AjoutAgent implements Initializable{
 	@FXML 
 	private TextField tel;
 	
-	@FXML 
-	private TextField numPoste;
-	
 	@FXML
 	private Label msgAjoutOk;
 	
@@ -68,7 +65,6 @@ public class AjoutAgent implements Initializable{
 		nom.setOnMouseClicked(enleverMessageAjout);
 		prenom.setOnMouseClicked(enleverMessageAjout);
 		numCP.setOnMouseClicked(enleverMessageAjout);
-		numPoste.setOnMouseClicked(enleverMessageAjout);
 		
 		poleDao = new PoleDao();
 		DatabaseConnection.startConnection();
@@ -91,7 +87,7 @@ public class AjoutAgent implements Initializable{
 	@FXML
 	private void enregistrerAgent(ActionEvent event){
 		if(validationFormulaire()){
-			Agent newAgent = new Agent(nom.getText(), prenom.getText(), /*todo pole */ "", tel.getText(), numCP.getText(), numPoste.getText());
+			Agent newAgent = new Agent(nom.getText(), prenom.getText(), pole.getValue().getNom(), tel.getText(), numCP.getText(), null);
 			AgentDao agentDao = new AgentDao();
 			DatabaseConnection.startConnection();
 			agentDao.save(newAgent);
@@ -109,15 +105,13 @@ public class AjoutAgent implements Initializable{
 	private void viderTousLesChamps(){
 		nom.clear();
 		prenom.clear();
+		tel.clear();
 		numCP.clear();
-		numPoste.clear();
 		pole.getEditor().clear();
 	}
 	
 	@FXML
 	private void selectionPoste(ActionEvent event) throws IOException{
-		// � changer
 		ManipInterface.newWindow("Selection d'un poste", FXMLLoader.load(getClass().getResource("/view/RecherchePopup.fxml")));
-		
 	}
 }

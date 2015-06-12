@@ -20,7 +20,7 @@
     <TextField fx:id="prix" layoutX="351.0" layoutY="325.0" prefWidth="200.0" />
     <Label layoutX="243.0" layoutY="223.0" text="Libelle" />
     <Label layoutX="203.0" layoutY="274.0" text="Numéro de la licence" />
-    <Label layoutX="208.0" layoutY="328.0" text="Prix d'une licence" />
+    <Label layoutX="208.0" layoutY="328.0" text="Prix de la licence" />
     <Button layoutX="416.0" layoutY="372.0" mnemonicParsing="false" onAction="#enregistrerLogiciel" text="Ajouter" />
     <Label fx:id="msgAjoutOk" layoutX="217.0" layoutY="424.0" prefHeight="23.0" prefWidth="453.0" text="Nouvel équipement ajouté avec succès !" textFill="#0db915" visible="false">
       <font>

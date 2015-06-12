@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -29,9 +30,6 @@
     <Label layoutX="256.0" layoutY="133.0" text="Type d'équipement" />
     <ComboBox fx:id="typeEquipement" editable="true" layoutX="427.0" layoutY="128.0" prefHeight="31.0" prefWidth="200.0" />
     <Label layoutX="75.0" layoutY="428.0" text="N° CP Agent" />
-    <TextField fx:id="numCPAgent" editable="false" layoutX="188.0" layoutY="421.0" prefHeight="31.0" prefWidth="200.0" />
-    <Button fx:id="btnSelectAgent" layoutX="391.0" layoutY="421.0" mnemonicParsing="false" onAction="#selectionAgent" prefHeight="31.0" prefWidth="128.0" text="Sélection Agent" />
-    <Button fx:id="ajoutAgent" layoutX="529.0" layoutY="421.0" mnemonicParsing="false" onAction="#ajoutAgent" prefHeight="31.0" prefWidth="31.0" text="+" />
     <CheckBox fx:id="logicielsOuiNon" layoutX="185.0" layoutY="513.0" mnemonicParsing="false" text="Logiciels associés" />
     <Label layoutX="78.0" layoutY="201.0" text="Nom Calife" />
     <TextField fx:id="calife" layoutX="188.0" layoutY="193.0" prefHeight="31.0" prefWidth="200.0" />
@@ -45,5 +43,11 @@
     <Label layoutX="486.0" layoutY="317.0" text="Autres informations" />
     <Label layoutX="506.0" layoutY="201.0" text="Date livraison" />
     <DatePicker fx:id="dateLivraison" layoutX="637.0" layoutY="193.0" prefHeight="31.0" prefWidth="200.0" />
+    <ComboBox fx:id="numCPAgent" layoutX="187.0" layoutY="427.0" prefWidth="200.0">
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+        </FXCollections>
+      </items>
+    </ComboBox>
   </children>
 </AnchorPane>

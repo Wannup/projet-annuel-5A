@@ -21,19 +21,15 @@
     <Label layoutX="100.0" layoutY="163.0" text="Prénom" />
     <Label layoutX="81.0" layoutY="217.0" text="Pôle / Service" />
     <Label layoutX="106.0" layoutY="270.0" text="N° CP" />
-    <TextField id="numPost" fx:id="numPoste" editable="false" layoutX="191.0" layoutY="309.0" prefWidth="200.0" />
-    <Label layoutX="87.0" layoutY="312.0" text="N° de poste" />
     <Button layoutX="232.0" layoutY="381.0" mnemonicParsing="false" onAction="#enregistrerAgent" text="Ajouter" />
     <Label fx:id="msgAjoutOk" layoutX="326.0" layoutY="539.0" prefHeight="21.0" prefWidth="248.0" text="Nouvel agent ajouté avec succès !" textAlignment="CENTER" textFill="#0db915" visible="false">
       <font>
         <Font name="System Bold" size="15.0" />
       </font>
     </Label>
-    <Button layoutX="404.0" layoutY="216.0" mnemonicParsing="false" onAction="#enregistrerAgent" text="+" />
     <ComboBox fx:id="pole" layoutX="192.0" layoutY="215.0" prefWidth="200.0">
       <items>
-        <FXCollections fx:factory="observableArrayList">
-        </FXCollections>
+        <FXCollections fx:factory="observableArrayList" />
       </items>
     </ComboBox>
   </children>

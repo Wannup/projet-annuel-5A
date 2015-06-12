@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
- * Agent est la classe représentant un agent.
+ * Agent est la classe reprï¿½sentant un agent.
  * 
  * @version 1.0
  */
@@ -24,7 +24,7 @@ public class Agent {
 	private String pole;
 	
 	/**
-	 * Constructeur par défaut
+	 * Constructeur par dï¿½faut
 	 */
 	public Agent(){}
 	
@@ -38,9 +38,9 @@ public class Agent {
 	 * @param dateDeNaissance
 	 *     date de naissance de l'agent
 	 * @param numCP
-	 *     numéro de l'agent
+	 *     numï¿½ro de l'agent
 	 * @param numPoste
-	 *     numéro de poste de l'agent
+	 *     numï¿½ro de poste de l'agent
 	 *     
 	 */
 	public Agent(String nom, String prenom, String pole, String tel, String numCP, String numPoste) {		
@@ -55,7 +55,7 @@ public class Agent {
 	/**
      * Retourne l'identifiant de l'agent.
      * 
-     * @return un entier correspondant à l'identifiant de l'agent.
+     * @return un entier correspondant ï¿½ l'identifiant de l'agent.
      */
 	public int getId () {
 		return this.idAgent;
@@ -80,14 +80,14 @@ public class Agent {
 	/**
      * Retourne le nom de l'agent.
      * 
-     * @return une chaine de caractère correspondant au nom de l'agent.
+     * @return une chaine de caractï¿½re correspondant au nom de l'agent.
      */
 	public String getNom() {
 		return nom;
 	}
 
 	/**
-	* Affecte un nouveau nom à l'agent
+	* Affecte un nouveau nom ï¿½ l'agent
 	*
 	* @param nom
 	*     nom de l'agent
@@ -98,19 +98,19 @@ public class Agent {
 	}
 
 	/**
-     * Retourne le prénom de l'agent.
+     * Retourne le prï¿½nom de l'agent.
      * 
-     * @return une chaine de caractère correspondant au prénom de l'agent.
+     * @return une chaine de caractï¿½re correspondant au prï¿½nom de l'agent.
      */
 	public String getPrenom() {
 		return prenom;
 	}
 
 	/**
-	* Affecte un nouveau prénom à l'agent
+	* Affecte un nouveau prï¿½nom ï¿½ l'agent
 	*
 	* @param prenom
-	*     prénom de l'agent
+	*     prï¿½nom de l'agent
 	*     
 	*/
 	public void setPrenom(String prenom) {
@@ -120,14 +120,14 @@ public class Agent {
 	/**
      * Retourne le nom de l'agent.
      * 
-     * @return une chaine de caractère correspondant au nom de l'agent.
+     * @return une chaine de caractï¿½re correspondant au nom de l'agent.
      */
 	public String getTel() {
 		return tel;
 	}
 
 	/**
-	* Affecte une nouvelle date de naissance à l'agent
+	* Affecte une nouvelle date de naissance ï¿½ l'agent
 	*
 	* @param dateDeNaissance
 	*     date de naissance de l'agent
@@ -138,19 +138,19 @@ public class Agent {
 	}
 
 	/**
-     * Retourne le numéro del'agent.
+     * Retourne le numï¿½ro del'agent.
      * 
-     * @return une chaine de caractère correspondant au numéro de l'agent.
+     * @return une chaine de caractï¿½re correspondant au numï¿½ro de l'agent.
      */
 	public String getNumCP() {
 		return numCP;
 	}
 
 	/**
-	* Affecte un nouveau numéro à l'agent
+	* Affecte un nouveau numï¿½ro ï¿½ l'agent
 	*
 	* @param numCP
-	*     numéro de l'agent
+	*     numï¿½ro de l'agent
 	*     
 	*/
 	public void setNumCP(String numCP) {
@@ -158,19 +158,19 @@ public class Agent {
 	}
 
 	/**
-     * Retourne le numéro de poste de l'agent.
+     * Retourne le numï¿½ro de poste de l'agent.
      * 
-     * @return une chaine de caractère correspondant au numéro de poste de l'agent.
+     * @return une chaine de caractï¿½re correspondant au numï¿½ro de poste de l'agent.
      */
 	public String getNumPoste() {
 		return numPoste;
 	}
 
 	/**
-	* Affecte un nouveau numéro de poste à l'agent
+	* Affecte un nouveau numï¿½ro de poste ï¿½ l'agent
 	*
 	* @param numPoste
-	*     numéro de poste de l'agent
+	*     numï¿½ro de poste de l'agent
 	*     
 	*/
 	public void setNumPoste(String numPoste) {
@@ -180,11 +180,11 @@ public class Agent {
 	/**
      * Retourne un agent sous forme de chaine.
      * 
-     * @return une chaine de caractère correspondant à l'agent.
+     * @return une chaine de caractï¿½re correspondant ï¿½ l'agent.
      */
 	@Override
 	public String toString() {
-		return "" + nom + " " + prenom;
+		return numCP + " - " + nom + " " + prenom;
 	}
 
 }
