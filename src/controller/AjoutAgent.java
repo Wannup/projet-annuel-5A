@@ -101,7 +101,7 @@ public class AjoutAgent implements Initializable{
 		
 	}
 	
-	private void informerValidation(){
+	public void informerValidation(){
 		viderTousLesChamps();
 		msgAjoutOk.setVisible(true);
 	}

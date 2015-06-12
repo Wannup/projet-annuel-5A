@@ -134,12 +134,6 @@ public class AjoutEquipement implements Initializable{
 	@FXML
 	private void ajoutAgent(ActionEvent event) throws IOException{
 		//ManipInterface.newWindow("Ajouter un agent", FXMLLoader.load(getClass().getResource("/view/AjoutAgentPopup.fxml")));	
-		Stage stage = new Stage();
-		stage.initOwner(ajoutAgent.getScene().getWindow());
-        stage.setTitle("Ajouter un agent");
-        stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/AjoutAgentPopup.fxml"))));
-        stage.show();
 	}
 	
 	private boolean validationFormulaire(){
@@ -147,15 +141,15 @@ public class AjoutEquipement implements Initializable{
 		boolean formValid = true;
 		
 		if(typeEquipement.getSelectionModel().getSelectedItem() == null){
-			errorMessage += "Type d'�quipement non renseign�.\n";
+			errorMessage += "Type d'équipement non renseigné.\n";
 			formValid = false;
 		}
 		if(calife.getText().trim().equals("")){
-			errorMessage += "Calife non renseign�.\n";
+			errorMessage += "Calife non renseigné.\n";
 			formValid = false;
 		}
 		if(prix.getText().trim().equals("")){
-			errorMessage += "Valeur non renseign�e.\n";
+			errorMessage += "Valeur non renseignée.\n";
 			formValid = false;
 		}
 		else{
@@ -166,13 +160,13 @@ public class AjoutEquipement implements Initializable{
 		}
 		
 		if(numCPAgent.getText().trim().equals("")){
-			errorMessage += "Agent non renseign�.\n";
+			errorMessage += "Agent non renseigné.\n";
 			formValid = false;
 		}
 		
 		if(logicielsOuiNon.isSelected()){
 			if(lstLogiciel.getItems().isEmpty()){
-				errorMessage += "Aucun logiciel associ� � l'�quipement, d�cochez la case.\n";
+				errorMessage += "Aucun logiciel associé à l'équipement, décochez la case.\n";
 				formValid = false;
 			}
 		}
