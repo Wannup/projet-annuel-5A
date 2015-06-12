@@ -58,7 +58,7 @@ public class GestionEquipement implements Initializable{
 	private TableView<Equipement> tableViewEquipement;
 	
 	@FXML
-	private TableColumn<Equipement, Integer> columnNumero;
+	private TableColumn<Equipement, Integer> columnDateGarantie;
 	
 	@FXML
 	private TableColumn<Equipement, Double> columnPrix;
@@ -94,7 +94,7 @@ public class GestionEquipement implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.list = new ArrayList<>();
-		columnNumero.setCellValueFactory(new PropertyValueFactory<Equipement,Integer>("numeroEquipement"));        
+		columnDateGarantie.setCellValueFactory(new PropertyValueFactory<Equipement,Integer>("dateGarantie"));        
 		columnPrix.setCellValueFactory(new PropertyValueFactory<Equipement,Double>("prix"));
 		columnAgent.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<Equipement, String> p) {

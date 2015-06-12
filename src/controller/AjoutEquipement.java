@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -73,6 +74,9 @@ public class AjoutEquipement implements Initializable{
 	@FXML
 	private AnchorPane sectionLogiciel;
 	
+	@FXML
+	private Button ajoutAgent;
+	
 	private TypeEquipementDao typeEquipementDao;
 	
 	private AgentDao agentDao;
@@ -131,6 +135,7 @@ public class AjoutEquipement implements Initializable{
 	private void ajoutAgent(ActionEvent event) throws IOException{
 		//ManipInterface.newWindow("Ajouter un agent", FXMLLoader.load(getClass().getResource("/view/AjoutAgentPopup.fxml")));	
 		Stage stage = new Stage();
+		stage.initOwner(ajoutAgent.getScene().getWindow());
         stage.setTitle("Ajouter un agent");
         stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/AjoutAgentPopup.fxml"))));
