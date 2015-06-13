@@ -53,7 +53,7 @@ public class AjoutLogiciel implements Initializable{
 	@FXML
 	private void enregistrerLogiciel(ActionEvent event){
 		if(validationFormulaire()){
-			Logiciel newLogiciel = new Logiciel(libelle.getText(), Double.parseDouble(licenceNumber.getText()), Integer.parseInt(prix.getText()));
+			Logiciel newLogiciel = new Logiciel(libelle.getText(), Double.parseDouble(prix.getText()), licenceNumber.getText());
 			LogicielDao logicielDao = new LogicielDao();
 			logicielDao.save(newLogiciel);
 			informerValidation();

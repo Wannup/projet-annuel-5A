@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,6 +17,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -28,6 +30,7 @@ import tools.TransformationDonnees;
 import application.database.DatabaseConnection;
 import dao.AgentDao;
 import dao.EquipementDao;
+import dao.LogicielDao;
 import dao.TypeEquipementDao;
 
 public class AjoutEquipement implements Initializable{
@@ -72,15 +75,12 @@ public class AjoutEquipement implements Initializable{
 	private ComboBox<Agent> numCPAgent;
 	
 	private TypeEquipementDao typeEquipementDao;
-	
 	private AgentDao agentDao;
-	
 	private FXMLLoader loader;
-	
-	private String errorMessage = "";
-	
+	private String errorMessage = "";	
 	private String dateG;
 	private String dateL;
+	private LogicielDao logicielDao;
 	
 	
 	@Override
@@ -90,9 +90,12 @@ public class AjoutEquipement implements Initializable{
 		
 		typeEquipementDao = new TypeEquipementDao();
 		agentDao = new AgentDao();
+		logicielDao = new LogicielDao();
 		
 		typeEquipement.getItems().addAll(FXCollections.observableArrayList(typeEquipementDao.findByAttributesLike(null)));
-		numCPAgent.getItems().addAll(FXCollections.observableArrayList(agentDao.findByAttributesLike(null)));			
+		numCPAgent.getItems().addAll(FXCollections.observableArrayList(agentDao.findByAttributesLike(null)));	
+		lstLogiciel.getItems().addAll(FXCollections.observableArrayList(logicielDao.findByAttributesLike(null)));
+		lstLogiciel.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		
 		logicielsOuiNon.setOnAction(new EventHandler<ActionEvent>() {
 		    public void handle(ActionEvent me) {
@@ -163,12 +166,16 @@ public class AjoutEquipement implements Initializable{
 		
 		if(validationFormulaire()){
 			// todo recupération de l'agent
+			
+			/*ObservableList<Logiciel> selectedLog =  lstLogiciel.getSelectionModel().getSelectedItems();
+            for(Logiciel l : selectedLog){
+                
+            }*/
+			
 			System.out.println(typeEquipement.getSelectionModel().getSelectedItem().toString());
-			Equipement newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem().toString(), numCPAgent.getSelectionModel().getSelectedItem(), TransformationDonnees.getDoubleValue(prix), dateG, dateL, marque.getText(), modele.getText(), calife.getText(), info.getText());
+			Equipement newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem().toString(), numCPAgent.getSelectionModel().getSelectedItem(), TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), marque.getText(), modele.getText(), calife.getText(), info.getText());
 			EquipementDao equipementDao = new EquipementDao();
-			DatabaseConnection.startConnection();
 			equipementDao.save(newEquipement);
-			DatabaseConnection.closeConnection();
 			informerValidation();
 		}
 		else{
@@ -200,7 +207,7 @@ public class AjoutEquipement implements Initializable{
 		dateGarantie.getEditor().clear();
 		dateLivraison.getEditor().clear();
 		logicielsOuiNon.setSelected(false);
-		lstLogiciel.getItems().clear();
+		lstLogiciel.getSelectionModel().clearSelection();
 		numCPAgent.getEditor().clear();
 	}
 }

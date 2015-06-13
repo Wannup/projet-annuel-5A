@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
- * TypeEquipement est la classe représentant un type d'équipement.
+ * TypeEquipement est la classe reprï¿½sentant un type d'ï¿½quipement.
  * 
  * @version 1.0
  */
@@ -17,10 +17,10 @@ public class TypeEquipement {
 	private int idType;
 	
 	private String nom;
-	private int nbMonthRenewal;
+	private int nbYearRenewal;
 	
 	/**
-	 * Constructeur par défaut
+	 * Constructeur par dï¿½faut
 	 */
 	public TypeEquipement(){}
 	
@@ -28,39 +28,39 @@ public class TypeEquipement {
 	 * Constructeur pole
 	 *
 	 * @param nomType
-	 *     nom du type d'équipement
+	 *     nom du type d'ï¿½quipement
 	 *     
 	 *  @param nbMonth
-	 *     nombre de mois par défaut pour le renouvellement de ce type d'équipement 
+	 *     nombre de mois par dï¿½faut pour le renouvellement de ce type d'ï¿½quipement 
 	 */
 	public TypeEquipement(String nomType, int nbMonth) {
 		nom = nomType;
-		nbMonthRenewal = nbMonth;
+		nbYearRenewal = nbMonth;
 	}
 	
 	/**
-     * Retourne l'identifiant du type d'équipement.
+     * Retourne l'identifiant du type d'ï¿½quipement.
      * 
-     * @return un entier correspondant à l'identifiant du type d'équipement.
+     * @return un entier correspondant ï¿½ l'identifiant du type d'ï¿½quipement.
     */
 	public int getId () {
 		return idType;
 	}
 
 	/**
-     * Retourne le nom du type d'équipement.
+     * Retourne le nom du type d'ï¿½quipement.
      * 
-     * @return une chaine de caractère correspondant au nom du type d'équipement.
+     * @return une chaine de caractï¿½re correspondant au nom du type d'ï¿½quipement.
     */
 	public String getNom() {
 		return nom;
 	}
 
 	/**
-	* Affecte un nouveau nom au type d'équipement
+	* Affecte un nouveau nom au type d'ï¿½quipement
 	*
 	* @param nomType
-	*     nom du type d'équipement
+	*     nom du type d'ï¿½quipement
 	*     
 	*/
 	public void setNom(String nomType) {
@@ -68,29 +68,29 @@ public class TypeEquipement {
 	}
 	
 	/**
-     * Retourne le nombre de mois pour le renouvellement de ce type d'équipement.
+     * Retourne le nombre de mois pour le renouvellement de ce type d'ï¿½quipement.
      * 
      * @return un entier.
     */
 	public int getNbMonthRenewal() {
-		return nbMonthRenewal;
+		return nbYearRenewal;
 	}
 
 	/**
-	* Affecte une nouvelle durée de renouvellement au type d'équipement
+	* Affecte une nouvelle durï¿½e de renouvellement au type d'ï¿½quipement
 	*
 	* @param nbMonthRenewalType
-	*     nombre de mois par défaut pour le renouvellement de ce type d'équipement
+	*     nombre de mois par dï¿½faut pour le renouvellement de ce type d'ï¿½quipement
 	*     
 	*/
 	public void setNbMonthRenewal(int nbMonthRenewalType) {
-		nbMonthRenewal = nbMonthRenewalType;
+		nbYearRenewal = nbMonthRenewalType;
 	}
 
 	/**
-     * Retourne un type d'équipement sous forme de chaine.
+     * Retourne un type d'ï¿½quipement sous forme de chaine.
      * 
-     * @return une chaine de caractère correspondant au type d'équipement.
+     * @return une chaine de caractï¿½re correspondant au type d'ï¿½quipement.
      */
 	@Override
 	public String toString() {

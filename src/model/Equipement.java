@@ -62,6 +62,7 @@ public class Equipement {
 		this.agent = agent;
 		this.prix = prix;
 		this.dateGarantie = dateGarantie;
+		this.dateLivraison = dateLivraison;
 		this.marque = marque;
 		this.modele = modele;
 		this.nomCalife = calife;

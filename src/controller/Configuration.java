@@ -57,9 +57,7 @@ public class Configuration implements Initializable {
 		
 		typeEquipementDao = new TypeEquipementDao();
 		
-		DatabaseConnection.startConnection();
 		listType.getItems().addAll(FXCollections.observableArrayList(typeEquipementDao.findByAttributesLike(null)));
-		DatabaseConnection.closeConnection();
 		
 		String limiteTableau = Config.getPropertie("tableau_limite");
 		if ("yes".equals(limiteTableau)) {
@@ -106,26 +104,24 @@ public class Configuration implements Initializable {
 		if(validationFormulaire())	{
 			
 			TypeEquipement newType = new TypeEquipement(textFieldType.getText().trim(), TransformationDonnees.getIntValue(textFieldNbMonth));
-			DatabaseConnection.startConnection();
 			typeEquipementDao.save(newType);
 			listType.getItems().clear();
 			listType.getItems().addAll(FXCollections.observableArrayList(typeEquipementDao.findByAttributesLike(null)));
-			DatabaseConnection.closeConnection();
 			
 			textFieldType.clear();
 			textFieldNbMonth.clear();
 			
 			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Ajout type équipement");
+			alert.setTitle("Ajout type Ã©quipement");
 			alert.setHeaderText(null);
-			alert.setContentText("Nouveau type d'équipement ajouté !");
+			alert.setContentText("Nouveau type d'Ã©quipement ajoutÃ© !");
 			alert.showAndWait();
 		}
 		else{
 			
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Erreur enregistrement type équipement");
-			//alert.setHeaderText("Champs mal renseignés.");
+			alert.setTitle("Erreur enregistrement type Ã©quipement");
+			//alert.setHeaderText("Champs mal renseignï¿½s.");
 			alert.setContentText(errorMessage);
 			alert.showAndWait();
 		}
@@ -137,12 +133,12 @@ public class Configuration implements Initializable {
 		boolean formValid = true;
 		
 		if(textFieldType.getText().trim().equals("")){
-			errorMessage += "Nom du type non renseignée.\n";
+			errorMessage += "Nom du type non renseignï¿½e.\n";
 			formValid = false;
 		}	
 		
 		if(textFieldNbMonth.getText().trim().equals("")){
-			errorMessage += "Nombre de mois de renouvellement non renseignée.\n";
+			errorMessage += "Nombre de mois de renouvellement non renseignï¿½e.\n";
 			formValid = false;
 		}
 		else{
@@ -152,7 +148,7 @@ public class Configuration implements Initializable {
 			}
 		}
 		
-		// vérification non existence du type
+		// vï¿½rification non existence du type
 		/*
 		typeEquipementDao.save(newType);
 		*/

@@ -10,7 +10,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+import model.Agent;
 import model.Equipement;
+import dao.AgentDao;
 import dao.EquipementDao;
 
 public class InformationEquipement implements Initializable{
@@ -45,13 +47,18 @@ public class InformationEquipement implements Initializable{
 	@FXML
 	private Button ok;
 	
+	@FXML
+	private Label dateLivraison;
+	
 	private int idEquipement;
 	
 	private EquipementDao eDao;
+	private AgentDao aDao;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.eDao = new EquipementDao();
+		this.aDao = new AgentDao();
 	}
 	
 	public void setValues(int id){
@@ -63,10 +70,13 @@ public class InformationEquipement implements Initializable{
 		this.marque.setText(e.getMarque());
 		this.modele.setText(e.getModele());
 		this.calife.setText(e.getCalife());
-		//this.nom.setText(e.getAgent().getNom());
-		//this.prenom.setText(e.getAgent().getPrenom());
 		this.info.setText(e.getInfo());
-		//this.cp.setText(e.getAgent().getNumCP());
+		this.dateLivraison.setText(e.getDateLivraison());
+		
+		Agent a = aDao.find(e.getAgent().getId());
+		this.nom.setText(a.getNom());
+		this.prenom.setText(a.getPrenom());
+		this.cp.setText(a.getNumCP());
 	}
 
 	@FXML

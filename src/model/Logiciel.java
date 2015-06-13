@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
- * Logiciel est la classe représentant un logiciel.
+ * Logiciel est la classe reprï¿½sentant un logiciel.
  * 
  * @version 1.0
  */
@@ -20,10 +20,10 @@ public class Logiciel {
 	
 	private double prix;
 	
-	private int licenceNumber;
+	private String licenceNumber;
 
 	/**
-	 * Constructeur par défaut
+	 * Constructeur par dï¿½faut
 	 */
 	public Logiciel(){}
 	
@@ -37,7 +37,7 @@ public class Logiciel {
 	 * @param nbJourLicence
 	 *     nombre de jour du logiciel
 	 */
-	public Logiciel(String nom, double prix, int licenceNumber) {
+	public Logiciel(String nom, double prix, String licenceNumber) {
 		
 		this.nom = nom;
 		this.prix = prix;
@@ -47,7 +47,7 @@ public class Logiciel {
 	/**
      * Retourne l'identifiant du logiciel.
      * 
-     * @return un entier correspondant à l'identifiant du logiciel.
+     * @return un entier correspondant ï¿½ l'identifiant du logiciel.
     */
 	public int getId () {
 		return this.idLogiciel;
@@ -56,7 +56,7 @@ public class Logiciel {
 	/**
      * Retourne le nom du logiciel.
      * 
-     * @return une chaine de caractère correspondant au nom du logiciel.
+     * @return une chaine de caractï¿½re correspondant au nom du logiciel.
     */
 	public String getNom() {
 		return nom;
@@ -98,7 +98,7 @@ public class Logiciel {
      * 
      * @return un entier correspondant au nombre de jour du logiciel.
     */
-	public int getlicenceNumber() {
+	public String getlicenceNumber() {
 		return licenceNumber;
 	}
 
@@ -109,8 +109,13 @@ public class Logiciel {
 	*     nombre de jour du logiciel
 	*     
 	*/
-	public void setNbJourLicence(int licenceNumber) {
+	public void setNbJourLicence(String licenceNumber) {
 		this.licenceNumber = licenceNumber;
+	}
+
+	@Override
+	public String toString() {
+		return nom + " - " + licenceNumber;
 	}
 	
 

@@ -70,9 +70,9 @@ public class ExcelLogicielImport extends ExcelDataImport {
 							break;
 						case ID_CELL_JOUR :
 							if (cell.getCellType() == HSSFCell.CELL_TYPE_NUMERIC) {
-								logiciel.setNbJourLicence((int)cell.getNumericCellValue());
+								logiciel.setNbJourLicence(cell.getStringCellValue());
 							} else if (cell.getCellType() == HSSFCell.CELL_TYPE_STRING) {
-								logiciel.setNbJourLicence(Integer.valueOf(cell.getStringCellValue()));
+								logiciel.setNbJourLicence(cell.getStringCellValue());
 							}
 							break;
 					}
