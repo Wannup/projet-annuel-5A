@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import dao.EquipementDao;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -24,27 +23,25 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableView;
-import javafx.scene.image.Image;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Equipement;
-import model.Logiciel;
 import tools.Config;
 import tools.ManipInterface;
-import application.database.DatabaseConnection;
 import application.excel.export.ExcelEquipementListExport;
 import application.excel.export.ExcelGenerator;
 import application.excel.importer.ExcelEquipementImport;
 import application.excel.importer.ExcelImport;
 import application.pdf.export.PDFEquipementListExport;
 import application.pdf.export.PDFGenerator;
+import dao.EquipementDao;
 
 public class GestionEquipement implements Initializable{
 
@@ -195,7 +192,6 @@ public class GestionEquipement implements Initializable{
 			    });
 		
 		equipementDao = new EquipementDao();
-	    DatabaseConnection.startConnection();
 	    boolean isLimit = Config.getPropertie("tableau_limite").equals("yes");
 	    if (isLimit) {
 		    maxResult = equipementDao.getNbResultLike(null);
@@ -209,7 +205,6 @@ public class GestionEquipement implements Initializable{
 	    	this.list = equipementDao.findByAttributesLike(null);
 	    	maxResult = this.list.size();
 	    }
-		DatabaseConnection.closeConnection();
 		refreshTable ();
 	}
 	
@@ -217,9 +212,7 @@ public class GestionEquipement implements Initializable{
 	private void searchEquipement(ActionEvent event) {
 		if (!searchBar.getText().isEmpty()) {
 			equipementDao = new EquipementDao();
-			DatabaseConnection.startConnection();
 			this.list = equipementDao.searchWithAttributes(searchBar.getText());
-			DatabaseConnection.closeConnection();
 			refreshTable ();
 		}
 	}
@@ -244,10 +237,8 @@ public class GestionEquipement implements Initializable{
         		pdfGenerator.generate(file, new PDFEquipementListExport(list));
     		} else if (maxResult == this.list.size()) {
     			pdfGenerator.generate(file, new PDFEquipementListExport(list));
-    		} else {
-    			DatabaseConnection.startConnection();
+    		} else {			
     			List<Equipement> results = equipementDao.findByAttributesLike(null);
-    			DatabaseConnection.closeConnection();
     			pdfGenerator.generate(file, new PDFEquipementListExport(results));
     		}
         }
@@ -268,9 +259,7 @@ public class GestionEquipement implements Initializable{
     		} else if (maxResult == this.list.size()) {
     			excelGenerator.generate(file, new ExcelEquipementListExport(list));
     		} else {
-    			DatabaseConnection.startConnection();
     			List<Equipement> results = equipementDao.findByAttributesLike(null);
-    			DatabaseConnection.closeConnection();
     			excelGenerator.generate(file, new ExcelEquipementListExport(results));
     		}
         }
@@ -286,13 +275,11 @@ public class GestionEquipement implements Initializable{
         if (file != null) {
         	ExcelImport excelImport = new ExcelImport();
         	excelImport.importFile(file, new ExcelEquipementImport(list));
-        	DatabaseConnection.startConnection();
 			for (Equipement equipement : this.list) {
 				if (equipementDao.find(equipement.getId()) == null) {
 					equipementDao.save(equipement);
 				}
 			}
-			DatabaseConnection.closeConnection();
         	refreshTable();
         }
 	}
@@ -309,12 +296,10 @@ public class GestionEquipement implements Initializable{
 	
 	@FXML
 	private void viewMore(ActionEvent event) throws IOException {
-		DatabaseConnection.startConnection();
 		List<Equipement> results = equipementDao.findByAttributesLikeWithLimits(null, this.list.size(), limit);
 		for (Equipement equipement : results) {
 			this.list.add(equipement);
 		}
-		DatabaseConnection.closeConnection();
 		refreshTable ();
 	}
 

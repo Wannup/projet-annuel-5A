@@ -7,17 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import dao.LogicielDao;
-import model.Logiciel;
-import application.database.DatabaseConnection;
-import application.excel.export.ExcelGenerator;
-import application.excel.export.ExcelLogicielListExport;
-import application.excel.importer.ExcelImport;
-import application.excel.importer.ExcelLogicielImport;
-import application.pdf.export.PDFGenerator;
-import application.pdf.export.PDFLogicielListExport;
-import tools.Config;
-import tools.ManipInterface;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -38,6 +27,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
+import model.Logiciel;
+import tools.Config;
+import tools.ManipInterface;
+import application.excel.export.ExcelGenerator;
+import application.excel.export.ExcelLogicielListExport;
+import application.excel.importer.ExcelImport;
+import application.excel.importer.ExcelLogicielImport;
+import application.pdf.export.PDFGenerator;
+import application.pdf.export.PDFLogicielListExport;
+import dao.LogicielDao;
 
 public class GestionLogiciel implements Initializable {
 
@@ -154,7 +153,6 @@ public class GestionLogiciel implements Initializable {
 			    });
 		
 		logicielDao = new LogicielDao();
-	    DatabaseConnection.startConnection();
 	    boolean isLimit = Config.getPropertie("tableau_limite").equals("yes");
 	    if (isLimit) {
 		    maxResult = logicielDao.getNbResultLike(null);
@@ -168,7 +166,6 @@ public class GestionLogiciel implements Initializable {
 	    	this.list = logicielDao.findByAttributesLike(null);
 	    	maxResult = this.list.size();
 	    }
-		DatabaseConnection.closeConnection();
 		refreshTable ();
 	}
 
@@ -182,9 +179,7 @@ public class GestionLogiciel implements Initializable {
 	private void searchLogiciel(ActionEvent event) {
 		if (!searchBar.getText().isEmpty()) {
 			logicielDao = new LogicielDao();
-			DatabaseConnection.startConnection();
 			this.list = logicielDao.searchWithAttributes(searchBar.getText());
-			DatabaseConnection.closeConnection();
 			refreshTable ();
 		}
 	}
@@ -204,9 +199,7 @@ public class GestionLogiciel implements Initializable {
     		} else if (maxResult == this.list.size()) {
     			pdfGenerator.generate(file, new PDFLogicielListExport(list));
     		} else {
-    			DatabaseConnection.startConnection();
     			List<Logiciel> results = logicielDao.findByAttributesLike(null);
-    			DatabaseConnection.closeConnection();
     			pdfGenerator.generate(file, new PDFLogicielListExport(results));
     		}
         }
@@ -227,9 +220,7 @@ public class GestionLogiciel implements Initializable {
     		} else if (maxResult == this.list.size()) {
     			excelGenerator.generate(file, new ExcelLogicielListExport(list));
     		} else {
-    			DatabaseConnection.startConnection();
     			List<Logiciel> results = logicielDao.findByAttributesLike(null);
-    			DatabaseConnection.closeConnection();
     			excelGenerator.generate(file, new ExcelLogicielListExport(results));
     		}
         }
@@ -245,13 +236,11 @@ public class GestionLogiciel implements Initializable {
         if (file != null) {
         	ExcelImport excelImport = new ExcelImport();
         	excelImport.importFile(file, new ExcelLogicielImport(list));
-        	DatabaseConnection.startConnection();
 			for (Logiciel logiciel : this.list) {
 				if (logicielDao.find(logiciel.getId()) == null) {
 					logicielDao.save(logiciel);
 				}
 			}
-			DatabaseConnection.closeConnection();
         	refreshTable ();
         }
 	}
@@ -268,12 +257,11 @@ public class GestionLogiciel implements Initializable {
 	
 	@FXML
 	private void viewMore(ActionEvent event) throws IOException {
-		DatabaseConnection.startConnection();
+	
 		List<Logiciel> results = logicielDao.findByAttributesLikeWithLimits(null, this.list.size(), limit);
 		for (Logiciel logiciel : results) {
 			this.list.add(logiciel);
 		}
-		DatabaseConnection.closeConnection();
 		refreshTable ();
 	}
 }

@@ -30,7 +30,6 @@ import javafx.util.Callback;
 import model.Agent;
 import tools.Config;
 import tools.ManipInterface;
-import application.database.DatabaseConnection;
 import application.excel.export.ExcelAgentListExport;
 import application.excel.export.ExcelGenerator;
 import application.excel.importer.ExcelAgentImport;
@@ -163,7 +162,6 @@ public class GestionAgent implements Initializable{
 		    });
 	    
 	    agentDao = new AgentDao();
-	    DatabaseConnection.startConnection();
 	    boolean isLimit = Config.getPropertie("tableau_limite").equals("yes");
 	    if (isLimit) {
 		    maxResult = agentDao.getNbResultLike(null);
@@ -177,16 +175,13 @@ public class GestionAgent implements Initializable{
 	    	this.list = agentDao.findByAttributesLike(null);
 	    	maxResult = this.list.size();
 	    }
-		DatabaseConnection.closeConnection();
 		refreshTable ();
 	}
 	
 	@FXML
 	private void searchAgent(ActionEvent event) {
 		if (!searchBar.getText().isEmpty()) {
-			DatabaseConnection.startConnection();
 			this.list = agentDao.searchWithAttributes(searchBar.getText());
-			DatabaseConnection.closeConnection();
 			refreshTable ();
 		}
 	}
@@ -211,10 +206,8 @@ public class GestionAgent implements Initializable{
         		pdfGenerator.generate(file, new PDFAgentListExport(list));
     		} else if (maxResult == this.list.size()) {
     			pdfGenerator.generate(file, new PDFAgentListExport(list));
-    		} else {
-    			DatabaseConnection.startConnection();
+    		} else {	
     			List<Agent> results = agentDao.findByAttributesLike(null);
-    			DatabaseConnection.closeConnection();
     			pdfGenerator.generate(file, new PDFAgentListExport(results));
     		}
         }
@@ -235,9 +228,7 @@ public class GestionAgent implements Initializable{
     		} else if (maxResult == this.list.size()) {
     			excelGenerator.generate(file, new ExcelAgentListExport(list));
     		} else {
-    			DatabaseConnection.startConnection();
     			List<Agent> results = agentDao.findByAttributesLike(null);
-    			DatabaseConnection.closeConnection();
     			excelGenerator.generate(file, new ExcelAgentListExport(results));
     		}
         }
@@ -253,13 +244,11 @@ public class GestionAgent implements Initializable{
         if (file != null) {
         	ExcelImport excelImport = new ExcelImport();
         	excelImport.importFile(file, new ExcelAgentImport(list));
-        	DatabaseConnection.startConnection();
 			for (Agent agent : this.list) {
 				if (agentDao.find(agent.getId()) == null) {
 					agentDao.save(agent);
 				}
 			}
-			DatabaseConnection.closeConnection();
         	refreshTable ();
         }
 	}
@@ -276,12 +265,11 @@ public class GestionAgent implements Initializable{
 	
 	@FXML
 	private void viewMore(ActionEvent event) throws IOException {
-		DatabaseConnection.startConnection();
+
 		List<Agent> results = agentDao.findByAttributesLikeWithLimits(null, this.list.size(), limit);
 		for (Agent agent : results) {
 			this.list.add(agent);
 		}
-		DatabaseConnection.closeConnection();
 		refreshTable ();
 	}
 

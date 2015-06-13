@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import dao.AgentDao;
-import model.Agent;
-import application.database.DatabaseConnection;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -19,6 +16,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Agent;
+import dao.AgentDao;
 
 public class RechercheAgentPopup implements Initializable{
 	
@@ -55,9 +54,7 @@ public class RechercheAgentPopup implements Initializable{
 	@FXML
 	private void searchAgent(ActionEvent event) {
 		if (!searchField.getText().isEmpty()) {
-			DatabaseConnection.startConnection();
 			this.list = agentDao.searchWithAttributes(searchField.getText());
-			DatabaseConnection.closeConnection();
 			populateList();
 		}
 	}

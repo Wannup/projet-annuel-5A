@@ -5,10 +5,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import application.database.DatabaseConnection;
-import application.database.export.DatabaseExport;
-import application.database.importer.DatabaseImport;
-import tools.ManipInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +13,9 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import tools.ManipInterface;
+import application.database.export.DatabaseExport;
+import application.database.importer.DatabaseImport;
 
 public class Accueil implements Initializable{
 
@@ -105,9 +104,7 @@ public class Accueil implements Initializable{
         if (file != null) {
         	DatabaseImport databaseImport = new DatabaseImport();
         	databaseImport.importDatabase(file);
-        	DatabaseConnection.startConnection();
-        	DatabaseConnection.refresh();
-        	DatabaseConnection.closeConnection();
+        	//DatabaseConnection.refresh();
         }
 	}
 	

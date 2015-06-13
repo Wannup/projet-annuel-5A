@@ -153,9 +153,9 @@ public class Configuration implements Initializable {
 		}
 		
 		// vérification non existence du type
-		/*DatabaseConnection.startConnection();
+		/*
 		typeEquipementDao.save(newType);
-		DatabaseConnection.closeConnection();*/
+		*/
 		
 		return formValid;
 	}

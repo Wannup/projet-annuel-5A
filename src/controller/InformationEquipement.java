@@ -3,9 +3,6 @@ package controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import application.database.DatabaseConnection;
-import model.Equipement;
-import dao.EquipementDao;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -13,6 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+import model.Equipement;
+import dao.EquipementDao;
 
 public class InformationEquipement implements Initializable{
 
@@ -58,9 +57,7 @@ public class InformationEquipement implements Initializable{
 	public void setValues(int id){
 		this.idEquipement = id;
 
-		DatabaseConnection.startConnection();
 		Equipement e = eDao.find(idEquipement);
-		DatabaseConnection.closeConnection();
 		
 		this.type.setText(e.getTypeEquipement());
 		this.marque.setText(e.getMarque());

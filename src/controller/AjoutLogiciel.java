@@ -4,10 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import model.Logiciel;
-import application.database.DatabaseConnection;
-import dao.LogicielDao;
-import tools.ManipInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +11,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import model.Logiciel;
+import tools.ManipInterface;
+import dao.LogicielDao;
 
 public class AjoutLogiciel implements Initializable{
 
@@ -56,9 +55,7 @@ public class AjoutLogiciel implements Initializable{
 		if(validationFormulaire()){
 			Logiciel newLogiciel = new Logiciel(libelle.getText(), Double.parseDouble(licenceNumber.getText()), Integer.parseInt(prix.getText()));
 			LogicielDao logicielDao = new LogicielDao();
-			DatabaseConnection.startConnection();
 			logicielDao.save(newLogiciel);
-			DatabaseConnection.closeConnection();
 			informerValidation();
 		}	
 	}

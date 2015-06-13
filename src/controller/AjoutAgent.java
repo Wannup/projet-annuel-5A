@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -12,7 +11,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -20,11 +18,8 @@ import javafx.scene.layout.AnchorPane;
 import model.Agent;
 import model.Pole;
 import tools.ManipInterface;
-import tools.TransformationDonnees;
-import application.database.DatabaseConnection;
 import dao.AgentDao;
 import dao.PoleDao;
-import dao.TypeEquipementDao;
 
 public class AjoutAgent implements Initializable{
 	
@@ -67,9 +62,8 @@ public class AjoutAgent implements Initializable{
 		numCP.setOnMouseClicked(enleverMessageAjout);
 		
 		poleDao = new PoleDao();
-		DatabaseConnection.startConnection();
 		pole.getItems().addAll(FXCollections.observableArrayList(poleDao.findByAttributesLike(null)));
-		DatabaseConnection.closeConnection();
+		
 	}
 	
 	@FXML
@@ -89,9 +83,7 @@ public class AjoutAgent implements Initializable{
 		if(validationFormulaire()){
 			Agent newAgent = new Agent(nom.getText(), prenom.getText(), pole.getValue().getNom(), tel.getText(), numCP.getText(), null);
 			AgentDao agentDao = new AgentDao();
-			DatabaseConnection.startConnection();
 			agentDao.save(newAgent);
-			DatabaseConnection.closeConnection();
 			informerValidation();
 		}	
 		

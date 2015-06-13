@@ -1,11 +1,14 @@
 package application;
 
+import application.database.DatabaseConnection;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  * Main est la classe principal qui permet de lancer l'apllication.
@@ -24,6 +27,16 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			
+			//Thread to start database connection
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					DatabaseConnection.startConnection();
+				}
+			}).start();
+			
 			// GUI
 			Parent root = FXMLLoader.load(getClass().getResource("/view/Accueil.fxml"));
 			Scene scene = new Scene(root);
@@ -32,6 +45,12 @@ public class Main extends Application {
 			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+		          public void handle(WindowEvent we) {
+		              System.out.println("Application is closing");
+		              DatabaseConnection.closeConnection();
+		          }
+		      }); 
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
