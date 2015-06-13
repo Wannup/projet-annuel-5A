@@ -18,7 +18,7 @@ public class Equipement {
 	@GeneratedValue
 	private int idEquipement;
 	private String typeEquipement;
-	private int nbJoursPrevUtilisation;
+	private String renewalDate;
 	private String dateGarantie;
 	private String dateLivraison;
 	private String marque;
@@ -57,18 +57,27 @@ public class Equipement {
 	 *     information de l'�quipement
 	 * @see Agent
 	 */
-	public Equipement(String typeEquip, Agent agent, double prix, String dateGarantie, String dateLivraison, String marque, String modele, String calife, String info) {
+	public Equipement(String typeEquip, Agent agent, double prix, String dateGarantie, String dateLivraison, String marque, String modele, String calife, String info, String renewalDate) {
 		this.typeEquipement = typeEquip;
 		this.agent = agent;
 		this.prix = prix;
 		this.dateGarantie = dateGarantie;
 		this.dateLivraison = dateLivraison;
+		this.renewalDate = renewalDate;
 		this.marque = marque;
 		this.modele = modele;
 		this.nomCalife = calife;
 		this.info = info;
 	}
 	
+	public String getRenewalDate() {
+		return renewalDate;
+	}
+
+	public void setRenewalDate(String renewalDate) {
+		this.renewalDate = renewalDate;
+	}
+
 	/**
      * Retourne les informations de l'�quipement.
      * 
@@ -303,27 +312,6 @@ public class Equipement {
 	*/
 	public void setPrix(double prix) {
 		this.prix = prix;
-	}
-
-	/**
-     * Retourne le nombre de jour de l'�quipement.
-     * 
-     * @return le nombre de l'�quipement.
-     * 
-    */
-	public int getNbJoursPrevUtilisation() {
-		return nbJoursPrevUtilisation;
-	}
-
-	/**
-	* Affecte un nouveau nombre de jour � l'�quipement
-	*
-	* @param nbJoursPrevUtilisation
-	*     nombre de jour de l'�quipement
-	*     
-	*/
-	public void setNbJoursPrevUtilisation(int nbJoursPrevUtilisation) {
-		this.nbJoursPrevUtilisation = nbJoursPrevUtilisation;
 	}
 
 	/**

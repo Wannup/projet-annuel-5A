@@ -2,6 +2,10 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -171,9 +175,13 @@ public class AjoutEquipement implements Initializable{
             for(Logiciel l : selectedLog){
                 
             }*/
+			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.YEAR, typeEquipement.getSelectionModel().getSelectedItem().getNbYearRenewal());
+			String renewalDate = dateFormat.format(cal.getTime());
 			
 			System.out.println(typeEquipement.getSelectionModel().getSelectedItem().toString());
-			Equipement newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem().toString(), numCPAgent.getSelectionModel().getSelectedItem(), TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), marque.getText(), modele.getText(), calife.getText(), info.getText());
+			Equipement newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem().toString(), numCPAgent.getSelectionModel().getSelectedItem(), TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), marque.getText(), modele.getText(), calife.getText(), info.getText(), renewalDate);
 			EquipementDao equipementDao = new EquipementDao();
 			equipementDao.save(newEquipement);
 			informerValidation();
@@ -202,8 +210,8 @@ public class AjoutEquipement implements Initializable{
 		calife.clear();	
 		prix.clear();
 		info.clear();
-		numCPAgent.getEditor().clear();
-		typeEquipement.getEditor().clear();
+		numCPAgent.getSelectionModel().clearSelection();
+		typeEquipement.getSelectionModel().clearSelection();
 		dateGarantie.getEditor().clear();
 		dateLivraison.getEditor().clear();
 		logicielsOuiNon.setSelected(false);

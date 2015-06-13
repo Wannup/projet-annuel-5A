@@ -5,8 +5,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="800.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane prefHeight="750.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.Statistic">
   <children>
-    <Label layoutX="122.0" layoutY="146.0" text="Page de stat : en construction" />
+    <AnchorPane fx:id="graphPanel" layoutX="0.0" layoutY="102.0" prefHeight="648.0" prefWidth="900.0" />
+    <Separator layoutX="0.0" layoutY="98.0" prefWidth="900.0" />
+    <Button fx:id="typeEquipement" layoutX="29.0" layoutY="38.0" onAction="#typeGraph" mnemonicParsing="false" text="Type d'équipements" />
+    <Button fx:id="renewal" layoutX="194.0" layoutY="38.0" onAction="#renewalGraph" mnemonicParsing="false" text="Renouvellement à venir" />
   </children>
 </AnchorPane>

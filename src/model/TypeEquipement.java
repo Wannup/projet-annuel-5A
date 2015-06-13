@@ -30,12 +30,12 @@ public class TypeEquipement {
 	 * @param nomType
 	 *     nom du type d'�quipement
 	 *     
-	 *  @param nbMonth
+	 *  @param nbYear
 	 *     nombre de mois par d�faut pour le renouvellement de ce type d'�quipement 
 	 */
-	public TypeEquipement(String nomType, int nbMonth) {
+	public TypeEquipement(String nomType, int nbYear) {
 		nom = nomType;
-		nbYearRenewal = nbMonth;
+		nbYearRenewal = nbYear;
 	}
 	
 	/**
@@ -72,19 +72,19 @@ public class TypeEquipement {
      * 
      * @return un entier.
     */
-	public int getNbMonthRenewal() {
+	public int getNbYearRenewal() {
 		return nbYearRenewal;
 	}
 
 	/**
 	* Affecte une nouvelle dur�e de renouvellement au type d'�quipement
 	*
-	* @param nbMonthRenewalType
+	* @param nbYearRenewalType
 	*     nombre de mois par d�faut pour le renouvellement de ce type d'�quipement
 	*     
 	*/
-	public void setNbMonthRenewal(int nbMonthRenewalType) {
-		nbYearRenewal = nbMonthRenewalType;
+	public void setNbYearRenewal(int nbYearRenewalType) {
+		nbYearRenewal = nbYearRenewalType;
 	}
 
 	/**
