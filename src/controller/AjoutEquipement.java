@@ -5,11 +5,9 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -31,7 +29,6 @@ import model.Logiciel;
 import model.TypeEquipement;
 import tools.ManipInterface;
 import tools.TransformationDonnees;
-import application.database.DatabaseConnection;
 import dao.AgentDao;
 import dao.EquipementDao;
 import dao.LogicielDao;
@@ -82,8 +79,6 @@ public class AjoutEquipement implements Initializable{
 	private AgentDao agentDao;
 	private FXMLLoader loader;
 	private String errorMessage = "";	
-	private String dateG;
-	private String dateL;
 	private LogicielDao logicielDao;
 	
 	
@@ -133,15 +128,15 @@ public class AjoutEquipement implements Initializable{
 		boolean formValid = true;
 		
 		if(typeEquipement.getSelectionModel().getSelectedItem() == null){
-			errorMessage += "Type d'Ã©quipement non renseignÃ©.\n";
+			errorMessage += "Type d'équipement non renseigné.\n";
 			formValid = false;
 		}
 		if(calife.getText().trim().equals("")){
-			errorMessage += "Calife non renseignÃ©.\n";
+			errorMessage += "Calife non renseigné.\n";
 			formValid = false;
 		}
 		if(prix.getText().trim().equals("")){
-			errorMessage += "Valeur non renseignÃ©e.\n";
+			errorMessage += "Valeur non renseigné.\n";
 			formValid = false;
 		}
 		else{
@@ -152,13 +147,13 @@ public class AjoutEquipement implements Initializable{
 		}
 		
 		if(numCPAgent.getSelectionModel().getSelectedItem() == null){
-			errorMessage += "Agent non renseignÃ©.\n";
+			errorMessage += "Agent non renseigné.\n";
 			formValid = false;
 		}
 		
 		if(logicielsOuiNon.isSelected()){
 			if(lstLogiciel.getItems().isEmpty()){
-				errorMessage += "Aucun logiciel associÃ© Ã  l'Ã©quipement, dÃ©cochez la case.\n";
+				errorMessage += "Aucun logiciel associé à  l'équipement, décochez la case.\n";
 				formValid = false;
 			}
 		}
@@ -180,7 +175,6 @@ public class AjoutEquipement implements Initializable{
 			cal.add(Calendar.YEAR, typeEquipement.getSelectionModel().getSelectedItem().getNbYearRenewal());
 			String renewalDate = dateFormat.format(cal.getTime());
 			
-			System.out.println(typeEquipement.getSelectionModel().getSelectedItem().toString());
 			Equipement newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem().toString(), numCPAgent.getSelectionModel().getSelectedItem(), TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), marque.getText(), modele.getText(), calife.getText(), info.getText(), renewalDate);
 			EquipementDao equipementDao = new EquipementDao();
 			equipementDao.save(newEquipement);
@@ -189,7 +183,7 @@ public class AjoutEquipement implements Initializable{
 		else{
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Erreur enregistrement equipement");
-			alert.setHeaderText("Les champs ci-dessous sont incorrectes ou non renseignÃ©s.");
+			alert.setHeaderText("Les champs ci-dessous sont incorrectes ou non renseignés.");
 			alert.setContentText(errorMessage);
 			alert.showAndWait();
 		}
@@ -200,7 +194,7 @@ public class AjoutEquipement implements Initializable{
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Ajout equipement");
 		alert.setHeaderText(null);
-		alert.setContentText("Equipement ajoutÃ© avec succÃ¨s !");
+		alert.setContentText("Equipement ajouté avec succès !");
 		alert.showAndWait();
 	}
 	
