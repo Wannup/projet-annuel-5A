@@ -33,9 +33,10 @@ public class AgentDao extends AbstractDao<Agent> {
 		predicates.add(
 				cb.or(cb.like(cb.lower((Expression) table.get("nom")), "%"+ search.toLowerCase() + "%"), 
 				cb.like(cb.lower((Expression) table.get("prenom")), "%"+ search.toLowerCase() + "%"), 
-				cb.like(cb.lower((Expression) table.get("dateDeNaissance")), "%"+ search.toLowerCase() + "%"),
-				cb.like(cb.lower((Expression)  table.get("numCP")), "%"+ search.toLowerCase() + "%"), 
-				cb.like(cb.lower((Expression)  table.get("numPoste")), "%"+ search.toLowerCase() + "%")));
+				cb.like(cb.lower((Expression) table.get("pole")), "%"+ search.toLowerCase() + "%"),
+				cb.like(cb.lower((Expression) table.get("tel")), "%"+ search.toLowerCase() + "%"),
+				cb.like(cb.lower((Expression) table.get("numPoste")), "%"+ search.toLowerCase() + "%"),
+				cb.like(cb.lower((Expression)  table.get("numCP")), "%"+ search.toLowerCase() + "%")));
 
 		cq.where(predicates.toArray(new Predicate[] {}));
 		TypedQuery q = DatabaseConnection.em.createQuery(cq);

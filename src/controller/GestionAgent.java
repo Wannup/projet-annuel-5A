@@ -65,6 +65,9 @@ public class GestionAgent implements Initializable{
 	private TableColumn<Agent, String> numCPCol;
 	
 	@FXML
+	private TableColumn<Agent, String> telCol;
+	
+	@FXML
 	private TableColumn<Agent, String> numPosteCol;
 	
 	@FXML
@@ -91,7 +94,7 @@ public class GestionAgent implements Initializable{
 	    prenomCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("prenom"));
 	    poleCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("pole"));
 	    numCPCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("numCP"));
-	    numPosteCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("numPoste"));
+	    telCol.setCellValueFactory(new PropertyValueFactory<Agent,String>("tel"));
 	    
 	    columnModifier.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Agent, Agent>, ObservableValue<Agent>>() {
 	      @Override public ObservableValue<Agent> call(TableColumn.CellDataFeatures<Agent, Agent> features) {
@@ -110,7 +113,7 @@ public class GestionAgent implements Initializable{
 	              public void updateItem(Agent person, boolean empty) {
 	                super.updateItem(person, empty);
 	                if (person != null) {
-	                	button.setText("Voir");
+	                	button.setText("Modifier");
 	                	//buttonGraphic.setImage(Image);
 
 	                  setGraphic(button);

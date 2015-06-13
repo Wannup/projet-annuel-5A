@@ -31,8 +31,7 @@ public class LogicielDao extends AbstractDao<Logiciel>{
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		
 		predicates.add(
-				cb.or(cb.like(cb.lower((Expression) table.get("nom")), "%"+ search.toLowerCase() + "%"), 
-				cb.like(cb.lower((Expression) table.get("prix")), "%"+ search.toLowerCase() + "%"), 
+				cb.or(cb.like(cb.lower((Expression) table.get("nom")), "%"+ search.toLowerCase() + "%"),
 				cb.like(cb.lower((Expression) table.get("licenceNumber")), "%"+ search.toLowerCase() + "%")));
 
 		cq.where(predicates.toArray(new Predicate[] {}));

@@ -51,7 +51,7 @@ public class EquipementDao extends AbstractDao<Equipement>{
 		
 		if(!isInteger && !isDouble)
 		predicates.add(
-				cb.or(cb.like(cb.lower((Expression) table.get("dateAchat")), "%"+ search.toLowerCase() + "%"), 
+				cb.or(cb.like(cb.lower((Expression) table.get("nomCalife")), "%"+ search.toLowerCase() + "%"), 
 				cb.like(cb.lower((Expression)  table.get("typeEquipement")), "%"+ search.toLowerCase() + "%")));
 		else if(isInteger)
 			predicates.add(cb.or(cb.equal((Expression) table.get("numeroEquipement"), nombre), 

@@ -18,10 +18,10 @@
     <TableView fx:id="searchTab" layoutY="172.0" prefHeight="380.0" prefWidth="842.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="29.0">
       <columns>
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="192.0" text="Nom" fx:id="nomCol" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="130.0" text="Prénom" fx:id="prenomCol" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="154.0" text="Pôle/Service" fx:id="poleCol" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="150.0" text="Prénom" fx:id="prenomCol" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="124.0" text="Pôle/Service" fx:id="poleCol" />
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="112.0" text="N° de CP" fx:id="numCPCol" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="104.0" text="N° de Poste" fx:id="numPosteCol" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="104.0" text="Téléphone" fx:id="telCol" />
         <TableColumn maxWidth="5000.0" minWidth="0.0" prefWidth="74.0" text="Modifier" fx:id="columnModifier" />
         <TableColumn prefWidth="75.0" text="Supprimer" fx:id="columnSupprimer" />
       </columns>
