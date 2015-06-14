@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -28,6 +29,9 @@ public class AjoutLogiciel implements Initializable{
 	
 	@FXML
 	private TextField prix;
+	
+	@FXML
+	private DatePicker dateFinValidite;
 	
 	@FXML
 	private Label msgAjoutOk;
