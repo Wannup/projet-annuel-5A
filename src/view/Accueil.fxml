@@ -7,21 +7,21 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Accueil">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.Accueil">
   <children>
     <AnchorPane fx:id="menuPanel" prefHeight="750.0" prefWidth="203.0" style="-fx-background-color: #FFFFFF" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="897.0" AnchorPane.topAnchor="0.0">
       <children>
         <Button id="btnAjoutEquip" layoutX="3.0" layoutY="176.0" mnemonicParsing="false" onAction="#equipementGest" prefHeight="31.0" prefWidth="195.0" text="Gestion des équipements" />
-        <Button id="btnLogicielGest" layoutX="8.0" layoutY="233.0" mnemonicParsing="false" onAction="#logicielGest" prefWidth="184.0" text="Gestion des logiciels" />
-        <Button id="btnAgentGest" layoutX="8.0" layoutY="290.0" mnemonicParsing="false" onAction="#agentGest" prefWidth="184.0" text="Gestion des agents" />
-        <Button id="btnStatPrev" layoutX="8.0" layoutY="347.0" mnemonicParsing="false" onAction="#statPrev" prefWidth="184.0" text="Statistiques/Prévisions" />
+        <Button id="btnLogicielGest" layoutX="3.0" layoutY="233.0" mnemonicParsing="false" onAction="#logicielGest" prefHeight="31.0" prefWidth="195.0" text="Gestion des logiciels" />
+        <Button id="btnAgentGest" layoutX="3.0" layoutY="290.0" mnemonicParsing="false" onAction="#agentGest" prefHeight="31.0" prefWidth="195.0" text="Gestion des agents" />
+        <Button id="btnStatPrev" layoutX="3.0" layoutY="347.0" mnemonicParsing="false" onAction="#statPrev" prefHeight="31.0" prefWidth="195.0" text="Statistiques/Prévisions" />
         <ImageView fitHeight="92.0" fitWidth="122.66666666666666" layoutX="39.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
           <image>
             <Image url="@../res/logo-sncf.jpg" />
           </image>
         </ImageView>
-        <Button layoutX="46.0" layoutY="711.0" mnemonicParsing="false" onAction="#configuration" text="Configuration" />
-        <MenuButton layoutX="27.0" layoutY="664.0" mnemonicParsing="false" text="Base de données" textAlignment="CENTER">
+        <Button layoutX="46.0" layoutY="700.0" mnemonicParsing="false" onAction="#configuration" prefHeight="31.0" text="Configuration" />
+        <MenuButton layoutX="26.0" layoutY="644.0" mnemonicParsing="false" prefHeight="31.0" text="Base de données" textAlignment="CENTER">
           <items>
             <MenuItem mnemonicParsing="false" onAction="#importDatabase" text="Importer" />
             <MenuItem mnemonicParsing="false" onAction="#exportDatabase" text="Exporter" />

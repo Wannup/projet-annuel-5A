@@ -16,7 +16,6 @@ import javafx.scene.control.TextField;
 import model.TypeEquipement;
 import tools.Config;
 import tools.TransformationDonnees;
-import application.database.DatabaseConnection;
 import dao.TypeEquipementDao;
 
 public class Configuration implements Initializable {
