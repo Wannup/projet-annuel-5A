@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -19,7 +20,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -90,9 +94,12 @@ public class GestionEquipement implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		this.list = new ArrayList<>();
+		
+		list = new ArrayList<Equipement>();
+		
 		columnDateGarantie.setCellValueFactory(new PropertyValueFactory<Equipement,Integer>("dateGarantie"));        
 		columnPrix.setCellValueFactory(new PropertyValueFactory<Equipement,Double>("prix"));
+		
 		columnAgent.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<Equipement, String> p) {
 				if (p.getValue().getAgent() == null) {
@@ -101,16 +108,20 @@ public class GestionEquipement implements Initializable{
 				return new SimpleStringProperty(p.getValue().getAgent().getNumCP());
 			}
 		});
+		
 		columnType.setCellValueFactory(new PropertyValueFactory<Equipement,String>("typeEquipement")); 
 		columnCalife.setCellValueFactory(new PropertyValueFactory<Equipement,String>("calife")); 
+		
 		columnModifier.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Equipement, Equipement>, ObservableValue<Equipement>>() {
-		      @Override public ObservableValue<Equipement> call(TableColumn.CellDataFeatures<Equipement, Equipement> features) {
+		      @Override 
+		      public ObservableValue<Equipement> call(TableColumn.CellDataFeatures<Equipement, Equipement> features) {
 		    	  return new ReadOnlyObjectWrapper<Equipement>(features.getValue());
 		      }
-		    });
+		});
 		 
 		    columnModifier.setCellFactory(new Callback<TableColumn<Equipement, Equipement>, TableCell<Equipement, Equipement>>() {
-		      @Override public TableCell<Equipement, Equipement> call(TableColumn<Equipement, Equipement> personBooleanTableColumn) {
+		      @Override 
+		      public TableCell<Equipement, Equipement> call(TableColumn<Equipement, Equipement> personBooleanTableColumn) {
 		    	  return new TableCell<Equipement, Equipement>() {
 		              //final ImageView buttonGraphic = new ImageView();
 		              final Button button = new Button(); {
@@ -125,7 +136,8 @@ public class GestionEquipement implements Initializable{
 
 		                  setGraphic(button);
 		                  button.setOnAction(new EventHandler<ActionEvent>() {
-		                    @Override public void handle(ActionEvent event){
+		                    @Override 
+		                    public void handle(ActionEvent event){
 		                    	try {
 		                    		Stage stage = new Stage();
 		                    		FXMLLoader fxmlLoader =  new FXMLLoader(getClass().getResource("/view/InformationEquipementPopup.fxml"));
@@ -158,29 +170,42 @@ public class GestionEquipement implements Initializable{
 		    });
 		    
 		    columnSupprimer.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Equipement, Equipement>, ObservableValue<Equipement>>() {
-			      @Override public ObservableValue<Equipement> call(TableColumn.CellDataFeatures<Equipement, Equipement> features) {
+			      @Override 
+			      public ObservableValue<Equipement> call(TableColumn.CellDataFeatures<Equipement, Equipement> features) {
 			    	  return new ReadOnlyObjectWrapper<Equipement>(features.getValue());
 			      }
-			    });
+			});
 			 
 		    columnSupprimer.setCellFactory(new Callback<TableColumn<Equipement, Equipement>, TableCell<Equipement, Equipement>>() {
-			      @Override public TableCell<Equipement, Equipement> call(TableColumn<Equipement, Equipement> personBooleanTableColumn) {
+			      @Override 
+			      public TableCell<Equipement, Equipement> call(TableColumn<Equipement, Equipement> personBooleanTableColumn) {
 			    	  return new TableCell<Equipement, Equipement>() {
 			              //final ImageView buttonGraphic = new ImageView();
 			              final Button button = new Button(); {
 			             //   button.setGraphic(buttonGraphic);
 			                button.setMinWidth(70);
 			              }
-			              public void updateItem(Equipement person, boolean empty) {
-			                super.updateItem(person, empty);
-			                if (person != null) {
+			              public void updateItem(Equipement equipement, boolean empty) {
+			                super.updateItem(equipement, empty);
+			                if (equipement != null) {
 			                	button.setText("X");
 			                	//buttonGraphic.setImage(Image); 
 
 			                  setGraphic(button);
 			                  button.setOnAction(new EventHandler<ActionEvent>() {
-			                    @Override public void handle(ActionEvent event) {
-			                     
+			                    @Override 
+			                    public void handle(ActionEvent event) {
+			                    	Alert alert = new Alert(AlertType.CONFIRMATION);
+			                    	alert.setTitle("Suppression equipement");
+			                    	alert.setHeaderText("Confirmation");
+			                    	alert.setContentText("Voulez-vous vraiment supprimer cet équipement ?");
+
+			                    	Optional<ButtonType> result = alert.showAndWait();
+			                    	if (result.get() == ButtonType.OK){
+			                    	    equipementDao.remove(equipement);
+			                    	    getListEquipement();
+			                    		refreshTable ();
+			                    	} 
 			                    }
 			                  });
 			                } else {
@@ -190,21 +215,9 @@ public class GestionEquipement implements Initializable{
 			            };
 			          }
 			    });
-		
+		    
 		equipementDao = new EquipementDao();
-	    boolean isLimit = Config.getPropertie("tableau_limite").equals("yes");
-	    if (isLimit) {
-		    maxResult = equipementDao.getNbResultLike(null);
-		    limit = Integer.parseInt(Config.getPropertie("tableau_nb_ligne"));
-		    if (maxResult < limit) {
-		    	this.list = equipementDao.findByAttributesLike(null);
-		    } else {
-		    	this.list = equipementDao.findByAttributesLikeWithLimits(null, 0, limit);
-		    }
-	    } else {
-	    	this.list = equipementDao.findByAttributesLike(null);
-	    	maxResult = this.list.size();
-	    }
+		getListEquipement();
 		refreshTable ();
 	}
 	
@@ -212,7 +225,7 @@ public class GestionEquipement implements Initializable{
 	private void searchEquipement(ActionEvent event) {
 		if (!searchBar.getText().isEmpty()) {
 			equipementDao = new EquipementDao();
-			this.list = equipementDao.searchWithAttributes(searchBar.getText());
+			list = equipementDao.searchWithAttributes(searchBar.getText());
 			refreshTable ();
 		}
 	}
@@ -235,7 +248,7 @@ public class GestionEquipement implements Initializable{
         if (file != null) {
         	if (checkBoxExportTable.isSelected()) {
         		pdfGenerator.generate(file, new PDFEquipementListExport(list));
-    		} else if (maxResult == this.list.size()) {
+    		} else if (maxResult == list.size()) {
     			pdfGenerator.generate(file, new PDFEquipementListExport(list));
     		} else {			
     			List<Equipement> results = equipementDao.findByAttributesLike(null);
@@ -256,7 +269,7 @@ public class GestionEquipement implements Initializable{
         if (file != null) {
         	if (checkBoxExportTable.isSelected()) {
         		excelGenerator.generate(file, new ExcelEquipementListExport(list));
-    		} else if (maxResult == this.list.size()) {
+    		} else if (maxResult == list.size()) {
     			excelGenerator.generate(file, new ExcelEquipementListExport(list));
     		} else {
     			List<Equipement> results = equipementDao.findByAttributesLike(null);
@@ -275,7 +288,7 @@ public class GestionEquipement implements Initializable{
         if (file != null) {
         	ExcelImport excelImport = new ExcelImport();
         	excelImport.importFile(file, new ExcelEquipementImport(list));
-			for (Equipement equipement : this.list) {
+			for (Equipement equipement : list) {
 				if (equipementDao.find(equipement.getId()) == null) {
 					equipementDao.save(equipement);
 				}
@@ -284,10 +297,27 @@ public class GestionEquipement implements Initializable{
         }
 	}
 	
+	private void getListEquipement(){
+		
+	    boolean isLimit = Config.getPropertie("tableau_limite").equals("yes");
+	    if (isLimit) {
+		    maxResult = equipementDao.getNbResultLike(null);
+		    limit = Integer.parseInt(Config.getPropertie("tableau_nb_ligne"));
+		    if (maxResult < limit) {
+		    	list = equipementDao.findByAttributesLike(null);
+		    } else {
+		    	list = equipementDao.findByAttributesLikeWithLimits(null, 0, limit);
+		    }
+	    } else {
+	    	list = equipementDao.findByAttributesLike(null);
+	    	maxResult = list.size();
+	    }
+	}
+	
 	private void refreshTable () {
 		ObservableList<Equipement> items = FXCollections.observableArrayList(list);
 		tableViewEquipement.setItems(items);
-		if (maxResult > this.list.size()) {
+		if (maxResult > list.size()) {
 			buttonNext.setDisable(false);
 		} else {
 			buttonNext.setDisable(true);
@@ -296,9 +326,9 @@ public class GestionEquipement implements Initializable{
 	
 	@FXML
 	private void viewMore(ActionEvent event) throws IOException {
-		List<Equipement> results = equipementDao.findByAttributesLikeWithLimits(null, this.list.size(), limit);
+		List<Equipement> results = equipementDao.findByAttributesLikeWithLimits(null, list.size(), limit);
 		for (Equipement equipement : results) {
-			this.list.add(equipement);
+			list.add(equipement);
 		}
 		refreshTable ();
 	}
