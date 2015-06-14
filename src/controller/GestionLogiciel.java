@@ -82,7 +82,7 @@ public class GestionLogiciel implements Initializable {
 		this.list = new ArrayList<>();
 		columnLibelle.setCellValueFactory(new PropertyValueFactory<Logiciel,String>("nom"));        
 		columnPrix.setCellValueFactory(new PropertyValueFactory<Logiciel,Double>("prix"));
-		columnLicenceNumber.setCellValueFactory(new PropertyValueFactory<Logiciel,String>("licenceNumber"));
+		columnLicenceNumber.setCellValueFactory(new PropertyValueFactory<Logiciel,String>("number"));
 		
 		columnModifier.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Logiciel, Logiciel>, ObservableValue<Logiciel>>() {
 		      @Override public ObservableValue<Logiciel> call(TableColumn.CellDataFeatures<Logiciel, Logiciel> features) {

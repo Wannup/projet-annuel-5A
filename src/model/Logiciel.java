@@ -20,7 +20,7 @@ public class Logiciel {
 	
 	private double prix;
 	
-	private String licenceNumber;
+	private String number;
 
 	/**
 	 * Constructeur par d�faut
@@ -41,7 +41,7 @@ public class Logiciel {
 		
 		this.nom = nom;
 		this.prix = prix;
-		this.licenceNumber = licenceNumber;
+		this.number = licenceNumber;
 	}
 	
 	/**
@@ -98,8 +98,8 @@ public class Logiciel {
      * 
      * @return un entier correspondant au nombre de jour du logiciel.
     */
-	public String getlicenceNumber() {
-		return licenceNumber;
+	public String getLicenceNumber() {
+		return number;
 	}
 
 	/**
@@ -109,13 +109,13 @@ public class Logiciel {
 	*     nombre de jour du logiciel
 	*     
 	*/
-	public void setNbJourLicence(String licenceNumber) {
-		this.licenceNumber = licenceNumber;
+	public void setLicenceNumber(String licenceNumber) {
+		this.number = licenceNumber;
 	}
 
 	@Override
 	public String toString() {
-		return nom + " - " + licenceNumber;
+		return nom + " - " + number;
 	}
 	
 
