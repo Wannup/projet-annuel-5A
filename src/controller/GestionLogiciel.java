@@ -178,8 +178,7 @@ public class GestionLogiciel implements Initializable {
 
 	@FXML
 	private void displayAddLogiciel(ActionEvent event) throws IOException {
-		loader = new FXMLLoader(getClass().getResource(
-				"/view/AjoutLogiciel.fxml"));
+		loader = new FXMLLoader(getClass().getResource("/view/AjoutLogiciel.fxml"));
 		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 
@@ -255,8 +254,7 @@ public class GestionLogiciel implements Initializable {
 	}
 
 	private void refreshTable() {
-		ObservableList<Logiciel> items = FXCollections
-				.observableArrayList(list);
+		ObservableList<Logiciel> items = FXCollections.observableArrayList(list);
 		tableLogiciel.setItems(items);
 		if (maxResult > list.size()) {
 			buttonNext.setDisable(false);
@@ -273,8 +271,7 @@ public class GestionLogiciel implements Initializable {
 			if (maxResult < limit) {
 				list = logicielDao.findByAttributesLike(null);
 			} else {
-				list = logicielDao.findByAttributesLikeWithLimits(null, 0,
-						limit);
+				list = logicielDao.findByAttributesLikeWithLimits(null, 0,limit);
 			}
 		} else {
 			list = logicielDao.findByAttributesLike(null);

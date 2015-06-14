@@ -31,6 +31,7 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -144,18 +145,11 @@ public class GestionEquipement implements Initializable{
 		                    		Parent root = (Parent)fxmlLoader.load(); 
 		                    		InformationEquipement controller = fxmlLoader.<InformationEquipement>getController();
 		                    		controller.setValues(equipement.getId());
+		                    		stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
+		                    		stage.setTitle("Information equipement");
 		                    		Scene scene = new Scene(root); 
 				                    stage.setScene(scene);    
-				                    stage.show(); 
-		                    		/*
-			                        stage.setTitle("Information");
-			                        stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
-			                        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/InformationEquipementPopup.fxml"))));
-			                        stage.getProperties().put("rowValue", equipement.getId());
-			                        stage.show();
-			                        */
-;
-			                         
+				                    stage.show();
 			                    } catch (IOException e) {
 									e.printStackTrace();
 								}	                    	

@@ -161,8 +161,7 @@ public class GestionAgent implements Initializable {
 									button.setOnAction(new EventHandler<ActionEvent>() {
 										@Override
 										public void handle(ActionEvent event) {
-											Alert alert = new Alert(
-													AlertType.CONFIRMATION);
+											Alert alert = new Alert(AlertType.CONFIRMATION);
 											alert.setTitle("Suppression agent");
 											alert.setHeaderText("Confirmation");
 											alert.setContentText("Voulez-vous vraiment supprimer cet agent ?");
@@ -206,13 +205,11 @@ public class GestionAgent implements Initializable {
 	private void exportTablePDF(ActionEvent event) throws IOException {
 		PDFGenerator pdfGenerator = new PDFGenerator();
 		FileChooser fileChooser = new FileChooser();
-		fileChooser.getExtensionFilters().add(
-				new ExtensionFilter("Pdf", "*.pdf"));
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Pdf", "*.pdf"));
 		fileChooser.setInitialFileName("agents");
 		fileChooser.setTitle("Save PDF");
 		File file;
-		file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene()
-				.getWindow());
+		file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
 		if (file != null) {
 			if (checkBoxExportTable.isSelected()) {
 				pdfGenerator.generate(file, new PDFAgentListExport(list));
@@ -229,8 +226,7 @@ public class GestionAgent implements Initializable {
 	private void exportTableExcel(ActionEvent event) throws IOException {
 		ExcelGenerator excelGenerator = new ExcelGenerator();
 		FileChooser fileChooser = new FileChooser();
-		fileChooser.getExtensionFilters().add(
-				new ExtensionFilter("Excel", "*.xls"));
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Excel", "*.xls"));
 		fileChooser.setInitialFileName("agents");
 		fileChooser.setTitle("Save Excel");
 		File file;
@@ -243,8 +239,7 @@ public class GestionAgent implements Initializable {
 				excelGenerator.generate(file, new ExcelAgentListExport(list));
 			} else {
 				List<Agent> results = agentDao.findByAttributesLike(null);
-				excelGenerator
-						.generate(file, new ExcelAgentListExport(results));
+				excelGenerator.generate(file, new ExcelAgentListExport(results));
 			}
 		}
 	}
@@ -252,12 +247,10 @@ public class GestionAgent implements Initializable {
 	@FXML
 	private void importExcel(ActionEvent event) throws IOException {
 		FileChooser fileChooser = new FileChooser();
-		fileChooser.getExtensionFilters().add(
-				new ExtensionFilter("Excel", "*.xls"));
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Excel", "*.xls"));
 		fileChooser.setTitle("Load Excel");
 		File file;
-		file = fileChooser.showOpenDialog(bodyPanel.getParent().getScene()
-				.getWindow());
+		file = fileChooser.showOpenDialog(bodyPanel.getParent().getScene().getWindow());
 		if (file != null) {
 			ExcelImport excelImport = new ExcelImport();
 			excelImport.importFile(file, new ExcelAgentImport(list));
