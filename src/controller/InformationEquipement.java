@@ -1,11 +1,14 @@
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -54,6 +57,7 @@ public class InformationEquipement implements Initializable{
 	
 	private EquipementDao eDao;
 	private AgentDao aDao;
+	private Equipement e;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -64,7 +68,7 @@ public class InformationEquipement implements Initializable{
 	public void setValues(int id){
 		this.idEquipement = id;
 
-		Equipement e = eDao.find(idEquipement);
+		this.e = eDao.find(idEquipement);
 		
 		this.type.setText(e.getTypeEquipement());
 		this.marque.setText(e.getMarque());
@@ -83,5 +87,23 @@ public class InformationEquipement implements Initializable{
 	private void validate(){
 		Stage stage = (Stage) ok.getScene().getWindow();
 	    stage.close();
+	}
+	
+	@FXML
+	public void editEquipement(){		
+		try {
+			Stage stage = new Stage();
+			FXMLLoader fxmlLoader =  new FXMLLoader(getClass().getResource("/view/EditEquipement.fxml"));
+			Parent root;
+			root = (Parent)fxmlLoader.load();
+			EditEquipement controller = fxmlLoader.<EditEquipement>getController();
+			controller.setValues(e.getId());
+			Scene scene = new Scene(root); 
+	        stage.setScene(scene);    
+	        stage.show(); 
+	        validate();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} 		
 	}
 }

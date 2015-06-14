@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="bodyPanel" prefHeight="820.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.EditEquipement">
+  <children>
+    <Label layoutX="354.0" layoutY="48.0" text="Modifier l'équipement">
+      <font>
+        <Font name="System Bold" size="17.0" />
+      </font>
+    </Label>
+    <Label layoutX="87.0" layoutY="317.0" text="Valeur (€)" />
+    <ComboBox fx:id="type" layoutX="427.0" layoutY="128.0" prefHeight="31.0" prefWidth="200.0">
+      <items>
+        <FXCollections fx:factory="observableArrayList" />
+      </items>
+    </ComboBox>
+    <TextField fx:id="calife" layoutX="188.0" layoutY="193.0" prefHeight="31.0" prefWidth="200.0" />
+    <TextField fx:id="marque" layoutX="188.0" layoutY="247.0" prefHeight="31.0" prefWidth="200.0" />
+    <TextField fx:id="prix" layoutX="188.0" layoutY="312.0" prefHeight="31.0" prefWidth="200.0" />
+    <TextField fx:id="modele" layoutX="188.0" layoutY="367.0" prefHeight="31.0" prefWidth="200.0" />
+    <ComboBox fx:id="numCPAgent" layoutX="637.0" layoutY="198.0" prefWidth="200.0">
+      <items>
+        <FXCollections fx:factory="observableArrayList" />
+      </items>
+    </ComboBox>
+    <DatePicker fx:id="dateGarantie" layoutX="637.0" layoutY="247.0" prefHeight="31.0" prefWidth="200.0" />
+    <TextArea fx:id="info" layoutX="637.0" layoutY="312.0" prefHeight="195.0" prefWidth="200.0" wrapText="true" />
+    <CheckBox fx:id="logicielsOuiNon" layoutX="188.0" layoutY="473.0" mnemonicParsing="false" text="Logiciels associés" />
+    <AnchorPane fx:id="sectionLogiciel" layoutX="29.0" layoutY="513.0" prefHeight="152.0" prefWidth="824.0">
+      <children>
+        <ListView fx:id="lstLogiciel" layoutX="158.0" layoutY="14.0" prefHeight="108.0" prefWidth="200.0" />
+        <Label layoutX="37.0" layoutY="24.0" text="Logiciels" />
+      </children>
+    </AnchorPane>
+    <Button fx:id="btnEnregistrer" layoutX="402.0" layoutY="700.0" mnemonicParsing="false" onAction="#validate" prefHeight="31.0" prefWidth="104.0" text="Enregistrer" />
+    <Label layoutX="256.0" layoutY="133.0" text="Type d'équipement" />
+    <Label layoutX="510.0" layoutY="201.0" text="N° CP Agent" />
+    <Label layoutX="78.0" layoutY="201.0" text="Nom Calife" />
+    <Label layoutX="87.0" layoutY="252.0" text="Marque" />
+    <Label layoutX="90.0" layoutY="372.0" text="Modèle" />
+    <Label layoutX="495.0" layoutY="252.0" text="Date fin garantie" />
+    <Label layoutX="486.0" layoutY="317.0" text="Autres informations" />
+  </children>
+</AnchorPane>

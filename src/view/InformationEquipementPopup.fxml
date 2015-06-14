@@ -11,7 +11,7 @@
 <AnchorPane id="AnchorPane" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.InformationEquipement">
   <children>
     <ImageView fitHeight="66.5" fitWidth="88.66666876751444" layoutX="26.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" />
-    <Button fx:id="ok" layoutX="169.0" layoutY="428.0" mnemonicParsing="false" onAction="#validate" prefWidth="63.0" text="OK" />
+    <Button fx:id="ok" layoutX="53.0" layoutY="428.0" mnemonicParsing="false" onAction="#validate" prefWidth="104.0" text="OK" />
     <Label layoutX="53.0" layoutY="57.0" text="Type:" />
     <Label layoutX="53.0" layoutY="73.0" text="Marque:" />
     <Label layoutX="53.0" layoutY="89.0" text="Modèle:" />
@@ -38,5 +38,6 @@
     <TextArea fx:id="info" editable="false" layoutX="223.0" layoutY="63.0" prefHeight="156.0" prefWidth="130.0" wrapText="true" />
     <Label layoutX="53.0" layoutY="122.0" text="Date livraison:" />
     <Label id="calife" fx:id="dateLivraison" font="$x1" layoutX="144.0" layoutY="122.0" prefWidth="225.0" text="-" />
+    <Button id="ok" fx:id="edit" layoutX="248.0" layoutY="428.0" mnemonicParsing="false" onAction="#editEquipement" prefWidth="104.0" text="Modifier" />
   </children>
 </AnchorPane>

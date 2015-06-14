@@ -8,7 +8,7 @@
 
 <AnchorPane fx:id="bodyPanel" prefHeight="750.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.GestionEquipement">
   <children>
-    <Button layoutX="362.0" layoutY="25.0" mnemonicParsing="false" onAction="#displayAddEquipment" text="Ajouter des équipements" />
+    <Button layoutX="362.0" layoutY="25.0" mnemonicParsing="false" onAction="#displayAddEquipment" prefHeight="21.0" prefWidth="181.0" text="Ajouter des équipements" />
     <TableView fx:id="tableViewEquipement" layoutX="29.0" layoutY="172.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="492.0" prefWidth="842.0">
       <columns>
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="185.0" text="Nom Calife" fx:id="columnCalife" />
@@ -34,8 +34,8 @@
         <MenuItem mnemonicParsing="false" onAction="#exportTableExcel" text="Excel" />
       </items>
     </MenuButton>
-    <Button layoutX="623.0" layoutY="25.0" mnemonicParsing="false" onAction="#importExcel" text="Import Excel" textAlignment="CENTER" />
-    <Button fx:id="buttonNext" layoutX="419.0" layoutY="699.0" mnemonicParsing="false" onAction="#viewMore" text="Suivant" textAlignment="CENTER" />
+    <Button layoutX="613.0" layoutY="25.0" mnemonicParsing="false" onAction="#importExcel" text="Import Excel" textAlignment="CENTER" />
+    <Button fx:id="buttonNext" layoutX="398.0" layoutY="699.0" mnemonicParsing="false" onAction="#viewMore" text="Page suivante" textAlignment="CENTER" />
     <CheckBox fx:id="checkBoxExportTable" layoutX="747.0" layoutY="17.0" mnemonicParsing="false" text="Exporter le tableau" />
   </children>
 </AnchorPane>

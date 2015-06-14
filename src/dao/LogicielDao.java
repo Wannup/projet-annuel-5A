@@ -32,7 +32,7 @@ public class LogicielDao extends AbstractDao<Logiciel>{
 		
 		predicates.add(
 				cb.or(cb.like(cb.lower((Expression) table.get("nom")), "%"+ search.toLowerCase() + "%"),
-				cb.like(cb.lower((Expression) table.get("licenceNumber")), "%"+ search.toLowerCase() + "%")));
+				cb.like(cb.lower((Expression) table.get("number")), "%"+ search.toLowerCase() + "%")));
 
 		cq.where(predicates.toArray(new Predicate[] {}));
 		TypedQuery q = DatabaseConnection.em.createQuery(cq);
