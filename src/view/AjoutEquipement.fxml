@@ -7,14 +7,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="bodyPanel" prefHeight="820.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.AjoutEquipement">
+<AnchorPane fx:id="bodyPanel" prefHeight="820.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AjoutEquipement">
   <children>
     <Label layoutX="373.0" layoutY="85.0" text="Nouvel équipement">
       <font>
         <Font name="System Bold" size="17.0" />
       </font>
     </Label>
-    <Label layoutX="87.0" layoutY="317.0" text="Valeur (€)" />
+    <Label layoutX="85.0" layoutY="366.0" text="Valeur (€)" />
     <Button fx:id="btnEditDelete" layoutX="341.0" layoutY="22.0" mnemonicParsing="false" onAction="#displayEditDelete" text="Modifier/Supprimer des équipements" />
     <Separator layoutX="0.0" layoutY="63.0" prefWidth="900.0" />
     <ComboBox fx:id="typeEquipement" layoutX="427.0" layoutY="128.0" prefHeight="31.0" prefWidth="200.0">
@@ -24,8 +24,8 @@
     </ComboBox>
     <TextField fx:id="calife" layoutX="188.0" layoutY="193.0" prefHeight="31.0" prefWidth="200.0" />
     <TextField fx:id="marque" layoutX="188.0" layoutY="247.0" prefHeight="31.0" prefWidth="200.0" />
-    <TextField fx:id="prix" layoutX="188.0" layoutY="312.0" prefHeight="31.0" prefWidth="200.0" />
-    <TextField fx:id="modele" layoutX="188.0" layoutY="367.0" prefHeight="31.0" prefWidth="200.0" />
+    <TextField fx:id="prix" layoutX="188.0" layoutY="361.0" prefHeight="31.0" prefWidth="200.0" />
+    <TextField fx:id="modele" layoutX="187.0" layoutY="302.0" prefHeight="31.0" prefWidth="200.0" />
     <ComboBox fx:id="numCPAgent" layoutX="187.0" layoutY="427.0" prefWidth="200.0">
       <items>
         <FXCollections fx:factory="observableArrayList" />
@@ -46,7 +46,7 @@
     <Label layoutX="75.0" layoutY="428.0" text="N° CP Agent" />
     <Label layoutX="78.0" layoutY="201.0" text="Nom Calife" />
     <Label layoutX="87.0" layoutY="252.0" text="Marque" />
-    <Label layoutX="90.0" layoutY="372.0" text="Modèle" />
+    <Label layoutX="88.0" layoutY="307.0" text="Modèle" />
     <Label layoutX="495.0" layoutY="252.0" text="Date fin garantie" />
     <Label layoutX="486.0" layoutY="317.0" text="Autres informations" />
     <Label layoutX="506.0" layoutY="201.0" text="Date livraison" />
