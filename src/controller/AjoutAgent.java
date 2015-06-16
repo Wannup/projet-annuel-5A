@@ -10,11 +10,13 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import model.Agent;
 import model.Pole;
 import tools.ManipInterface;
@@ -43,6 +45,11 @@ public class AjoutAgent implements Initializable{
 	
 	@FXML
 	private ComboBox<Pole> pole;
+	
+	@FXML
+	private Button btnAdd;
+	
+	public TextField champAgentFormEquipement;
 	
 	private FXMLLoader loader;
 	
@@ -84,7 +91,13 @@ public class AjoutAgent implements Initializable{
 			Agent newAgent = new Agent(nom.getText(), prenom.getText(), pole.getValue().getNom(), tel.getText(), numCP.getText(), null);
 			AgentDao agentDao = new AgentDao();
 			agentDao.save(newAgent);
-			informerValidation();
+			if(champAgentFormEquipement != null){
+				champAgentFormEquipement.setText(numCP.getText());
+				Stage fenetre =(Stage)btnAdd.getScene().getWindow();
+           	 	fenetre.close();
+			}
+			else
+				informerValidation();
 		}	
 		
 	}

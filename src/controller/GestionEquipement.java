@@ -124,15 +124,13 @@ public class GestionEquipement implements Initializable{
 		      @Override 
 		      public TableCell<Equipement, Equipement> call(TableColumn<Equipement, Equipement> personBooleanTableColumn) {
 		    	  return new TableCell<Equipement, Equipement>() {
-		              //final ImageView buttonGraphic = new ImageView();
-		              final Button button = new Button(); {
-		             //   button.setGraphic(buttonGraphic);
-		                button.setMinWidth(70);
-		              }
+		             
+		              final Button button = new Button("Voir"); 
+		                
 		              public void updateItem(Equipement equipement, boolean empty) {
 		                super.updateItem(equipement, empty);
 		                if (equipement != null) {
-		                	button.setText("Voir");
+		                	 button.setMinWidth(70);
 		                	//buttonGraphic.setImage(Image);
 
 		                  setGraphic(button);

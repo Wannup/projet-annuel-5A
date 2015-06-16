@@ -13,6 +13,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
@@ -22,7 +23,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import model.Agent;
 import model.Equipement;
 import model.Logiciel;
@@ -73,7 +76,8 @@ public class AjoutEquipement implements Initializable{
 	private AnchorPane sectionLogiciel;
 	
 	@FXML
-	private ComboBox<Agent> numCPAgent;
+	private TextField numCPAgent;
+	//private ComboBox<Agent> numCPAgent;
 	
 	private TypeEquipementDao typeEquipementDao;
 	private AgentDao agentDao;
@@ -92,7 +96,7 @@ public class AjoutEquipement implements Initializable{
 		logicielDao = new LogicielDao();
 		
 		typeEquipement.getItems().addAll(FXCollections.observableArrayList(typeEquipementDao.findByAttributesLike(null)));
-		numCPAgent.getItems().addAll(FXCollections.observableArrayList(agentDao.findByAttributesLike(null)));	
+		//numCPAgent.getItems().addAll(FXCollections.observableArrayList(agentDao.findByAttributesLike(null)));	
 		lstLogiciel.getItems().addAll(FXCollections.observableArrayList(logicielDao.findByAttributesLike(null)));
 		lstLogiciel.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		
@@ -123,6 +127,41 @@ public class AjoutEquipement implements Initializable{
 		ManipInterface.newWindow("Ajouter un logiciel", FXMLLoader.load(getClass().getResource("/view/AjoutLogicielPopup.fxml")));	
 	}
 	
+	@FXML
+	private void ajoutAgent(ActionEvent event) throws IOException{
+		
+		Stage stage = new Stage();
+        stage.setTitle("Ajouter un agent");
+        stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
+        
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/view/AjoutAgentPopup.fxml"));
+        stage.setScene(new Scene(fxmlLoader.load()));
+        stage.show();
+      
+        AjoutAgent controllerAgentPopup = (AjoutAgent) fxmlLoader.getController();
+        // liaison du champ de l'agent des deux formulaires : AjoutAgentPopup et AjoutEquipement
+        controllerAgentPopup.champAgentFormEquipement = numCPAgent;
+        
+	}
+	
+	@FXML
+	private void selectAgent(ActionEvent event) throws IOException{
+	
+		Stage stage = new Stage();
+        stage.setTitle("Selection d'un agent");
+        stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
+        
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/view/SelectionAgentPopup.fxml"));
+        stage.setScene(new Scene(fxmlLoader.load()));
+        stage.show();
+      
+        SelectionAgentPopup controllerSelectAgentPopup = (SelectionAgentPopup) fxmlLoader.getController();
+        // liaison du champ de l'agent des deux formulaires : selectionAgentPopup et AjoutEquipement
+        controllerSelectAgentPopup.champAgentFormEquipement = numCPAgent;
+	}
+	
 	private boolean validationFormulaire(){
 		
 		boolean formValid = true;
@@ -146,10 +185,10 @@ public class AjoutEquipement implements Initializable{
 			}
 		}
 		
-		if(numCPAgent.getSelectionModel().getSelectedItem() == null){
+	/*	if(numCPAgent.getSelectionModel().getSelectedItem() == null){
 			errorMessage += "Agent non renseigné.\n";
 			formValid = false;
-		}
+		}*/
 		
 		if(logicielsOuiNon.isSelected()){
 			if(lstLogiciel.getItems().isEmpty()){
@@ -174,8 +213,8 @@ public class AjoutEquipement implements Initializable{
 			Calendar cal = Calendar.getInstance();
 			cal.add(Calendar.YEAR, typeEquipement.getSelectionModel().getSelectedItem().getNbYearRenewal());
 			String renewalDate = dateFormat.format(cal.getTime());
-			
-			Equipement newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem().toString(), numCPAgent.getSelectionModel().getSelectedItem(), TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), marque.getText(), modele.getText(), calife.getText(), info.getText(), renewalDate);
+			// récupérer l'agent
+			Equipement newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem().toString(), null, TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), marque.getText(), modele.getText(), calife.getText(), info.getText(), renewalDate);
 			EquipementDao equipementDao = new EquipementDao();
 			equipementDao.save(newEquipement);
 			informerValidation();
@@ -204,12 +243,12 @@ public class AjoutEquipement implements Initializable{
 		calife.clear();	
 		prix.clear();
 		info.clear();
-		numCPAgent.getSelectionModel().clearSelection();
+		//numCPAgent.getSelectionModel().clearSelection();
 		typeEquipement.getSelectionModel().clearSelection();
 		dateGarantie.getEditor().clear();
 		dateLivraison.getEditor().clear();
 		logicielsOuiNon.setSelected(false);
 		lstLogiciel.getSelectionModel().clearSelection();
-		numCPAgent.getEditor().clear();
+		//numCPAgent.getEditor().clear();
 	}
 }

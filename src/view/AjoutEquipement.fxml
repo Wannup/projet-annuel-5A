@@ -26,11 +26,6 @@
     <TextField fx:id="marque" layoutX="188.0" layoutY="247.0" prefHeight="31.0" prefWidth="200.0" />
     <TextField fx:id="prix" layoutX="188.0" layoutY="361.0" prefHeight="31.0" prefWidth="200.0" />
     <TextField fx:id="modele" layoutX="187.0" layoutY="302.0" prefHeight="31.0" prefWidth="200.0" />
-    <ComboBox fx:id="numCPAgent" layoutX="187.0" layoutY="427.0" prefWidth="200.0">
-      <items>
-        <FXCollections fx:factory="observableArrayList" />
-      </items>
-    </ComboBox>
     <DatePicker fx:id="dateLivraison" layoutX="637.0" layoutY="193.0" prefHeight="31.0" prefWidth="200.0" />
     <DatePicker fx:id="dateGarantie" layoutX="637.0" layoutY="247.0" prefHeight="31.0" prefWidth="200.0" />
     <TextArea fx:id="info" layoutX="637.0" layoutY="312.0" prefHeight="195.0" prefWidth="200.0" wrapText="true" />
@@ -50,5 +45,8 @@
     <Label layoutX="495.0" layoutY="252.0" text="Date fin garantie" />
     <Label layoutX="486.0" layoutY="317.0" text="Autres informations" />
     <Label layoutX="506.0" layoutY="201.0" text="Date livraison" />
+      <TextField fx:id="numCPAgent" editable="false" layoutX="188.0" layoutY="423.0" prefHeight="31.0" prefWidth="200.0" />
+      <Button layoutX="395.0" layoutY="454.0" mnemonicParsing="false" onAction="#ajoutAgent" text="Nouveau" />
+      <Button layoutX="395.0" layoutY="423.0" mnemonicParsing="false" onAction="#selectAgent" text="Selection" />
   </children>
 </AnchorPane>

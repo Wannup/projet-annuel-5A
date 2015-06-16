@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
- * TypeEquipement est la classe reprï¿½sentant un type d'ï¿½quipement.
+ * TypeEquipement est la classe représentant un type d'ï¿½quipement.
  * 
  * @version 1.0
  */
@@ -18,9 +18,10 @@ public class TypeEquipement {
 	
 	private String nom;
 	private int nbYearRenewal;
+	//private boolean withAgent;
 	
 	/**
-	 * Constructeur par dï¿½faut
+	 * Constructeur par défaut
 	 */
 	public TypeEquipement(){}
 	
@@ -96,4 +97,14 @@ public class TypeEquipement {
 	public String toString() {
 		return nom;
 	}
+
+/*	public boolean isWithAgent() {
+		return withAgent;
+	}
+
+	public void setWithAgent(boolean withAgentValue) {
+		withAgent = withAgentValue;
+	}
+	*/
+	
 }
