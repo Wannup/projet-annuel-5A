@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="bodyPanel" prefHeight="840.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SelectionLogicielPopup">
+  <children>
+    <TableView fx:id="tableViewLogiciel" layoutX="29.0" layoutY="141.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="505.0" prefWidth="842.0">
+      <columns>
+        <TableColumn fx:id="columnNom" prefWidth="175.0" text="Nom" />
+        <TableColumn fx:id="columnPrix" maxWidth="5000.0" minWidth="10.0" prefWidth="151.0" text="Prix" />
+            <TableColumn fx:id="columnNumLicence" prefWidth="183.0" text="N° Licence" />
+            <TableColumn fx:id="columnDateFinLicence" prefWidth="181.0" text="Date fin licence" />
+            <TableColumn fx:id="columnSelect" editable="false" prefWidth="151.0" text="Selection" />
+      </columns>
+    </TableView>
+    <Label layoutX="305.0" layoutY="48.0" prefHeight="27.0" prefWidth="291.0" text="Veuillez sélectionner les logiciels :">
+      <font>
+        <Font name="System Bold" size="18.0" />
+      </font>
+    </Label>
+      <Button fx:id="btnValidSelect" layoutX="386.0" layoutY="658.0" mnemonicParsing="false" onAction="#validateSelection" text="Valider sélection" />
+  </children>
+</AnchorPane>

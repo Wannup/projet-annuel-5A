@@ -20,10 +20,12 @@ public class Logiciel {
 	
 	private double prix;
 	
-	private String number;
+	private String licenceNumber;
+	
+	private String dateEndValidityLicence;
 
 	/**
-	 * Constructeur par dï¿½faut
+	 * Constructeur par défaut
 	 */
 	public Logiciel(){}
 	
@@ -34,29 +36,31 @@ public class Logiciel {
 	 *     nom du logiciel
 	 * @param prix
 	 *     prix du logiciel
-	 * @param nbJourLicence
-	 *     nombre de jour du logiciel
+	 * @param licenceNumber
+	 *     numero de licence du logiciel
+	 * @param endValidityLicence
 	 */
-	public Logiciel(String nom, double prix, String licenceNumber) {
+	public Logiciel(String nomVal, double prixVal, String licenceNumberVal, String endValidityLicence) {
 		
-		this.nom = nom;
-		this.prix = prix;
-		this.number = licenceNumber;
+		nom = nomVal;
+		prix = prixVal;
+		licenceNumber = licenceNumberVal;
+		dateEndValidityLicence = endValidityLicence;
 	}
 	
 	/**
      * Retourne l'identifiant du logiciel.
      * 
-     * @return un entier correspondant ï¿½ l'identifiant du logiciel.
+     * @return un entier correspondant à l'identifiant du logiciel.
     */
 	public int getId () {
-		return this.idLogiciel;
+		return idLogiciel;
 	}
 
 	/**
      * Retourne le nom du logiciel.
      * 
-     * @return une chaine de caractï¿½re correspondant au nom du logiciel.
+     * @return une chaine de caractère correspondant au nom du logiciel.
     */
 	public String getNom() {
 		return nom;
@@ -69,8 +73,8 @@ public class Logiciel {
 	*     nom du logiciel
 	*     
 	*/
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setNom(String nomValue) {
+		nom = nomValue;
 	}
 
 	/**
@@ -89,8 +93,8 @@ public class Logiciel {
 	*     prix du logiciel
 	*     
 	*/
-	public void setPrix(double prix) {
-		this.prix = prix;
+	public void setPrix(double priceValue) {
+		prix = priceValue;
 	}
 
 	/**
@@ -99,7 +103,7 @@ public class Logiciel {
      * @return un entier correspondant au nombre de jour du logiciel.
     */
 	public String getLicenceNumber() {
-		return number;
+		return licenceNumber;
 	}
 
 	/**
@@ -109,13 +113,22 @@ public class Logiciel {
 	*     nombre de jour du logiciel
 	*     
 	*/
-	public void setLicenceNumber(String licenceNumber) {
-		this.number = licenceNumber;
+	public void setLicenceNumber(String licenceNumberVal) {
+		licenceNumber = licenceNumberVal;
+	}
+
+	
+	public String getDateEndValidityLicence() {
+		return dateEndValidityLicence;
+	}
+
+	public void setDateEndValidityLicence(String endValidityLicence) {
+		dateEndValidityLicence = endValidityLicence;
 	}
 
 	@Override
 	public String toString() {
-		return nom + " - " + number;
+		return nom + " - " + licenceNumber;
 	}
 	
 

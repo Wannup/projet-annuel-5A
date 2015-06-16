@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
- * Equipement est la classe reprï¿½sentant un ï¿½quipement.
+ * Equipement est la classe représentant un équipement.
  * 
  * @version 1.0
  */
@@ -30,36 +30,50 @@ public class Equipement {
 	private double prix;
 	
 	/**
-	 * Constructeur par dï¿½faut
+	 * Constructeur par défaut
 	 */
 	public Equipement(){}
 	
 	/**
-	 * Constructeur ï¿½quipement
+	 * Constructeur équipement
 	 *
 	 * @param typeEquip
-	 *     type de l'ï¿½quipement
+	 *     type de l'équipement
 	 * @param numeroPoste
-	 *     numï¿½ro de poste de l'ï¿½quipement
+	 *     numéro de poste de l'équipement
 	 * @param agent
-	 *     agent liï¿½ ï¿½ l'ï¿½quipement
+	 *     agent lié à l'équipement
 	 * @param prix
-	 *     prix de l'ï¿½quipement
+	 *     prix de l'équipement
 	 * @param dateGarantie
 	 *     date de garantie
 	 * @param marque
-	 *     marque de l'ï¿½quipement
+	 *     marque de l'équipement
 	 * @param modele
-	 *     modï¿½le de l'ï¿½quipement
+	 *     modèle de l'équipement
 	 * @param calife
-	 *     calife de l'ï¿½quipement
+	 *     calife de l'équipement
 	 * @param info
-	 *     information de l'ï¿½quipement
+	 *     information de l'équipement
 	 * @see Agent
 	 */
 	public Equipement(String typeEquip, Agent agent, double prix, String dateGarantie, String dateLivraison, String marque, String modele, String calife, String info, String renewalDate) {
 		this.typeEquipement = typeEquip;
 		this.agent = agent;
+		this.prix = prix;
+		this.dateGarantie = dateGarantie;
+		this.dateLivraison = dateLivraison;
+		this.renewalDate = renewalDate;
+		this.marque = marque;
+		this.modele = modele;
+		this.nomCalife = calife;
+		this.info = info;
+	}
+	
+	public Equipement(String typeEquip, List<Logiciel> logiciels ,Agent agent, double prix, String dateGarantie, String dateLivraison, String marque, String modele, String calife, String info, String renewalDate) {
+		this.typeEquipement = typeEquip;
+		this.agent = agent;
+		this.logiciels = logiciels;
 		this.prix = prix;
 		this.dateGarantie = dateGarantie;
 		this.dateLivraison = dateLivraison;
@@ -79,9 +93,9 @@ public class Equipement {
 	}
 
 	/**
-     * Retourne les informations de l'ï¿½quipement.
+     * Retourne les informations de l'équipement.
      * 
-     * @return une chaine de caractï¿½re correspondant aux informations de l'ï¿½quipement.
+     * @return une chaine de caractère correspondant aux informations de l'équipement.
     */
 	public String getInfo() {
 		return info;

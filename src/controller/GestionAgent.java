@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,15 +19,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -85,7 +86,7 @@ public class GestionAgent implements Initializable {
 
 	private FXMLLoader loader;
 
-	private List<Agent> list;
+	private List<Agent> listAgent;
 	private AgentDao agentDao;
 	private int maxResult;
 	private int limit;
@@ -93,13 +94,37 @@ public class GestionAgent implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		list = new ArrayList<Agent>();
+		listAgent = new ArrayList<Agent>();
 		
-		nomCol.setCellValueFactory(new PropertyValueFactory<Agent, String>("nom"));
-		prenomCol.setCellValueFactory(new PropertyValueFactory<Agent, String>("prenom"));
-		poleCol.setCellValueFactory(new PropertyValueFactory<Agent, String>("pole"));
-		numCPCol.setCellValueFactory(new PropertyValueFactory<Agent, String>("numCP"));
-		telCol.setCellValueFactory(new PropertyValueFactory<Agent, String>("tel"));
+		nomCol.setCellValueFactory(new Callback<CellDataFeatures<Agent, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<Agent, String> agent) {
+				return new SimpleStringProperty(agent.getValue().getNom());
+			}
+		});
+		
+		prenomCol.setCellValueFactory(new Callback<CellDataFeatures<Agent, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<Agent, String> agent) {
+				return new SimpleStringProperty(agent.getValue().getPrenom());
+			}
+		});
+		
+		poleCol.setCellValueFactory(new Callback<CellDataFeatures<Agent, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<Agent, String> agent) {
+				return new SimpleStringProperty(agent.getValue().getPole());
+			}
+		});
+		
+		numCPCol.setCellValueFactory(new Callback<CellDataFeatures<Agent, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<Agent, String> agent) {
+				return new SimpleStringProperty(agent.getValue().getNumCP());
+			}
+		});
+		
+		telCol.setCellValueFactory(new Callback<CellDataFeatures<Agent, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<Agent, String> agent) {
+				return new SimpleStringProperty(agent.getValue().getTel());
+			}
+		});
 
 		columnModifier.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Agent, Agent>, ObservableValue<Agent>>() {
 			@Override
@@ -190,7 +215,7 @@ public class GestionAgent implements Initializable {
 	@FXML
 	private void searchAgent(ActionEvent event) {
 		if (!searchBar.getText().isEmpty()) {
-			list = agentDao.searchWithAttributes(searchBar.getText());
+			listAgent = agentDao.searchWithAttributes(searchBar.getText());
 			refreshTable();
 		}
 	}
@@ -212,9 +237,9 @@ public class GestionAgent implements Initializable {
 		file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
 		if (file != null) {
 			if (checkBoxExportTable.isSelected()) {
-				pdfGenerator.generate(file, new PDFAgentListExport(list));
-			} else if (maxResult == list.size()) {
-				pdfGenerator.generate(file, new PDFAgentListExport(list));
+				pdfGenerator.generate(file, new PDFAgentListExport(listAgent));
+			} else if (maxResult == listAgent.size()) {
+				pdfGenerator.generate(file, new PDFAgentListExport(listAgent));
 			} else {
 				List<Agent> results = agentDao.findByAttributesLike(null);
 				pdfGenerator.generate(file, new PDFAgentListExport(results));
@@ -234,9 +259,9 @@ public class GestionAgent implements Initializable {
 				.getWindow());
 		if (file != null) {
 			if (checkBoxExportTable.isSelected()) {
-				excelGenerator.generate(file, new ExcelAgentListExport(list));
-			} else if (maxResult == list.size()) {
-				excelGenerator.generate(file, new ExcelAgentListExport(list));
+				excelGenerator.generate(file, new ExcelAgentListExport(listAgent));
+			} else if (maxResult == listAgent.size()) {
+				excelGenerator.generate(file, new ExcelAgentListExport(listAgent));
 			} else {
 				List<Agent> results = agentDao.findByAttributesLike(null);
 				excelGenerator.generate(file, new ExcelAgentListExport(results));
@@ -253,8 +278,8 @@ public class GestionAgent implements Initializable {
 		file = fileChooser.showOpenDialog(bodyPanel.getParent().getScene().getWindow());
 		if (file != null) {
 			ExcelImport excelImport = new ExcelImport();
-			excelImport.importFile(file, new ExcelAgentImport(list));
-			for (Agent agent : list) {
+			excelImport.importFile(file, new ExcelAgentImport(listAgent));
+			for (Agent agent : listAgent) {
 				if (agentDao.find(agent.getId()) == null) {
 					agentDao.save(agent);
 				}
@@ -269,21 +294,21 @@ public class GestionAgent implements Initializable {
 			maxResult = agentDao.getNbResultLike(null);
 			limit = Integer.parseInt(Config.getPropertie("tableau_nb_ligne"));
 			if (maxResult < limit) {
-				list = agentDao.findByAttributesLike(null);
+				listAgent = agentDao.findByAttributesLike(null);
 			} else {
-				list = agentDao.findByAttributesLikeWithLimits(null, 0,
+				listAgent = agentDao.findByAttributesLikeWithLimits(null, 0,
 						limit);
 			}
 		} else {
-			list = agentDao.findByAttributesLike(null);
-			maxResult = list.size();
+			listAgent = agentDao.findByAttributesLike(null);
+			maxResult = listAgent.size();
 		}
 	}
 
 	private void refreshTable() {
-		ObservableList<Agent> items = FXCollections.observableArrayList(list);
+		ObservableList<Agent> items = FXCollections.observableArrayList(listAgent);
 		searchTab.setItems(items);
-		if (maxResult > list.size()) {
+		if (maxResult > listAgent.size()) {
 			buttonNext.setDisable(false);
 		} else {
 			buttonNext.setDisable(true);
@@ -293,9 +318,9 @@ public class GestionAgent implements Initializable {
 	@FXML
 	private void viewMore(ActionEvent event) throws IOException {
 
-		List<Agent> results = agentDao.findByAttributesLikeWithLimits(null,list.size(), limit);
+		List<Agent> results = agentDao.findByAttributesLikeWithLimits(null,listAgent.size(), limit);
 		for (Agent agent : results)
-			list.add(agent);
+			listAgent.add(agent);
 		
 		refreshTable();
 	}
