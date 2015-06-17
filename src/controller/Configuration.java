@@ -147,7 +147,7 @@ public class Configuration implements Initializable {
 			}
 		}
 		
-		// vï¿½rification non existence du type
+		// vérification non existence du type
 		/*
 		typeEquipementDao.save(newType);
 		*/

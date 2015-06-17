@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="bodyPanel" prefHeight="650.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AjoutLogiciel">
+  <children>
+    <Label layoutX="258.0" layoutY="91.0" text="Nouveau Logiciel">
+      <font>
+        <Font name="System Bold" size="17.0" />
+      </font>
+    </Label>
+    <TextField fx:id="libelle" layoutX="296.0" layoutY="219.0" prefWidth="200.0" />
+    <TextField fx:id="licenceNumber" layoutX="296.0" layoutY="270.0" prefWidth="200.0" />
+    <TextField fx:id="prix" layoutX="296.0" layoutY="324.0" prefWidth="200.0" />
+    <Label layoutX="188.0" layoutY="222.0" text="Libelle" />
+    <Label layoutX="148.0" layoutY="273.0" text="Numéro de la licence" />
+    <Label layoutX="153.0" layoutY="327.0" text="Prix de la licence (€)" />
+    <Button fx:id="btnAdd" layoutX="291.0" layoutY="508.0" mnemonicParsing="false" onAction="#enregistrerLogiciel" text="Ajouter" />
+      <DatePicker fx:id="dateFinValidite" layoutX="294.0" layoutY="384.0" prefHeight="31.0" prefWidth="200.0" />
+      <Label layoutX="99.0" layoutY="389.0" text="Fin de validité de la licence" />
+  </children>
+</AnchorPane>

@@ -6,15 +6,14 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Agent;
@@ -41,9 +40,6 @@ public class AjoutAgent implements Initializable{
 	private TextField tel;
 	
 	@FXML
-	private Label msgAjoutOk;
-	
-	@FXML
 	private ComboBox<Pole> pole;
 	
 	@FXML
@@ -54,23 +50,14 @@ public class AjoutAgent implements Initializable{
 	private FXMLLoader loader;
 	
 	private PoleDao poleDao;
+	private String errorMessage = "";
 	
-	private EventHandler<MouseEvent> enleverMessageAjout = new EventHandler<MouseEvent>() {
-	    public void handle(MouseEvent me) {
-		       if(msgAjoutOk.isVisible())
-		    	  msgAjoutOk.setVisible(false);
-		}
-	};
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {		
-		nom.setOnMouseClicked(enleverMessageAjout);
-		prenom.setOnMouseClicked(enleverMessageAjout);
-		numCP.setOnMouseClicked(enleverMessageAjout);
 		
 		poleDao = new PoleDao();
 		pole.getItems().addAll(FXCollections.observableArrayList(poleDao.findByAttributesLike(null)));
-		
 	}
 	
 	@FXML
@@ -79,32 +66,46 @@ public class AjoutAgent implements Initializable{
 		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 	
-	private boolean validationFormulaire(){
-		//Todo
-		//ajouter un controle sur le numeroCP pour voir si l'agent n'est pas deja enregistrÃ©
-		return true;
-	}
-	
 	@FXML
 	private void enregistrerAgent(ActionEvent event){
 		if(validationFormulaire()){
 			Agent newAgent = new Agent(nom.getText(), prenom.getText(), pole.getValue().getNom(), tel.getText(), numCP.getText(), null);
 			AgentDao agentDao = new AgentDao();
 			agentDao.save(newAgent);
+			
+			//popup
 			if(champAgentFormEquipement != null){
 				champAgentFormEquipement.setText(numCP.getText());
 				Stage fenetre =(Stage)btnAdd.getScene().getWindow();
            	 	fenetre.close();
 			}
+			//fenetre principal
 			else
 				informerValidation();
-		}	
+		}
+		else{
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erreur enregistrement agent");
+			alert.setHeaderText("Les champs ci-dessous sont incorrectes ou non renseignés.");
+			alert.setContentText(errorMessage);
+			alert.showAndWait();
+		}
 		
+	}
+	
+	private boolean validationFormulaire(){
+		//Todo
+		//ajouter un controle sur le numeroCP pour voir si l'agent n'est pas deja enregistrÃ©
+		return true;
 	}
 	
 	public void informerValidation(){
 		viderTousLesChamps();
-		msgAjoutOk.setVisible(true);
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Ajout agent");
+		alert.setHeaderText(null);
+		alert.setContentText("Agent ajouté avec succès !");
+		alert.showAndWait();
 	}
 	
 	private void viderTousLesChamps(){

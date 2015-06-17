@@ -7,32 +7,32 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="bodyPanel" prefHeight="675.0" prefWidth="709.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AjoutAgent">
+<AnchorPane fx:id="bodyPanel" prefHeight="650.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AjoutAgent">
   <children>
-    <Label layoutX="265.0" layoutY="85.0" text="Ajouter un nouvel agent">
+    <Label layoutX="235.0" layoutY="89.0" text="Ajouter un nouvel agent">
       <font>
         <Font name="System Bold" size="17.0" />
       </font>
     </Label>
-    <TextField id="name" fx:id="nom" layoutX="272.0" layoutY="220.0" prefWidth="200.0" />
-    <TextField fx:id="prenom" layoutX="272.0" layoutY="271.0" prefWidth="200.0" />
-    <TextField fx:id="numCP" layoutX="272.0" layoutY="430.0" prefWidth="200.0" />
-    <Label layoutX="184.0" layoutY="223.0" text="Nom" />
-    <Label layoutX="175.0" layoutY="274.0" text="Prénom" />
-    <Label layoutX="156.0" layoutY="380.0" text="Pôle / Service" />
-    <Label layoutX="181.0" layoutY="433.0" text="N° CP" />
-    <Button fx:id="btnAdd" layoutX="343.0" layoutY="547.0" mnemonicParsing="false" onAction="#enregistrerAgent" text="Ajouter" />
-    <Label fx:id="msgAjoutOk" layoutX="189.0" layoutY="501.0" prefHeight="22.0" prefWidth="372.0" text="Nouvel agent ajouté avec succès !" textAlignment="CENTER" textFill="#0db915" visible="false">
+    <TextField id="name" fx:id="nom" layoutX="242.0" layoutY="224.0" prefWidth="200.0" />
+    <TextField fx:id="prenom" layoutX="242.0" layoutY="275.0" prefWidth="200.0" />
+    <TextField fx:id="numCP" layoutX="242.0" layoutY="434.0" prefWidth="200.0" />
+    <Label layoutX="154.0" layoutY="227.0" text="Nom" />
+    <Label layoutX="145.0" layoutY="278.0" text="Prénom" />
+    <Label layoutX="126.0" layoutY="384.0" text="Pôle / Service" />
+    <Label layoutX="151.0" layoutY="437.0" text="N° CP" />
+    <Button fx:id="btnAdd" layoutX="313.0" layoutY="551.0" mnemonicParsing="false" onAction="#enregistrerAgent" text="Ajouter" />
+    <Label fx:id="msgAjoutOk" layoutX="159.0" layoutY="505.0" prefHeight="22.0" prefWidth="372.0" text="Nouvel agent ajouté avec succès !" textAlignment="CENTER" textFill="#0db915" visible="false">
       <font>
         <Font name="System Bold" size="15.0" />
       </font>
     </Label>
-    <ComboBox fx:id="pole" layoutX="272.0" layoutY="378.0" prefWidth="200.0">
+    <ComboBox fx:id="pole" layoutX="242.0" layoutY="382.0" prefWidth="200.0">
       <items>
         <FXCollections fx:factory="observableArrayList" />
       </items>
     </ComboBox>
-    <TextField id="prenom" fx:id="tel" layoutX="272.0" layoutY="325.0" prefWidth="200.0" />
-    <Label layoutX="149.0" layoutY="328.0" prefHeight="21.0" prefWidth="80.0" text="Téléphone" />
+    <TextField id="prenom" fx:id="tel" layoutX="242.0" layoutY="329.0" prefWidth="200.0" />
+    <Label layoutX="119.0" layoutY="332.0" prefHeight="21.0" prefWidth="80.0" text="Téléphone" />
   </children>
 </AnchorPane>

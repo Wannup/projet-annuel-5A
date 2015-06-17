@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
- * TypeEquipement est la classe représentant un type d'ï¿½quipement.
+ * TypeEquipement est la classe représentant un type d'équipement.
  * 
  * @version 1.0
  */

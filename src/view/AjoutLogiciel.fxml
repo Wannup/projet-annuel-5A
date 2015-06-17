@@ -23,11 +23,6 @@
     <Label layoutX="208.0" layoutY="328.0" text="Prix de la licence (€)" />
     <Button layoutX="398.0" layoutY="540.0" mnemonicParsing="false" onAction="#enregistrerLogiciel" text="Ajouter" />
       <DatePicker fx:id="dateFinValidite" layoutX="349.0" layoutY="385.0" prefHeight="31.0" prefWidth="200.0" />
-      <Label fx:id="msgAjoutOk" layoutX="296.0" layoutY="484.0" prefHeight="23.0" prefWidth="310.0" text="Nouveau logiciel ajouté avec succès !" textFill="#0db915" visible="false">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </Label>
       <Label layoutX="154.0" layoutY="390.0" text="Fin de validité de la licence" />
   </children>
 </AnchorPane>

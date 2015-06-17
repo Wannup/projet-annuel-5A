@@ -3,22 +3,22 @@ package controller;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
@@ -63,17 +63,11 @@ public class AjoutEquipement implements Initializable{
 	@FXML
 	private DatePicker dateLivraison;
 	
-	@FXML
-	private CheckBox logicielsOuiNon;
-	
 	@FXML 
 	private ListView<Logiciel> lstLogiciel;
 	
 	@FXML
 	private AnchorPane bodyPanel;
-	
-	@FXML
-	private AnchorPane sectionLogiciel;
 	
 	@FXML
 	private TextField numCPAgent;
@@ -88,22 +82,11 @@ public class AjoutEquipement implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		sectionLogiciel.setVisible(false);
-		
 		typeEquipementDao = new TypeEquipementDao();
 		equipementDao = new EquipementDao();
 		agentDao = new AgentDao();
 		
 		typeEquipement.getItems().addAll(FXCollections.observableArrayList(typeEquipementDao.findByAttributesLike(null)));
-		
-		logicielsOuiNon.setOnAction(new EventHandler<ActionEvent>() {
-		    public void handle(ActionEvent me) {
-			       if(logicielsOuiNon.isSelected())
-			    	   sectionLogiciel.setVisible(true);
-			       else
-			    	   sectionLogiciel.setVisible(false);
-			    }
-			});	
 	}
 	
 	@FXML
@@ -128,6 +111,25 @@ public class AjoutEquipement implements Initializable{
         
         // liaison entre les deux fenetres
         controllerAgentPopup.champAgentFormEquipement = numCPAgent;
+        
+	}
+	
+	@FXML
+	private void ajoutLogiciel(ActionEvent event) throws IOException{
+		
+		Stage stage = new Stage();
+        stage.setTitle("Ajouter un agent");
+        stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
+        
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/view/AjoutLogicielPopup.fxml"));
+        stage.setScene(new Scene(fxmlLoader.load()));
+        stage.show();
+      
+        AjoutLogiciel controllerLogicielPopup = (AjoutLogiciel) fxmlLoader.getController();
+        
+        // liaison entre les deux fenetres
+        controllerLogicielPopup.champLogicielFormEquipement = lstLogiciel;
         
 	}
 	
@@ -170,6 +172,49 @@ public class AjoutEquipement implements Initializable{
         controllerSelectLogicielPopup.champLogicielFormEquipement = lstLogiciel;
 	}
 	
+	@FXML
+	private void enregistrerEquipement(ActionEvent event){
+		
+		if(validationFormulaire()){
+			
+			// récupération de l'agent
+			Map<String, String> attribut = new HashMap<String, String>();
+			attribut.put("numCP", numCPAgent.getText().trim());
+			Agent agent = agentDao.findByAttributesEquals(attribut).get(0);
+			
+			// calcul de la date prévisionnelle de renouvellement
+			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			Calendar calendar = Calendar.getInstance();
+			if(!TransformationDonnees.formatDate(dateLivraison).equals("")){
+				try {
+					Date dateLivr = dateFormat.parse(TransformationDonnees.formatDate(dateLivraison));
+					calendar.setTime(dateLivr);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+			calendar.add(Calendar.YEAR, typeEquipement.getSelectionModel().getSelectedItem().getNbYearRenewal());
+			String renewalDate = dateFormat.format(calendar.getTime());
+			
+			// Création de l'équipement
+			Equipement newEquipement;
+			if(lstLogiciel.getItems().isEmpty())
+				newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem().toString(), agent, TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), marque.getText(), modele.getText(), calife.getText(), info.getText(), renewalDate);
+			else
+				newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem().toString(),lstLogiciel.getItems(), agent, TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), marque.getText(), modele.getText(), calife.getText(), info.getText(), renewalDate);
+			
+			equipementDao.save(newEquipement);
+			informerValidation();
+		}
+		else{
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erreur enregistrement equipement");
+			alert.setHeaderText("Les champs ci-dessous sont incorrectes ou non renseignés.");
+			alert.setContentText(errorMessage);
+			alert.showAndWait();
+		}
+	}
+	
 	private boolean validationFormulaire(){
 		
 		boolean formValid = true;
@@ -198,46 +243,8 @@ public class AjoutEquipement implements Initializable{
 			formValid = false;
 		}*/
 		
-		if(logicielsOuiNon.isSelected()){
-			if(lstLogiciel.getItems().isEmpty()){
-				errorMessage += "Aucun logiciel associé à  l'équipement, décochez la case.\n";
-				formValid = false;
-			}
-		}
-		return formValid;
-	}
-	
-	@FXML
-	private void enregistrerEquipement(ActionEvent event){
 		
-		if(validationFormulaire()){
-			
-			//récupération de l'agent
-			Map<String, String> attribut = new HashMap<String, String>();
-			attribut.put("numCP", numCPAgent.getText().trim());
-			Agent agent = agentDao.findByAttributesEquals(attribut).get(0);
-			
-			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-			Calendar cal = Calendar.getInstance();
-			cal.add(Calendar.YEAR, typeEquipement.getSelectionModel().getSelectedItem().getNbYearRenewal());
-			String renewalDate = dateFormat.format(cal.getTime());
-			
-			Equipement newEquipement;
-			if(lstLogiciel.getItems().isEmpty())
-				newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem().toString(), agent, TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), marque.getText(), modele.getText(), calife.getText(), info.getText(), renewalDate);
-			else
-				newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem().toString(),lstLogiciel.getItems(), agent, TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), marque.getText(), modele.getText(), calife.getText(), info.getText(), renewalDate);
-			
-			equipementDao.save(newEquipement);
-			informerValidation();
-		}
-		else{
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Erreur enregistrement equipement");
-			alert.setHeaderText("Les champs ci-dessous sont incorrectes ou non renseignés.");
-			alert.setContentText(errorMessage);
-			alert.showAndWait();
-		}
+		return formValid;
 	}
 	
 	private void informerValidation(){
@@ -255,12 +262,11 @@ public class AjoutEquipement implements Initializable{
 		calife.clear();	
 		prix.clear();
 		info.clear();
-		//numCPAgent.getSelectionModel().clearSelection();
+		numCPAgent.clear();
 		typeEquipement.getSelectionModel().clearSelection();
 		dateGarantie.getEditor().clear();
 		dateLivraison.getEditor().clear();
-		logicielsOuiNon.setSelected(false);
 		lstLogiciel.getSelectionModel().clearSelection();
-		//numCPAgent.getEditor().clear();
+		
 	}
 }
