@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="650.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TypeEquipementPopup">
+   <children>
+      <Label layoutX="49.0" layoutY="543.0" text="Double clic sur un élément de la liste pour le modifier." />
+      <Button fx:id="btnAddOrUpdate" layoutX="436.0" layoutY="294.0" mnemonicParsing="false" onAction="#saveOrUpdateType" text="Ajouter" />
+      <TextField fx:id="nbYearRenew" layoutX="374.0" layoutY="234.0" prefHeight="31.0" prefWidth="180.0" />
+      <Label layoutX="330.0" layoutY="204.0" text="Durée avant renouvellement (en années)" />
+      <Label layoutX="419.0" layoutY="116.0" text="Nom du type" />
+      <TextField fx:id="nomType" layoutX="375.0" layoutY="147.0" prefWidth="177.0" />
+      <Button layoutX="307.0" layoutY="507.0" mnemonicParsing="false" onAction="#deleteType" prefHeight="31.0" prefWidth="100.0" text="Supprimer" />
+      <ListView fx:id="listType" layoutX="41.0" layoutY="82.0" prefHeight="456.0" prefWidth="257.0" />
+      <Label layoutX="220.0" layoutY="35.0" text="Gestion des types d'équipements">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

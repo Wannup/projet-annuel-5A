@@ -2,11 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -30,11 +25,13 @@ import javafx.stage.Stage;
 import model.Agent;
 import model.Equipement;
 import model.Logiciel;
+import model.Pole;
 import model.TypeEquipement;
 import tools.ManipInterface;
 import tools.TransformationDonnees;
 import dao.AgentDao;
 import dao.EquipementDao;
+import dao.PoleDao;
 import dao.TypeEquipementDao;
 
 public class AjoutEquipement implements Initializable{
@@ -67,6 +64,9 @@ public class AjoutEquipement implements Initializable{
 	private ListView<Logiciel> lstLogiciel;
 	
 	@FXML
+	private ComboBox<Pole> poles;
+	
+	@FXML
 	private AnchorPane bodyPanel;
 	
 	@FXML
@@ -78,6 +78,7 @@ public class AjoutEquipement implements Initializable{
 	private FXMLLoader loader;
 	private String errorMessage = "";	
 	private AgentDao agentDao;
+	private PoleDao poleDao;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -85,7 +86,9 @@ public class AjoutEquipement implements Initializable{
 		typeEquipementDao = new TypeEquipementDao();
 		equipementDao = new EquipementDao();
 		agentDao = new AgentDao();
+		poleDao = new PoleDao();
 		
+		poles.getItems().addAll(FXCollections.observableArrayList(poleDao.findByAttributesLike(null)));
 		typeEquipement.getItems().addAll(FXCollections.observableArrayList(typeEquipementDao.findByAttributesLike(null)));
 	}
 	
@@ -96,7 +99,14 @@ public class AjoutEquipement implements Initializable{
 	}
 	
 	@FXML
+	private void addPole(ActionEvent event) throws IOException{
+		//TODO
+	}
+	
+	@FXML
 	private void ajoutAgent(ActionEvent event) throws IOException{
+		
+		numCPAgent.clear();
 		
 		Stage stage = new Stage();
         stage.setTitle("Ajouter un agent");
@@ -136,6 +146,8 @@ public class AjoutEquipement implements Initializable{
 	@FXML
 	private void selectAgent(ActionEvent event) throws IOException{
 	
+		numCPAgent.clear();
+		
 		Stage stage = new Stage();
         stage.setTitle("Selection d'un agent");
         stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
@@ -173,17 +185,36 @@ public class AjoutEquipement implements Initializable{
 	}
 	
 	@FXML
+	private void addTypeEquipement(ActionEvent event) throws IOException{
+		
+		Stage stage = new Stage();
+        stage.setTitle("Type d'équipement");
+        stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
+        
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/view/TypeEquipementPopup.fxml"));
+        stage.setScene(new Scene(fxmlLoader.load()));
+        stage.show();
+      
+        TypeEquipementPopup controllerSelectLogicielPopup = (TypeEquipementPopup) fxmlLoader.getController();
+        
+        // liaison entre les deux fenetres
+        controllerSelectLogicielPopup.champTypeEquipFormEquipement = typeEquipement;
+	}
+	
+	@FXML
 	private void enregistrerEquipement(ActionEvent event){
 		
 		if(validationFormulaire()){
 			
-			// récupération de l'agent
-			Map<String, String> attribut = new HashMap<String, String>();
+			// récupération de l'agent si renseigné
+			/*Map<String, String> attribut = new HashMap<String, String>();
 			attribut.put("numCP", numCPAgent.getText().trim());
-			Agent agent = agentDao.findByAttributesEquals(attribut).get(0);
+			Agent agent = agentDao.findByAttributesEquals(attribut).get(0);*/
+			Agent agent = null;
 			
 			// calcul de la date prévisionnelle de renouvellement
-			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			/*DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			Calendar calendar = Calendar.getInstance();
 			if(!TransformationDonnees.formatDate(dateLivraison).equals("")){
 				try {
@@ -194,14 +225,14 @@ public class AjoutEquipement implements Initializable{
 				}
 			}
 			calendar.add(Calendar.YEAR, typeEquipement.getSelectionModel().getSelectedItem().getNbYearRenewal());
-			String renewalDate = dateFormat.format(calendar.getTime());
+			String renewalDate = dateFormat.format(calendar.getTime());*/
 			
 			// Création de l'équipement
 			Equipement newEquipement;
 			if(lstLogiciel.getItems().isEmpty())
-				newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem().toString(), agent, TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), marque.getText(), modele.getText(), calife.getText(), info.getText(), renewalDate);
+				newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem(), agent, TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), marque.getText(), modele.getText(), calife.getText(), info.getText());
 			else
-				newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem().toString(),lstLogiciel.getItems(), agent, TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), marque.getText(), modele.getText(), calife.getText(), info.getText(), renewalDate);
+				newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem(),lstLogiciel.getItems(), agent, TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), marque.getText(), modele.getText(), calife.getText(), info.getText());
 			
 			equipementDao.save(newEquipement);
 			informerValidation();

@@ -1,17 +1,13 @@
 package controller;
 
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.ResourceBundle;
 
-import tools.TransformationDonnees;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -20,13 +16,13 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Agent;
 import model.Equipement;
 import model.Logiciel;
 import model.TypeEquipement;
+import tools.TransformationDonnees;
 import dao.AgentDao;
 import dao.EquipementDao;
 import dao.LogicielDao;
@@ -158,7 +154,7 @@ public class EditEquipement implements Initializable{
                 
             }*/
 			
-			e.setTypeEquipement(type.getSelectionModel().getSelectedItem().toString());
+			e.setTypeEquipement(type.getSelectionModel().getSelectedItem());
 			e.setCalife(calife.getText());
 			e.setDateGarantie(TransformationDonnees.formatDate(dateGarantie));
 			e.setMarque(marque.getText());

@@ -64,13 +64,33 @@ public class InformationEquipement implements Initializable{
 		this.eDao = new EquipementDao();
 		this.aDao = new AgentDao();
 	}
+
+	@FXML
+	private void validate(){
+		Stage stage = (Stage) ok.getScene().getWindow();
+	    stage.close();
+	}
+	
+	@FXML
+	private void editEquipement() throws IOException{		
+		Stage stage = new Stage();
+		FXMLLoader fxmlLoader =  new FXMLLoader(getClass().getResource("/view/EditEquipement.fxml"));
+		Parent root;
+		root = (Parent)fxmlLoader.load();
+		EditEquipement controller = fxmlLoader.<EditEquipement>getController();
+		controller.setValues(e.getId());
+		Scene scene = new Scene(root); 
+	    stage.setScene(scene);    
+	    stage.show(); 
+	    validate();	
+	}
 	
 	public void setValues(int id){
 		this.idEquipement = id;
 
 		this.e = eDao.find(idEquipement);
 		
-		this.type.setText(e.getTypeEquipement());
+		this.type.setText(e.getTypeEquipement().getNom());
 		this.marque.setText(e.getMarque());
 		this.modele.setText(e.getModele());
 		this.calife.setText(e.getCalife());
@@ -81,29 +101,5 @@ public class InformationEquipement implements Initializable{
 		this.nom.setText(a.getNom());
 		this.prenom.setText(a.getPrenom());
 		this.cp.setText(a.getNumCP());
-	}
-
-	@FXML
-	private void validate(){
-		Stage stage = (Stage) ok.getScene().getWindow();
-	    stage.close();
-	}
-	
-	@FXML
-	public void editEquipement(){		
-		try {
-			Stage stage = new Stage();
-			FXMLLoader fxmlLoader =  new FXMLLoader(getClass().getResource("/view/EditEquipement.fxml"));
-			Parent root;
-			root = (Parent)fxmlLoader.load();
-			EditEquipement controller = fxmlLoader.<EditEquipement>getController();
-			controller.setValues(e.getId());
-			Scene scene = new Scene(root); 
-	        stage.setScene(scene);    
-	        stage.show(); 
-	        validate();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		} 		
 	}
 }

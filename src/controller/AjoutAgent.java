@@ -69,7 +69,7 @@ public class AjoutAgent implements Initializable{
 	@FXML
 	private void enregistrerAgent(ActionEvent event){
 		if(validationFormulaire()){
-			Agent newAgent = new Agent(nom.getText(), prenom.getText(), pole.getValue().getNom(), tel.getText(), numCP.getText(), null);
+			Agent newAgent = new Agent(nom.getText(), prenom.getText(), pole.getValue(), tel.getText(), numCP.getText());
 			AgentDao agentDao = new AgentDao();
 			agentDao.save(newAgent);
 			

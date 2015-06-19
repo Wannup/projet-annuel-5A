@@ -21,7 +21,7 @@ public class Agent {
 	private String tel;
 	private String numCP;
 	private String numPoste;
-	private String pole;
+	private Pole pole;
 	
 	/**
 	 * Constructeur par dï¿½faut
@@ -38,17 +38,16 @@ public class Agent {
 	 * @param dateDeNaissance
 	 *     date de naissance de l'agent
 	 * @param numCP
-	 *     numï¿½ro de l'agent
+	 *     numero de l'agent
 	 * @param numPoste
-	 *     numï¿½ro de poste de l'agent
+	 *     numero de poste de l'agent
 	 *     
 	 */
-	public Agent(String nom, String prenom, String pole, String tel, String numCP, String numPoste) {		
+	public Agent(String nom, String prenom, Pole pole, String tel, String numCP) {		
 		this.nom = nom;
 		this.prenom = prenom;
 		this.tel = tel;
 		this.numCP = numCP;
-		this.numPoste = numPoste;
 		this.pole = pole;
 	}
 	
@@ -69,25 +68,25 @@ public class Agent {
 		this.idAgent = idAgent;
 	}
 
-	public String getPole() {
+	public Pole getPole() {
 		return pole;
 	}
 
-	public void setPole(String pole) {
+	public void setPole(Pole pole) {
 		this.pole = pole;
 	}
 
 	/**
      * Retourne le nom de l'agent.
      * 
-     * @return une chaine de caractï¿½re correspondant au nom de l'agent.
+     * @return une chaine de caractère correspondant au nom de l'agent.
      */
 	public String getNom() {
 		return nom;
 	}
 
 	/**
-	* Affecte un nouveau nom ï¿½ l'agent
+	* Affecte un nouveau nom à l'agent
 	*
 	* @param nom
 	*     nom de l'agent
@@ -98,19 +97,19 @@ public class Agent {
 	}
 
 	/**
-     * Retourne le prï¿½nom de l'agent.
+     * Retourne le prenom de l'agent.
      * 
-     * @return une chaine de caractï¿½re correspondant au prï¿½nom de l'agent.
+     * @return une chaine de caractere correspondant au prenom de l'agent.
      */
 	public String getPrenom() {
 		return prenom;
 	}
 
 	/**
-	* Affecte un nouveau prï¿½nom ï¿½ l'agent
+	* Affecte un nouveau prenom à l'agent
 	*
 	* @param prenom
-	*     prï¿½nom de l'agent
+	*     prénom de l'agent
 	*     
 	*/
 	public void setPrenom(String prenom) {
@@ -120,14 +119,14 @@ public class Agent {
 	/**
      * Retourne le nom de l'agent.
      * 
-     * @return une chaine de caractï¿½re correspondant au nom de l'agent.
+     * @return une chaine de caractère correspondant au nom de l'agent.
      */
 	public String getTel() {
 		return tel;
 	}
 
 	/**
-	* Affecte une nouvelle date de naissance ï¿½ l'agent
+	* Affecte une nouvelle date de naissance à l'agent
 	*
 	* @param dateDeNaissance
 	*     date de naissance de l'agent
@@ -138,19 +137,19 @@ public class Agent {
 	}
 
 	/**
-     * Retourne le numï¿½ro del'agent.
+     * Retourne le numero de l'agent.
      * 
-     * @return une chaine de caractï¿½re correspondant au numï¿½ro de l'agent.
+     * @return une chaine de caractere correspondant au numï¿½ro de l'agent.
      */
 	public String getNumCP() {
 		return numCP;
 	}
 
 	/**
-	* Affecte un nouveau numï¿½ro ï¿½ l'agent
+	* Affecte un nouveau numero à l'agent
 	*
 	* @param numCP
-	*     numï¿½ro de l'agent
+	*     numero de l'agent
 	*     
 	*/
 	public void setNumCP(String numCP) {
@@ -158,16 +157,16 @@ public class Agent {
 	}
 
 	/**
-     * Retourne le numï¿½ro de poste de l'agent.
+     * Retourne le numero de poste de l'agent.
      * 
-     * @return une chaine de caractï¿½re correspondant au numï¿½ro de poste de l'agent.
+     * @return une chaine de caractère correspondant au numero de poste de l'agent.
      */
 	public String getNumPoste() {
 		return numPoste;
 	}
 
 	/**
-	* Affecte un nouveau numï¿½ro de poste ï¿½ l'agent
+	* Affecte un nouveau numero de poste à l'agent
 	*
 	* @param numPoste
 	*     numï¿½ro de poste de l'agent
@@ -180,7 +179,7 @@ public class Agent {
 	/**
      * Retourne un agent sous forme de chaine.
      * 
-     * @return une chaine de caractï¿½re correspondant ï¿½ l'agent.
+     * @return une chaine de caractere correspondant à l'agent.
      */
 	@Override
 	public String toString() {

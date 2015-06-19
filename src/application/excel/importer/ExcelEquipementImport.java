@@ -69,7 +69,7 @@ public class ExcelEquipementImport extends ExcelDataImport {
 					cell = (HSSFCell) cellIt.next();
 					switch (numCell) {
 						case ID_CELL_NOM :
-							equipement.setNom(cell.getStringCellValue());
+							//equipement.setNom(cell.getStringCellValue());
 							break;
 						case ID_CELL_NUMERO :
 							if (cell.getCellType() == HSSFCell.CELL_TYPE_NUMERIC) {

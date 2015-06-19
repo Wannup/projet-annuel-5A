@@ -40,7 +40,11 @@ public abstract class AbstractDao<T> {
 			DatabaseConnection.em.remove(element);
 	}
 
-
+	public void update (T element) {
+		if(element != null)
+			DatabaseConnection.em.merge(element);
+	}
+	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<T> findByAttributesLike(Map<String, String> attributes) {
 

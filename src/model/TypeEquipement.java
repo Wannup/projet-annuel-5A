@@ -18,7 +18,6 @@ public class TypeEquipement {
 	
 	private String nom;
 	private int nbYearRenewal;
-	//private boolean withAgent;
 	
 	/**
 	 * Constructeur par défaut
@@ -97,14 +96,5 @@ public class TypeEquipement {
 	public String toString() {
 		return nom;
 	}
-
-/*	public boolean isWithAgent() {
-		return withAgent;
-	}
-
-	public void setWithAgent(boolean withAgentValue) {
-		withAgent = withAgentValue;
-	}
-	*/
 	
 }

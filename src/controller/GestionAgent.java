@@ -110,7 +110,7 @@ public class GestionAgent implements Initializable {
 		
 		poleCol.setCellValueFactory(new Callback<CellDataFeatures<Agent, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<Agent, String> agent) {
-				return new SimpleStringProperty(agent.getValue().getPole());
+				return new SimpleStringProperty(agent.getValue().getPole().getNom());
 			}
 		});
 		
