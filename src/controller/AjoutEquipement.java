@@ -2,6 +2,11 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -188,7 +193,7 @@ public class AjoutEquipement implements Initializable{
 	private void addTypeEquipement(ActionEvent event) throws IOException{
 		
 		Stage stage = new Stage();
-        stage.setTitle("Type d'équipement");
+        stage.setTitle("Type d'ï¿½quipement");
         stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
         
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -207,14 +212,14 @@ public class AjoutEquipement implements Initializable{
 		
 		if(validationFormulaire()){
 			
-			// récupération de l'agent si renseigné
-			/*Map<String, String> attribut = new HashMap<String, String>();
+			// rï¿½cupï¿½ration de l'agent si renseignï¿½
+			Map<String, String> attribut = new HashMap<String, String>();
 			attribut.put("numCP", numCPAgent.getText().trim());
-			Agent agent = agentDao.findByAttributesEquals(attribut).get(0);*/
-			Agent agent = null;
+			Agent agent = agentDao.findByAttributesEquals(attribut).get(0);
+			//Agent agent = null;
 			
-			// calcul de la date prévisionnelle de renouvellement
-			/*DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			// calcul de la date prï¿½visionnelle de renouvellement
+			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			Calendar calendar = Calendar.getInstance();
 			if(!TransformationDonnees.formatDate(dateLivraison).equals("")){
 				try {
@@ -225,14 +230,14 @@ public class AjoutEquipement implements Initializable{
 				}
 			}
 			calendar.add(Calendar.YEAR, typeEquipement.getSelectionModel().getSelectedItem().getNbYearRenewal());
-			String renewalDate = dateFormat.format(calendar.getTime());*/
+			String renewalDate = dateFormat.format(calendar.getTime());
 			
-			// Création de l'équipement
+			// Crï¿½ation de l'ï¿½quipement
 			Equipement newEquipement;
 			if(lstLogiciel.getItems().isEmpty())
-				newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem(), agent, TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), marque.getText(), modele.getText(), calife.getText(), info.getText());
+				newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem(), agent, TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), renewalDate, marque.getText(), modele.getText(), calife.getText(), info.getText());
 			else
-				newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem(),lstLogiciel.getItems(), agent, TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), marque.getText(), modele.getText(), calife.getText(), info.getText());
+				newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem(),lstLogiciel.getItems(), agent, TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), renewalDate, marque.getText(), modele.getText(), calife.getText(), info.getText());
 			
 			equipementDao.save(newEquipement);
 			informerValidation();
@@ -240,7 +245,7 @@ public class AjoutEquipement implements Initializable{
 		else{
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Erreur enregistrement equipement");
-			alert.setHeaderText("Les champs ci-dessous sont incorrectes ou non renseignés.");
+			alert.setHeaderText("Les champs ci-dessous sont incorrectes ou non renseignï¿½s.");
 			alert.setContentText(errorMessage);
 			alert.showAndWait();
 		}
@@ -251,15 +256,15 @@ public class AjoutEquipement implements Initializable{
 		boolean formValid = true;
 		
 		if(typeEquipement.getSelectionModel().getSelectedItem() == null){
-			errorMessage += "Type d'équipement non renseigné.\n";
+			errorMessage += "Type d'ï¿½quipement non renseignï¿½.\n";
 			formValid = false;
 		}
 		if(calife.getText().trim().equals("")){
-			errorMessage += "Calife non renseigné.\n";
+			errorMessage += "Calife non renseignï¿½.\n";
 			formValid = false;
 		}
 		if(prix.getText().trim().equals("")){
-			errorMessage += "Valeur non renseigné.\n";
+			errorMessage += "Valeur non renseignï¿½.\n";
 			formValid = false;
 		}
 		else{
@@ -268,9 +273,13 @@ public class AjoutEquipement implements Initializable{
 				formValid = false;
 			}
 		}
+		if(numCPAgent.getText().trim().equals("")){
+			errorMessage += "Agent non renseignï¿½.\n";
+			formValid = false;
+		}
 		
 	/*	if(numCPAgent.getSelectionModel().getSelectedItem() == null){
-			errorMessage += "Agent non renseigné.\n";
+			errorMessage += "Agent non renseignï¿½.\n";
 			formValid = false;
 		}*/
 		
@@ -283,7 +292,7 @@ public class AjoutEquipement implements Initializable{
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Ajout equipement");
 		alert.setHeaderText(null);
-		alert.setContentText("Equipement ajouté avec succès !");
+		alert.setContentText("Equipement ajoutï¿½ avec succï¿½s !");
 		alert.showAndWait();
 	}
 	

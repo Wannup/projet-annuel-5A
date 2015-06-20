@@ -1,11 +1,22 @@
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -16,6 +27,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Agent;
@@ -88,8 +100,6 @@ public class EditEquipement implements Initializable{
 		
 		type.getItems().addAll(FXCollections.observableArrayList(teDao.findByAttributesLike(null)));
 		numCPAgent.getItems().addAll(FXCollections.observableArrayList(aDao.findByAttributesLike(null)));	
-		lstLogiciel.getItems().addAll(FXCollections.observableArrayList(lDao.findByAttributesLike(null)));
-		lstLogiciel.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 	}
 	
 	public void setValues(int id){
@@ -97,13 +107,54 @@ public class EditEquipement implements Initializable{
 
 		this.e = eDao.find(idEquipement);
 
+		LocalDate myDate = LocalDate.parse(e.getDateGarantie().substring(6, 10)+"-"+e.getDateGarantie().substring(3, 5)+"-"+e.getDateGarantie().substring(0, 2));
+		
 		this.marque.setText(e.getMarque());
 		this.modele.setText(e.getModele());
 		this.calife.setText(e.getCalife());
 		this.info.setText(e.getInfo());
 		this.prix.setText("" + e.getPrix());
-		this.dateGarantie.getEditor().setText(e.getDateGarantie());
+		this.dateGarantie = new DatePicker(myDate);
+		this.lstLogiciel.getItems().addAll(FXCollections.observableArrayList(FXCollections.observableArrayList(e.getLogiciels())));
+	}
+	
+	@FXML
+	private void ajoutLogiciel(ActionEvent event) throws IOException{
 		
+		Stage stage = new Stage();
+        stage.setTitle("Ajouter un agent");
+        stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
+        
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/view/AjoutLogicielPopup.fxml"));
+        stage.setScene(new Scene(fxmlLoader.load()));
+        stage.show();
+      
+        AjoutLogiciel controllerLogicielPopup = (AjoutLogiciel) fxmlLoader.getController();
+        
+        // liaison entre les deux fenetres
+        controllerLogicielPopup.champLogicielFormEquipement = lstLogiciel;
+        
+	}
+	
+	@FXML
+	private void selectLogiciels(ActionEvent event) throws IOException{
+		
+		lstLogiciel.getItems().clear();
+		
+		Stage stage = new Stage();
+        stage.setTitle("Selection de logiciels");
+        stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
+        
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/view/SelectionLogicielPopup.fxml"));
+        stage.setScene(new Scene(fxmlLoader.load()));
+        stage.show();
+      
+        SelectionLogicielPopup controllerSelectLogicielPopup = (SelectionLogicielPopup) fxmlLoader.getController();
+        
+        // liaison entre les deux fenetres
+        controllerSelectLogicielPopup.champLogicielFormEquipement = lstLogiciel;
 	}
 	
 	private boolean validationFormulaire(){

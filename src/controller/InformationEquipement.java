@@ -11,10 +11,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import model.Agent;
 import model.Equipement;
+import model.Logiciel;
 import dao.AgentDao;
 import dao.EquipementDao;
 
@@ -52,6 +54,9 @@ public class InformationEquipement implements Initializable{
 	
 	@FXML
 	private Label dateLivraison;
+	
+	@FXML
+	private ListView<Logiciel> logiciels;
 	
 	private int idEquipement;
 	
@@ -96,6 +101,7 @@ public class InformationEquipement implements Initializable{
 		this.calife.setText(e.getCalife());
 		this.info.setText(e.getInfo());
 		this.dateLivraison.setText(e.getDateLivraison());
+		this.logiciels.getItems().addAll(e.getLogiciels());
 		
 		Agent a = aDao.find(e.getAgent().getId());
 		this.nom.setText(a.getNom());

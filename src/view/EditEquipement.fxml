@@ -31,13 +31,6 @@
     </ComboBox>
     <DatePicker fx:id="dateGarantie" layoutX="637.0" layoutY="247.0" prefHeight="31.0" prefWidth="200.0" />
     <TextArea fx:id="info" layoutX="637.0" layoutY="312.0" prefHeight="195.0" prefWidth="200.0" wrapText="true" />
-    <CheckBox fx:id="logicielsOuiNon" layoutX="188.0" layoutY="473.0" mnemonicParsing="false" text="Logiciels associés" />
-    <AnchorPane fx:id="sectionLogiciel" layoutX="29.0" layoutY="513.0" prefHeight="152.0" prefWidth="824.0">
-      <children>
-        <ListView fx:id="lstLogiciel" layoutX="158.0" layoutY="14.0" prefHeight="108.0" prefWidth="200.0" />
-        <Label layoutX="37.0" layoutY="24.0" text="Logiciels" />
-      </children>
-    </AnchorPane>
     <Button fx:id="btnEnregistrer" layoutX="402.0" layoutY="700.0" mnemonicParsing="false" onAction="#validate" prefHeight="31.0" prefWidth="104.0" text="Enregistrer" />
     <Label layoutX="256.0" layoutY="133.0" text="Type d'équipement" />
     <Label layoutX="510.0" layoutY="201.0" text="N° CP Agent" />
@@ -46,5 +39,9 @@
     <Label layoutX="90.0" layoutY="372.0" text="Modèle" />
     <Label layoutX="495.0" layoutY="252.0" text="Date fin garantie" />
     <Label layoutX="486.0" layoutY="317.0" text="Autres informations" />
+    <ListView fx:id="lstLogiciel" layoutX="188.0" layoutY="435.0" prefHeight="108.0" prefWidth="200.0" />
+    <Label layoutX="67.0" layoutY="445.0" text="Logiciels" />
+    <Button layoutX="398.0" layoutY="440.0" mnemonicParsing="false" onAction="#selectLogiciels" text="Selection" />
+    <Button layoutX="399.0" layoutY="474.0" mnemonicParsing="false" onAction="#ajoutLogiciel" text="Nouveau" />
   </children>
 </AnchorPane>

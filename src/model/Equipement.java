@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
- * Equipement est la classe représentant un équipement.
+ * Equipement est la classe reprï¿½sentant un ï¿½quipement.
  * 
  * @version 1.0
  */
@@ -18,9 +18,7 @@ public class Equipement {
 	@GeneratedValue
 	private int idEquipement;
 	private TypeEquipement typeEquipement;
-	//private String renewalDate; 
-	//(champ à calculer car le nombre d'année de renouvellement sur
-	//un type d'équipement peut être modifier)
+	private String renewalDate; 
 	private String dateGarantie;
 	private String dateLivraison;
 	private String dateAjoutEquipement;
@@ -33,52 +31,54 @@ public class Equipement {
 	private double prix;
 	
 	/**
-	 * Constructeur par défaut
+	 * Constructeur par dï¿½faut
 	 */
 	public Equipement(){}
 	
 	/**
-	 * Constructeur équipement
+	 * Constructeur ï¿½quipement
 	 *
 	 * @param typeEquip
-	 *     type de l'équipement
+	 *     type de l'ï¿½quipement
 	 * @param numeroPoste
-	 *     numéro de poste de l'équipement
+	 *     numï¿½ro de poste de l'ï¿½quipement
 	 * @param agent
-	 *     agent lié à l'équipement
+	 *     agent liï¿½ ï¿½ l'ï¿½quipement
 	 * @param prix
-	 *     prix de l'équipement
+	 *     prix de l'ï¿½quipement
 	 * @param dateGarantie
 	 *     date de garantie
 	 * @param marque
-	 *     marque de l'équipement
+	 *     marque de l'ï¿½quipement
 	 * @param modele
-	 *     modèle de l'équipement
+	 *     modï¿½le de l'ï¿½quipement
 	 * @param calife
-	 *     calife de l'équipement
+	 *     calife de l'ï¿½quipement
 	 * @param info
-	 *     information de l'équipement
+	 *     information de l'ï¿½quipement
 	 * @see Agent
 	 */
-	public Equipement(TypeEquipement typeEquip, Agent agent, double prix, String dateGarantie, String dateLivraison, String marque, String modele, String calife, String info) {
+	public Equipement(TypeEquipement typeEquip, Agent agent, double prix, String dateGarantie, String dateLivraison, String renewalDate, String marque, String modele, String calife, String info) {
 		this.typeEquipement = typeEquip;
 		this.agent = agent;
 		this.prix = prix;
 		this.dateGarantie = dateGarantie;
 		this.dateLivraison = dateLivraison;
+		this.renewalDate = renewalDate;
 		this.marque = marque;
 		this.modele = modele;
 		this.nomCalife = calife;
 		this.info = info;
 	}
 	
-	public Equipement(TypeEquipement typeEquip, List<Logiciel> logiciels ,Agent agent, double prix, String dateGarantie, String dateLivraison, String marque, String modele, String calife, String info) {
+	public Equipement(TypeEquipement typeEquip, List<Logiciel> logiciels ,Agent agent, double prix, String dateGarantie, String dateLivraison, String renewalDate, String marque, String modele, String calife, String info) {
 		this.typeEquipement = typeEquip;
 		this.agent = agent;
 		this.logiciels = logiciels;
 		this.prix = prix;
 		this.dateGarantie = dateGarantie;
 		this.dateLivraison = dateLivraison;
+		this.renewalDate = renewalDate;
 		this.marque = marque;
 		this.modele = modele;
 		this.nomCalife = calife;
@@ -86,12 +86,20 @@ public class Equipement {
 	}
 
 	/**
-     * Retourne les informations de l'équipement.
+     * Retourne les informations de l'ï¿½quipement.
      * 
-     * @return une chaine de caractère correspondant aux informations de l'équipement.
+     * @return une chaine de caractï¿½re correspondant aux informations de l'ï¿½quipement.
     */
 	public String getInfo() {
 		return info;
+	}
+
+	public String getRenewalDate() {
+		return renewalDate;
+	}
+
+	public void setRenewalDate(String renewalDate) {
+		this.renewalDate = renewalDate;
 	}
 
 	/**
@@ -126,19 +134,19 @@ public class Equipement {
 	}
 
 	/**
-     * Retourne le type de l'équipement.
+     * Retourne le type de l'ï¿½quipement.
      * 
-     * @return une chaine de caractère correspondant au type de l'équipement.
+     * @return une chaine de caractï¿½re correspondant au type de l'ï¿½quipement.
     */
 	public TypeEquipement getTypeEquipement() {
 		return typeEquipement;
 	}
 
 	/**
-	* Affecte un nouveau type à l'équipement
+	* Affecte un nouveau type ï¿½ l'ï¿½quipement
 	*
 	* @param typeEquipement
-	*     type de l'équipement
+	*     type de l'ï¿½quipement
 	*     
 	*/
 	public void setTypeEquipement(TypeEquipement typeEquipement) {
@@ -146,19 +154,19 @@ public class Equipement {
 	}
 
 	/**
-     * Retourne la date de garantie de l'équipement.
+     * Retourne la date de garantie de l'ï¿½quipement.
      * 
-     * @return une chaine de caractère correspondant à la date de garantie de l'équipement.
+     * @return une chaine de caractï¿½re correspondant ï¿½ la date de garantie de l'ï¿½quipement.
     */
 	public String getDateGarantie() {
 		return dateGarantie;
 	}
 
 	/**
-	* Affecte une nouvelle date de garantie à l'équipement
+	* Affecte une nouvelle date de garantie ï¿½ l'ï¿½quipement
 	*
 	* @param dateGarantie
-	*     date de garantie de l'équipement
+	*     date de garantie de l'ï¿½quipement
 	*     
 	*/
 	public void setDateGarantie(String dateGarantie) {
@@ -269,10 +277,10 @@ public class Equipement {
 	}
 
 	/**
-	* Affecte une nouvelle liste de logiciels à l'équipement
+	* Affecte une nouvelle liste de logiciels ï¿½ l'ï¿½quipement
 	*
 	* @param logiciels
-	*     liste de logiciels de l'équipement
+	*     liste de logiciels de l'ï¿½quipement
 	* 
 	* @see Logiciel
 	*/
@@ -281,9 +289,9 @@ public class Equipement {
 	}
 
 	/**
-     * Retourne le prix de l'équipement.
+     * Retourne le prix de l'ï¿½quipement.
      * 
-     * @return le prix de l'équipement.
+     * @return le prix de l'ï¿½quipement.
      * 
     */
 	public double getPrix() {
@@ -291,10 +299,10 @@ public class Equipement {
 	}
 
 	/**
-	* Affecte un nouveau prix à l'équipement
+	* Affecte un nouveau prix ï¿½ l'ï¿½quipement
 	*
 	* @param prix
-	*     prix de l'équipement
+	*     prix de l'ï¿½quipement
 	*     
 	*/
 	public void setPrix(double prix) {
