@@ -18,6 +18,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -28,8 +30,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
 import model.Logiciel;
@@ -127,7 +131,20 @@ public class GestionLogiciel implements Initializable {
 									button.setOnAction(new EventHandler<ActionEvent>() {
 										@Override
 										public void handle(ActionEvent event) {
-
+											try {
+					                    		Stage stage = new Stage();
+					                    		FXMLLoader fxmlLoader =  new FXMLLoader(getClass().getResource("/view/EditLogiciel.fxml"));
+					                    		Parent root = (Parent)fxmlLoader.load(); 
+					                    		EditAgent controller = fxmlLoader.<EditAgent>getController();
+					                    		controller.setValues(logiciel.getId());
+					                    		stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
+					                    		stage.setTitle("Modifier logiciel");
+					                    		Scene scene = new Scene(root); 
+							                    stage.setScene(scene);    
+							                    stage.show();
+						                    } catch (IOException e) {
+												e.printStackTrace();
+											}	 
 										}
 									});
 								} else {

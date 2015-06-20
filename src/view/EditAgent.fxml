@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane minHeight="452.9998779296875" prefHeight="452.9998779296875" prefWidth="464.9998779296875" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.EditAgent">
+  <children>
+    <TextField id="name" fx:id="nom" layoutX="182.0" layoutY="86.0" prefWidth="200.0" />
+    <TextField fx:id="prenom" layoutX="182.0" layoutY="137.0" prefWidth="200.0" />
+    <Label layoutX="94.0" layoutY="89.0" text="Nom" />
+    <Label layoutX="85.0" layoutY="140.0" text="Prénom" />
+    <Label layoutX="66.0" layoutY="246.0" text="Pôle / Service" />
+    <Label layoutX="91.0" layoutY="299.0" text="N° CP" />
+    <ComboBox fx:id="pole" layoutX="182.0" layoutY="244.0" prefWidth="200.0">
+      <items>
+        <FXCollections fx:factory="observableArrayList" />
+      </items>
+    </ComboBox>
+    <TextField fx:id="tel" layoutX="182.0" layoutY="191.0" prefWidth="200.0" />
+    <TextField fx:id="numCP" layoutX="182.0" layoutY="296.0" prefWidth="200.0" />
+    <Label layoutX="76.0" layoutY="194.0" prefWidth="63.0" text="Téléphone" />
+    <Button fx:id="btnEnregistrer" layoutX="198.0" layoutY="385.0" mnemonicParsing="false" onAction="#saveEditAgent" text="Ajouter" />
+  </children>
+</AnchorPane>

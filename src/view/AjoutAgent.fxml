@@ -18,7 +18,6 @@
     <Button id="btnEditDelete" layoutX="349.0" layoutY="22.0" mnemonicParsing="false" onAction="#displayEditDelete" text="Modifier/Supprimer des agents" />
     <TextField id="name" fx:id="nom" layoutX="351.0" layoutY="220.0" prefWidth="200.0" />
     <TextField fx:id="prenom" layoutX="351.0" layoutY="271.0" prefWidth="200.0" />
-    <TextField fx:id="numCP" layoutX="351.0" layoutY="430.0" prefWidth="200.0" />
     <Label layoutX="263.0" layoutY="223.0" text="Nom" />
     <Label layoutX="254.0" layoutY="274.0" text="Prénom" />
     <Label layoutX="235.0" layoutY="380.0" text="Pôle / Service" />
@@ -29,7 +28,8 @@
         <FXCollections fx:factory="observableArrayList" />
       </items>
     </ComboBox>
-    <TextField id="prenom" fx:id="tel" layoutX="351.0" layoutY="325.0" prefWidth="200.0" />
+    <TextField fx:id="tel" layoutX="351.0" layoutY="325.0" prefWidth="200.0" />
+    <TextField fx:id="numCP" layoutX="351.0" layoutY="430.0" prefWidth="200.0" />
     <Label layoutX="245.0" layoutY="328.0" prefWidth="63.0" text="Téléphone" />
   </children>
 </AnchorPane>
