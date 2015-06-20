@@ -135,7 +135,7 @@ public class GestionLogiciel implements Initializable {
 					                    		Stage stage = new Stage();
 					                    		FXMLLoader fxmlLoader =  new FXMLLoader(getClass().getResource("/view/EditLogiciel.fxml"));
 					                    		Parent root = (Parent)fxmlLoader.load(); 
-					                    		EditAgent controller = fxmlLoader.<EditAgent>getController();
+					                    		EditLogiciel controller = fxmlLoader.<EditLogiciel>getController();
 					                    		controller.setValues(logiciel.getId());
 					                    		stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
 					                    		stage.setTitle("Modifier logiciel");
