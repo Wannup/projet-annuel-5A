@@ -22,6 +22,12 @@ public class Accueil implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
+		try {
+			loader = new FXMLLoader(getClass().getResource("/view/bodyPanelAccueil.fxml"));
+			ManipInterface.chargementBodyPanel(bodyPanel, loader);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@FXML

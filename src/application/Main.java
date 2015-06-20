@@ -28,15 +28,6 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			
-			//Thread to start database connection
-			new Thread(new Runnable() {
-				
-				@Override
-				public void run() {
-					DatabaseConnection.startConnection();
-				}
-			}).start();
-			
 			// GUI
 			Parent root = FXMLLoader.load(getClass().getResource("/view/Accueil.fxml"));
 			Scene scene = new Scene(root);
@@ -57,6 +48,8 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
+		
+		DatabaseConnection.startConnection();
 		launch(args);
 	}
 }

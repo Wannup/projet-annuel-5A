@@ -256,15 +256,15 @@ public class AjoutEquipement implements Initializable{
 		boolean formValid = true;
 		
 		if(typeEquipement.getSelectionModel().getSelectedItem() == null){
-			errorMessage += "Type d'ï¿½quipement non renseignï¿½.\n";
+			errorMessage += "Type d'équipement non renseigné.\n";
 			formValid = false;
 		}
 		if(calife.getText().trim().equals("")){
-			errorMessage += "Calife non renseignï¿½.\n";
+			errorMessage += "Calife non renseigné.\n";
 			formValid = false;
 		}
 		if(prix.getText().trim().equals("")){
-			errorMessage += "Valeur non renseignï¿½.\n";
+			errorMessage += "Valeur non renseigné.\n";
 			formValid = false;
 		}
 		else{
@@ -274,7 +274,7 @@ public class AjoutEquipement implements Initializable{
 			}
 		}
 		if(numCPAgent.getText().trim().equals("")){
-			errorMessage += "Agent non renseignï¿½.\n";
+			errorMessage += "Agent non renseigné.\n";
 			formValid = false;
 		}
 		
@@ -292,7 +292,7 @@ public class AjoutEquipement implements Initializable{
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Ajout equipement");
 		alert.setHeaderText(null);
-		alert.setContentText("Equipement ajoutï¿½ avec succï¿½s !");
+		alert.setContentText("Equipement ajouté avec succès !");
 		alert.showAndWait();
 	}
 	

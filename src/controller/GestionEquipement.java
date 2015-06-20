@@ -30,7 +30,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
@@ -60,10 +59,10 @@ public class GestionEquipement implements Initializable{
 	private TableView<Equipement> tableViewEquipement;
 	
 	@FXML
-	private TableColumn<Equipement, Integer> columnDateGarantie;
+	private TableColumn<Equipement, String> columnDateGarantie;
 	
 	@FXML
-	private TableColumn<Equipement, Double> columnPrix;
+	private TableColumn<Equipement, String> columnPrix;
 	
 	@FXML
 	private TableColumn<Equipement, String> columnAgent;
@@ -88,7 +87,7 @@ public class GestionEquipement implements Initializable{
 	
 	private FXMLLoader loader;
 	
-	private List<Equipement> list;
+	private List<Equipement> listEquipement;
 	private EquipementDao equipementDao;
 	private int maxResult;
 	private int limit;
@@ -96,11 +95,20 @@ public class GestionEquipement implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		list = new ArrayList<Equipement>();
+		listEquipement = new ArrayList<Equipement>();
 		
-		columnDateGarantie.setCellValueFactory(new PropertyValueFactory<Equipement,Integer>("dateGarantie"));        
-		columnPrix.setCellValueFactory(new PropertyValueFactory<Equipement,Double>("prix"));
-		
+		columnDateGarantie.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<Equipement, String> equipement) {
+				return new SimpleStringProperty(equipement.getValue().getDateGarantie());
+			}
+		});
+		 
+		columnPrix.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<Equipement, String> equipement) {
+				return new SimpleStringProperty(String.valueOf(equipement.getValue().getPrix()));
+			}
+		});
+				
 		columnAgent.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<Equipement, String> p) {
 				if (p.getValue().getAgent() == null) {
@@ -110,8 +118,17 @@ public class GestionEquipement implements Initializable{
 			}
 		});
 		
-		columnType.setCellValueFactory(new PropertyValueFactory<Equipement,String>("typeEquipement")); 
-		columnCalife.setCellValueFactory(new PropertyValueFactory<Equipement,String>("calife")); 
+		columnType.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<Equipement, String> equipement) {
+				return new SimpleStringProperty(equipement.getValue().getTypeEquipement().getNom());
+			}
+		});
+		
+		columnCalife.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<Equipement, String> equipement) {
+				return new SimpleStringProperty(equipement.getValue().getCalife());
+			}
+		});
 		
 		columnModifier.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Equipement, Equipement>, ObservableValue<Equipement>>() {
 		      @Override 
@@ -217,7 +234,7 @@ public class GestionEquipement implements Initializable{
 	private void searchEquipement(ActionEvent event) {
 		if (!searchBar.getText().isEmpty()) {
 			equipementDao = new EquipementDao();
-			list = equipementDao.searchWithAttributes(searchBar.getText());
+			listEquipement = equipementDao.searchWithAttributes(searchBar.getText());
 			refreshTable ();
 		}
 	}
@@ -239,9 +256,9 @@ public class GestionEquipement implements Initializable{
         file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
         if (file != null) {
         	if (checkBoxExportTable.isSelected()) {
-        		pdfGenerator.generate(file, new PDFEquipementListExport(list));
-    		} else if (maxResult == list.size()) {
-    			pdfGenerator.generate(file, new PDFEquipementListExport(list));
+        		pdfGenerator.generate(file, new PDFEquipementListExport(listEquipement));
+    		} else if (maxResult == listEquipement.size()) {
+    			pdfGenerator.generate(file, new PDFEquipementListExport(listEquipement));
     		} else {			
     			List<Equipement> results = equipementDao.findByAttributesLike(null);
     			pdfGenerator.generate(file, new PDFEquipementListExport(results));
@@ -260,9 +277,9 @@ public class GestionEquipement implements Initializable{
         file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
         if (file != null) {
         	if (checkBoxExportTable.isSelected()) {
-        		excelGenerator.generate(file, new ExcelEquipementListExport(list));
-    		} else if (maxResult == list.size()) {
-    			excelGenerator.generate(file, new ExcelEquipementListExport(list));
+        		excelGenerator.generate(file, new ExcelEquipementListExport(listEquipement));
+    		} else if (maxResult == listEquipement.size()) {
+    			excelGenerator.generate(file, new ExcelEquipementListExport(listEquipement));
     		} else {
     			List<Equipement> results = equipementDao.findByAttributesLike(null);
     			excelGenerator.generate(file, new ExcelEquipementListExport(results));
@@ -279,8 +296,8 @@ public class GestionEquipement implements Initializable{
         file = fileChooser.showOpenDialog(bodyPanel.getParent().getScene().getWindow());
         if (file != null) {
         	ExcelImport excelImport = new ExcelImport();
-        	excelImport.importFile(file, new ExcelEquipementImport(list));
-			for (Equipement equipement : list) {
+        	excelImport.importFile(file, new ExcelEquipementImport(listEquipement));
+			for (Equipement equipement : listEquipement) {
 				if (equipementDao.find(equipement.getId()) == null) {
 					equipementDao.save(equipement);
 				}
@@ -296,20 +313,20 @@ public class GestionEquipement implements Initializable{
 		    maxResult = equipementDao.getNbResultLike(null);
 		    limit = Integer.parseInt(Config.getPropertie("tableau_nb_ligne"));
 		    if (maxResult < limit) {
-		    	list = equipementDao.findByAttributesLike(null);
+		    	listEquipement = equipementDao.findByAttributesLike(null);
 		    } else {
-		    	list = equipementDao.findByAttributesLikeWithLimits(null, 0, limit);
+		    	listEquipement = equipementDao.findByAttributesLikeWithLimits(null, 0, limit);
 		    }
 	    } else {
-	    	list = equipementDao.findByAttributesLike(null);
-	    	maxResult = list.size();
+	    	listEquipement = equipementDao.findByAttributesLike(null);
+	    	maxResult = listEquipement.size();
 	    }
 	}
 	
 	private void refreshTable () {
-		ObservableList<Equipement> items = FXCollections.observableArrayList(list);
+		ObservableList<Equipement> items = FXCollections.observableArrayList(listEquipement);
 		tableViewEquipement.setItems(items);
-		if (maxResult > list.size()) {
+		if (maxResult > listEquipement.size()) {
 			buttonNext.setDisable(false);
 		} else {
 			buttonNext.setDisable(true);
@@ -318,9 +335,9 @@ public class GestionEquipement implements Initializable{
 	
 	@FXML
 	private void viewMore(ActionEvent event) throws IOException {
-		List<Equipement> results = equipementDao.findByAttributesLikeWithLimits(null, list.size(), limit);
+		List<Equipement> results = equipementDao.findByAttributesLikeWithLimits(null, listEquipement.size(), limit);
 		for (Equipement equipement : results) {
-			list.add(equipement);
+			listEquipement.add(equipement);
 		}
 		refreshTable ();
 	}
