@@ -46,6 +46,7 @@ public class AjoutAgent implements Initializable{
 	private Button btnAdd;
 	
 	public TextField champAgentFormEquipement;
+	public ComboBox<Pole> champPolesEquipement;
 	
 	private FXMLLoader loader;
 	
@@ -76,6 +77,7 @@ public class AjoutAgent implements Initializable{
 			//popup
 			if(champAgentFormEquipement != null){
 				champAgentFormEquipement.setText(numCP.getText());
+				champPolesEquipement.setValue(newAgent.getPole());
 				Stage fenetre =(Stage)btnAdd.getScene().getWindow();
            	 	fenetre.close();
 			}

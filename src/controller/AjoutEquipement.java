@@ -126,7 +126,7 @@ public class AjoutEquipement implements Initializable{
         
         // liaison entre les deux fenetres
         controllerAgentPopup.champAgentFormEquipement = numCPAgent;
-        
+        controllerAgentPopup.champPolesEquipement = poles;
 	}
 	
 	@FXML
@@ -166,7 +166,7 @@ public class AjoutEquipement implements Initializable{
         
         // liaison entre les deux fenetres
         controllerSelectAgentPopup.champAgentFormEquipement = numCPAgent;
-      
+        controllerSelectAgentPopup.champPolesEquipement = poles;
 	}
 	
 	@FXML
@@ -210,15 +210,17 @@ public class AjoutEquipement implements Initializable{
 	@FXML
 	private void enregistrerEquipement(ActionEvent event){
 		
-		if(validationFormulaire()){
-			
-			// rï¿½cupï¿½ration de l'agent si renseignï¿½
+		Agent agent = null;
+		// récupération de l'agent si renseigné
+		if(!numCPAgent.getText().trim().equals("")){
 			Map<String, String> attribut = new HashMap<String, String>();
 			attribut.put("numCP", numCPAgent.getText().trim());
-			Agent agent = agentDao.findByAttributesEquals(attribut).get(0);
-			//Agent agent = null;
+			agent = agentDao.findByAttributesEquals(attribut).get(0);
+		}
+		
+		if(validationFormulaire(agent)){
 			
-			// calcul de la date prï¿½visionnelle de renouvellement
+			// calcul de la date prévisionnelle de renouvellement
 			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			Calendar calendar = Calendar.getInstance();
 			if(!TransformationDonnees.formatDate(dateLivraison).equals("")){
@@ -232,12 +234,12 @@ public class AjoutEquipement implements Initializable{
 			calendar.add(Calendar.YEAR, typeEquipement.getSelectionModel().getSelectedItem().getNbYearRenewal());
 			String renewalDate = dateFormat.format(calendar.getTime());
 			
-			// Crï¿½ation de l'ï¿½quipement
+			// Création de l'équipement
 			Equipement newEquipement;
 			if(lstLogiciel.getItems().isEmpty())
-				newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem(), agent, TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), renewalDate, marque.getText(), modele.getText(), calife.getText(), info.getText());
+				newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem(), agent, poles.getSelectionModel().getSelectedItem(), TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), renewalDate, marque.getText(), modele.getText(), calife.getText(), info.getText());
 			else
-				newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem(),lstLogiciel.getItems(), agent, TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), renewalDate, marque.getText(), modele.getText(), calife.getText(), info.getText());
+				newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem(),lstLogiciel.getItems(), agent, poles.getSelectionModel().getSelectedItem(), TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), renewalDate, marque.getText(), modele.getText(), calife.getText(), info.getText());
 			
 			equipementDao.save(newEquipement);
 			informerValidation();
@@ -245,13 +247,14 @@ public class AjoutEquipement implements Initializable{
 		else{
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Erreur enregistrement equipement");
-			alert.setHeaderText("Les champs ci-dessous sont incorrectes ou non renseignï¿½s.");
+			alert.setHeaderText("Les champs ci-dessous sont incorrectes ou non renseignés.");
 			alert.setContentText(errorMessage);
 			alert.showAndWait();
+			errorMessage = "";
 		}
 	}
 	
-	private boolean validationFormulaire(){
+	private boolean validationFormulaire(Agent agent){
 		
 		boolean formValid = true;
 		
@@ -273,16 +276,18 @@ public class AjoutEquipement implements Initializable{
 				formValid = false;
 			}
 		}
-		if(numCPAgent.getText().trim().equals("")){
-			errorMessage += "Agent non renseigné.\n";
+		
+		if(numCPAgent.getText().trim().equals("") && poles.getSelectionModel().getSelectedItem() == null){
+			errorMessage += "Vous devez renseigner l'agent ou le pole.\n";
 			formValid = false;
 		}
 		
-	/*	if(numCPAgent.getSelectionModel().getSelectedItem() == null){
-			errorMessage += "Agent non renseigné.\n";
-			formValid = false;
-		}*/
-		
+		if(!numCPAgent.getText().trim().equals("") && poles.getSelectionModel().getSelectedItem() != null){
+			if(agent.getPole() != poles.getSelectionModel().getSelectedItem()){
+				errorMessage += "L'agent sélectionné n'est pas lié au pole choisi.\n";
+				formValid = false;
+			}
+		}
 		
 		return formValid;
 	}

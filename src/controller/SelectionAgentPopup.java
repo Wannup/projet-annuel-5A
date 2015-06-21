@@ -14,6 +14,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -22,6 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Agent;
+import model.Pole;
 import dao.AgentDao;
 
 public class SelectionAgentPopup implements Initializable{
@@ -50,6 +52,7 @@ public class SelectionAgentPopup implements Initializable{
 	private List<Agent> listAgent;
 	
 	public TextField champAgentFormEquipement;
+	public ComboBox<Pole> champPolesEquipement;
 	
 	private AgentDao agentDao;
 	
@@ -115,6 +118,7 @@ public class SelectionAgentPopup implements Initializable{
 			                    @Override 
 			                    public void handle(ActionEvent event){
 			                    	 champAgentFormEquipement.setText(agent.getNumCP());
+			                    	 champPolesEquipement.setValue(agent.getPole());
 			                    	 Stage fenetre =(Stage)button.getScene().getWindow();
 			                    	 fenetre.close();             	
 			                    }

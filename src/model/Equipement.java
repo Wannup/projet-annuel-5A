@@ -27,6 +27,7 @@ public class Equipement {
 	private String nomCalife;
 	private String info;
 	private Agent agent;
+	private Pole pole;
 	private List<Logiciel> logiciels;
 	private double prix;
 	
@@ -58,9 +59,10 @@ public class Equipement {
 	 *     information de l'équipement
 	 * @see Agent
 	 */
-	public Equipement(TypeEquipement typeEquip, Agent agent, double prix, String dateGarantie, String dateLivraison, String renewalDate, String marque, String modele, String calife, String info) {
+	public Equipement(TypeEquipement typeEquip, Agent agent, Pole pole, double prix, String dateGarantie, String dateLivraison, String renewalDate, String marque, String modele, String calife, String info) {
 		this.typeEquipement = typeEquip;
 		this.agent = agent;
+		this.pole = pole;
 		this.prix = prix;
 		this.dateGarantie = dateGarantie;
 		this.dateLivraison = dateLivraison;
@@ -71,9 +73,10 @@ public class Equipement {
 		this.info = info;
 	}
 	
-	public Equipement(TypeEquipement typeEquip, List<Logiciel> logiciels ,Agent agent, double prix, String dateGarantie, String dateLivraison, String renewalDate, String marque, String modele, String calife, String info) {
+	public Equipement(TypeEquipement typeEquip, List<Logiciel> logiciels ,Agent agent, Pole pole, double prix, String dateGarantie, String dateLivraison, String renewalDate, String marque, String modele, String calife, String info) {
 		this.typeEquipement = typeEquip;
 		this.agent = agent;
+		this.pole = pole;
 		this.logiciels = logiciels;
 		this.prix = prix;
 		this.dateGarantie = dateGarantie;
@@ -91,7 +94,7 @@ public class Equipement {
      * @return une chaine de caractére correspondant aux informations de l'équipement.
     */
 	public String getInfo() {
-		return info;
+		return this.info;
 	}
 
 	public String getRenewalDate() {
@@ -119,7 +122,7 @@ public class Equipement {
      * @return un entier correspondant à l'identifiant de l'équipement.
     */
 	public int getIdEquipement() {
-		return idEquipement;
+		return this.idEquipement;
 	}
 
 	/**
@@ -139,7 +142,7 @@ public class Equipement {
      * @return une chaine de caractére correspondant au type de l'équipement.
     */
 	public TypeEquipement getTypeEquipement() {
-		return typeEquipement;
+		return this.typeEquipement;
 	}
 
 	/**
@@ -159,7 +162,7 @@ public class Equipement {
      * @return une chaine de caractére correspondant é la date de garantie de l'équipement.
     */
 	public String getDateGarantie() {
-		return dateGarantie;
+		return this.dateGarantie;
 	}
 
 	/**
@@ -327,6 +330,22 @@ public class Equipement {
 
 	public String getDateAjoutEquipement() {
 		return dateAjoutEquipement;
+	}
+
+	/**
+	 * @return the pole
+	 */
+	public Pole getPole() {
+		return pole;
+	}
+
+	/**
+	 * @param pole the pole to set
+	 */
+	public void setPole(Pole pole) {
+		this.pole = pole;
 	}	
+	
+	
 	
 }
