@@ -193,7 +193,7 @@ public class AjoutEquipement implements Initializable{
 	private void addTypeEquipement(ActionEvent event) throws IOException{
 		
 		Stage stage = new Stage();
-        stage.setTitle("Type d'ï¿½quipement");
+        stage.setTitle("Type d'équipement");
         stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
         
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -279,7 +279,7 @@ public class AjoutEquipement implements Initializable{
 		}
 		
 	/*	if(numCPAgent.getSelectionModel().getSelectedItem() == null){
-			errorMessage += "Agent non renseignï¿½.\n";
+			errorMessage += "Agent non renseigné.\n";
 			formValid = false;
 		}*/
 		

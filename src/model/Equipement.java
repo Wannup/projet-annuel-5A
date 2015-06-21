@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
- * Equipement est la classe reprï¿½sentant un ï¿½quipement.
+ * Equipement est la classe représentant un équipement.
  * 
  * @version 1.0
  */
@@ -31,31 +31,31 @@ public class Equipement {
 	private double prix;
 	
 	/**
-	 * Constructeur par dï¿½faut
+	 * Constructeur par défaut
 	 */
 	public Equipement(){}
 	
 	/**
-	 * Constructeur ï¿½quipement
+	 * Constructeur équipement
 	 *
 	 * @param typeEquip
-	 *     type de l'ï¿½quipement
+	 *     type de l'équipement
 	 * @param numeroPoste
-	 *     numï¿½ro de poste de l'ï¿½quipement
+	 *     numéro de poste de l'équipement
 	 * @param agent
-	 *     agent liï¿½ ï¿½ l'ï¿½quipement
+	 *     agent lié é l'équipement
 	 * @param prix
-	 *     prix de l'ï¿½quipement
+	 *     prix de l'équipement
 	 * @param dateGarantie
 	 *     date de garantie
 	 * @param marque
-	 *     marque de l'ï¿½quipement
+	 *     marque de l'équipement
 	 * @param modele
-	 *     modï¿½le de l'ï¿½quipement
+	 *     modéle de l'équipement
 	 * @param calife
-	 *     calife de l'ï¿½quipement
+	 *     calife de l'équipement
 	 * @param info
-	 *     information de l'ï¿½quipement
+	 *     information de l'équipement
 	 * @see Agent
 	 */
 	public Equipement(TypeEquipement typeEquip, Agent agent, double prix, String dateGarantie, String dateLivraison, String renewalDate, String marque, String modele, String calife, String info) {
@@ -86,9 +86,9 @@ public class Equipement {
 	}
 
 	/**
-     * Retourne les informations de l'ï¿½quipement.
+     * Retourne les informations de l'équipement.
      * 
-     * @return une chaine de caractï¿½re correspondant aux informations de l'ï¿½quipement.
+     * @return une chaine de caractére correspondant aux informations de l'équipement.
     */
 	public String getInfo() {
 		return info;
@@ -114,19 +114,19 @@ public class Equipement {
 	}
 
 	/**
-     * Retourne l'identifiant de l'ï¿½quipement.
+     * Retourne l'identifiant de l'équipement.
      * 
-     * @return un entier correspondant ï¿½ l'identifiant de l'ï¿½quipement.
+     * @return un entier correspondant à l'identifiant de l'équipement.
     */
 	public int getIdEquipement() {
 		return idEquipement;
 	}
 
 	/**
-	* Affecte un nouvelle identifiant ï¿½ l'ï¿½quipement
+	* Affecte un nouvelle identifiant é l'équipement
 	*
 	* @param idEquipement
-	*     identifiant de l'ï¿½quipement
+	*     identifiant de l'équipement
 	*     
 	*/
 	public void setIdEquipement(int idEquipement) {
@@ -134,19 +134,19 @@ public class Equipement {
 	}
 
 	/**
-     * Retourne le type de l'ï¿½quipement.
+     * Retourne le type de l'équipement.
      * 
-     * @return une chaine de caractï¿½re correspondant au type de l'ï¿½quipement.
+     * @return une chaine de caractére correspondant au type de l'équipement.
     */
 	public TypeEquipement getTypeEquipement() {
 		return typeEquipement;
 	}
 
 	/**
-	* Affecte un nouveau type ï¿½ l'ï¿½quipement
+	* Affecte un nouveau type é l'équipement
 	*
 	* @param typeEquipement
-	*     type de l'ï¿½quipement
+	*     type de l'équipement
 	*     
 	*/
 	public void setTypeEquipement(TypeEquipement typeEquipement) {
@@ -154,19 +154,19 @@ public class Equipement {
 	}
 
 	/**
-     * Retourne la date de garantie de l'ï¿½quipement.
+     * Retourne la date de garantie de l'équipement.
      * 
-     * @return une chaine de caractï¿½re correspondant ï¿½ la date de garantie de l'ï¿½quipement.
+     * @return une chaine de caractére correspondant é la date de garantie de l'équipement.
     */
 	public String getDateGarantie() {
 		return dateGarantie;
 	}
 
 	/**
-	* Affecte une nouvelle date de garantie ï¿½ l'ï¿½quipement
+	* Affecte une nouvelle date de garantie é l'équipement
 	*
 	* @param dateGarantie
-	*     date de garantie de l'ï¿½quipement
+	*     date de garantie de l'équipement
 	*     
 	*/
 	public void setDateGarantie(String dateGarantie) {
@@ -174,19 +174,19 @@ public class Equipement {
 	}
 
 	/**
-     * Retourne la marque de l'ï¿½quipement.
+     * Retourne la marque de l'équipement.
      * 
-     * @return une chaine de caractï¿½re correspondant ï¿½ la marque de l'ï¿½quipement.
+     * @return une chaine de caractére correspondant é la marque de l'équipement.
     */
 	public String getMarque() {
 		return marque;
 	}
 
 	/**
-	* Affecte une nouvelle marque ï¿½ l'ï¿½quipement
+	* Affecte une nouvelle marque é l'équipement
 	*
 	* @param marque
-	*     marque de l'ï¿½quipement
+	*     marque de l'équipement
 	*     
 	*/
 	public void setMarque(String marque) {
@@ -194,19 +194,19 @@ public class Equipement {
 	}
 
 	/**
-     * Retourne le modï¿½le de l'ï¿½quipement.
+     * Retourne le modéle de l'équipement.
      * 
-     * @return une chaine de caractï¿½re correspondant au modï¿½le de l'ï¿½quipement.
+     * @return une chaine de caractére correspondant au modéle de l'équipement.
     */
 	public String getModele() {
 		return modele;
 	}
 
 	/**
-	* Affecte un nouveau modele ï¿½ l'ï¿½quipement
+	* Affecte un nouveau modele é l'équipement
 	*
 	* @param modele
-	*     modele de l'ï¿½quipement
+	*     modele de l'équipement
 	*     
 	*/
 	public void setModele(String modele) {
@@ -214,19 +214,19 @@ public class Equipement {
 	}
 
 	/**
-     * Retourne le calife de l'ï¿½quipement.
+     * Retourne le calife de l'équipement.
      * 
-     * @return une chaine de caractï¿½re correspondant au calife de l'ï¿½quipement.
+     * @return une chaine de caractére correspondant au calife de l'équipement.
     */
 	public String getCalife() {
 		return nomCalife;
 	}
 
 	/**
-	* Affecte un nouveau calife ï¿½ l'ï¿½quipement
+	* Affecte un nouveau calife é l'équipement
 	*
 	* @param calife
-	*     calife de l'ï¿½quipement
+	*     calife de l'équipement
 	*     
 	*/
 	public void setCalife(String calife) {
@@ -234,18 +234,18 @@ public class Equipement {
 	}
 
 	/**
-     * Retourne l'identifiant de l'ï¿½quipement.
+     * Retourne l'identifiant de l'équipement.
      * 
-     * @return un entier correspondant ï¿½ l'identifiant de l'ï¿½quipement.
+     * @return un entier correspondant é l'identifiant de l'équipement.
     */
 	public int getId () {
 		return this.idEquipement;
 	}
 
 	/**
-     * Retourne l'agent de l'ï¿½quipement.
+     * Retourne l'agent de l'équipement.
      * 
-     * @return l'agent de l'ï¿½quipement.
+     * @return l'agent de l'équipement.
      * 
      * @see Agent
     */
@@ -254,10 +254,10 @@ public class Equipement {
 	}
 
 	/**
-	* Affecte un nouvelle agent ï¿½ l'ï¿½quipement
+	* Affecte un nouvelle agent é l'équipement
 	*
 	* @param agent
-	*     agent de l'ï¿½quipement
+	*     agent de l'équipement
 	* @see Agent
 	*/
 	public void setAgent(Agent agent) {
@@ -265,9 +265,9 @@ public class Equipement {
 	}
 
 	/**
-     * Retourne les logiciels de l'ï¿½quipement.
+     * Retourne les logiciels de l'équipement.
      * 
-     * @return les logiciels de l'ï¿½quipement.
+     * @return les logiciels de l'équipement.
      * 
      * @see List
      * @see Logiciel
@@ -277,10 +277,10 @@ public class Equipement {
 	}
 
 	/**
-	* Affecte une nouvelle liste de logiciels ï¿½ l'ï¿½quipement
+	* Affecte une nouvelle liste de logiciels à l'équipement
 	*
 	* @param logiciels
-	*     liste de logiciels de l'ï¿½quipement
+	*     liste de logiciels de l'équipement
 	* 
 	* @see Logiciel
 	*/
@@ -289,9 +289,9 @@ public class Equipement {
 	}
 
 	/**
-     * Retourne le prix de l'ï¿½quipement.
+     * Retourne le prix de l'équipement.
      * 
-     * @return le prix de l'ï¿½quipement.
+     * @return le prix de l'équipement.
      * 
     */
 	public double getPrix() {
@@ -299,10 +299,10 @@ public class Equipement {
 	}
 
 	/**
-	* Affecte un nouveau prix ï¿½ l'ï¿½quipement
+	* Affecte un nouveau prix à l'équipement
 	*
 	* @param prix
-	*     prix de l'ï¿½quipement
+	*     prix de l'équipement
 	*     
 	*/
 	public void setPrix(double prix) {

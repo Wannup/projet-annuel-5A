@@ -13,6 +13,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -37,7 +39,6 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Equipement;
-import tools.Config;
 import tools.ManipInterface;
 import application.excel.export.ExcelEquipementListExport;
 import application.excel.export.ExcelGenerator;
@@ -83,19 +84,25 @@ public class GestionEquipement implements Initializable{
 	private Button buttonNext;
 	
 	@FXML
-	private TextField searchBar = new TextField();
+	private TextField searchBar;
 	
 	private FXMLLoader loader;
 	
 	private List<Equipement> listEquipement;
 	private EquipementDao equipementDao;
-	private int maxResult;
-	private int limit;
+	
+	private ObservableList<Equipement> itemsEquipement;
+	
+	private  FilteredList<Equipement> filteredData;
+	private  SortedList<Equipement> sortedData;
+	/*private int maxResult;
+	private int limit;*/
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		listEquipement = new ArrayList<Equipement>();
+		equipementDao = new EquipementDao();
 		
 		columnDateGarantie.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
 			@Override
@@ -150,32 +157,30 @@ public class GestionEquipement implements Initializable{
 		              final Button button = new Button("Voir"); 
 		                
 		              @Override
-					public void updateItem(Equipement equipement, boolean empty) {
-		                super.updateItem(equipement, empty);
-		                if (equipement != null) {
-		                	 button.setMinWidth(70);
-		                	//buttonGraphic.setImage(Image);
-
-		                  setGraphic(button);
-		                  button.setOnAction(new EventHandler<ActionEvent>() {
-		                    @Override 
-		                    public void handle(ActionEvent event){
-		                    	try {
-		                    		Stage stage = new Stage();
-		                    		FXMLLoader fxmlLoader =  new FXMLLoader(getClass().getResource("/view/InformationEquipementPopup.fxml"));
-		                    		Parent root = (Parent)fxmlLoader.load(); 
-		                    		InformationEquipement controller = fxmlLoader.<InformationEquipement>getController();
-		                    		controller.setValues(equipement.getId());
-		                    		stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
-		                    		stage.setTitle("Information equipement");
-		                    		Scene scene = new Scene(root); 
-				                    stage.setScene(scene);    
-				                    stage.show();
-			                    } catch (IOException e) {
-									e.printStackTrace();
-								}	                    	
-		                    }
-		                  });
+		              public void updateItem(Equipement equipement, boolean empty) {
+			            	super.updateItem(equipement, empty);
+			                if (equipement != null) {
+			                	button.setMinWidth(70);
+			                	setGraphic(button);
+			                	button.setOnAction(new EventHandler<ActionEvent>() {
+			                    @Override 
+			                    public void handle(ActionEvent event){
+			                    	try {
+			                    		Stage stage = new Stage();
+			                    		FXMLLoader fxmlLoader =  new FXMLLoader(getClass().getResource("/view/InformationEquipementPopup.fxml"));
+			                    		Parent root = (Parent)fxmlLoader.load(); 
+			                    		InformationEquipement controller = fxmlLoader.<InformationEquipement>getController();
+			                    		controller.setValues(equipement.getId());
+			                    		stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
+			                    		stage.setTitle("Information equipement");
+			                    		Scene scene = new Scene(root); 
+					                    stage.setScene(scene);    
+					                    stage.show();
+				                    } catch (IOException e) {
+										e.printStackTrace();
+									}	                    	
+			                    }
+			                  });
 		                } else {
 		                  setGraphic(null);
 		                }
@@ -193,37 +198,33 @@ public class GestionEquipement implements Initializable{
 			 
 		    columnSupprimer.setCellFactory(new Callback<TableColumn<Equipement, Equipement>, TableCell<Equipement, Equipement>>() {
 			      @Override 
-			      public TableCell<Equipement, Equipement> call(TableColumn<Equipement, Equipement> personBooleanTableColumn) {
+			      public TableCell<Equipement, Equipement> call(TableColumn<Equipement, Equipement> equipementTableColumn) {
 			    	  return new TableCell<Equipement, Equipement>() {
-			              //final ImageView buttonGraphic = new ImageView();
-			              final Button button = new Button(); {
-			             //   button.setGraphic(buttonGraphic);
-			                button.setMinWidth(70);
-			              }
+			           
+			              final Button button = new Button();
+			           
 			              @Override
-						public void updateItem(Equipement equipement, boolean empty) {
-			                super.updateItem(equipement, empty);
-			                if (equipement != null) {
-			                	button.setText("X");
-			                	//buttonGraphic.setImage(Image); 
-
-			                  setGraphic(button);
-			                  button.setOnAction(new EventHandler<ActionEvent>() {
-			                    @Override 
-			                    public void handle(ActionEvent event) {
-			                    	Alert alert = new Alert(AlertType.CONFIRMATION);
-			                    	alert.setTitle("Suppression equipement");
-			                    	alert.setHeaderText("Confirmation");
-			                    	alert.setContentText("Voulez-vous vraiment supprimer cet ï¿½quipement ?");
-
-			                    	Optional<ButtonType> result = alert.showAndWait();
-			                    	if (result.get() == ButtonType.OK){
-			                    	    equipementDao.remove(equipement);
-			                    	    getListEquipement();
-			                    		refreshTable ();
-			                    	} 
-			                    }
-			                  });
+			              public void updateItem(Equipement equipement, boolean empty) {
+			            	  super.updateItem(equipement, empty);
+			            	  if (equipement != null) {
+			            		  button.setText("X");
+			            		  button.setMinWidth(70);
+				                  setGraphic(button);
+				                  button.setOnAction(new EventHandler<ActionEvent>() {
+				                    @Override 
+				                    public void handle(ActionEvent event) {
+				                    	Alert alert = new Alert(AlertType.CONFIRMATION);
+				                    	alert.setTitle("Suppression equipement");
+				                    	alert.setHeaderText("Confirmation");
+				                    	alert.setContentText("Voulez-vous vraiment supprimer cet ï¿½quipement ?");
+	
+				                    	Optional<ButtonType> result = alert.showAndWait();
+				                    	if (result.get() == ButtonType.OK){
+				                    	    equipementDao.remove(equipement);
+				                    		refreshTable();
+				                    	} 
+				                    }
+				                  });
 			                } else {
 			                  setGraphic(null);
 			                }
@@ -231,20 +232,48 @@ public class GestionEquipement implements Initializable{
 			            };
 			          }
 			    });
-		    
-		equipementDao = new EquipementDao();
-		getListEquipement();
-		refreshTable ();
+		
+		    // initialisation contenu tableview
+		    listEquipement = equipementDao.findByAttributesLike(null);
+	        itemsEquipement = FXCollections.observableArrayList(listEquipement);
+			
+		    // comportement de la barre de recherche
+		    filteredData = new FilteredList<>(itemsEquipement, p -> true);
+		
+		    searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(equipement -> {
+                if (newValue == null || newValue.trim().isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.trim().toLowerCase();
+                // filtrage calife, type, valeur, cpAgent
+                if (equipement.getCalife().toLowerCase().contains(lowerCaseFilter)) 
+                    return true; 
+                 else if (equipement.getTypeEquipement().getNom().toLowerCase().contains(lowerCaseFilter)) 
+                    return true;
+                 else if(String.valueOf(equipement.getPrix()).contains(lowerCaseFilter))
+                	 return true;
+                 else if(equipement.getAgent() != null && equipement.getAgent().getNumCP().toLowerCase().contains(lowerCaseFilter))
+                	 return true;
+                return false; // pas de résultat au critère de recherche
+            });
+        });
+
+        sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(tableViewEquipement.comparatorProperty());
+        tableViewEquipement.setItems(sortedData);
+        
 	}
 	
-	@FXML
+	/*@FXML
 	private void searchEquipement(ActionEvent event) {
 		if (!searchBar.getText().isEmpty()) {
 			equipementDao = new EquipementDao();
 			listEquipement = equipementDao.searchWithAttributes(searchBar.getText());
 			refreshTable ();
 		}
-	}
+	}*/
 	
 	@FXML
 	private void displayAddEquipment(ActionEvent event) throws IOException{
@@ -262,14 +291,14 @@ public class GestionEquipement implements Initializable{
         File file;
         file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
         if (file != null) {
-        	if (checkBoxExportTable.isSelected()) {
+        	/*if (checkBoxExportTable.isSelected()) {
         		pdfGenerator.generate(file, new PDFEquipementListExport(listEquipement));
     		} else if (maxResult == listEquipement.size()) {
     			pdfGenerator.generate(file, new PDFEquipementListExport(listEquipement));
-    		} else {			
+    		} else {	*/		
     			List<Equipement> results = equipementDao.findByAttributesLike(null);
     			pdfGenerator.generate(file, new PDFEquipementListExport(results));
-    		}
+    		//}
         }
 	}
 	
@@ -283,14 +312,14 @@ public class GestionEquipement implements Initializable{
         File file;
         file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
         if (file != null) {
-        	if (checkBoxExportTable.isSelected()) {
+        	/*if (checkBoxExportTable.isSelected()) {
         		excelGenerator.generate(file, new ExcelEquipementListExport(listEquipement));
     		} else if (maxResult == listEquipement.size()) {
     			excelGenerator.generate(file, new ExcelEquipementListExport(listEquipement));
-    		} else {
+    		} else {*/
     			List<Equipement> results = equipementDao.findByAttributesLike(null);
     			excelGenerator.generate(file, new ExcelEquipementListExport(results));
-    		}
+    		//}
         }
 	}
 	
@@ -309,11 +338,22 @@ public class GestionEquipement implements Initializable{
 					equipementDao.save(equipement);
 				}
 			}
-        	refreshTable();
+        	//refreshTable();
         }
 	}
 	
-	private void getListEquipement(){
+
+	
+	/*@FXML
+	private void viewMore(ActionEvent event) throws IOException {
+		List<Equipement> results = equipementDao.findByAttributesLikeWithLimits(null, listEquipement.size(), limit);
+		for (Equipement equipement : results) {
+			listEquipement.add(equipement);
+		}
+		refreshTable ();
+	}*/
+
+	/*private void getListEquipement(){
 		
 	    boolean isLimit = Config.getPropertie("tableau_limite").equals("yes");
 	    if (isLimit) {
@@ -328,25 +368,23 @@ public class GestionEquipement implements Initializable{
 	    	listEquipement = equipementDao.findByAttributesLike(null);
 	    	maxResult = listEquipement.size();
 	    }
-	}
+		listEquipement = equipementDao.findByAttributesLike(null);
+	}*/
 	
-	private void refreshTable () {
-		ObservableList<Equipement> items = FXCollections.observableArrayList(listEquipement);
-		tableViewEquipement.setItems(items);
+	private void refreshTable() {
+		
+		listEquipement = equipementDao.findByAttributesLike(null);
+		itemsEquipement = FXCollections.observableArrayList(listEquipement);
+        filteredData = new FilteredList<>(itemsEquipement, p -> true);
+        sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(tableViewEquipement.comparatorProperty());
+        tableViewEquipement.setItems(sortedData);
+		
+        /*//tableViewEquipement.setItems(itemsEquipement);
 		if (maxResult > listEquipement.size()) {
 			buttonNext.setDisable(false);
 		} else {
 			buttonNext.setDisable(true);
-		}
+		}*/
 	}
-	
-	@FXML
-	private void viewMore(ActionEvent event) throws IOException {
-		List<Equipement> results = equipementDao.findByAttributesLikeWithLimits(null, listEquipement.size(), limit);
-		for (Equipement equipement : results) {
-			listEquipement.add(equipement);
-		}
-		refreshTable ();
-	}
-
 }
