@@ -98,7 +98,7 @@ public class SelectionAgentPopup implements Initializable{
 		      public TableCell<Agent, Agent> call(TableColumn<Agent, Agent> agentTableColumn) {
 		    	  return new TableCell<Agent, Agent>() {
 		             
-		              final Button button = new Button("Select"); 
+		              final Button button = new Button("Selectionner"); 
 		                
 		              public void updateItem(Agent agent, boolean empty) {
 		                super.updateItem(agent, empty);

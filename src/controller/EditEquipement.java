@@ -106,15 +106,15 @@ public class EditEquipement implements Initializable{
 		this.idEquipement = id;
 
 		this.e = eDao.find(idEquipement);
-
-		LocalDate myDate = LocalDate.parse(e.getDateGarantie().substring(6, 10)+"-"+e.getDateGarantie().substring(3, 5)+"-"+e.getDateGarantie().substring(0, 2));
-		
+		if(e.getDateGarantie().length() > 0){
+			LocalDate myDate = LocalDate.parse(e.getDateGarantie().substring(6, 10)+"-"+e.getDateGarantie().substring(3, 5)+"-"+e.getDateGarantie().substring(0, 2));
+			this.dateGarantie = new DatePicker(myDate);
+		}
 		this.marque.setText(e.getMarque());
 		this.modele.setText(e.getModele());
 		this.calife.setText(e.getCalife());
 		this.info.setText(e.getInfo());
 		this.prix.setText("" + e.getPrix());
-		this.dateGarantie = new DatePicker(myDate);
 		this.lstLogiciel.getItems().addAll(FXCollections.observableArrayList(FXCollections.observableArrayList(e.getLogiciels())));
 	}
 	
