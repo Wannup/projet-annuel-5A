@@ -60,7 +60,7 @@ public class GestionEquipement implements Initializable{
 	private TableView<Equipement> tableViewEquipement;
 	
 	@FXML
-	private TableColumn<Equipement, String> columnDateGarantie;
+	private TableColumn<Equipement, String> columnPole;
 	
 	@FXML
 	private TableColumn<Equipement, String> columnPrix;
@@ -104,10 +104,10 @@ public class GestionEquipement implements Initializable{
 		listEquipement = new ArrayList<Equipement>();
 		equipementDao = new EquipementDao();
 		
-		columnDateGarantie.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
+		columnPole.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<Equipement, String> equipement) {
-				return new SimpleStringProperty(equipement.getValue().getDateGarantie());
+				return new SimpleStringProperty(equipement.getValue().getPole().getNom());
 			}
 		});
 		 
@@ -247,7 +247,7 @@ public class GestionEquipement implements Initializable{
                 }
 
                 String lowerCaseFilter = newValue.trim().toLowerCase();
-                // filtrage calife, type, valeur, cpAgent
+                // filtrage calife, type, valeur, pole, cpAgent
                 if (equipement.getCalife().toLowerCase().contains(lowerCaseFilter)) 
                     return true; 
                  else if (equipement.getTypeEquipement().getNom().toLowerCase().contains(lowerCaseFilter)) 
@@ -255,6 +255,8 @@ public class GestionEquipement implements Initializable{
                  else if(String.valueOf(equipement.getPrix()).contains(lowerCaseFilter))
                 	 return true;
                  else if(equipement.getAgent() != null && equipement.getAgent().getNumCP().toLowerCase().contains(lowerCaseFilter))
+                	 return true;
+                 else if(equipement.getPole().getNom().toLowerCase().contains(lowerCaseFilter))
                 	 return true;
                 return false; // pas de résultat au critère de recherche
             });
@@ -265,15 +267,6 @@ public class GestionEquipement implements Initializable{
         tableViewEquipement.setItems(sortedData);
         
 	}
-	
-	/*@FXML
-	private void searchEquipement(ActionEvent event) {
-		if (!searchBar.getText().isEmpty()) {
-			equipementDao = new EquipementDao();
-			listEquipement = equipementDao.searchWithAttributes(searchBar.getText());
-			refreshTable ();
-		}
-	}*/
 	
 	@FXML
 	private void displayAddEquipment(ActionEvent event) throws IOException{
