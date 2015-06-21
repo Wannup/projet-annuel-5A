@@ -22,21 +22,16 @@ public class GraphType implements Initializable{
 	
 
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		System.out.println("test");
-		
+	public void initialize(URL location, ResourceBundle resources) {		
         this.typePchart.setData(getChartData());
 	}
 	
 	private ObservableList<Data> getChartData() {
-		TypeEquipementDao teDao = new TypeEquipementDao();
-		EquipementDao eDao = new EquipementDao();
-		List<TypeEquipement> typeList = teDao.findByAttributesLike(null);
 		ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-		for(int i=0; i<typeList.size(); i++){
-			List<Equipement> nbType = eDao.searchWithAttributes(typeList.get(i).getNom());
-			pieChartData.add(new PieChart.Data(typeList.get(i).getNom(), nbType.size()));
-		}
+
+		pieChartData.add(new PieChart.Data("PC Fixe", 3));
+		pieChartData.add(new PieChart.Data("PC Portable", 10));
+		pieChartData.add(new PieChart.Data("Imprimante", 5));
 
         return pieChartData;
     }
