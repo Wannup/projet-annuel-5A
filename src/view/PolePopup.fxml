@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="650.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PolePopup">
+   <children>
+      <Label layoutX="49.0" layoutY="543.0" text="Double clic sur un élément de la liste pour le modifier." />
+      <Button fx:id="btnAddOrUpdate" layoutX="436.0" layoutY="294.0" mnemonicParsing="false" onAction="#saveOrUpdatePole" text="Ajouter" />
+      <Label layoutX="426.0" layoutY="209.0" text="Nom du pole" />
+      <TextField fx:id="nomPole" layoutX="382.0" layoutY="240.0" prefWidth="177.0" />
+      <Button layoutX="307.0" layoutY="507.0" mnemonicParsing="false" onAction="#deletePole" prefHeight="31.0" prefWidth="100.0" text="Supprimer" />
+      <ListView fx:id="listPole" layoutX="41.0" layoutY="82.0" prefHeight="456.0" prefWidth="257.0" />
+      <Label layoutX="293.0" layoutY="37.0" text="Gestion des poles ">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

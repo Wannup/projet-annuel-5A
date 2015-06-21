@@ -11,6 +11,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import model.Equipement;
+import model.Pole;
 import model.TypeEquipement;
 import application.database.DatabaseConnection;
 
@@ -21,21 +22,31 @@ public class EquipementDao extends AbstractDao<Equipement>{
 	
 	
 	
-	public List<Equipement> getEquipementByType(TypeEquipement type ) {
-		  /*Query query = DatabaseConnection.em.createQuery( "SELECT * FROM equipement WHERE typeEquipement = ?1" );
-		   query.setParameter( 1, idType);
-		   return new ArrayList<Equipement>( query.getResultList() );*/
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public List<Equipement> getEquipementByType(TypeEquipement type) {
 		   
-		   CriteriaBuilder cb = DatabaseConnection.em.getCriteriaBuilder();
-		   CriteriaQuery cq = cb.createQuery();
-			Root<Equipement> table = cq.from(Equipement.class);
-			cq.where(cb.equal(table.get("typeEquipement"), type));
-			TypedQuery q = DatabaseConnection.em.createQuery(cq);
+		CriteriaBuilder cb = DatabaseConnection.em.getCriteriaBuilder();
+		CriteriaQuery cq = cb.createQuery();
+		Root<Equipement> table = cq.from(Equipement.class);
+		cq.where(cb.equal(table.get("typeEquipement"), type));
+		TypedQuery q = DatabaseConnection.em.createQuery(cq);
 	        
-			List<Equipement> results = q.getResultList();
-			
-			return results;
-		}
+		List<Equipement> results = q.getResultList();	
+		return results;
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public List<Equipement> getEquipementByPole(Pole pole) {
+		   
+		CriteriaBuilder cb = DatabaseConnection.em.getCriteriaBuilder();
+		CriteriaQuery cq = cb.createQuery();
+		Root<Equipement> table = cq.from(Equipement.class);
+		cq.where(cb.equal(table.get("pole"), pole));
+		TypedQuery q = DatabaseConnection.em.createQuery(cq);
+	        
+		List<Equipement> results = q.getResultList();	
+		return results;
+	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<Equipement> searchWithAttributes(String search) {

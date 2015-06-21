@@ -105,7 +105,19 @@ public class AjoutEquipement implements Initializable{
 	
 	@FXML
 	private void addPole(ActionEvent event) throws IOException{
-		//TODO
+		Stage stage = new Stage();
+        stage.setTitle("Pole/Service");
+        stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
+        
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/view/PolePopup.fxml"));
+        stage.setScene(new Scene(fxmlLoader.load()));
+        stage.show();
+      
+        PolePopup controllerSelectLogicielPopup = (PolePopup) fxmlLoader.getController();
+        
+        // liaison entre les deux fenetres
+        controllerSelectLogicielPopup.champPoleFormEquipement = poles;
 	}
 	
 	@FXML
