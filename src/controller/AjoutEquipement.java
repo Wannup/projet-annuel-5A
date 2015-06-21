@@ -237,9 +237,9 @@ public class AjoutEquipement implements Initializable{
 			// Création de l'équipement
 			Equipement newEquipement;
 			if(lstLogiciel.getItems().isEmpty())
-				newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem(), agent, poles.getSelectionModel().getSelectedItem(), TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), renewalDate, marque.getText(), modele.getText(), calife.getText(), info.getText());
+				newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem(), agent, poles.getSelectionModel().getSelectedItem(), TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), renewalDate, marque.getText(), modele.getText().trim(), calife.getText().trim(), info.getText().trim());
 			else
-				newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem(),lstLogiciel.getItems(), agent, poles.getSelectionModel().getSelectedItem(), TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), renewalDate, marque.getText(), modele.getText(), calife.getText(), info.getText());
+				newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem(),lstLogiciel.getItems(), agent, poles.getSelectionModel().getSelectedItem(), TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), renewalDate, marque.getText().trim(), modele.getText().trim(), calife.getText().trim(), info.getText().trim());
 			
 			equipementDao.save(newEquipement);
 			informerValidation();
@@ -247,7 +247,7 @@ public class AjoutEquipement implements Initializable{
 		else{
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Erreur enregistrement equipement");
-			alert.setHeaderText("Les champs ci-dessous sont incorrectes ou non renseignés.");
+			alert.setHeaderText("Les erreurs sont les suivantes: ");
 			alert.setContentText(errorMessage);
 			alert.showAndWait();
 			errorMessage = "";
@@ -257,6 +257,17 @@ public class AjoutEquipement implements Initializable{
 	private boolean validationFormulaire(Agent agent){
 		
 		boolean formValid = true;
+		
+		// vérification s'il n'existe pas déja un équipement avec le même calife
+		if(!calife.getText().trim().equals("")){
+				Map<String, String> attribut = new HashMap<String, String>();
+				attribut.put("nomCalife", calife.getText().trim());
+						
+				if(!equipementDao.findByAttributesEquals(attribut).isEmpty()){
+					errorMessage += "Il y a déja un équipement enregistré avec ce nom de calife.\n";
+					return false;
+				}
+		}
 		
 		if(typeEquipement.getSelectionModel().getSelectedItem() == null){
 			errorMessage += "Type d'équipement non renseigné.\n";
