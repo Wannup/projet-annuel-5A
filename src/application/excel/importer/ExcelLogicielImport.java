@@ -62,16 +62,16 @@ public class ExcelLogicielImport extends ExcelDataImport {
 							logiciel.setNom(cell.getStringCellValue());
 							break;
 						case ID_CELL_PRIX :
-							if (cell.getCellType() == HSSFCell.CELL_TYPE_NUMERIC) {
+							if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
 								logiciel.setPrix(cell.getNumericCellValue());
-							} else if (cell.getCellType() == HSSFCell.CELL_TYPE_STRING) {
+							} else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
 								logiciel.setPrix(Double.valueOf(cell.getStringCellValue()));
 							}
 							break;
 						case ID_CELL_JOUR :
-							if (cell.getCellType() == HSSFCell.CELL_TYPE_NUMERIC) {
+							if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
 								logiciel.setLicenceNumber(cell.getStringCellValue());
-							} else if (cell.getCellType() == HSSFCell.CELL_TYPE_STRING) {
+							} else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
 								logiciel.setLicenceNumber(cell.getStringCellValue());
 							}
 							break;

@@ -98,18 +98,21 @@ public class GestionEquipement implements Initializable{
 		listEquipement = new ArrayList<Equipement>();
 		
 		columnDateGarantie.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
+			@Override
 			public ObservableValue<String> call(CellDataFeatures<Equipement, String> equipement) {
 				return new SimpleStringProperty(equipement.getValue().getDateGarantie());
 			}
 		});
 		 
 		columnPrix.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
+			@Override
 			public ObservableValue<String> call(CellDataFeatures<Equipement, String> equipement) {
 				return new SimpleStringProperty(String.valueOf(equipement.getValue().getPrix()));
 			}
 		});
 				
 		columnAgent.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
+			@Override
 			public ObservableValue<String> call(CellDataFeatures<Equipement, String> p) {
 				if (p.getValue().getAgent() == null) {
 					return new SimpleStringProperty("");
@@ -119,12 +122,14 @@ public class GestionEquipement implements Initializable{
 		});
 		
 		columnType.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
+			@Override
 			public ObservableValue<String> call(CellDataFeatures<Equipement, String> equipement) {
 				return new SimpleStringProperty(equipement.getValue().getTypeEquipement().getNom());
 			}
 		});
 		
 		columnCalife.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
+			@Override
 			public ObservableValue<String> call(CellDataFeatures<Equipement, String> equipement) {
 				return new SimpleStringProperty(equipement.getValue().getCalife());
 			}
@@ -144,7 +149,8 @@ public class GestionEquipement implements Initializable{
 		             
 		              final Button button = new Button("Voir"); 
 		                
-		              public void updateItem(Equipement equipement, boolean empty) {
+		              @Override
+					public void updateItem(Equipement equipement, boolean empty) {
 		                super.updateItem(equipement, empty);
 		                if (equipement != null) {
 		                	 button.setMinWidth(70);
@@ -194,7 +200,8 @@ public class GestionEquipement implements Initializable{
 			             //   button.setGraphic(buttonGraphic);
 			                button.setMinWidth(70);
 			              }
-			              public void updateItem(Equipement equipement, boolean empty) {
+			              @Override
+						public void updateItem(Equipement equipement, boolean empty) {
 			                super.updateItem(equipement, empty);
 			                if (equipement != null) {
 			                	button.setText("X");
@@ -207,7 +214,7 @@ public class GestionEquipement implements Initializable{
 			                    	Alert alert = new Alert(AlertType.CONFIRMATION);
 			                    	alert.setTitle("Suppression equipement");
 			                    	alert.setHeaderText("Confirmation");
-			                    	alert.setContentText("Voulez-vous vraiment supprimer cet équipement ?");
+			                    	alert.setContentText("Voulez-vous vraiment supprimer cet ï¿½quipement ?");
 
 			                    	Optional<ButtonType> result = alert.showAndWait();
 			                    	if (result.get() == ButtonType.OK){

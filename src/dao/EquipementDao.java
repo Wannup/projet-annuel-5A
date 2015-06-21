@@ -54,9 +54,9 @@ public class EquipementDao extends AbstractDao<Equipement>{
 				cb.or(cb.like(cb.lower((Expression) table.get("nomCalife")), "%"+ search.toLowerCase() + "%"), 
 				cb.like(cb.lower((Expression)  table.get("typeEquipement")), "%"+ search.toLowerCase() + "%")));
 		else if(isInteger)
-			predicates.add(cb.or(cb.equal((Expression)  table.get("prix"), nombre)));
+			predicates.add(cb.or(cb.equal(table.get("prix"), nombre)));
 		else{
-			predicates.add(cb.equal((Expression)  table.get("prix"), doubleValue));
+			predicates.add(cb.equal(table.get("prix"), doubleValue));
 		}
 		
 		cq.where(predicates.toArray(new Predicate[] {}));

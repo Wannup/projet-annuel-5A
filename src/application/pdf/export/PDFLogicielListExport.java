@@ -43,6 +43,7 @@ public class PDFLogicielListExport extends PDFDataExport {
 	 * 
 	 * @throws DocumentException  Si jamais le document est incorect
 	 */
+	@Override
 	public void write (Document document) throws DocumentException {
 		
 		Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);

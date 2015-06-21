@@ -57,30 +57,35 @@ public class SelectionAgentPopup implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		columnNumCP.setCellValueFactory(new Callback<CellDataFeatures<Agent, String>, ObservableValue<String>>() {
+			@Override
 			public ObservableValue<String> call(CellDataFeatures<Agent, String> agent) {
 				return new SimpleStringProperty(agent.getValue().getNumCP());
 			}
 		});
 		
 		columnNom.setCellValueFactory(new Callback<CellDataFeatures<Agent, String>, ObservableValue<String>>() {
+			@Override
 			public ObservableValue<String> call(CellDataFeatures<Agent, String> agent) {
 				return new SimpleStringProperty(agent.getValue().getNom());
 			}
 		});
 		
 		columnPrenom.setCellValueFactory(new Callback<CellDataFeatures<Agent, String>, ObservableValue<String>>() {
+			@Override
 			public ObservableValue<String> call(CellDataFeatures<Agent, String> agent) {
 				return new SimpleStringProperty(agent.getValue().getPrenom());
 			}
 		});
 		
 		columnTel.setCellValueFactory(new Callback<CellDataFeatures<Agent, String>, ObservableValue<String>>() {
+			@Override
 			public ObservableValue<String> call(CellDataFeatures<Agent, String> agent) {
 				return new SimpleStringProperty(agent.getValue().getTel());
 			}
 		});
 		
 		columnPole.setCellValueFactory(new Callback<CellDataFeatures<Agent, String>, ObservableValue<String>>() {
+			@Override
 			public ObservableValue<String> call(CellDataFeatures<Agent, String> agent) {
 				return new SimpleStringProperty(agent.getValue().getPole().getNom());
 			}
@@ -100,7 +105,8 @@ public class SelectionAgentPopup implements Initializable{
 		             
 		              final Button button = new Button("Selectionner"); 
 		                
-		              public void updateItem(Agent agent, boolean empty) {
+		              @Override
+					public void updateItem(Agent agent, boolean empty) {
 		                super.updateItem(agent, empty);
 		                if (agent != null) {
 		                	 button.setMinWidth(70);

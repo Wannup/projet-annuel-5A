@@ -1,21 +1,17 @@
 package controller;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import model.Agent;
-import model.Logiciel;
 import model.Pole;
 import dao.AgentDao;
-import dao.LogicielDao;
 import dao.PoleDao;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 

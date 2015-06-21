@@ -8,6 +8,7 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
 
 /**
  * ExcelLogicielListExport est la classe permettant d'exporter une liste de logiciel au format excel.
@@ -37,21 +38,22 @@ public class ExcelLogicielListExport extends ExcelDataExport {
 	 *     FIchier excel
 	 * @see HSSFWorkbook
 	 */
+	@Override
 	public void write (HSSFWorkbook wb) {
 		
 		HSSFSheet sheet = wb.createSheet("logiciels");
 		HSSFRow row = sheet.createRow(0);
 		
-		row.createCell(0, HSSFCell.CELL_TYPE_STRING).setCellValue("Libelle logiciel");
-		row.createCell(1, HSSFCell.CELL_TYPE_STRING).setCellValue("Valeur licence (�)");
-		row.createCell(2, HSSFCell.CELL_TYPE_STRING).setCellValue("Numero de licence");
+		row.createCell(0, Cell.CELL_TYPE_STRING).setCellValue("Libelle logiciel");
+		row.createCell(1, Cell.CELL_TYPE_STRING).setCellValue("Valeur licence (�)");
+		row.createCell(2, Cell.CELL_TYPE_STRING).setCellValue("Numero de licence");
 	    
 		int ligne = 1;
 	    for (Logiciel logiciel : logiciels) {
 	    	row = sheet.createRow(ligne);
-	    	row.createCell(0, HSSFCell.CELL_TYPE_STRING).setCellValue(logiciel.getNom());
-			row.createCell(1, HSSFCell.CELL_TYPE_NUMERIC).setCellValue(logiciel.getPrix());
-			row.createCell(2, HSSFCell.CELL_TYPE_NUMERIC).setCellValue(logiciel.getLicenceNumber());
+	    	row.createCell(0, Cell.CELL_TYPE_STRING).setCellValue(logiciel.getNom());
+			row.createCell(1, Cell.CELL_TYPE_NUMERIC).setCellValue(logiciel.getPrix());
+			row.createCell(2, Cell.CELL_TYPE_NUMERIC).setCellValue(logiciel.getLicenceNumber());
 			ligne++;
 	    }
 	}

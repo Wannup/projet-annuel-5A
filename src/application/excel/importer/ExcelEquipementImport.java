@@ -72,9 +72,9 @@ public class ExcelEquipementImport extends ExcelDataImport {
 							//equipement.setNom(cell.getStringCellValue());
 							break;
 						case ID_CELL_NUMERO :
-							if (cell.getCellType() == HSSFCell.CELL_TYPE_NUMERIC) {
+							if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
 								equipement.setNomCalife(cell.getStringCellValue());
-							} else if (cell.getCellType() == HSSFCell.CELL_TYPE_STRING) {
+							} else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
 								equipement.setNomCalife(cell.getStringCellValue());
 							}
 							break;
@@ -90,9 +90,9 @@ public class ExcelEquipementImport extends ExcelDataImport {
 						case ID_CELL_LOGICIEL :
 							break;
 						case ID_CELL_PRIX :
-							if (cell.getCellType() == HSSFCell.CELL_TYPE_NUMERIC) {
+							if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
 								equipement.setPrix(cell.getNumericCellValue());
-							} else if (cell.getCellType() == HSSFCell.CELL_TYPE_STRING) {
+							} else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
 								equipement.setPrix(Integer.valueOf(cell.getStringCellValue()));
 							}
 					}

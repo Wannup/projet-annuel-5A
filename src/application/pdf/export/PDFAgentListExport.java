@@ -43,6 +43,7 @@ public class PDFAgentListExport extends PDFDataExport {
 	 * 
 	 * @throws DocumentException  Si jamais le document est incorect
 	 */
+	@Override
 	public void write (Document document) throws DocumentException {
 		
 		Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
@@ -61,7 +62,7 @@ public class PDFAgentListExport extends PDFDataExport {
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 
-	    c1 = new PdfPCell(new Phrase("Prénom"));
+	    c1 = new PdfPCell(new Phrase("Prï¿½nom"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 
@@ -69,11 +70,11 @@ public class PDFAgentListExport extends PDFDataExport {
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 
-	    c1 = new PdfPCell(new Phrase("N° de CP"));
+	    c1 = new PdfPCell(new Phrase("Nï¿½ de CP"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 
-	    c1 = new PdfPCell(new Phrase("N° de poste"));
+	    c1 = new PdfPCell(new Phrase("Nï¿½ de poste"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 	    table.setHeaderRows(1);

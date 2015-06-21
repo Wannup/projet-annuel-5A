@@ -101,30 +101,35 @@ public class GestionAgent implements Initializable {
 		listAgent = new ArrayList<Agent>();
 		
 		nomCol.setCellValueFactory(new Callback<CellDataFeatures<Agent, String>, ObservableValue<String>>() {
+			@Override
 			public ObservableValue<String> call(CellDataFeatures<Agent, String> agent) {
 				return new SimpleStringProperty(agent.getValue().getNom());
 			}
 		});
 		
 		prenomCol.setCellValueFactory(new Callback<CellDataFeatures<Agent, String>, ObservableValue<String>>() {
+			@Override
 			public ObservableValue<String> call(CellDataFeatures<Agent, String> agent) {
 				return new SimpleStringProperty(agent.getValue().getPrenom());
 			}
 		});
 		
 		poleCol.setCellValueFactory(new Callback<CellDataFeatures<Agent, String>, ObservableValue<String>>() {
+			@Override
 			public ObservableValue<String> call(CellDataFeatures<Agent, String> agent) {
 				return new SimpleStringProperty(agent.getValue().getPole().getNom());
 			}
 		});
 		
 		numCPCol.setCellValueFactory(new Callback<CellDataFeatures<Agent, String>, ObservableValue<String>>() {
+			@Override
 			public ObservableValue<String> call(CellDataFeatures<Agent, String> agent) {
 				return new SimpleStringProperty(agent.getValue().getNumCP());
 			}
 		});
 		
 		telCol.setCellValueFactory(new Callback<CellDataFeatures<Agent, String>, ObservableValue<String>>() {
+			@Override
 			public ObservableValue<String> call(CellDataFeatures<Agent, String> agent) {
 				return new SimpleStringProperty(agent.getValue().getTel());
 			}
@@ -146,6 +151,7 @@ public class GestionAgent implements Initializable {
 								button.setMinWidth(70);
 							}
 
+							@Override
 							public void updateItem(Agent agent, boolean empty) {
 								super.updateItem(agent, empty);
 								if (agent != null) {
@@ -194,6 +200,7 @@ public class GestionAgent implements Initializable {
 								button.setMinWidth(70);
 							}
 
+							@Override
 							public void updateItem(Agent person, boolean empty) {
 								super.updateItem(person, empty);
 								if (person != null) {

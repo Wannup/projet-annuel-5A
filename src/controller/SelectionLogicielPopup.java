@@ -59,24 +59,28 @@ public class SelectionLogicielPopup implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		columnNom.setCellValueFactory(new Callback<CellDataFeatures<Logiciel, String>, ObservableValue<String>>() {
+			@Override
 			public ObservableValue<String> call(CellDataFeatures<Logiciel, String> logiciel) {
 				return new SimpleStringProperty(logiciel.getValue().getNom());
 			}
 		});
 		
 		columnPrix.setCellValueFactory(new Callback<CellDataFeatures<Logiciel, String>, ObservableValue<String>>() {
+			@Override
 			public ObservableValue<String> call(CellDataFeatures<Logiciel, String> logiciel) {
 				return new SimpleStringProperty(String.valueOf(logiciel.getValue().getPrix()));
 			}
 		});
 		
 		columnNumLicence.setCellValueFactory(new Callback<CellDataFeatures<Logiciel, String>, ObservableValue<String>>() {
+			@Override
 			public ObservableValue<String> call(CellDataFeatures<Logiciel, String> logiciel) {
 				return new SimpleStringProperty(logiciel.getValue().getLicenceNumber());
 			}
 		});
 		
 		columnDateFinLicence.setCellValueFactory(new Callback<CellDataFeatures<Logiciel, String>, ObservableValue<String>>() {
+			@Override
 			public ObservableValue<String> call(CellDataFeatures<Logiciel, String> logiciel) {
 				return new SimpleStringProperty(logiciel.getValue().getDateEndValidityLicence());
 			}
@@ -96,7 +100,8 @@ public class SelectionLogicielPopup implements Initializable{
 		             
 		              final CheckBox checkBox = new CheckBox(); 
 		                
-		              public void updateItem(Logiciel logiciel, boolean empty) {
+		              @Override
+					public void updateItem(Logiciel logiciel, boolean empty) {
 		                super.updateItem(logiciel, empty);
 		                if (logiciel != null) {
 		                	 checkBox.setSelected(false);

@@ -8,35 +8,35 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="648.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane prefHeight="648.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.GraphRenewal">
   <children>
-    <BarChart layoutX="75.0" layoutY="96.0" prefHeight="448.0" prefWidth="564.0">
+    <Label layoutX="669.0" layoutY="184.0" text="Année de début:" />
+    <Label layoutX="669.0" layoutY="255.0" text="Année de fin:" />
+    <ComboBox layoutX="789.0" layoutY="182.0">
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+          <String fx:value="Item 1" />
+          <String fx:value="Item 2" />
+          <String fx:value="Item 3" />
+        </FXCollections>
+      </items>
+    </ComboBox>
+    <ComboBox layoutX="789.0" layoutY="252.0">
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+          <String fx:value="Item 1" />
+          <String fx:value="Item 2" />
+          <String fx:value="Item 3" />
+        </FXCollections>
+      </items>
+    </ComboBox>
+    <StackedBarChart layoutX="59.0" layoutY="145.0" prefHeight="451.0" prefWidth="577.0">
       <xAxis>
         <CategoryAxis side="BOTTOM" />
       </xAxis>
       <yAxis>
         <NumberAxis side="LEFT" />
       </yAxis>
-    </BarChart>
-    <Label layoutX="669.0" layoutY="125.0" text="Année de début:" />
-    <Label layoutX="669.0" layoutY="196.0" text="Année de fin:" />
-    <ComboBox layoutX="789.0" layoutY="123.0">
-      <items>
-        <FXCollections fx:factory="observableArrayList">
-          <String fx:value="Item 1" />
-          <String fx:value="Item 2" />
-          <String fx:value="Item 3" />
-        </FXCollections>
-      </items>
-    </ComboBox>
-    <ComboBox layoutX="789.0" layoutY="193.0">
-      <items>
-        <FXCollections fx:factory="observableArrayList">
-          <String fx:value="Item 1" />
-          <String fx:value="Item 2" />
-          <String fx:value="Item 3" />
-        </FXCollections>
-      </items>
-    </ComboBox>
+    </StackedBarChart>
   </children>
 </AnchorPane>

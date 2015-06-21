@@ -81,7 +81,7 @@ public abstract class AbstractDao<T> {
 			List<Predicate> predicates = new ArrayList<Predicate>();
 			for (String s : attributes.keySet()) {
 				if (foo.get(s) != null) {
-					predicates.add(cb.equal((Expression) foo.get(s), attributes.get(s)));
+					predicates.add(cb.equal(foo.get(s), attributes.get(s)));
 				}
 			}
 			cq.where(predicates.toArray(new Predicate[] {}));
