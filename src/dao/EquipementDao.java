@@ -10,13 +10,32 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import application.database.DatabaseConnection;
 import model.Equipement;
+import model.TypeEquipement;
+import application.database.DatabaseConnection;
 
 public class EquipementDao extends AbstractDao<Equipement>{
 	public EquipementDao() {
 		super(Equipement.class);
 	}
+	
+	
+	
+	public List<Equipement> getEquipementByType(TypeEquipement type ) {
+		  /*Query query = DatabaseConnection.em.createQuery( "SELECT * FROM equipement WHERE typeEquipement = ?1" );
+		   query.setParameter( 1, idType);
+		   return new ArrayList<Equipement>( query.getResultList() );*/
+		   
+		   CriteriaBuilder cb = DatabaseConnection.em.getCriteriaBuilder();
+		   CriteriaQuery cq = cb.createQuery();
+			Root<Equipement> table = cq.from(Equipement.class);
+			cq.where(cb.equal(table.get("typeEquipement"), type));
+			TypedQuery q = DatabaseConnection.em.createQuery(cq);
+	        
+			List<Equipement> results = q.getResultList();
+			
+			return results;
+		}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<Equipement> searchWithAttributes(String search) {

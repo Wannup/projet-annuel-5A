@@ -10,14 +10,17 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import model.TypeEquipement;
 import tools.TransformationDonnees;
+import dao.EquipementDao;
 import dao.TypeEquipementDao;
 
 public class TypeEquipementPopup implements Initializable{
@@ -38,13 +41,14 @@ public class TypeEquipementPopup implements Initializable{
 	
 	private TypeEquipementDao typeEquipementDao;
 	private TypeEquipement typeEquipement;
+	private EquipementDao equipementDao;
 	
-	//private String errorMessage = "";
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		typeEquipementDao = new TypeEquipementDao();
+		equipementDao = new EquipementDao();
 		listType.getItems().addAll(FXCollections.observableArrayList(typeEquipementDao.findByAttributesLike(null)));
 		
 		listType.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -64,7 +68,27 @@ public class TypeEquipementPopup implements Initializable{
 
 	@FXML
 	private void deleteType(ActionEvent event){
-		//TODO
+		
+		TypeEquipement typeEquip = listType.getSelectionModel().getSelectedItem();
+		if(typeEquip != null){
+			if(!equipementDao.getEquipementByType(typeEquip).isEmpty()){
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Erreur suppression du type");
+				alert.setContentText("Il y a des équipements enregistrés avec ce type.");
+				alert.showAndWait();
+			}
+			else{
+				typeEquipementDao.remove(typeEquip);
+				refreshListType();
+			}
+		}
+		else{
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Erreur action suppression");
+			alert.setHeaderText(null);
+			alert.setContentText("Veuillez sélectionner un élément dans la liste pour la suppression !");
+			alert.showAndWait();
+		}
 	}
 	
 	@FXML
@@ -72,11 +96,17 @@ public class TypeEquipementPopup implements Initializable{
 		
 		// modifier
 		if(typeEquipement != null){
-			if(formIsValid() && updateControlIsOk())
+			if(formIsValid() && updateControlIsOk()){
 				typeEquipement.setNom(nomType.getText().trim());
 				typeEquipement.setNbYearRenewal(TransformationDonnees.getIntValue(nbYearRenew));
-				typeEquipementDao.update(typeEquipement);	
-			
+				typeEquipementDao.update(typeEquipement);
+				
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Modification type equipement");
+				alert.setHeaderText(null);
+				alert.setContentText("Type equipement modifié avec succès.");
+				alert.showAndWait();
+			}
 			btnAddOrUpdate.setText("Ajouter");
 		}
 		//ajouter
@@ -85,16 +115,26 @@ public class TypeEquipementPopup implements Initializable{
 			   typeEquipement = new TypeEquipement(nomType.getText().trim(), TransformationDonnees.getIntValue(nbYearRenew));
 			   typeEquipementDao.save(typeEquipement);
 		   }
+		   else{
+			   Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Erreur ajout type");
+				alert.setContentText("Type existant ou saisie incorrecte.");
+				alert.showAndWait();
+		   }
 		}
 		
 		typeEquipement = null;
 		nomType.clear();
 		nbYearRenew.clear();
 		
+		refreshListType();
+	}
+	
+	private void refreshListType(){
 		listType.getItems().clear();
 		listType.getItems().addAll(FXCollections.observableArrayList(typeEquipementDao.findByAttributesLike(null)));
 		champTypeEquipFormEquipement.getItems().clear();
-		champTypeEquipFormEquipement.getItems().addAll(FXCollections.observableArrayList(typeEquipementDao.findByAttributesLike(null)));
+		champTypeEquipFormEquipement.getItems().addAll(FXCollections.observableArrayList(typeEquipementDao.findByAttributesLike(null)));	
 	}
 	
 	private boolean updateControlIsOk(){
