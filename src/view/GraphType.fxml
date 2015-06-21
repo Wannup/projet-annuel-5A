@@ -10,7 +10,7 @@
 <AnchorPane prefHeight="648.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.GraphType">
   <children>
     <PieChart id="PieChart" fx:id="typePchart" layoutX="200.0" layoutY="215.0" />
-    <Label layoutX="357.0" layoutY="162.0" text="Types d'équipements">
+    <Label layoutX="304.0" layoutY="162.0" text="Types d'équipements enregistrés">
       <font>
         <Font name="System Bold" size="17.0" />
       </font>
