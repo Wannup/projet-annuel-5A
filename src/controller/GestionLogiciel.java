@@ -13,6 +13,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -33,11 +35,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Logiciel;
-import tools.Config;
 import tools.ManipInterface;
 import application.excel.export.ExcelGenerator;
 import application.excel.export.ExcelLogicielListExport;
@@ -56,7 +57,7 @@ public class GestionLogiciel implements Initializable {
 	private CheckBox checkBoxExportTable;
 
 	@FXML
-	private TableView<Logiciel> tableLogiciel = new TableView<Logiciel>();
+	private TableView<Logiciel> tableViewLogiciel;
 
 	@FXML
 	private TableColumn<Logiciel, String> columnLibelle;
@@ -74,22 +75,25 @@ public class GestionLogiciel implements Initializable {
 	private TableColumn<Logiciel, Logiciel> columnSupprimer;
 
 	@FXML
-	private Button buttonNext;
-
-	@FXML
-	private TextField searchBar = new TextField();
+	private TextField searchBar;
 
 	private FXMLLoader loader;
 
 	private List<Logiciel> listLogiciel;
 	private LogicielDao logicielDao;
-	private int maxResult;
-	private int limit;
+	
+	private ObservableList<Logiciel> itemsLogiciel;
+	private  FilteredList<Logiciel> filteredData;
+	private  SortedList<Logiciel> sortedData;
+	
+	/*private int maxResult;
+	private int limit;*/
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		listLogiciel = new ArrayList<Logiciel>();
+		logicielDao = new LogicielDao();
 		
 		columnLibelle.setCellValueFactory(new Callback<CellDataFeatures<Logiciel, String>, ObservableValue<String>>() {
 			@Override
@@ -193,7 +197,7 @@ public class GestionLogiciel implements Initializable {
 											Optional<ButtonType> result = alert.showAndWait();
 											if (result.get() == ButtonType.OK) {
 												logicielDao.remove(logiciel);
-												getListLogiciel();
+												
 												refreshTable();
 											}
 										}
@@ -206,8 +210,24 @@ public class GestionLogiciel implements Initializable {
 					}
 				});
 
-		logicielDao = new LogicielDao();
-		getListLogiciel();
+		searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+	        filteredData.setPredicate(logiciel -> {
+	            if (newValue == null || newValue.trim().isEmpty()) {
+	                return true;
+	            }
+	
+	            String lowerCaseFilter = newValue.trim().toLowerCase();
+	            // filtrage Nom, Num Licence, prix licence
+	            if (logiciel.getNom().toLowerCase().contains(lowerCaseFilter)) 
+	                return true; 
+	             else if (logiciel.getLicenceNumber().toLowerCase().contains(lowerCaseFilter)) 
+	                return true;
+	             else if(String.valueOf(logiciel.getPrix()).toLowerCase().contains(lowerCaseFilter))
+	            	 return true;
+	            return false; // pas de résultat au critère de recherche
+	        });
+	    });
+		
 		refreshTable();
 	}
 
@@ -236,14 +256,14 @@ public class GestionLogiciel implements Initializable {
 		File file;
 		file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
 		if (file != null) {
-			if (checkBoxExportTable.isSelected()) {
+			/*if (checkBoxExportTable.isSelected()) {
 				pdfGenerator.generate(file, new PDFLogicielListExport(listLogiciel));
 			} else if (maxResult == listLogiciel.size()) {
 				pdfGenerator.generate(file, new PDFLogicielListExport(listLogiciel));
-			} else {
+			} else {*/
 				List<Logiciel> results = logicielDao.findByAttributesLike(null);
 				pdfGenerator.generate(file, new PDFLogicielListExport(results));
-			}
+			//}
 		}
 	}
 
@@ -257,14 +277,14 @@ public class GestionLogiciel implements Initializable {
 		File file;
 		file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
 		if (file != null) {
-			if (checkBoxExportTable.isSelected()) {
+			/*if (checkBoxExportTable.isSelected()) {
 				excelGenerator.generate(file, new ExcelLogicielListExport(listLogiciel));
 			} else if (maxResult == listLogiciel.size()) {
 				excelGenerator.generate(file, new ExcelLogicielListExport(listLogiciel));
-			} else {
+			} else {*/
 				List<Logiciel> results = logicielDao.findByAttributesLike(null);
 				excelGenerator.generate(file, new ExcelLogicielListExport(results));
-			}
+			//}
 		}
 	}
 
@@ -289,19 +309,27 @@ public class GestionLogiciel implements Initializable {
 	}
 
 	private void refreshTable() {
-		ObservableList<Logiciel> items = FXCollections.observableArrayList(listLogiciel);
+		
+		listLogiciel = logicielDao.findByAttributesLike(null);
+		itemsLogiciel = FXCollections.observableArrayList(listLogiciel);
+        filteredData = new FilteredList<>(itemsLogiciel, p -> true);
+        sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(tableViewLogiciel.comparatorProperty());
+        tableViewLogiciel.setItems(sortedData);
+		
+		/*ObservableList<Logiciel> items = FXCollections.observableArrayList(listLogiciel);
 		tableLogiciel.setItems(items);
 		if (maxResult > listLogiciel.size()) {
 			buttonNext.setDisable(false);
 		} else {
 			buttonNext.setDisable(true);
-		}
+		}*/
 	}
 
-	private void getListLogiciel() {
+	/*private void getListLogiciel() {
 		boolean isLimit = Config.getPropertie("tableau_limite").equals("yes");
 		if (isLimit) {
-			maxResult = logicielDao.getNbResultLike(null);
+			/*maxResult = logicielDao.getNbResultLike(null);
 			limit = Integer.parseInt(Config.getPropertie("tableau_nb_ligne"));
 			if (maxResult < limit) {
 				listLogiciel = logicielDao.findByAttributesLike(null);
@@ -310,11 +338,11 @@ public class GestionLogiciel implements Initializable {
 			}
 		} else {
 			listLogiciel = logicielDao.findByAttributesLike(null);
-			maxResult = listLogiciel.size();
-		}
-	}
+		//	maxResult = listLogiciel.size();
+		//}
+	}*/
 
-	@FXML
+	/*@FXML
 	private void viewMore(ActionEvent event) throws IOException {
 
 		List<Logiciel> results = logicielDao.findByAttributesLikeWithLimits(null, listLogiciel.size(), limit);
@@ -322,5 +350,5 @@ public class GestionLogiciel implements Initializable {
 			listLogiciel.add(logiciel);
 		
 		refreshTable();
-	}
+	}*/
 }

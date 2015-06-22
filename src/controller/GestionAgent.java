@@ -228,49 +228,30 @@ public class GestionAgent implements Initializable {
 						};
 					}
 				});
-
-		 // initialisation contenu tableview
-	    listAgent = agentDao.findByAttributesLike(null);
-        itemsAgent = FXCollections.observableArrayList(listAgent);
-		
-	    // comportement de la barre de recherche
-	    filteredData = new FilteredList<>(itemsAgent, p -> true);
 	
 	    searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
-        filteredData.setPredicate(agent -> {
-            if (newValue == null || newValue.trim().isEmpty()) {
-                return true;
-            }
+	        filteredData.setPredicate(agent -> {
+	            if (newValue == null || newValue.trim().isEmpty()) {
+	                return true;
+	            }
+	
+	            String lowerCaseFilter = newValue.trim().toLowerCase();
+	            // filtrage N°CP, Nom, Prenom, pole
+	            if (agent.getNumCP().toLowerCase().contains(lowerCaseFilter)) 
+	                return true; 
+	             else if (agent.getNom().toLowerCase().contains(lowerCaseFilter)) 
+	                return true;
+	             else if(agent.getPrenom().toLowerCase().contains(lowerCaseFilter))
+	            	 return true;
+	             else if(agent.getPole().getNom().toLowerCase().contains(lowerCaseFilter))
+	            	 return true;
+	            return false; // pas de résultat au critère de recherche
+	        });
+	    });
 
-            String lowerCaseFilter = newValue.trim().toLowerCase();
-            // filtrage N°CP, Nom, Prenom, pole
-            if (agent.getNumCP().toLowerCase().contains(lowerCaseFilter)) 
-                return true; 
-             else if (agent.getNom().toLowerCase().contains(lowerCaseFilter)) 
-                return true;
-             else if(agent.getPrenom().toLowerCase().contains(lowerCaseFilter))
-            	 return true;
-             else if(agent.getPole().getNom().toLowerCase().contains(lowerCaseFilter))
-            	 return true;
-            return false; // pas de résultat au critère de recherche
-        });
-    });
+	    refreshTable();
 
-    sortedData = new SortedList<>(filteredData);
-    sortedData.comparatorProperty().bind(tableViewAgent.comparatorProperty());
-    tableViewAgent.setItems(sortedData);
-		/*agentDao = new AgentDao();
-		getListAgent();
-		refreshTable();*/
 	}
-
-/*	@FXML
-	private void searchAgent(ActionEvent event) {
-		if (!searchBar.getText().isEmpty()) {
-			listAgent = agentDao.searchWithAttributes(searchBar.getText());
-			refreshTable();
-		}
-	}*/
 
 	@FXML
 	private void displayAddAgent(ActionEvent event) throws IOException {

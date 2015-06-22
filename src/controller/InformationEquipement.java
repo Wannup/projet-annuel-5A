@@ -14,10 +14,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
-import model.Agent;
 import model.Equipement;
 import model.Logiciel;
-import dao.AgentDao;
 import dao.EquipementDao;
 
 public class InformationEquipement implements Initializable{
@@ -60,14 +58,12 @@ public class InformationEquipement implements Initializable{
 	
 	private int idEquipement;
 	
-	private EquipementDao eDao;
-	private AgentDao aDao;
-	private Equipement e;
+	private EquipementDao equipementDao;
+	private Equipement equipement;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		this.eDao = new EquipementDao();
-		this.aDao = new AgentDao();
+		this.equipementDao = new EquipementDao();
 	}
 
 	@FXML
@@ -83,7 +79,7 @@ public class InformationEquipement implements Initializable{
 		Parent root;
 		root = (Parent)fxmlLoader.load();
 		EditEquipement controller = fxmlLoader.<EditEquipement>getController();
-		controller.setValues(e.getId());
+		controller.setValues(equipement.getId());
 		Scene scene = new Scene(root); 
 	    stage.setScene(scene);    
 	    stage.show(); 
@@ -93,20 +89,20 @@ public class InformationEquipement implements Initializable{
 	public void setValues(int id){
 		this.idEquipement = id;
 
-		this.e = eDao.find(idEquipement);
+		this.equipement = equipementDao.find(idEquipement);
 		
-		this.type.setText(e.getTypeEquipement().getNom());
-		this.marque.setText(e.getMarque());
-		this.modele.setText(e.getModele());
-		this.calife.setText(e.getCalife());
-		this.info.setText(e.getInfo());
-		this.dateLivraison.setText(e.getDateLivraison());
-		this.logiciels.getItems().addAll(e.getLogiciels());
+		this.type.setText(equipement.getTypeEquipement().getNom());
+		this.marque.setText(equipement.getMarque());
+		this.modele.setText(equipement.getModele());
+		this.calife.setText(equipement.getCalife());
+		this.info.setText(equipement.getInfo());
+		this.dateLivraison.setText(equipement.getDateLivraison());
+		this.logiciels.getItems().addAll(equipement.getLogiciels());
 		
-		if(e.getAgent() != null){
-			this.nom.setText(e.getAgent().getNom());
-			this.prenom.setText(e.getAgent().getPrenom());
-			this.cp.setText(e.getAgent().getNumCP());
+		if(equipement.getAgent() != null){
+			this.nom.setText(equipement.getAgent().getNom());
+			this.prenom.setText(equipement.getAgent().getPrenom());
+			this.cp.setText(equipement.getAgent().getNumCP());
 		}
 	}
 }

@@ -230,39 +230,29 @@ public class GestionEquipement implements Initializable{
 			          }
 			    });
 		
-		    // initialisation contenu tableview
-		    listEquipement = equipementDao.findByAttributesLike(null);
-	        itemsEquipement = FXCollections.observableArrayList(listEquipement);
-			
-		    // comportement de la barre de recherche
-		    filteredData = new FilteredList<>(itemsEquipement, p -> true);
+		    	searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+		            filteredData.setPredicate(equipement -> {
+		                if (newValue == null || newValue.trim().isEmpty()) {
+		                    return true;
+		                }
 		
-		    searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(equipement -> {
-                if (newValue == null || newValue.trim().isEmpty()) {
-                    return true;
-                }
-
-                String lowerCaseFilter = newValue.trim().toLowerCase();
-                // filtrage calife, type, valeur, pole, cpAgent
-                if (equipement.getCalife().toLowerCase().contains(lowerCaseFilter)) 
-                    return true; 
-                 else if (equipement.getTypeEquipement().getNom().toLowerCase().contains(lowerCaseFilter)) 
-                    return true;
-                 else if(String.valueOf(equipement.getPrix()).contains(lowerCaseFilter))
-                	 return true;
-                 else if(equipement.getAgent() != null && equipement.getAgent().getNumCP().toLowerCase().contains(lowerCaseFilter))
-                	 return true;
-                 else if(equipement.getPole().getNom().toLowerCase().contains(lowerCaseFilter))
-                	 return true;
-                return false; // pas de résultat au critère de recherche
-            });
-        });
-
-        sortedData = new SortedList<>(filteredData);
-        sortedData.comparatorProperty().bind(tableViewEquipement.comparatorProperty());
-        tableViewEquipement.setItems(sortedData);
-        
+		                String lowerCaseFilter = newValue.trim().toLowerCase();
+		                // filtrage calife, type, valeur, pole, cpAgent
+		                if (equipement.getCalife().toLowerCase().contains(lowerCaseFilter)) 
+		                    return true; 
+		                 else if (equipement.getTypeEquipement().getNom().toLowerCase().contains(lowerCaseFilter)) 
+		                    return true;
+		                 else if(String.valueOf(equipement.getPrix()).contains(lowerCaseFilter))
+		                	 return true;
+		                 else if(equipement.getAgent() != null && equipement.getAgent().getNumCP().toLowerCase().contains(lowerCaseFilter))
+		                	 return true;
+		                 else if(equipement.getPole().getNom().toLowerCase().contains(lowerCaseFilter))
+		                	 return true;
+		                return false; // pas de résultat au critère de recherche
+		            });
+		    	});
+		    
+        refreshTable();
 	}
 	
 	@FXML
