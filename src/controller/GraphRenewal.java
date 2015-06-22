@@ -1,10 +1,8 @@
 package controller;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -13,8 +11,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.PieChart;
-import javafx.scene.chart.PieChart.Data;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 
@@ -53,7 +49,7 @@ public class GraphRenewal implements Initializable{
 	
 	private ObservableList<XYChart.Series> getChartDataPrice() {
 		
-		xAxis.setLabel("AnnÃ©es");
+		xAxis.setLabel("Années");
         xAxis.setCategories(FXCollections.<String>observableArrayList(
                 Arrays.asList("2016", "2017", "2018", "2019", "2020")));
         yAxis.setLabel("Prix");
@@ -93,7 +89,7 @@ public class GraphRenewal implements Initializable{
 	
 	private ObservableList<XYChart.Series> getChartDataQuantity() {
 		
-		xAxis.setLabel("AnnÃ©es");
+		xAxis.setLabel("Années");
         xAxis.setCategories(FXCollections.<String>observableArrayList(
                 Arrays.asList("2016", "2017", "2018", "2019", "2020")));
         yAxis.setLabel("Prix");

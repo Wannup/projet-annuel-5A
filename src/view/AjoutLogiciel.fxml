@@ -15,14 +15,15 @@
     </Label>
     <Separator layoutX="0.0" layoutY="63.0" prefWidth="900.0" />
     <Button id="btnEditDelete" layoutX="349.0" layoutY="22.0" mnemonicParsing="false" onAction="#displayEditDelete" text="Modifier/Supprimer des logiciels" />
-    <TextField fx:id="libelle" layoutX="351.0" layoutY="220.0" prefWidth="200.0" />
+    <TextField fx:id="nom" layoutX="351.0" layoutY="220.0" prefWidth="200.0" />
     <TextField fx:id="licenceNumber" layoutX="351.0" layoutY="271.0" prefWidth="200.0" />
     <TextField fx:id="prix" layoutX="351.0" layoutY="325.0" prefWidth="200.0" />
-    <Label layoutX="243.0" layoutY="223.0" text="Libelle" />
-    <Label layoutX="203.0" layoutY="274.0" text="Numéro de la licence" />
-    <Label layoutX="208.0" layoutY="328.0" text="Prix de la licence (€)" />
+    <Label layoutX="231.0" layoutY="225.0" text="Nom*" />
+    <Label layoutX="182.0" layoutY="276.0" text="Numéro de la licence*" />
+    <Label layoutX="186.0" layoutY="330.0" text="Prix de la licence (€)*" />
     <Button layoutX="398.0" layoutY="540.0" mnemonicParsing="false" onAction="#enregistrerLogiciel" text="Ajouter" />
       <DatePicker fx:id="dateFinValidite" layoutX="349.0" layoutY="385.0" prefHeight="31.0" prefWidth="200.0" />
       <Label layoutX="154.0" layoutY="390.0" text="Fin de validité de la licence" />
+      <Label layoutX="128.0" layoutY="506.0" text="*: obligatoire" />
   </children>
 </AnchorPane>

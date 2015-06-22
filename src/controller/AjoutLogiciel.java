@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -27,7 +29,7 @@ public class AjoutLogiciel implements Initializable{
 	private AnchorPane bodyPanel;
 	
 	@FXML
-	private TextField libelle;
+	private TextField nom;
 	
 	@FXML
 	private TextField licenceNumber;
@@ -61,9 +63,11 @@ public class AjoutLogiciel implements Initializable{
 	@FXML
 	private void enregistrerLogiciel(ActionEvent event){
 		
+		errorMessage = "";
+		
 		if(validationFormulaire()){
 			
-			Logiciel newLogiciel = new Logiciel(libelle.getText(), Double.parseDouble(prix.getText()), licenceNumber.getText(), TransformationDonnees.formatDate(dateFinValidite));
+			Logiciel newLogiciel = new Logiciel(nom.getText(), Double.parseDouble(prix.getText()), licenceNumber.getText(), TransformationDonnees.formatDate(dateFinValidite));
 			logicielDao.save(newLogiciel);
 			
 			//popup
@@ -86,8 +90,40 @@ public class AjoutLogiciel implements Initializable{
 	}
 	
 	private boolean validationFormulaire(){
-		//Todo
-		return true;
+		
+		boolean formValid = true;
+		
+		if(!licenceNumber.getText().trim().equals("")){
+			Map<String, String> attribut = new HashMap<String, String>();
+			attribut.put("licenceNumber", licenceNumber.getText().trim());
+			if(!logicielDao.findByAttributesEquals(attribut).isEmpty()){
+				errorMessage += "Il y a déja un logiciel enregistré avec ce numéro de licence.\n";
+				return false;
+			}
+		}
+		
+		if(licenceNumber.getText().trim().equals("")){
+			errorMessage += "Numéro de licence non renseigné.\n";
+			formValid = false;
+		}
+
+		if(nom.getText().trim().equals("")){
+			errorMessage += "Nom du logiciel non renseigné.\n";
+			formValid = false;
+		}
+		
+		if(prix.getText().trim().equals("")){
+			errorMessage += "Prix de la licence non renseigné.\n";
+			formValid = false;
+		}
+		else{
+			if(TransformationDonnees.getDoubleValue(prix) == -1){
+				errorMessage += "Valeur saisie incorrecte (mauvais format).\n";
+				formValid = false;
+			}
+		}
+		
+		return formValid;
 	}
 	
 	private void informerValidation(){
@@ -100,7 +136,7 @@ public class AjoutLogiciel implements Initializable{
 	}
 	
 	private void viderTousLesChamps(){
-		libelle.clear();
+		nom.clear();
 		licenceNumber.clear();
 		prix.clear();
 		dateFinValidite.getEditor().clear();
