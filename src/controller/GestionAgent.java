@@ -13,6 +13,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -33,11 +35,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Agent;
-import tools.Config;
 import tools.ManipInterface;
 import application.excel.export.ExcelAgentListExport;
 import application.excel.export.ExcelGenerator;
@@ -56,7 +57,7 @@ public class GestionAgent implements Initializable {
 	private CheckBox checkBoxExportTable;
 
 	@FXML
-	private TableView<Agent> searchTab = new TableView<Agent>();
+	private TableView<Agent> tableViewAgent;
 
 	@FXML
 	private TextField searchBar = new TextField();
@@ -85,20 +86,23 @@ public class GestionAgent implements Initializable {
 	@FXML
 	private TableColumn<Agent, Agent> columnSupprimer;
 
-	@FXML
-	private Button buttonNext;
 
 	private FXMLLoader loader;
 
 	private List<Agent> listAgent;
 	private AgentDao agentDao;
-	private int maxResult;
-	private int limit;
-
+	
+	private ObservableList<Agent> itemsAgent;
+	private  FilteredList<Agent> filteredData;
+	private  SortedList<Agent> sortedData;
+	/*private int maxResult;
+	private int limit;*/
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		listAgent = new ArrayList<Agent>();
+		agentDao = new AgentDao();
 		
 		nomCol.setCellValueFactory(new Callback<CellDataFeatures<Agent, String>, ObservableValue<String>>() {
 			@Override
@@ -147,14 +151,12 @@ public class GestionAgent implements Initializable {
 					public TableCell<Agent, Agent> call(TableColumn<Agent, Agent> personBooleanTableColumn) {
 						return new TableCell<Agent, Agent>() {
 							final Button button = new Button();
-							{
-								button.setMinWidth(70);
-							}
-
+				
 							@Override
 							public void updateItem(Agent agent, boolean empty) {
 								super.updateItem(agent, empty);
 								if (agent != null) {
+									button.setMinWidth(70);
 									button.setText("Modifier");
 									setGraphic(button);
 									button.setOnAction(new EventHandler<ActionEvent>() {
@@ -185,40 +187,36 @@ public class GestionAgent implements Initializable {
 				});
 
 		columnSupprimer.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Agent, Agent>, ObservableValue<Agent>>() {
-					@Override
-					public ObservableValue<Agent> call(TableColumn.CellDataFeatures<Agent, Agent> features) {
-						return new ReadOnlyObjectWrapper<Agent>(features.getValue());
-					}
-				});
+			@Override
+			public ObservableValue<Agent> call(TableColumn.CellDataFeatures<Agent, Agent> features) {
+				return new ReadOnlyObjectWrapper<Agent>(features.getValue());
+			}
+		});
 
 		columnSupprimer.setCellFactory(new Callback<TableColumn<Agent, Agent>, TableCell<Agent, Agent>>() {
+			@Override
+			public TableCell<Agent, Agent> call(TableColumn<Agent, Agent> personBooleanTableColumn) {
+				return new TableCell<Agent, Agent>() {
+					final Button button = new Button();
 					@Override
-					public TableCell<Agent, Agent> call(TableColumn<Agent, Agent> personBooleanTableColumn) {
-						return new TableCell<Agent, Agent>() {
-							final Button button = new Button();
-							{
+					public void updateItem(Agent agent, boolean empty) {
+						super.updateItem(agent, empty);
+							if (agent != null) {
 								button.setMinWidth(70);
-							}
+								button.setText("X");
 
-							@Override
-							public void updateItem(Agent person, boolean empty) {
-								super.updateItem(person, empty);
-								if (person != null) {
-									button.setText("X");
+								setGraphic(button);
+								button.setOnAction(new EventHandler<ActionEvent>() {
+									@Override
+									public void handle(ActionEvent event) {
+										Alert alert = new Alert(AlertType.CONFIRMATION);
+										alert.setTitle("Suppression agent");
+										alert.setHeaderText("Confirmation");
+										alert.setContentText("Voulez-vous vraiment supprimer cet agent ?");
 
-									setGraphic(button);
-									button.setOnAction(new EventHandler<ActionEvent>() {
-										@Override
-										public void handle(ActionEvent event) {
-											Alert alert = new Alert(AlertType.CONFIRMATION);
-											alert.setTitle("Suppression agent");
-											alert.setHeaderText("Confirmation");
-											alert.setContentText("Voulez-vous vraiment supprimer cet agent ?");
-
-											Optional<ButtonType> result = alert.showAndWait();
+										Optional<ButtonType> result = alert.showAndWait();
 											if (result.get() == ButtonType.OK) {
-												agentDao.remove(person);
-												getListAgent();
+												agentDao.remove(agent);
 												refreshTable();
 											}
 										}
@@ -231,18 +229,48 @@ public class GestionAgent implements Initializable {
 					}
 				});
 
-		agentDao = new AgentDao();
+		 // initialisation contenu tableview
+	    listAgent = agentDao.findByAttributesLike(null);
+        itemsAgent = FXCollections.observableArrayList(listAgent);
+		
+	    // comportement de la barre de recherche
+	    filteredData = new FilteredList<>(itemsAgent, p -> true);
+	
+	    searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+        filteredData.setPredicate(agent -> {
+            if (newValue == null || newValue.trim().isEmpty()) {
+                return true;
+            }
+
+            String lowerCaseFilter = newValue.trim().toLowerCase();
+            // filtrage N°CP, Nom, Prenom, pole
+            if (agent.getNumCP().toLowerCase().contains(lowerCaseFilter)) 
+                return true; 
+             else if (agent.getNom().toLowerCase().contains(lowerCaseFilter)) 
+                return true;
+             else if(agent.getPrenom().toLowerCase().contains(lowerCaseFilter))
+            	 return true;
+             else if(agent.getPole().getNom().toLowerCase().contains(lowerCaseFilter))
+            	 return true;
+            return false; // pas de résultat au critère de recherche
+        });
+    });
+
+    sortedData = new SortedList<>(filteredData);
+    sortedData.comparatorProperty().bind(tableViewAgent.comparatorProperty());
+    tableViewAgent.setItems(sortedData);
+		/*agentDao = new AgentDao();
 		getListAgent();
-		refreshTable();
+		refreshTable();*/
 	}
 
-	@FXML
+/*	@FXML
 	private void searchAgent(ActionEvent event) {
 		if (!searchBar.getText().isEmpty()) {
 			listAgent = agentDao.searchWithAttributes(searchBar.getText());
 			refreshTable();
 		}
-	}
+	}*/
 
 	@FXML
 	private void displayAddAgent(ActionEvent event) throws IOException {
@@ -260,14 +288,14 @@ public class GestionAgent implements Initializable {
 		File file;
 		file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
 		if (file != null) {
-			if (checkBoxExportTable.isSelected()) {
+			/*if (checkBoxExportTable.isSelected()) {
 				pdfGenerator.generate(file, new PDFAgentListExport(listAgent));
 			} else if (maxResult == listAgent.size()) {
 				pdfGenerator.generate(file, new PDFAgentListExport(listAgent));
-			} else {
+			} else {*/
 				List<Agent> results = agentDao.findByAttributesLike(null);
 				pdfGenerator.generate(file, new PDFAgentListExport(results));
-			}
+			//}
 		}
 	}
 
@@ -282,14 +310,14 @@ public class GestionAgent implements Initializable {
 		file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene()
 				.getWindow());
 		if (file != null) {
-			if (checkBoxExportTable.isSelected()) {
+			/*if (checkBoxExportTable.isSelected()) {
 				excelGenerator.generate(file, new ExcelAgentListExport(listAgent));
 			} else if (maxResult == listAgent.size()) {
 				excelGenerator.generate(file, new ExcelAgentListExport(listAgent));
-			} else {
+			} else {*/
 				List<Agent> results = agentDao.findByAttributesLike(null);
 				excelGenerator.generate(file, new ExcelAgentListExport(results));
-			}
+			//}
 		}
 	}
 
@@ -312,8 +340,8 @@ public class GestionAgent implements Initializable {
 		}
 	}
 
-	private void getListAgent() {
-		boolean isLimit = Config.getPropertie("tableau_limite").equals("yes");
+/*	private void getListAgent() {
+		/*boolean isLimit = Config.getPropertie("tableau_limite").equals("yes");
 		if (isLimit) {
 			maxResult = agentDao.getNbResultLike(null);
 			limit = Integer.parseInt(Config.getPropertie("tableau_nb_ligne"));
@@ -325,21 +353,29 @@ public class GestionAgent implements Initializable {
 			}
 		} else {
 			listAgent = agentDao.findByAttributesLike(null);
-			maxResult = listAgent.size();
-		}
-	}
+			//maxResult = listAgent.size();
+		//}
+	}*/
 
 	private void refreshTable() {
-		ObservableList<Agent> items = FXCollections.observableArrayList(listAgent);
-		searchTab.setItems(items);
-		if (maxResult > listAgent.size()) {
+		
+		listAgent = agentDao.findByAttributesLike(null);
+		itemsAgent = FXCollections.observableArrayList(listAgent);
+        filteredData = new FilteredList<>(itemsAgent, p -> true);
+        sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(tableViewAgent.comparatorProperty());
+        tableViewAgent.setItems(sortedData);
+        
+		/*ObservableList<Agent> items = FXCollections.observableArrayList(listAgent);
+		searchTab.setItems(items);*/
+		/*if (maxResult > listAgent.size()) {
 			buttonNext.setDisable(false);
 		} else {
 			buttonNext.setDisable(true);
-		}
+		}*/
 	}
 
-	@FXML
+	/*@FXML
 	private void viewMore(ActionEvent event) throws IOException {
 
 		List<Agent> results = agentDao.findByAttributesLikeWithLimits(null,listAgent.size(), limit);
@@ -347,6 +383,6 @@ public class GestionAgent implements Initializable {
 			listAgent.add(agent);
 		
 		refreshTable();
-	}
+	}*/
 
 }

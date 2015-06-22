@@ -80,8 +80,6 @@ public class GestionEquipement implements Initializable{
 	@FXML
 	private TableColumn<Equipement, Equipement> columnSupprimer;
 	
-	@FXML
-	private Button buttonNext;
 	
 	@FXML
 	private TextField searchBar;
@@ -92,7 +90,6 @@ public class GestionEquipement implements Initializable{
 	private EquipementDao equipementDao;
 	
 	private ObservableList<Equipement> itemsEquipement;
-	
 	private  FilteredList<Equipement> filteredData;
 	private  SortedList<Equipement> sortedData;
 	/*private int maxResult;
@@ -331,7 +328,7 @@ public class GestionEquipement implements Initializable{
 					equipementDao.save(equipement);
 				}
 			}
-        	//refreshTable();
+        	refreshTable();
         }
 	}
 	

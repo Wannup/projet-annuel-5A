@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,11 +25,14 @@ public class Agent {
 	private String numCP;
 	private String numPoste;
 	private Pole pole;
+	private List<Equipement> equipements;
 	
 	/**
 	 * Constructeur par d�faut
 	 */
-	public Agent(){}
+	public Agent(){
+		this.equipements = new ArrayList<Equipement>();
+	}
 	
 	/**
 	 * Constructeur agent
@@ -49,6 +55,12 @@ public class Agent {
 		this.tel = tel;
 		this.numCP = numCP;
 		this.pole = pole;
+		this.equipements = new ArrayList<Equipement>();
+	}
+	
+	public void addEquipement(Equipement equipement){
+		if(equipement != null)
+			this.equipements.add(equipement);
 	}
 	
 	/**
@@ -176,6 +188,21 @@ public class Agent {
 		this.numPoste = numPoste;
 	}
 	
+	
+	/**
+	 * @return the equipements
+	 */
+	public List<Equipement> getEquipements() {
+		return equipements;
+	}
+
+	/**
+	 * @param equipements the equipements to set
+	 */
+	public void setEquipements(List<Equipement> equipements) {
+		this.equipements = equipements;
+	}
+
 	/**
      * Retourne un agent sous forme de chaine.
      * 

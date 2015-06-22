@@ -256,6 +256,13 @@ public class AjoutEquipement implements Initializable{
 				newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem(),lstLogiciel.getItems(), agent, poles.getSelectionModel().getSelectedItem(), TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), renewalDate, marque.getText().trim(), modele.getText().trim(), calife.getText().trim(), info.getText().trim());
 			
 			equipementDao.save(newEquipement);
+			
+			// ajout dans la liste des équipements de l'agent si renseigné
+			if(!numCPAgent.getText().trim().equals("")){
+				agent.addEquipement(newEquipement);
+				agentDao.update(agent);
+			}
+			
 			informerValidation();
 		}
 		else{
