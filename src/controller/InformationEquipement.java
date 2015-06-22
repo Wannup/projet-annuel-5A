@@ -103,9 +103,11 @@ public class InformationEquipement implements Initializable{
 		this.dateLivraison.setText(e.getDateLivraison());
 		this.logiciels.getItems().addAll(e.getLogiciels());
 		
-		//if(e.getAgent() != null)
-			/*this.nom.setText(a.getNom());
+		if(e.getAgent() != null){
+			Agent a = this.aDao.find(e.getAgent().getId());
+			this.nom.setText(a.getNom());
 			this.prenom.setText(a.getPrenom());
-			this.cp.setText(a.getNumCP());*/
+			this.cp.setText(a.getNumCP());
+		}
 	}
 }
