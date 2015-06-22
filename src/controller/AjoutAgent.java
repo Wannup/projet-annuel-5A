@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -9,11 +11,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Agent;
@@ -40,7 +44,7 @@ public class AjoutAgent implements Initializable{
 	private TextField tel;
 	
 	@FXML
-	private ComboBox<Pole> pole;
+	private ComboBox<Pole> poles;
 	
 	@FXML
 	private Button btnAdd;
@@ -51,6 +55,7 @@ public class AjoutAgent implements Initializable{
 	private FXMLLoader loader;
 	
 	private PoleDao poleDao;
+	private AgentDao agentDao;
 	private String errorMessage = "";
 	
 	
@@ -58,7 +63,9 @@ public class AjoutAgent implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {		
 		
 		poleDao = new PoleDao();
-		pole.getItems().addAll(FXCollections.observableArrayList(poleDao.findByAttributesLike(null)));
+		agentDao = new AgentDao();
+		
+		poles.getItems().addAll(FXCollections.observableArrayList(poleDao.findByAttributesLike(null)));
 	}
 	
 	@FXML
@@ -69,9 +76,11 @@ public class AjoutAgent implements Initializable{
 	
 	@FXML
 	private void enregistrerAgent(ActionEvent event){
+		
+		errorMessage = "";
+		
 		if(validationFormulaire()){
-			Agent newAgent = new Agent(nom.getText(), prenom.getText(), pole.getValue(), tel.getText(), numCP.getText());
-			AgentDao agentDao = new AgentDao();
+			Agent newAgent = new Agent(nom.getText(), prenom.getText(), poles.getValue(), tel.getText(), numCP.getText());
 			agentDao.save(newAgent);
 			
 			//popup
@@ -95,10 +104,59 @@ public class AjoutAgent implements Initializable{
 		
 	}
 	
+	@FXML
+	private void addPole(ActionEvent event) throws IOException{
+		Stage stage = new Stage();
+        stage.setTitle("Pole/Service");
+        stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
+        
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/view/PolePopup.fxml"));
+        stage.setScene(new Scene(fxmlLoader.load()));
+        stage.show();
+      
+        PolePopup controllerSelectLogicielPopup = (PolePopup) fxmlLoader.getController();
+        
+        // liaison entre les deux fenetres
+        controllerSelectLogicielPopup.champPoleFormEquipement = poles;
+	}
+	
 	private boolean validationFormulaire(){
-		//Todo
-		//ajouter un controle sur le numeroCP pour voir si l'agent n'est pas deja enregistrÃ©
-		return true;
+		
+		boolean formValid = true;
+		
+		if(!numCP.getText().trim().equals("")){
+			Map<String, String> attribut = new HashMap<String, String>();
+			attribut.put("numCP", numCP.getText().trim());
+			if(!agentDao.findByAttributesEquals(attribut).isEmpty()){
+				errorMessage += "Il y a déja un agent enregistré avec ce N° CP.\n";
+				return false;
+			}
+		}
+		
+		if(numCP.getText().trim().equals("")){
+			errorMessage += "N° CP non renseigné.\n";
+			formValid = false;
+		}
+		
+
+		if(nom.getText().trim().equals("")){
+			errorMessage += "Nom non renseigné.\n";
+			formValid = false;
+		}
+		
+		if(prenom.getText().trim().equals("")){
+			errorMessage += "Prénom non renseigné.\n";
+			formValid = false;
+		}
+		
+		if(poles.getSelectionModel().getSelectedItem() == null){
+			errorMessage += "Pole/service non renseigné.\n";
+			formValid = false;
+		}
+	
+		
+		return formValid;
 	}
 	
 	public void informerValidation(){
@@ -115,11 +173,7 @@ public class AjoutAgent implements Initializable{
 		prenom.clear();
 		tel.clear();
 		numCP.clear();
-		pole.getEditor().clear();
+		poles.getSelectionModel().clearSelection();
 	}
 	
-	@FXML
-	private void selectionPoste(ActionEvent event) throws IOException{
-		ManipInterface.newWindow("Selection d'un poste", FXMLLoader.load(getClass().getResource("/view/RecherchePopup.fxml")));
-	}
 }

@@ -222,7 +222,9 @@ public class AjoutEquipement implements Initializable{
 	@FXML
 	private void enregistrerEquipement(ActionEvent event){
 		
+		errorMessage = "";
 		Agent agent = null;
+		
 		// récupération de l'agent si renseigné
 		if(!numCPAgent.getText().trim().equals("")){
 			Map<String, String> attribut = new HashMap<String, String>();
@@ -262,7 +264,6 @@ public class AjoutEquipement implements Initializable{
 			alert.setHeaderText("Les erreurs sont les suivantes: ");
 			alert.setContentText(errorMessage);
 			alert.showAndWait();
-			errorMessage = "";
 		}
 	}
 	
