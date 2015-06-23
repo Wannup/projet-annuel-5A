@@ -79,7 +79,7 @@ public class InformationEquipement implements Initializable{
 		Parent root;
 		root = (Parent)fxmlLoader.load();
 		EditEquipement controller = fxmlLoader.<EditEquipement>getController();
-		controller.setValues(equipement.getId());
+		//controller.setValues(equipement.getId());
 		Scene scene = new Scene(root); 
 	    stage.setScene(scene);    
 	    stage.show(); 

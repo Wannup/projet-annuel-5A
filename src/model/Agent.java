@@ -23,7 +23,6 @@ public class Agent {
 	private String prenom;
 	private String tel;
 	private String numCP;
-	private String numPoste;
 	private Pole pole;
 	private List<Equipement> equipements;
 	
@@ -167,27 +166,6 @@ public class Agent {
 	public void setNumCP(String numCP) {
 		this.numCP = numCP;
 	}
-
-	/**
-     * Retourne le numero de poste de l'agent.
-     * 
-     * @return une chaine de caractère correspondant au numero de poste de l'agent.
-     */
-	public String getNumPoste() {
-		return numPoste;
-	}
-
-	/**
-	* Affecte un nouveau numero de poste à l'agent
-	*
-	* @param numPoste
-	*     numï¿½ro de poste de l'agent
-	*     
-	*/
-	public void setNumPoste(String numPoste) {
-		this.numPoste = numPoste;
-	}
-	
 	
 	/**
 	 * @return the equipements

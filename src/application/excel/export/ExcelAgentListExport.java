@@ -57,7 +57,7 @@ public class ExcelAgentListExport extends ExcelDataExport {
 			row.createCell(1, Cell.CELL_TYPE_STRING).setCellValue(agent.getPrenom());
 			row.createCell(2, Cell.CELL_TYPE_STRING).setCellValue(agent.getTel());
 			row.createCell(3, Cell.CELL_TYPE_STRING).setCellValue(agent.getNumCP());
-			row.createCell(4, Cell.CELL_TYPE_STRING).setCellValue(agent.getNumPoste());
+			//row.createCell(4, Cell.CELL_TYPE_STRING).setCellValue(agent.getNumPoste());
 			ligne++;
 	    }
 	}

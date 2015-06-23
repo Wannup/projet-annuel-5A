@@ -151,7 +151,7 @@ public class GestionEquipement implements Initializable{
 		      public TableCell<Equipement, Equipement> call(TableColumn<Equipement, Equipement> personBooleanTableColumn) {
 		    	  return new TableCell<Equipement, Equipement>() {
 		             
-		              final Button button = new Button("Voir"); 
+		              final Button button = new Button("Modifier"); 
 		                
 		              @Override
 		              public void updateItem(Equipement equipement, boolean empty) {
@@ -163,7 +163,7 @@ public class GestionEquipement implements Initializable{
 			                    @Override 
 			                    public void handle(ActionEvent event){
 			                    	try {
-			                    		Stage stage = new Stage();
+			                    		/*Stage stage = new Stage();
 			                    		FXMLLoader fxmlLoader =  new FXMLLoader(getClass().getResource("/view/InformationEquipementPopup.fxml"));
 			                    		Parent root = (Parent)fxmlLoader.load(); 
 			                    		InformationEquipement controller = fxmlLoader.<InformationEquipement>getController();
@@ -172,7 +172,17 @@ public class GestionEquipement implements Initializable{
 			                    		stage.setTitle("Information equipement");
 			                    		Scene scene = new Scene(root); 
 					                    stage.setScene(scene);    
-					                    stage.show();
+					                    stage.show();*/
+			                    		
+			                    		Stage stage = new Stage();
+			                    		FXMLLoader fxmlLoader =  new FXMLLoader(getClass().getResource("/view/EditEquipementBis.fxml"));
+			                    		Parent root;
+			                    		root = (Parent)fxmlLoader.load();
+			                    		EditEquipementBis controller = fxmlLoader.<EditEquipementBis>getController();
+			                    		controller.setValues(equipement);
+			                    		Scene scene = new Scene(root); 
+			                    	    stage.setScene(scene);    
+			                    	    stage.show(); 
 				                    } catch (IOException e) {
 										e.printStackTrace();
 									}	                    	

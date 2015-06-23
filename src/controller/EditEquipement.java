@@ -74,9 +74,9 @@ public class EditEquipement implements Initializable{
 	@FXML
 	private Button btnEnregistrer;
 	
-	private Equipement e;
+	private Equipement equipement;
 	
-	private int idEquipement;
+	//private int idEquipement;
 	private TypeEquipementDao teDao;
 	private AgentDao aDao;
 	private EquipementDao eDao;
@@ -95,20 +95,21 @@ public class EditEquipement implements Initializable{
 		numCPAgent.getItems().addAll(FXCollections.observableArrayList(aDao.findByAttributesLike(null)));	
 	}
 	
-	public void setValues(int id){
-		this.idEquipement = id;
+	public void setValues(Equipement equipementToModify){
+		//this.idEquipement = id;
 
-		this.e = eDao.find(idEquipement);
-		if(e.getDateGarantie().length() > 0){
-			LocalDate myDate = LocalDate.parse(e.getDateGarantie().substring(6, 10)+"-"+e.getDateGarantie().substring(3, 5)+"-"+e.getDateGarantie().substring(0, 2));
+		//this.equipement = eDao.find(idEquipement);
+		equipement = equipementToModify;
+		if(equipement.getDateGarantie().length() > 0){
+			LocalDate myDate = LocalDate.parse(equipement.getDateGarantie().substring(6, 10)+"-"+equipement.getDateGarantie().substring(3, 5)+"-"+equipement.getDateGarantie().substring(0, 2));
 			this.dateGarantie = new DatePicker(myDate);
 		}
-		this.marque.setText(e.getMarque());
-		this.modele.setText(e.getModele());
-		this.calife.setText(e.getCalife());
-		this.info.setText(e.getInfo());
-		this.prix.setText("" + e.getPrix());
-		this.lstLogiciel.getItems().addAll(FXCollections.observableArrayList(FXCollections.observableArrayList(e.getLogiciels())));
+		this.marque.setText(equipement.getMarque());
+		this.modele.setText(equipement.getModele());
+		this.calife.setText(equipement.getCalife());
+		this.info.setText(equipement.getInfo());
+		this.prix.setText("" + equipement.getPrix());
+		this.lstLogiciel.getItems().addAll(FXCollections.observableArrayList(FXCollections.observableArrayList(equipement.getLogiciels())));
 	}
 	
 	@FXML
@@ -198,14 +199,14 @@ public class EditEquipement implements Initializable{
                 
             }*/
 			
-			e.setTypeEquipement(type.getSelectionModel().getSelectedItem());
-			e.setCalife(calife.getText());
-			e.setDateGarantie(TransformationDonnees.formatDate(dateGarantie));
-			e.setMarque(marque.getText());
-			e.setPrix(Double.parseDouble(prix.getText()));
-			e.setModele(modele.getText());
-			e.setAgent(numCPAgent.getSelectionModel().getSelectedItem());
-			e.setInfo(info.getText());
+			equipement.setTypeEquipement(type.getSelectionModel().getSelectedItem());
+			equipement.setCalife(calife.getText());
+			equipement.setDateGarantie(TransformationDonnees.formatDate(dateGarantie));
+			equipement.setMarque(marque.getText());
+			equipement.setPrix(Double.parseDouble(prix.getText()));
+			equipement.setModele(modele.getText());
+			equipement.setAgent(numCPAgent.getSelectionModel().getSelectedItem());
+			equipement.setInfo(info.getText());
 			informerValidation();
 		}
 		else{

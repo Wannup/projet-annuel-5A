@@ -5,6 +5,7 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -39,7 +40,7 @@ import dao.EquipementDao;
 import dao.PoleDao;
 import dao.TypeEquipementDao;
 
-public class AjoutEquipement implements Initializable{
+public class EditEquipementBis implements Initializable{
 	
 	@FXML 
 	private TextField prix;
@@ -84,6 +85,7 @@ public class AjoutEquipement implements Initializable{
 	private String errorMessage = "";	
 	private AgentDao agentDao;
 	private PoleDao poleDao;
+	private Equipement equipement;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -220,7 +222,7 @@ public class AjoutEquipement implements Initializable{
 	}
 	
 	@FXML
-	private void enregistrerEquipement(ActionEvent event){
+	private void modifierEquipement(ActionEvent event){
 		
 		errorMessage = "";
 		Agent agent = null;
@@ -262,8 +264,16 @@ public class AjoutEquipement implements Initializable{
 				agent.addEquipement(newEquipement);
 				agentDao.update(agent);
 			}
-			
+			//equipement.setTypeEquipement(type.getSelectionModel().getSelectedItem());
+			equipement.setCalife(calife.getText());
+			equipement.setDateGarantie(TransformationDonnees.formatDate(dateGarantie));
+			equipement.setMarque(marque.getText());
+			equipement.setPrix(Double.parseDouble(prix.getText()));
+			equipement.setModele(modele.getText());
+			//equipement.setAgent(numCPAgent.getSelectionModel().getSelectedItem());
+			equipement.setInfo(info.getText());
 			informerValidation();
+			
 		}
 		else{
 			Alert alert = new Alert(AlertType.ERROR);
@@ -323,6 +333,34 @@ public class AjoutEquipement implements Initializable{
 		return formValid;
 	}
 	
+	public void setValues(Equipement equipementToModify){
+		//this.idEquipement = id;
+
+		//this.equipement = eDao.find(idEquipement);
+		equipement = equipementToModify;
+		if(equipement.getDateGarantie().trim().length() > 0){
+			LocalDate myDate = LocalDate.parse(equipement.getDateGarantie().split("/")[2]+"-"+equipement.getDateGarantie().split("/")[1]+"-"+equipement.getDateGarantie().split("/")[0]);
+			this.dateGarantie.setValue(myDate);
+		}
+		
+		if(equipement.getDateLivraison().trim().length() > 0){
+			LocalDate myDate = LocalDate.parse(equipement.getDateLivraison().split("/")[2]+"-"+equipement.getDateLivraison().split("/")[1]+"-"+equipement.getDateLivraison().split("/")[0]);
+			this.dateLivraison.setValue(myDate);
+		}
+		
+		if(equipement.getAgent() != null){
+			this.numCPAgent.setText(equipement.getAgent().getNumCP());
+		}
+		this.typeEquipement.getSelectionModel().select(equipement.getTypeEquipement());
+		this.poles.getSelectionModel().select(equipement.getPole());
+		this.marque.setText(equipement.getMarque());
+		this.modele.setText(equipement.getModele());
+		this.calife.setText(equipement.getCalife());
+		this.info.setText(equipement.getInfo());
+		this.prix.setText("" + equipement.getPrix());
+		this.lstLogiciel.getItems().addAll(FXCollections.observableArrayList(FXCollections.observableArrayList(equipement.getLogiciels())));
+	}
+	
 	private void informerValidation(){
 		viderTousLesChamps();
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -342,8 +380,7 @@ public class AjoutEquipement implements Initializable{
 		typeEquipement.getSelectionModel().clearSelection();
 		dateGarantie.getEditor().clear();
 		dateLivraison.getEditor().clear();
-		lstLogiciel.getItems().clear();
-		poles.getSelectionModel().clearSelection();
+		lstLogiciel.getSelectionModel().clearSelection();
 		
 	}
 	

@@ -72,9 +72,9 @@ public class ExcelAgentImport extends ExcelDataImport {
 						case ID_CELL_CP :
 							agent.setNumCP(cell.getStringCellValue());
 							break;
-						case ID_CELL_POSTE :
+						/*case ID_CELL_POSTE :
 							agent.setNumPoste(cell.getStringCellValue());
-							break;
+							break;*/
 					}
 					numCell++;
 				}

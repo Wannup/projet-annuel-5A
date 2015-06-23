@@ -84,7 +84,7 @@ public class PDFAgentListExport extends PDFDataExport {
 		    table.addCell(agent.getPrenom());
 		    table.addCell(agent.getTel());
 		    table.addCell(agent.getNumCP());
-		    table.addCell(agent.getNumPoste());
+		    //table.addCell(agent.getNumPoste());
 	    }
 	    
 	    table.setHorizontalAlignment(Element.ALIGN_CENTER);
