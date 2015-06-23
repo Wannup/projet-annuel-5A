@@ -236,34 +236,35 @@ public class EditEquipementBis implements Initializable{
 		
 		if(validationFormulaire(agent)){
 			
-			// calcul de la date prévisionnelle de renouvellement
-			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-			Calendar calendar = Calendar.getInstance();
-			if(!TransformationDonnees.formatDate(dateLivraison).equals("")){
-				try {
-					Date dateLivr = dateFormat.parse(TransformationDonnees.formatDate(dateLivraison));
-					calendar.setTime(dateLivr);
-				} catch (ParseException e) {
-					e.printStackTrace();
+			if(!TransformationDonnees.formatDate(dateLivraison).equals(equipement.getDateLivraison())){
+				// calcul de la date prévisionnelle de renouvellement
+				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+				Calendar calendar = Calendar.getInstance();
+				if(!TransformationDonnees.formatDate(dateLivraison).equals("")){
+					try {
+						Date dateLivr = dateFormat.parse(TransformationDonnees.formatDate(dateLivraison));
+						calendar.setTime(dateLivr);
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+					calendar.add(Calendar.YEAR, typeEquipement.getSelectionModel().getSelectedItem().getNbYearRenewal());
+					String renewalDate = dateFormat.format(calendar.getTime());
+				
+					equipement.setRenewalDate(renewalDate);
 				}
+				equipement.setDateLivraison(TransformationDonnees.formatDate(dateLivraison));
+				
 			}
-			calendar.add(Calendar.YEAR, typeEquipement.getSelectionModel().getSelectedItem().getNbYearRenewal());
-			String renewalDate = dateFormat.format(calendar.getTime());
 			
-			// Création de l'équipement
-			Equipement newEquipement;
-			if(lstLogiciel.getItems().isEmpty())
-				newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem(), agent, poles.getSelectionModel().getSelectedItem(), TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), renewalDate, marque.getText(), modele.getText().trim(), calife.getText().trim(), info.getText().trim());
-			else
-				newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem(),lstLogiciel.getItems(), agent, poles.getSelectionModel().getSelectedItem(), TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), renewalDate, marque.getText().trim(), modele.getText().trim(), calife.getText().trim(), info.getText().trim());
+			// TODO à continuer
 			
-			equipementDao.save(newEquipement);
+			
 			
 			// ajout dans la liste des équipements de l'agent si renseigné
-			if(!numCPAgent.getText().trim().equals("")){
+			/*if(!numCPAgent.getText().trim().equals("")){
 				agent.addEquipement(newEquipement);
 				agentDao.update(agent);
-			}
+			}*/
 			//equipement.setTypeEquipement(type.getSelectionModel().getSelectedItem());
 			equipement.setCalife(calife.getText());
 			equipement.setDateGarantie(TransformationDonnees.formatDate(dateGarantie));
@@ -272,12 +273,14 @@ public class EditEquipementBis implements Initializable{
 			equipement.setModele(modele.getText());
 			//equipement.setAgent(numCPAgent.getSelectionModel().getSelectedItem());
 			equipement.setInfo(info.getText());
+			
+			//equipementDao.save(newEquipement);
 			informerValidation();
 			
 		}
 		else{
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Erreur enregistrement equipement");
+			alert.setTitle("Erreur modification equipement");
 			alert.setHeaderText("Les erreurs sont les suivantes: ");
 			alert.setContentText(errorMessage);
 			alert.showAndWait();
@@ -334,9 +337,7 @@ public class EditEquipementBis implements Initializable{
 	}
 	
 	public void setValues(Equipement equipementToModify){
-		//this.idEquipement = id;
-
-		//this.equipement = eDao.find(idEquipement);
+		
 		equipement = equipementToModify;
 		if(equipement.getDateGarantie().trim().length() > 0){
 			LocalDate myDate = LocalDate.parse(equipement.getDateGarantie().split("/")[2]+"-"+equipement.getDateGarantie().split("/")[1]+"-"+equipement.getDateGarantie().split("/")[0]);
@@ -362,7 +363,7 @@ public class EditEquipementBis implements Initializable{
 	}
 	
 	private void informerValidation(){
-		viderTousLesChamps();
+		//viderTousLesChamps();
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Ajout equipement");
 		alert.setHeaderText(null);
@@ -370,7 +371,7 @@ public class EditEquipementBis implements Initializable{
 		alert.showAndWait();
 	}
 	
-	private void viderTousLesChamps(){	
+/*	private void viderTousLesChamps(){	
 		marque.clear();	
 		modele.clear();	
 		calife.clear();	
@@ -382,6 +383,6 @@ public class EditEquipementBis implements Initializable{
 		dateLivraison.getEditor().clear();
 		lstLogiciel.getSelectionModel().clearSelection();
 		
-	}
+	}*/
 	
 }
