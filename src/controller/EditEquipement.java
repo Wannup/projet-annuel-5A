@@ -27,14 +27,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Agent;
 import model.Equipement;
 import model.Logiciel;
 import model.Pole;
 import model.TypeEquipement;
-import tools.ManipInterface;
 import tools.TransformationDonnees;
 import dao.AgentDao;
 import dao.EquipementDao;
@@ -74,9 +72,6 @@ public class EditEquipement implements Initializable{
 	private ComboBox<Pole> poles;
 	
 	@FXML
-	private AnchorPane bodyPanel;
-	
-	@FXML
 	private TextField numCPAgent;
 	
 	@FXML
@@ -85,7 +80,6 @@ public class EditEquipement implements Initializable{
 	private TypeEquipementDao typeEquipementDao;
 	private EquipementDao equipementDao;
 	
-	private FXMLLoader loader;
 	private String errorMessage = "";	
 	private AgentDao agentDao;
 	private PoleDao poleDao;
@@ -101,12 +95,6 @@ public class EditEquipement implements Initializable{
 		
 		poles.getItems().addAll(FXCollections.observableArrayList(poleDao.findByAttributesLike(null)));
 		typeEquipement.getItems().addAll(FXCollections.observableArrayList(typeEquipementDao.findByAttributesLike(null)));
-	}
-	
-	@FXML
-	private void displayEditDelete(ActionEvent event) throws IOException{
-		loader = new FXMLLoader(getClass().getResource("/view/GestionEquipement.fxml"));
-		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 	
 	@FXML
@@ -336,7 +324,7 @@ public class EditEquipement implements Initializable{
 		
 		if(!numCPAgent.getText().trim().equals("") && poles.getSelectionModel().getSelectedItem() != null){
 			if(agent.getPole() != poles.getSelectionModel().getSelectedItem()){
-				errorMessage += "L'agent s�lectionn� n'est pas li� au pole choisi.\n";
+				errorMessage += "L'agent sélectionné n'est pas lié au pole choisi.\n";
 				formValid = false;
 			}
 		}

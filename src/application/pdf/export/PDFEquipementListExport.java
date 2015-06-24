@@ -15,7 +15,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 
 /**
- * PDFEquipementListExport est la classe permettant d'exporter une liste �quipement au format PDF.
+ * PDFEquipementListExport est la classe permettant d'exporter une liste équipement au format PDF.
  * 
  * @version 1.0
  */

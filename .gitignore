@@ -2,6 +2,7 @@ bin/
 database/lgpi.properties
 database/lgpi.lck
 database/lgpi.log
+.sonar/
 
 # OS generated files #
 ######################

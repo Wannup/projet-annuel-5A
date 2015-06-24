@@ -5,20 +5,24 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import tools.ManipInterface;
+import application.database.DatabaseConnection;
 import application.database.export.DatabaseExport;
 import application.database.importer.DatabaseImport;
 
 public class Accueil implements Initializable{
 
+	@FXML
+	private AnchorPane bodyPanel;
+
+	private FXMLLoader loader;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
@@ -26,68 +30,48 @@ public class Accueil implements Initializable{
 			loader = new FXMLLoader(getClass().getResource("/view/bodyPanelAccueil.fxml"));
 			ManipInterface.chargementBodyPanel(bodyPanel, loader);
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 	}
 	
 	@FXML
-	private Button btnAgentGest;
-	
-	@FXML
-	private Button btnConsultEquip;
-	
-	@FXML
-	private Button btnAjoutEquip;
-	
-	@FXML 
-	private Button btnLogicielGest;
-	
-	@FXML
-	private Button btnStatPrev;
-	
-	@FXML
-	private AnchorPane bodyPanel;
-
-	private FXMLLoader loader;
-	
-	@FXML
-	private void agentGest(ActionEvent event) throws IOException{
+	private void agentGest() throws IOException{
 		loader = new FXMLLoader(getClass().getResource("/view/GestionAgent.fxml"));
 		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 	
 	@FXML
-	private void equipementGest(ActionEvent event) throws IOException{		
+	private void equipementGest() throws IOException{		
 		loader = new FXMLLoader(getClass().getResource("/view/GestionEquipement.fxml"));
 		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 	
 	@FXML
-	private void consultEquip(ActionEvent event) throws IOException{
+	private void consultEquip() throws IOException{
 		loader = new FXMLLoader(getClass().getResource("/view/ConsultationEquipement.fxml"));
 		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 	
 	@FXML
-	private void logicielGest(ActionEvent event) throws IOException{
+	private void logicielGest() throws IOException{
 		loader = new FXMLLoader(getClass().getResource("/view/GestionLogiciel.fxml"));
 		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 	
 	@FXML
-	private void statPrev(ActionEvent event) throws IOException{
+	private void statPrev() throws IOException{
 		loader = new FXMLLoader(getClass().getResource("/view/StatEtPrevision.fxml"));
 		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 	
 	@FXML
-	private void configuration(ActionEvent event) throws IOException{
+	private void configuration() throws IOException{
 		loader = new FXMLLoader(getClass().getResource("/view/Configuration.fxml"));
 		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 	
 	@FXML
-	private void exportDatabase(ActionEvent event) throws IOException {
+	private void exportDatabase() throws IOException {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Zip", "*.zip"));
 		fileChooser.setInitialFileName("database");
@@ -101,7 +85,7 @@ public class Accueil implements Initializable{
 	}
 	
 	@FXML
-	private void importDatabase(ActionEvent event) throws IOException {
+	private void importDatabase() throws IOException {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Zip", "*.zip"));
         fileChooser.setTitle("Import database");
@@ -110,7 +94,7 @@ public class Accueil implements Initializable{
         if (file != null) {
         	DatabaseImport databaseImport = new DatabaseImport();
         	databaseImport.importDatabase(file);
-        	//DatabaseConnection.refresh();
+        	DatabaseConnection.refresh();
         }
 	}
 	

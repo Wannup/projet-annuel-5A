@@ -37,9 +37,8 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-		          @Override
+		        @Override
 				public void handle(WindowEvent we) {
-		              System.out.println("Application is closing");
 		              DatabaseConnection.closeConnection();
 		          }
 		      }); 
