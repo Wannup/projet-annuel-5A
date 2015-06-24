@@ -57,12 +57,18 @@ public class AjoutLogiciel implements Initializable{
 		 logicielDao = new LogicielDao();
 	}
 
+	/**
+	 * function associate with the button "Modifier/Supprimer des logiciels"
+	 * */
 	@FXML
 	private void displayEditDelete(ActionEvent event) throws IOException{
 		loader = new FXMLLoader(getClass().getResource("/view/GestionLogiciel.fxml"));
 		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 	
+	/**
+	 * function associate with the button "Ajouter"
+	 * */
 	@FXML
 	private void enregistrerLogiciel(ActionEvent event){
 		
@@ -92,6 +98,11 @@ public class AjoutLogiciel implements Initializable{
 		}
 	}
 	
+	/**
+	 * function use for the form validation
+	 * @return boolean 
+	 * 	true if the entries are correct
+	 * */
 	private boolean validationFormulaire(){
 		
 		boolean formValid = true;
@@ -106,7 +117,7 @@ public class AjoutLogiciel implements Initializable{
 		}
 		
 		if(licenceNumber.getText().trim().equals("")){
-			errorMessage += "Num�ro de licence non renseigné.\n";
+			errorMessage += "Numéro de licence non renseigné.\n";
 			formValid = false;
 		}
 
@@ -129,6 +140,10 @@ public class AjoutLogiciel implements Initializable{
 		return formValid;
 	}
 	
+	/**
+	 * function call is the save of the new "Logiciel" is ok.
+	 * Inform the user of the save.
+	 * */
 	private void informerValidation(){
 		viderTousLesChamps();
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -138,6 +153,9 @@ public class AjoutLogiciel implements Initializable{
 		alert.showAndWait();
 	}
 	
+	/**
+	 * clear the form
+	 * */
 	private void viderTousLesChamps(){
 		nom.clear();
 		licenceNumber.clear();

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
@@ -56,7 +55,7 @@ public class Configuration implements Initializable {
 	}
 	
 	@FXML
-	private void changeTableauLimite(ActionEvent event) throws IOException{		
+	private void changeTableauLimite() throws IOException{		
 		if (checkBoxTableauNbLigne.isSelected()) {
 			textFieldTableauNbLigne.setDisable(false);
 		} else {
@@ -65,7 +64,7 @@ public class Configuration implements Initializable {
 	}
 	
 	@FXML
-	private void saveConfig(ActionEvent event) throws IOException {
+	private void saveConfig() throws IOException {
 		String tableau_limite = checkBoxTableauNbLigne.isSelected() ? "yes" : "no";
 		Config.modifyProperties("tableau_limite", tableau_limite);
 		Config.modifyProperties("tableau_nb_ligne", textFieldTableauNbLigne.getText());

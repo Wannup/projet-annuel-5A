@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -101,7 +100,7 @@ public class EditEquipement implements Initializable{
 	}
 	
 	@FXML
-	private void addPole(ActionEvent event) throws IOException{
+	private void addPole() throws IOException{
 		Stage stage = new Stage();
         stage.setTitle("Pole/Service");
         stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
@@ -118,7 +117,7 @@ public class EditEquipement implements Initializable{
 	}
 	
 	@FXML
-	private void ajoutAgent(ActionEvent event) throws IOException{
+	private void ajoutAgent() throws IOException{
 		
 		numCPAgent.clear();
 		
@@ -139,7 +138,7 @@ public class EditEquipement implements Initializable{
 	}
 	
 	@FXML
-	private void ajoutLogiciel(ActionEvent event) throws IOException{
+	private void ajoutLogiciel() throws IOException{
 		
 		Stage stage = new Stage();
         stage.setTitle("Ajouter un agent");
@@ -158,7 +157,7 @@ public class EditEquipement implements Initializable{
 	}
 	
 	@FXML
-	private void selectAgent(ActionEvent event) throws IOException{
+	private void selectAgent() throws IOException{
 	
 		numCPAgent.clear();
 		
@@ -179,7 +178,7 @@ public class EditEquipement implements Initializable{
 	}
 	
 	@FXML
-	private void selectLogiciels(ActionEvent event) throws IOException{
+	private void selectLogiciels() throws IOException{
 		
 		lstLogiciel.getItems().clear();
 		
@@ -199,7 +198,7 @@ public class EditEquipement implements Initializable{
 	}
 	
 	@FXML
-	private void addTypeEquipement(ActionEvent event) throws IOException{
+	private void addTypeEquipement() throws IOException{
 		
 		Stage stage = new Stage();
         stage.setTitle("Type d'équipement");
@@ -217,7 +216,7 @@ public class EditEquipement implements Initializable{
 	}
 	
 	@FXML
-	private void modifierEquipement(ActionEvent event){
+	private void modifierEquipement(){
 		
 		errorMessage = "";
 		Agent agent = null;

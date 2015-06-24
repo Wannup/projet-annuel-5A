@@ -47,6 +47,9 @@ public class EditAgent implements Initializable{
 		this.pole.getItems().addAll(FXCollections.observableArrayList(poleDao.findByAttributesLike(null)));
 	}
 
+	/**
+	 * function call by the controller "GestionAgent" to populate the edit form
+	 * */
 	public void setValues(Agent agentParam) {
 		
 		this.agent = agentParam;
@@ -57,6 +60,9 @@ public class EditAgent implements Initializable{
 		this.pole.getSelectionModel().select(agent.getPole());
 	}
 	
+	/**
+	 * function associate with the button "Modifier"
+	 * */
 	@FXML
 	public void saveEditAgent(){
 		this.agent.setNom(nom.getText());

@@ -357,6 +357,10 @@ public class AjoutEquipement implements Initializable{
 		return formValid;
 	}
 	
+	/**
+	 * function call is the save of the new "Equipement" is ok.
+	 * Inform the user of the save.
+	 * */
 	private void informerValidation(){
 		viderTousLesChamps();
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -366,6 +370,9 @@ public class AjoutEquipement implements Initializable{
 		alert.showAndWait();
 	}
 	
+	/**
+	 * clear the form
+	 * */
 	private void viderTousLesChamps(){	
 		marque.clear();	
 		modele.clear();	
