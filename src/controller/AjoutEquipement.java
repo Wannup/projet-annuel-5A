@@ -12,7 +12,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -88,6 +87,9 @@ public class AjoutEquipement implements Initializable{
 	private AgentDao agentDao;
 	private PoleDao poleDao;
 	
+	/**
+	 * function call automatically when interface AjoutEquipement.fxml is load.
+	 * */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
@@ -100,14 +102,20 @@ public class AjoutEquipement implements Initializable{
 		typeEquipement.getItems().addAll(FXCollections.observableArrayList(typeEquipementDao.findByAttributesLike(null)));
 	}
 	
+	/**
+	 * function associate with the button "Modifier/Supprimer des equipements"
+	 * */
 	@FXML
-	private void displayEditDelete(ActionEvent event) throws IOException{
+	private void displayEditDelete() throws IOException{
 		loader = new FXMLLoader(getClass().getResource("/view/GestionEquipement.fxml"));
 		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 	
+	/**
+	 * function associate with the button "+" for the "pole"
+	 * */
 	@FXML
-	private void addPole(ActionEvent event) throws IOException{
+	private void addPole() throws IOException{
 		Stage stage = new Stage();
         stage.setTitle("Pole/Service");
         stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
@@ -123,8 +131,11 @@ public class AjoutEquipement implements Initializable{
         controllerSelectLogicielPopup.champPoleFormEquipement = poles;
 	}
 	
+	/**
+	 * function associate with the button "Nouveau" for the "Agent"
+	 * */
 	@FXML
-	private void ajoutAgent(ActionEvent event) throws IOException{
+	private void ajoutAgent() throws IOException{
 		
 		numCPAgent.clear();
 		
@@ -144,8 +155,11 @@ public class AjoutEquipement implements Initializable{
         controllerAgentPopup.champPolesEquipement = poles;
 	}
 	
+	/**
+	 * function associate with the button "Nouveau" for the "logiciel"
+	 * */
 	@FXML
-	private void ajoutLogiciel(ActionEvent event) throws IOException{
+	private void ajoutLogiciel() throws IOException{
 		
 		Stage stage = new Stage();
         stage.setTitle("Ajouter un agent");
@@ -163,8 +177,11 @@ public class AjoutEquipement implements Initializable{
         
 	}
 	
+	/**
+	 * function associate with the button "Selection" for the "Agent"
+	 * */
 	@FXML
-	private void selectAgent(ActionEvent event) throws IOException{
+	private void selectAgent() throws IOException{
 	
 		numCPAgent.clear();
 		
@@ -184,8 +201,11 @@ public class AjoutEquipement implements Initializable{
         controllerSelectAgentPopup.champPolesEquipement = poles;
 	}
 	
+	/**
+	 * function associate with the button "Selection" for the "Logiciels"
+	 * */
 	@FXML
-	private void selectLogiciels(ActionEvent event) throws IOException{
+	private void selectLogiciels() throws IOException{
 		
 		lstLogiciel.getItems().clear();
 		
@@ -204,11 +224,14 @@ public class AjoutEquipement implements Initializable{
         controllerSelectLogicielPopup.champLogicielFormEquipement = lstLogiciel;
 	}
 	
+	/**
+	 * function associate with the button "+" for the "TypeEquipement"
+	 * */
 	@FXML
-	private void addTypeEquipement(ActionEvent event) throws IOException{
+	private void addTypeEquipement() throws IOException{
 		
 		Stage stage = new Stage();
-        stage.setTitle("Type d'�quipement");
+        stage.setTitle("Type d'équipement");
         stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
         
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -222,8 +245,11 @@ public class AjoutEquipement implements Initializable{
         controllerSelectLogicielPopup.champTypeEquipFormEquipement = typeEquipement;
 	}
 	
+	/**
+	 * function associate with the button "Enregistrer"
+	 * */
 	@FXML
-	private void enregistrerEquipement(ActionEvent event){
+	private void enregistrerEquipement(){
 		
 		errorMessage = "";
 		Agent agent = null;
@@ -277,6 +303,11 @@ public class AjoutEquipement implements Initializable{
 		}
 	}
 	
+	/**
+	 * function use for the form validation
+	 * @return boolean 
+	 * 	true if the entries are correct
+	 * */
 	private boolean validationFormulaire(Agent agent){
 		
 		boolean formValid = true;

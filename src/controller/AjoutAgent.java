@@ -55,27 +55,30 @@ public class AjoutAgent implements Initializable{
 	public ComboBox<Pole> champPolesEquipement;
 	
 	private FXMLLoader loader;
-	
 	private PoleDao poleDao;
 	private AgentDao agentDao;
 	private String errorMessage = "";
-	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {		
 		
 		poleDao = new PoleDao();
-		agentDao = new AgentDao();
-		
+		agentDao = new AgentDao();		
 		poles.getItems().addAll(FXCollections.observableArrayList(poleDao.findByAttributesLike(null)));
 	}
 	
+	/**
+	 * function associate with the button "Modifier/Supprimer des agents"
+	 * */
 	@FXML
 	private void displayEditDelete() throws IOException{
 		loader = new FXMLLoader(getClass().getResource("/view/GestionAgent.fxml"));
 		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 	
+	/**
+	 * function associate with the button "Ajouter"
+	 * */
 	@FXML
 	private void enregistrerAgent(){
 		
@@ -106,6 +109,9 @@ public class AjoutAgent implements Initializable{
 		
 	}
 	
+	/**
+	 * function associate with the button "+" for the "pole"
+	 * */
 	@FXML
 	private void addPole() throws IOException{
 		Stage stage = new Stage();
@@ -123,6 +129,11 @@ public class AjoutAgent implements Initializable{
         controllerSelectLogicielPopup.champPoleFormEquipement = poles;
 	}
 	
+	/**
+	 * function use for the form validation
+	 * @return boolean 
+	 * 	true if the entries are correct
+	 * */
 	private boolean validationFormulaire(){
 		
 		boolean formValid = true;
@@ -161,6 +172,10 @@ public class AjoutAgent implements Initializable{
 		return formValid;
 	}
 	
+	/**
+	 * function call is the save of the new "Agent" is ok.
+	 * Inform the user of the save.
+	 * */
 	public void informerValidation(){
 		viderTousLesChamps();
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -170,6 +185,9 @@ public class AjoutAgent implements Initializable{
 		alert.showAndWait();
 	}
 	
+	/**
+	 * clear the form
+	 * */
 	private void viderTousLesChamps(){
 		nom.clear();
 		prenom.clear();

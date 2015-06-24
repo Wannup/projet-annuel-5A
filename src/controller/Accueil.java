@@ -37,42 +37,54 @@ public class Accueil implements Initializable{
 		}
 	}
 	
+	/**
+	 * function associate with the button "Gestion Agent"
+	 * */
 	@FXML
 	private void agentGest() throws IOException{
 		loader = new FXMLLoader(getClass().getResource("/view/GestionAgent.fxml"));
 		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 	
+	/**
+	 * function associate with the button "Gestion Equipement"
+	 * */
 	@FXML
 	private void equipementGest() throws IOException{		
 		loader = new FXMLLoader(getClass().getResource("/view/GestionEquipement.fxml"));
 		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 	
-	@FXML
-	private void consultEquip() throws IOException{
-		loader = new FXMLLoader(getClass().getResource("/view/ConsultationEquipement.fxml"));
-		ManipInterface.chargementBodyPanel(bodyPanel, loader);
-	}
-	
+	/**
+	 * function associate with the button "Gestion Logiciel"
+	 * */
 	@FXML
 	private void logicielGest() throws IOException{
 		loader = new FXMLLoader(getClass().getResource("/view/GestionLogiciel.fxml"));
 		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 	
+	/**
+	 * function associate with the button "Statistiques/Prévisions"
+	 * */
 	@FXML
 	private void statPrev() throws IOException{
 		loader = new FXMLLoader(getClass().getResource("/view/StatEtPrevision.fxml"));
 		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 	
+	/**
+	 * function associate with the button "Configuration"
+	 * */
 	@FXML
 	private void configuration() throws IOException{
 		loader = new FXMLLoader(getClass().getResource("/view/Configuration.fxml"));
 		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 	
+	/**
+	 * function associate with the MenuItem "Base de données ->Exporter"
+	 * */
 	@FXML
 	private void exportDatabase() throws IOException {
 		FileChooser fileChooser = new FileChooser();
@@ -87,6 +99,9 @@ public class Accueil implements Initializable{
         }
 	}
 	
+	/**
+	 * function associate with the MenuItem "Base de données ->Importer"
+	 * */
 	@FXML
 	private void importDatabase() throws IOException {
 		FileChooser fileChooser = new FileChooser();
