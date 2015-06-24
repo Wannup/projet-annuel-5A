@@ -167,7 +167,7 @@ public class GestionAgent implements Initializable {
 					                    		FXMLLoader fxmlLoader =  new FXMLLoader(getClass().getResource("/view/EditAgent.fxml"));
 					                    		Parent root = (Parent)fxmlLoader.load(); 
 					                    		EditAgent controller = fxmlLoader.<EditAgent>getController();
-					                    		controller.setValues(agent.getId());
+					                    		controller.setValues(agent);
 					                    		stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
 					                    		stage.setTitle("Modifier agent");
 					                    		Scene scene = new Scene(root); 
@@ -313,7 +313,7 @@ public class GestionAgent implements Initializable {
 			ExcelImport excelImport = new ExcelImport();
 			excelImport.importFile(file, new ExcelAgentImport(listAgent));
 			for (Agent agent : listAgent) {
-				if (agentDao.find(agent.getId()) == null) {
+				if (agentDao.find(agent.getIdAgent()) == null) {
 					agentDao.save(agent);
 				}
 			}

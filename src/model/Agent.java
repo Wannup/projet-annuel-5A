@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
- * Agent est la classe reprï¿½sentant un agent.
+ * model class Agent
  * 
  * @version 1.0
  */
@@ -27,28 +27,21 @@ public class Agent {
 	private List<Equipement> equipements;
 	
 	/**
-	 * Constructeur par dï¿½faut
+	 * Agent default constructor
 	 */
 	public Agent(){
 		this.equipements = new ArrayList<Equipement>();
 	}
 	
 	/**
-	 * Constructeur agent
-	 *
+	 * @param idAgent
 	 * @param nom
-	 *     nom de l'agent
 	 * @param prenom
-	 *     prenom de l'agent
-	 * @param dateDeNaissance
-	 *     date de naissance de l'agent
+	 * @param tel
 	 * @param numCP
-	 *     numero de l'agent
-	 * @param numPoste
-	 *     numero de poste de l'agent
-	 *     
+	 * @param pole
 	 */
-	public Agent(String nom, String prenom, Pole pole, String tel, String numCP) {		
+	public Agent(String nom, String prenom, String tel, String numCP, Pole pole) {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.tel = tel;
@@ -56,122 +49,107 @@ public class Agent {
 		this.pole = pole;
 		this.equipements = new ArrayList<Equipement>();
 	}
-	
+
+	/**
+	 * Add a new Equipement for this agent
+	 * @param equipement
+	 */
 	public void addEquipement(Equipement equipement){
 		if(equipement != null)
 			this.equipements.add(equipement);
 	}
+
+
 	
 	/**
-     * Retourne l'identifiant de l'agent.
-     * 
-     * @return un entier correspondant ï¿½ l'identifiant de l'agent.
-     */
-	public int getId () {
-		return this.idAgent;
-	}
-
+	 * @return the idAgent
+	 */
 	public int getIdAgent() {
 		return idAgent;
 	}
 
+	/**
+	 * @param idAgent the idAgent to set
+	 */
 	public void setIdAgent(int idAgent) {
 		this.idAgent = idAgent;
 	}
 
-	public Pole getPole() {
-		return pole;
-	}
-
-	public void setPole(Pole pole) {
-		this.pole = pole;
-	}
-
 	/**
-     * Retourne le nom de l'agent.
-     * 
-     * @return une chaine de caractère correspondant au nom de l'agent.
-     */
+	 * @return the nom
+	 */
 	public String getNom() {
-		return nom;
+		return this.nom;
 	}
 
 	/**
-	* Affecte un nouveau nom à l'agent
-	*
-	* @param nom
-	*     nom de l'agent
-	*     
-	*/
+	 * @param nom the nom to set
+	 */
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
 
 	/**
-     * Retourne le prenom de l'agent.
-     * 
-     * @return une chaine de caractere correspondant au prenom de l'agent.
-     */
+	 * @return the prenom
+	 */
 	public String getPrenom() {
-		return prenom;
+		return this.prenom;
 	}
 
 	/**
-	* Affecte un nouveau prenom à l'agent
-	*
-	* @param prenom
-	*     prénom de l'agent
-	*     
-	*/
+	 * @param prenom the prenom to set
+	 */
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
 
 	/**
-     * Retourne le nom de l'agent.
-     * 
-     * @return une chaine de caractère correspondant au nom de l'agent.
-     */
+	 * @return the tel
+	 */
 	public String getTel() {
-		return tel;
+		return this.tel;
 	}
 
 	/**
-	* Affecte une nouvelle date de naissance à l'agent
-	*
-	* @param dateDeNaissance
-	*     date de naissance de l'agent
-	*     
-	*/
+	 * @param tel the tel to set
+	 */
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
 
 	/**
-     * Retourne le numero de l'agent.
-     * 
-     * @return une chaine de caractere correspondant au numï¿½ro de l'agent.
-     */
+	 * @return the numCP
+	 */
 	public String getNumCP() {
-		return numCP;
+		return this.numCP;
 	}
 
 	/**
-	* Affecte un nouveau numero à l'agent
-	*
-	* @param numCP
-	*     numero de l'agent
-	*     
-	*/
+	 * @param numCP the numCP to set
+	 */
 	public void setNumCP(String numCP) {
 		this.numCP = numCP;
 	}
-	
+
+	/**
+	 * @return the pole
+	 */
+	public Pole getPole() {
+		return this.pole;
+	}
+
+	/**
+	 * @param pole the pole to set
+	 */
+	public void setPole(Pole pole) {
+		this.pole = pole;
+	}
+
 	/**
 	 * @return the equipements
 	 */
 	public List<Equipement> getEquipements() {
-		return equipements;
+		return this.equipements;
 	}
 
 	/**
@@ -180,11 +158,11 @@ public class Agent {
 	public void setEquipements(List<Equipement> equipements) {
 		this.equipements = equipements;
 	}
-
+	
+	
 	/**
-     * Retourne un agent sous forme de chaine.
      * 
-     * @return une chaine de caractere correspondant à l'agent.
+     * @return an agent description
      */
 	@Override
 	public String toString() {

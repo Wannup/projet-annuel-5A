@@ -3,10 +3,6 @@ package controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import model.Agent;
-import model.Pole;
-import dao.AgentDao;
-import dao.PoleDao;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,13 +10,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Agent;
+import model.Pole;
+import dao.PoleDao;
 
 public class EditAgent implements Initializable{
-	
-	private AgentDao aDao;
-	private PoleDao pDao;
-	private int idAgent;
-	private Agent a;
 	
 	@FXML 
 	private TextField nom;
@@ -40,30 +34,33 @@ public class EditAgent implements Initializable{
 	@FXML
 	private Button btnEnregistrer;
 	
+	private PoleDao poleDao;
+	private Agent agent;
+	
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		this.aDao = new AgentDao();
-		this.pDao = new PoleDao();
-		this.pole.getItems().addAll(FXCollections.observableArrayList(pDao.findByAttributesLike(null)));
+		this.poleDao = new PoleDao();
+		this.pole.getItems().addAll(FXCollections.observableArrayList(poleDao.findByAttributesLike(null)));
 	}
 
-	public void setValues(int id) {
-		this.idAgent =  id;	
+	public void setValues(Agent agentParam) {
 		
-		this.a = aDao.find(idAgent);
-		this.nom.setText(a.getNom());
-		this.prenom.setText(a.getPrenom());
-		this.numCP.setText(a.getNumCP());
-		this.tel.setText(a.getTel());
+		this.agent = agentParam;
+		this.nom.setText(agent.getNom());
+		this.prenom.setText(agent.getPrenom());
+		this.numCP.setText(agent.getNumCP());
+		this.tel.setText(agent.getTel());
+		this.pole.getSelectionModel().select(agent.getPole());
 	}
 	
 	@FXML
 	public void saveEditAgent(){
-		this.a.setNom(nom.getText());
-		this.a.setPrenom(prenom.getText());
-		this.a.setNumCP(numCP.getText());
-		this.a.setTel(tel.getText());
-		this.a.setPole(pole.getValue());
+		this.agent.setNom(nom.getText());
+		this.agent.setPrenom(prenom.getText());
+		this.agent.setNumCP(numCP.getText());
+		this.agent.setTel(tel.getText());
+		this.agent.setPole(pole.getValue());
 		
 		Stage stage = (Stage) btnEnregistrer.getScene().getWindow();
 	    stage.close();

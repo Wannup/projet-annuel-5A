@@ -80,7 +80,7 @@ public class AjoutAgent implements Initializable{
 		errorMessage = "";
 		
 		if(validationFormulaire()){
-			Agent newAgent = new Agent(nom.getText(), prenom.getText(), poles.getValue(), tel.getText(), numCP.getText());
+			Agent newAgent = new Agent(nom.getText(), prenom.getText(), tel.getText(), numCP.getText(), poles.getValue());
 			agentDao.save(newAgent);
 			
 			//popup
