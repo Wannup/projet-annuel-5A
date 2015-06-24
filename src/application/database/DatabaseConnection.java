@@ -5,7 +5,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 /**
- * DatabaseConnection est la classe permettant d'instancier et fermer une connexion à la base de données.
+ * DatabaseConnection est la classe permettant d'instancier et fermer une connexion Ã  la base de donnÃ©es.
  * 
  * @version 1.0
  */
@@ -15,7 +15,7 @@ public class DatabaseConnection {
     public static EntityManager em;
     
     /**
-     * Retourne un manager de la base de données.
+     * Retourne un manager de la base de donnÃ©es.
      * 
      * @return EntityManager.
      * 
@@ -29,7 +29,7 @@ public class DatabaseConnection {
     }
     
     /**
-     * Rafraichi la base de données.
+     * Rafraichi la base de donnÃ©es.
      * 
      */
     public static void refresh () {

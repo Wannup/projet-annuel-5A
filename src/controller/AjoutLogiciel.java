@@ -83,7 +83,7 @@ public class AjoutLogiciel implements Initializable{
 		else{
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Erreur enregistrement logiciel");
-			alert.setHeaderText("Les champs ci-dessous sont incorrectes ou non renseignés.");
+			alert.setHeaderText("Les champs ci-dessous sont incorrectes ou non renseignÃ©s.");
 			alert.setContentText(errorMessage);
 			alert.showAndWait();
 		}
@@ -97,23 +97,23 @@ public class AjoutLogiciel implements Initializable{
 			Map<String, String> attribut = new HashMap<String, String>();
 			attribut.put("licenceNumber", licenceNumber.getText().trim());
 			if(!logicielDao.findByAttributesEquals(attribut).isEmpty()){
-				errorMessage += "Il y a déja un logiciel enregistré avec ce numéro de licence.\n";
+				errorMessage += "Il y a dÃ©jÃ  un logiciel enregistrÃ© avec ce numÃ©ro de licence.\n";
 				return false;
 			}
 		}
 		
 		if(licenceNumber.getText().trim().equals("")){
-			errorMessage += "Numéro de licence non renseigné.\n";
+			errorMessage += "Numï¿½ro de licence non renseignÃ©.\n";
 			formValid = false;
 		}
 
 		if(nom.getText().trim().equals("")){
-			errorMessage += "Nom du logiciel non renseigné.\n";
+			errorMessage += "Nom du logiciel non renseignÃ©.\n";
 			formValid = false;
 		}
 		
 		if(prix.getText().trim().equals("")){
-			errorMessage += "Prix de la licence non renseigné.\n";
+			errorMessage += "Prix de la licence non renseignÃ©.\n";
 			formValid = false;
 		}
 		else{
@@ -131,7 +131,7 @@ public class AjoutLogiciel implements Initializable{
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Ajout logiciel");
 		alert.setHeaderText(null);
-		alert.setContentText("Logiciel ajouté avec succès !");
+		alert.setContentText("Logiciel ajoutÃ© avec succÃ¨s !");
 		alert.showAndWait();
 	}
 	

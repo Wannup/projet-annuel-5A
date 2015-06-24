@@ -205,7 +205,7 @@ public class AjoutEquipement implements Initializable{
 	private void addTypeEquipement(ActionEvent event) throws IOException{
 		
 		Stage stage = new Stage();
-        stage.setTitle("Type d'équipement");
+        stage.setTitle("Type d'ï¿½quipement");
         stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
         
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -225,7 +225,7 @@ public class AjoutEquipement implements Initializable{
 		errorMessage = "";
 		Agent agent = null;
 		
-		// récupération de l'agent si renseigné
+		// rÃ©cupÃ©ration de l'agent si renseignÃ©
 		if(!numCPAgent.getText().trim().equals("")){
 			Map<String, String> attribut = new HashMap<String, String>();
 			attribut.put("numCP", numCPAgent.getText().trim());
@@ -234,7 +234,7 @@ public class AjoutEquipement implements Initializable{
 		
 		if(validationFormulaire(agent)){
 			
-			// calcul de la date prévisionnelle de renouvellement
+			// calcul de la date prï¿½visionnelle de renouvellement
 			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			Calendar calendar = Calendar.getInstance();
 			if(!TransformationDonnees.formatDate(dateLivraison).equals("")){
@@ -248,7 +248,7 @@ public class AjoutEquipement implements Initializable{
 			calendar.add(Calendar.YEAR, typeEquipement.getSelectionModel().getSelectedItem().getNbYearRenewal());
 			String renewalDate = dateFormat.format(calendar.getTime());
 			
-			// Création de l'équipement
+			// CrÃ©ation de l'Ã©quipement
 			Equipement newEquipement;
 			if(lstLogiciel.getItems().isEmpty())
 				newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem(), agent, poles.getSelectionModel().getSelectedItem(), TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), renewalDate, marque.getText(), modele.getText().trim(), calife.getText().trim(), info.getText().trim());
@@ -257,7 +257,7 @@ public class AjoutEquipement implements Initializable{
 			
 			equipementDao.save(newEquipement);
 			
-			// ajout dans la liste des équipements de l'agent si renseigné
+			// ajout dans la liste des Ã©quipements de l'agent si renseignÃ©
 			if(!numCPAgent.getText().trim().equals("")){
 				agent.addEquipement(newEquipement);
 				agentDao.update(agent);
@@ -278,27 +278,27 @@ public class AjoutEquipement implements Initializable{
 		
 		boolean formValid = true;
 		
-		// vérification s'il n'existe pas déja un équipement avec le même calife
+		// vÃ©rification s'il n'existe pas dÃ©jÃ  un Ã©quipement avec mÃªme calife
 		if(!calife.getText().trim().equals("")){
 				Map<String, String> attribut = new HashMap<String, String>();
 				attribut.put("nomCalife", calife.getText().trim());
 						
 				if(!equipementDao.findByAttributesEquals(attribut).isEmpty()){
-					errorMessage += "Il y a déja un équipement enregistré avec ce nom de calife.\n";
+					errorMessage += "Il y a dÃ©jÃ  un Ã©quipement enregistrÃ© avec ce nom de calife.\n";
 					return false;
 				}
 		}
 		
 		if(typeEquipement.getSelectionModel().getSelectedItem() == null){
-			errorMessage += "Type d'équipement non renseigné.\n";
+			errorMessage += "Type d'Ã©quipement non renseignÃ©.\n";
 			formValid = false;
 		}
 		if(calife.getText().trim().equals("")){
-			errorMessage += "Calife non renseigné.\n";
+			errorMessage += "Calife non renseignÃ©.\n";
 			formValid = false;
 		}
 		if(prix.getText().trim().equals("")){
-			errorMessage += "Valeur non renseigné.\n";
+			errorMessage += "Valeur non renseignÃ©.\n";
 			formValid = false;
 		}
 		else{
@@ -315,7 +315,7 @@ public class AjoutEquipement implements Initializable{
 		
 		if(!numCPAgent.getText().trim().equals("") && poles.getSelectionModel().getSelectedItem() != null){
 			if(agent.getPole() != poles.getSelectionModel().getSelectedItem()){
-				errorMessage += "L'agent sélectionné n'est pas lié au pole choisi.\n";
+				errorMessage += "L'agent sÃ©lectionnÃ© n'est pas liÃ© au pole choisi.\n";
 				formValid = false;
 			}
 		}
@@ -328,7 +328,7 @@ public class AjoutEquipement implements Initializable{
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Ajout equipement");
 		alert.setHeaderText(null);
-		alert.setContentText("Equipement ajouté avec succès !");
+		alert.setContentText("Equipement ajoutÃ© avec succÃ¨s !");
 		alert.showAndWait();
 	}
 	

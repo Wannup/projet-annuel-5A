@@ -69,7 +69,7 @@ public abstract class AbstractDao<T> {
 		return results;
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({ "unchecked"})
 	public List<T> findByAttributesEquals(Map<String, String> attributes) {
 
 		List<T> results;

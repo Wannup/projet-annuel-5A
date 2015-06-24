@@ -8,7 +8,7 @@ import java.io.IOException;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 /**
- * ExcelGenerator est la classe permettant de générer un fichier excel.
+ * ExcelGenerator est la classe permettant de gÃ©nÃ©rer un fichier excel.
  * 
  * @version 1.0
  */

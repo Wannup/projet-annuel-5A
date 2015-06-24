@@ -15,7 +15,7 @@ public class EditLogiciel implements Initializable{
 	
 	private LogicielDao lDao;
 	private int idLogiciel;
-	private Logiciel l;
+	private Logiciel logiciel;
 	
 	@FXML
 	private Button btnEnregistrer;
@@ -36,17 +36,17 @@ public class EditLogiciel implements Initializable{
 
 	public void setValues(int id) {
 		this.idLogiciel =  id;		
-		this.l = lDao.find(idLogiciel);
-		this.libelle.setText(l.getNom());
-		this.licenceNumber.setText(l.getLicenceNumber());
-		this.prix.setText(""+l.getPrix());
+		this.logiciel = lDao.find(idLogiciel);
+		this.libelle.setText(logiciel.getNom());
+		this.licenceNumber.setText(logiciel.getLicenceNumber());
+		this.prix.setText(""+logiciel.getPrix());
 	}
 	
 	@FXML
 	public void saveLogiciel(){
-		this.l.setNom(libelle.getText());
-		this.l.setLicenceNumber(licenceNumber.getText());
-		this.l.setPrix(Double.parseDouble(prix.getText()));
+		this.logiciel.setNom(libelle.getText());
+		this.logiciel.setLicenceNumber(licenceNumber.getText());
+		this.logiciel.setPrix(Double.parseDouble(prix.getText()));
 		
 		Stage stage = (Stage) btnEnregistrer.getScene().getWindow();
 	    stage.close();

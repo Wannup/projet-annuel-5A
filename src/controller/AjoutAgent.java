@@ -97,7 +97,7 @@ public class AjoutAgent implements Initializable{
 		else{
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Erreur enregistrement agent");
-			alert.setHeaderText("Les champs ci-dessous sont incorrectes ou non renseignés.");
+			alert.setHeaderText("Les champs ci-dessous sont incorrectes ou non renseignÃ©s.");
 			alert.setContentText(errorMessage);
 			alert.showAndWait();
 		}
@@ -129,29 +129,29 @@ public class AjoutAgent implements Initializable{
 			Map<String, String> attribut = new HashMap<String, String>();
 			attribut.put("numCP", numCP.getText().trim());
 			if(!agentDao.findByAttributesEquals(attribut).isEmpty()){
-				errorMessage += "Il y a déja un agent enregistré avec ce N° CP.\n";
+				errorMessage += "Il y a dÃ©jÃ  un agent enregistrÃ© avec ce NÂ°CP.\n";
 				return false;
 			}
 		}
 		
 		if(numCP.getText().trim().equals("")){
-			errorMessage += "N° CP non renseigné.\n";
+			errorMessage += "NÂ° CP non renseignÃ©.\n";
 			formValid = false;
 		}
 		
 
 		if(nom.getText().trim().equals("")){
-			errorMessage += "Nom non renseigné.\n";
+			errorMessage += "Nom non renseignÃ©.\n";
 			formValid = false;
 		}
 		
 		if(prenom.getText().trim().equals("")){
-			errorMessage += "Prénom non renseigné.\n";
+			errorMessage += "PrÃ©nom non renseignÃ©.\n";
 			formValid = false;
 		}
 		
 		if(poles.getSelectionModel().getSelectedItem() == null){
-			errorMessage += "Pole/service non renseigné.\n";
+			errorMessage += "Pole/service non renseignÃ©.\n";
 			formValid = false;
 		}
 	
@@ -164,7 +164,7 @@ public class AjoutAgent implements Initializable{
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Ajout agent");
 		alert.setHeaderText(null);
-		alert.setContentText("Agent ajouté avec succès !");
+		alert.setContentText("Agent ajoutÃ© avec succÃ¨s !");
 		alert.showAndWait();
 	}
 	

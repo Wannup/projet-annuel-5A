@@ -69,7 +69,7 @@ public class PolePopup implements Initializable{
 			if(!equipementDao.getEquipementByPole(pole).isEmpty()){
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Erreur suppression du pole");
-				alert.setContentText("Il y a des équipements enregistrés avec ce pole.");
+				alert.setContentText("Il y a des Ã©quipements enregistrÃ©s avec ce pole.");
 				alert.showAndWait();
 			}
 			else{
@@ -81,7 +81,7 @@ public class PolePopup implements Initializable{
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Erreur action suppression");
 			alert.setHeaderText(null);
-			alert.setContentText("Veuillez sélectionner un élément dans la liste pour la suppression !");
+			alert.setContentText("Veuillez sÃ©lectionner un Ã©lÃ©ment dans la liste pour la suppression !");
 			alert.showAndWait();
 		}
 	}
@@ -98,7 +98,7 @@ public class PolePopup implements Initializable{
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Modification du pole");
 				alert.setHeaderText(null);
-				alert.setContentText("Pole modifié avec succès.");
+				alert.setContentText("Pole modifiÃ© avec succÃ¨s.");
 				alert.showAndWait();
 			}
 			btnAddOrUpdate.setText("Ajouter");

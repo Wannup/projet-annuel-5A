@@ -224,7 +224,7 @@ public class GestionLogiciel implements Initializable {
 	                return true;
 	             else if(String.valueOf(logiciel.getPrix()).toLowerCase().contains(lowerCaseFilter))
 	            	 return true;
-	            return false; // pas de résultat au critère de recherche
+	            return false; // pas de rÃ©sultat au critÃ¨re de recherche
 	        });
 	    });
 		

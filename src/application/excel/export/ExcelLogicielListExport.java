@@ -4,7 +4,6 @@ import java.util.List;
 
 import model.Logiciel;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -45,7 +44,7 @@ public class ExcelLogicielListExport extends ExcelDataExport {
 		HSSFRow row = sheet.createRow(0);
 		
 		row.createCell(0, Cell.CELL_TYPE_STRING).setCellValue("Libelle logiciel");
-		row.createCell(1, Cell.CELL_TYPE_STRING).setCellValue("Valeur licence (�)");
+		row.createCell(1, Cell.CELL_TYPE_STRING).setCellValue("Valeur licence (€)");
 		row.createCell(2, Cell.CELL_TYPE_STRING).setCellValue("Numero de licence");
 	    
 		int ligne = 1;

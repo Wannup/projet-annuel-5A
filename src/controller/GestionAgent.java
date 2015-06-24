@@ -236,7 +236,7 @@ public class GestionAgent implements Initializable {
 	            }
 	
 	            String lowerCaseFilter = newValue.trim().toLowerCase();
-	            // filtrage N°CP, Nom, Prenom, pole
+	            // filtrage NÂ°CP, Nom, Prenom, pole
 	            if (agent.getNumCP().toLowerCase().contains(lowerCaseFilter)) 
 	                return true; 
 	             else if (agent.getNom().toLowerCase().contains(lowerCaseFilter)) 
@@ -245,7 +245,7 @@ public class GestionAgent implements Initializable {
 	            	 return true;
 	             else if(agent.getPole().getNom().toLowerCase().contains(lowerCaseFilter))
 	            	 return true;
-	            return false; // pas de résultat au critère de recherche
+	            return false; // pas de rÃ©sultat au critÃ¨re de recherche
 	        });
 	    });
 

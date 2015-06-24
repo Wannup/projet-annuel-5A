@@ -5,17 +5,17 @@ import java.io.File;
 import tools.Zip;
 
 /**
- * DatabaseImport est la classe permettant d'importer la base de données.
+ * DatabaseImport est la classe permettant d'importer la base de donnÃ©es.
  * 
  * @version 1.0
  */
 public class DatabaseImport {
 	
 	/**
-	 * Importe la base de données
+	 * Importe la base de donnÃ©es
 	 *
 	 * @param file
-	 *     Le fichier zip contenant la base de données
+	 *     Le fichier zip contenant la base de donnÃ©es
 	 * @see File
 	 */
 	public void importDatabase (File file) {

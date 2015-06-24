@@ -211,7 +211,7 @@ public class EditEquipement implements Initializable{
 	private void addTypeEquipement(ActionEvent event) throws IOException{
 		
 		Stage stage = new Stage();
-        stage.setTitle("Type d'équipement");
+        stage.setTitle("Type d'Ã©quipement");
         stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
         
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -231,7 +231,7 @@ public class EditEquipement implements Initializable{
 		errorMessage = "";
 		Agent agent = null;
 		
-		// récupération de l'agent si renseigné
+		// rÃ©cupÃ©ration de l'agent si renseignÃ©
 		if(!numCPAgent.getText().trim().equals("")){
 			Map<String, String> attribut = new HashMap<String, String>();
 			attribut.put("numCP", numCPAgent.getText().trim());
@@ -241,7 +241,7 @@ public class EditEquipement implements Initializable{
 		if(validationFormulaire(agent)){
 			
 			if(!TransformationDonnees.formatDate(dateLivraison).equals(equipement.getDateLivraison())){
-				// calcul de la date prévisionnelle de renouvellement
+				// calcul de la date prÃ©visionnelle de renouvellement
 				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 				Calendar calendar = Calendar.getInstance();
 				if(!TransformationDonnees.formatDate(dateLivraison).equals("")){
@@ -262,11 +262,11 @@ public class EditEquipement implements Initializable{
 			
 		//	if()
 			
-			// TODO à continuer
+			// TODO Ã  continuer
 			
 			
 			
-			// ajout dans la liste des équipements de l'agent si renseigné
+			// ajout dans la liste des Ã©quipements de l'agent si renseignÃ©
 			/*if(!numCPAgent.getText().trim().equals("")){
 				agent.addEquipement(newEquipement);
 				agentDao.update(agent);
@@ -299,27 +299,27 @@ public class EditEquipement implements Initializable{
 		
 		boolean formValid = true;
 		
-		// vérification s'il n'existe pas déja un équipement avec le même calife
+		// vÃ©rification s'il n'existe pas dÃ©jÃ  un Ã©quipement avec le mÃªme calife
 		if(!calife.getText().trim().equals("")){
 				Map<String, String> attribut = new HashMap<String, String>();
 				attribut.put("nomCalife", calife.getText().trim());
 						
 				if(!equipementDao.findByAttributesEquals(attribut).isEmpty()){
-					errorMessage += "Il y a déja un équipement enregistré avec ce nom de calife.\n";
+					errorMessage += "Il y a dÃ©jÃ  un Ã©quipement enregistrÃ© avec ce nom de calife.\n";
 					return false;
 				}
 		}
 		
 		if(typeEquipement.getSelectionModel().getSelectedItem() == null){
-			errorMessage += "Type d'équipement non renseigné.\n";
+			errorMessage += "Type d'Ã©quipement non renseignÃ©.\n";
 			formValid = false;
 		}
 		if(calife.getText().trim().equals("")){
-			errorMessage += "Calife non renseigné.\n";
+			errorMessage += "Calife non renseignÃ©.\n";
 			formValid = false;
 		}
 		if(prix.getText().trim().equals("")){
-			errorMessage += "Valeur non renseigné.\n";
+			errorMessage += "Valeur non renseignÃ©.\n";
 			formValid = false;
 		}
 		else{
@@ -336,7 +336,7 @@ public class EditEquipement implements Initializable{
 		
 		if(!numCPAgent.getText().trim().equals("") && poles.getSelectionModel().getSelectedItem() != null){
 			if(agent.getPole() != poles.getSelectionModel().getSelectedItem()){
-				errorMessage += "L'agent sélectionné n'est pas lié au pole choisi.\n";
+				errorMessage += "L'agent sï¿½lectionnï¿½ n'est pas liï¿½ au pole choisi.\n";
 				formValid = false;
 			}
 		}
@@ -375,7 +375,7 @@ public class EditEquipement implements Initializable{
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Ajout equipement");
 		alert.setHeaderText(null);
-		alert.setContentText("Equipement modifié avec succès !");
+		alert.setContentText("Equipement modifiÃ© avec succÃ¨s !");
 		alert.showAndWait();
 	}
 	

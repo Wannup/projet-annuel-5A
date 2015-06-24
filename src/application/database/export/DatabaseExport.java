@@ -5,17 +5,17 @@ import java.io.File;
 import tools.Zip;
 
 /**
- * DatabaseExport est la classe permettant d'exporter la base de données en zip.
+ * DatabaseExport est la classe permettant d'exporter la base de donnÃ©es en zip.
  * 
  * @version 1.0
  */
 public class DatabaseExport {
 	
 	/**
-	 * Exporte la base de données
+	 * Exporte la base de donnÃ©es
 	 *
 	 * @param file
-	 *     Le dossier dans lequel la base de données sera exporter
+	 *     Le dossier dans lequel la base de donnÃ©es sera exporter
 	 * @see File
 	 */
 	public void exportDatabase (File file) {

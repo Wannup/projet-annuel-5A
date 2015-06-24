@@ -25,7 +25,7 @@ public class ExcelAgentImport extends ExcelDataImport {
 	private final int ID_CELL_PRENOM = 2;
 	private final int ID_CELL_DATE = 3;
 	private final int ID_CELL_CP = 4;
-	private final int ID_CELL_POSTE = 5;
+	//private final int ID_CELL_POSTE = 5;
 	
 	/**
 	 * Constructeur de la classe

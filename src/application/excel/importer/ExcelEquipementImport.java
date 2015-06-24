@@ -19,7 +19,7 @@ import application.database.DatabaseConnection;
 import dao.AgentDao;
 
 /**
- * ExcelEquipementImport est la classe permettant d'importer des �quipements depuis un fichier excel.
+ * ExcelEquipementImport est la classe permettant d'importer des équipements depuis un fichier excel.
  * 
  * @version 1.0
  */
