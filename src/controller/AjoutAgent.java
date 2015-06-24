@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -69,13 +68,13 @@ public class AjoutAgent implements Initializable{
 	}
 	
 	@FXML
-	private void displayEditDelete(ActionEvent event) throws IOException{
+	private void displayEditDelete() throws IOException{
 		loader = new FXMLLoader(getClass().getResource("/view/GestionAgent.fxml"));
 		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 	
 	@FXML
-	private void enregistrerAgent(ActionEvent event){
+	private void enregistrerAgent(){
 		
 		errorMessage = "";
 		
@@ -105,7 +104,7 @@ public class AjoutAgent implements Initializable{
 	}
 	
 	@FXML
-	private void addPole(ActionEvent event) throws IOException{
+	private void addPole() throws IOException{
 		Stage stage = new Stage();
         stage.setTitle("Pole/Service");
         stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
