@@ -135,7 +135,7 @@ public class GestionEquipement implements Initializable{
 		columnCalife.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<Equipement, String> equipement) {
-				return new SimpleStringProperty(equipement.getValue().getCalife());
+				return new SimpleStringProperty(equipement.getValue().getNomCalife());
 			}
 		});
 		
@@ -239,7 +239,7 @@ public class GestionEquipement implements Initializable{
 		
 		                String lowerCaseFilter = newValue.trim().toLowerCase();
 		                // filtrage calife, type, valeur, pole, cpAgent
-		                if (equipement.getCalife().toLowerCase().contains(lowerCaseFilter)) 
+		                if (equipement.getNomCalife().toLowerCase().contains(lowerCaseFilter)) 
 		                    return true; 
 		                 else if (equipement.getTypeEquipement().getNom().toLowerCase().contains(lowerCaseFilter)) 
 		                    return true;
@@ -315,7 +315,7 @@ public class GestionEquipement implements Initializable{
         	ExcelImport excelImport = new ExcelImport();
         	excelImport.importFile(file, new ExcelEquipementImport(listEquipement));
 			for (Equipement equipement : listEquipement) {
-				if (equipementDao.find(equipement.getId()) == null) {
+				if (equipementDao.find(equipement.getIdEquipement()) == null) {
 					equipementDao.save(equipement);
 				}
 			}

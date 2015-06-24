@@ -89,7 +89,7 @@ public class InformationEquipement implements Initializable{
 		this.type.setText(equipement.getTypeEquipement().getNom());
 		this.marque.setText(equipement.getMarque());
 		this.modele.setText(equipement.getModele());
-		this.calife.setText(equipement.getCalife());
+		this.calife.setText(equipement.getNomCalife());
 		this.info.setText(equipement.getInfo());
 		this.dateLivraison.setText(equipement.getDateLivraison());
 		this.logiciels.getItems().addAll(equipement.getLogiciels());

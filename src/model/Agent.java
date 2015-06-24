@@ -9,7 +9,7 @@ import javax.persistence.Id;
 
 /**
  * model class Agent
- * 
+ * @author: Charly FAROT
  * @version 1.0
  */
 @Entity

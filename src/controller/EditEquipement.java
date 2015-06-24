@@ -272,7 +272,7 @@ public class EditEquipement implements Initializable{
 				agentDao.update(agent);
 			}*/
 			//equipement.setTypeEquipement(type.getSelectionModel().getSelectedItem());
-			equipement.setCalife(calife.getText());
+			equipement.setNomCalife(calife.getText());
 			equipement.setDateGarantie(TransformationDonnees.formatDate(dateGarantie));
 			equipement.setMarque(marque.getText());
 			equipement.setPrix(Double.parseDouble(prix.getText()));
@@ -364,7 +364,7 @@ public class EditEquipement implements Initializable{
 		this.poles.getSelectionModel().select(equipement.getPole());
 		this.marque.setText(equipement.getMarque());
 		this.modele.setText(equipement.getModele());
-		this.calife.setText(equipement.getCalife());
+		this.calife.setText(equipement.getNomCalife());
 		this.info.setText(equipement.getInfo());
 		this.prix.setText("" + equipement.getPrix());
 		this.lstLogiciel.getItems().addAll(FXCollections.observableArrayList(FXCollections.observableArrayList(equipement.getLogiciels())));
