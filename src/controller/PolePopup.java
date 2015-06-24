@@ -22,6 +22,9 @@ import model.Pole;
 import dao.EquipementDao;
 import dao.PoleDao;
 
+/**
+ * class controller for the interface PolePopup.fxml
+ * */
 public class PolePopup implements Initializable{
 
 	@FXML

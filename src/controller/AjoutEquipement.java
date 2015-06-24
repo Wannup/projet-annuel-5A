@@ -39,6 +39,9 @@ import dao.EquipementDao;
 import dao.PoleDao;
 import dao.TypeEquipementDao;
 
+/**
+ * class controller for the interface AjoutEquipement.fxml
+ * */
 public class AjoutEquipement implements Initializable{
 	
 	@FXML 

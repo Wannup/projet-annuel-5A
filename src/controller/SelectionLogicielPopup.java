@@ -26,6 +26,9 @@ import javafx.util.Callback;
 import model.Logiciel;
 import dao.LogicielDao;
 
+/**
+ * class controller for the interface SelectionLogicielPopup.fxml
+ * */
 public class SelectionLogicielPopup implements Initializable{
 
 	@FXML

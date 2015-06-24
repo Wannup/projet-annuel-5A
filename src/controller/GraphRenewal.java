@@ -14,6 +14,9 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 
+/**
+ * class controller for the interface GestionRenewal.fxml
+ * */
 public class GraphRenewal implements Initializable{
 
 	@FXML
@@ -49,7 +52,7 @@ public class GraphRenewal implements Initializable{
 	
 	private ObservableList<XYChart.Series> getChartDataPrice() {
 		
-		xAxis.setLabel("Années");
+		xAxis.setLabel("Annï¿½es");
         xAxis.setCategories(FXCollections.<String>observableArrayList(
                 Arrays.asList("2016", "2017", "2018", "2019", "2020")));
         yAxis.setLabel("Prix");
@@ -89,7 +92,7 @@ public class GraphRenewal implements Initializable{
 	
 	private ObservableList<XYChart.Series> getChartDataQuantity() {
 		
-		xAxis.setLabel("Années");
+		xAxis.setLabel("Annï¿½es");
         xAxis.setCategories(FXCollections.<String>observableArrayList(
                 Arrays.asList("2016", "2017", "2018", "2019", "2020")));
         yAxis.setLabel("Prix");

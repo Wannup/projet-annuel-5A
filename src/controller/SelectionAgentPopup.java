@@ -26,6 +26,9 @@ import model.Agent;
 import model.Pole;
 import dao.AgentDao;
 
+/**
+ * class controller for the interface SelectionAgentPopup.fxml
+ * */
 public class SelectionAgentPopup implements Initializable{
 
 	@FXML

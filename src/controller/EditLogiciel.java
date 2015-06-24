@@ -11,6 +11,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * class controller for the interface EditLogiciel.fxml
+ * */
 public class EditLogiciel implements Initializable{
 	
 	private LogicielDao lDao;

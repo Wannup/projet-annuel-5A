@@ -48,6 +48,9 @@ import application.pdf.export.PDFAgentListExport;
 import application.pdf.export.PDFGenerator;
 import dao.AgentDao;
 
+/**
+ * class controller for the interface GestionAgent.fxml
+ * */
 public class GestionAgent implements Initializable {
 
 	@FXML

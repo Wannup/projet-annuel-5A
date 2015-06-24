@@ -48,6 +48,9 @@ import application.pdf.export.PDFEquipementListExport;
 import application.pdf.export.PDFGenerator;
 import dao.EquipementDao;
 
+/**
+ * class controller for the interface GestionEquipement.fxml
+ * */
 public class GestionEquipement implements Initializable{
 
 	@FXML

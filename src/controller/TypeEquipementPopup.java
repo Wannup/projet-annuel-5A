@@ -23,6 +23,9 @@ import tools.TransformationDonnees;
 import dao.EquipementDao;
 import dao.TypeEquipementDao;
 
+/**
+ * class controller for the interface TypeEquipementPopup.fxml
+ * */
 public class TypeEquipementPopup implements Initializable{
 
 	@FXML
@@ -74,7 +77,7 @@ public class TypeEquipementPopup implements Initializable{
 			if(!equipementDao.getEquipementByType(typeEquip).isEmpty()){
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Erreur suppression du type");
-				alert.setContentText("Il y a des équipements enregistrés avec ce type.");
+				alert.setContentText("Il y a des ï¿½quipements enregistrï¿½s avec ce type.");
 				alert.showAndWait();
 			}
 			else{
@@ -86,7 +89,7 @@ public class TypeEquipementPopup implements Initializable{
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Erreur action suppression");
 			alert.setHeaderText(null);
-			alert.setContentText("Veuillez sélectionner un élément dans la liste pour la suppression !");
+			alert.setContentText("Veuillez sï¿½lectionner un ï¿½lï¿½ment dans la liste pour la suppression !");
 			alert.showAndWait();
 		}
 	}
@@ -104,7 +107,7 @@ public class TypeEquipementPopup implements Initializable{
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Modification type equipement");
 				alert.setHeaderText(null);
-				alert.setContentText("Type equipement modifié avec succès.");
+				alert.setContentText("Type equipement modifiï¿½ avec succï¿½s.");
 				alert.showAndWait();
 			}
 			btnAddOrUpdate.setText("Ajouter");

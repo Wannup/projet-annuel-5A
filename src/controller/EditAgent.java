@@ -14,6 +14,9 @@ import model.Agent;
 import model.Pole;
 import dao.PoleDao;
 
+/**
+ * class controller for the interface EditAgent.fxml
+ * */
 public class EditAgent implements Initializable{
 	
 	@FXML 

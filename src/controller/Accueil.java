@@ -16,6 +16,9 @@ import application.database.DatabaseConnection;
 import application.database.export.DatabaseExport;
 import application.database.importer.DatabaseImport;
 
+/**
+ * class controller for the interface Accueil.fxml
+ * */
 public class Accueil implements Initializable{
 
 	@FXML

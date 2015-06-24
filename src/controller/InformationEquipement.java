@@ -17,6 +17,9 @@ import javafx.stage.Stage;
 import model.Equipement;
 import model.Logiciel;
 
+/**
+ * class controller for the interface InformationEquipementPopup.fxml
+ * */
 public class InformationEquipement implements Initializable{
 
 	@FXML

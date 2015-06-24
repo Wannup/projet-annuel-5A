@@ -23,6 +23,9 @@ import tools.ManipInterface;
 import tools.TransformationDonnees;
 import dao.LogicielDao;
 
+/**
+ * class controller for the interfaces AjoutLogiciel.fxml and AjoutLogicielPopup.fxml
+ * */
 public class AjoutLogiciel implements Initializable{
 
 	@FXML

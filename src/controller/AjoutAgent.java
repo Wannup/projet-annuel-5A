@@ -25,6 +25,9 @@ import tools.ManipInterface;
 import dao.AgentDao;
 import dao.PoleDao;
 
+/**
+ * class controller for the interfaces AjoutAgent.fxml and AjoutAgentPopup.fxml
+ */
 public class AjoutAgent implements Initializable{
 	
 	@FXML

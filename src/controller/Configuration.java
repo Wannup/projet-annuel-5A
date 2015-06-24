@@ -10,7 +10,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import tools.Config;
-
+/**
+ * class controller for the interface Configuration.fxml
+ * */
 public class Configuration implements Initializable {
 	
 	@FXML

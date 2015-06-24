@@ -12,6 +12,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 
+/**
+ * class controller for the interface StatEtPrevision.fxml
+ * */
 public class Statistic implements Initializable{
 
 	@FXML 

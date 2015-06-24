@@ -48,6 +48,9 @@ import application.pdf.export.PDFGenerator;
 import application.pdf.export.PDFLogicielListExport;
 import dao.LogicielDao;
 
+/**
+ * class controller for the interface GestionLogiciel.fxml
+ * */
 public class GestionLogiciel implements Initializable {
 
 	@FXML
