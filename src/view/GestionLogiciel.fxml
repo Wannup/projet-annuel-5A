@@ -14,8 +14,8 @@
         <TableColumn fx:id="columnLibelle" maxWidth="5000.0" minWidth="10.0" prefWidth="238.0" text="Nom logiciel" />
         <TableColumn fx:id="columnLicenceNumber" maxWidth="5000.0" minWidth="10.0" prefWidth="232.0" text="N° licence" />
         <TableColumn fx:id="columnPrix" maxWidth="5000.0" minWidth="10.0" prefWidth="165.0" text="Prix licence (€)" />
-        <TableColumn fx:id="columnSupprimer" maxWidth="5000.0" minWidth="10.0" prefWidth="118.0" text="Supprimer" />
         <TableColumn fx:id="columnModifier" maxWidth="5000.0" minWidth="10.0" prefWidth="83.0" text="Modifier" />
+        <TableColumn fx:id="columnSupprimer" maxWidth="5000.0" minWidth="10.0" prefWidth="118.0" text="Supprimer" />
       </columns>
     </TableView>
     <TextField fx:id="searchBar" layoutX="29.0" layoutY="134.0" prefHeight="31.0" prefWidth="842.0" promptText="Tapez votre recherche selon un critère ci-dessous." />
