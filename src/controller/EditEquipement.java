@@ -2,7 +2,14 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -14,7 +21,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
@@ -26,11 +32,13 @@ import javafx.stage.Stage;
 import model.Agent;
 import model.Equipement;
 import model.Logiciel;
+import model.Pole;
 import model.TypeEquipement;
+import tools.ManipInterface;
 import tools.TransformationDonnees;
 import dao.AgentDao;
 import dao.EquipementDao;
-import dao.LogicielDao;
+import dao.PoleDao;
 import dao.TypeEquipementDao;
 
 public class EditEquipement implements Initializable{
@@ -51,65 +59,92 @@ public class EditEquipement implements Initializable{
 	private TextField calife;
 	
 	@FXML
-	private ComboBox<TypeEquipement> type;
+	private ComboBox<TypeEquipement> typeEquipement;
 	
 	@FXML
 	private DatePicker dateGarantie;
 	
 	@FXML
-	private CheckBox logicielsOuiNon;
+	private DatePicker dateLivraison;
 	
 	@FXML 
 	private ListView<Logiciel> lstLogiciel;
 	
 	@FXML
+	private ComboBox<Pole> poles;
+	
+	@FXML
 	private AnchorPane bodyPanel;
 	
 	@FXML
-	private AnchorPane sectionLogiciel;
+	private TextField numCPAgent;
 	
 	@FXML
-	private ComboBox<Agent> numCPAgent;
+	private Button editButton;
 	
-	@FXML
-	private Button btnEnregistrer;
+	private TypeEquipementDao typeEquipementDao;
+	private EquipementDao equipementDao;
 	
+	private FXMLLoader loader;
+	private String errorMessage = "";	
+	private AgentDao agentDao;
+	private PoleDao poleDao;
 	private Equipement equipement;
 	
-	//private int idEquipement;
-	private TypeEquipementDao teDao;
-	private AgentDao aDao;
-	private EquipementDao eDao;
-	private LogicielDao lDao;
-	private String errorMessage = "";
-
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		this.eDao = new EquipementDao();
-		this.aDao = new AgentDao();
-		this.teDao = new TypeEquipementDao();
-		this.lDao = new LogicielDao();
 		
-		type.getItems().addAll(FXCollections.observableArrayList(teDao.findByAttributesLike(null)));
-		numCPAgent.getItems().addAll(FXCollections.observableArrayList(aDao.findByAttributesLike(null)));	
+		typeEquipementDao = new TypeEquipementDao();
+		equipementDao = new EquipementDao();
+		agentDao = new AgentDao();
+		poleDao = new PoleDao();
+		
+		poles.getItems().addAll(FXCollections.observableArrayList(poleDao.findByAttributesLike(null)));
+		typeEquipement.getItems().addAll(FXCollections.observableArrayList(typeEquipementDao.findByAttributesLike(null)));
 	}
 	
-	public void setValues(Equipement equipementToModify){
-		//this.idEquipement = id;
-
-		//this.equipement = eDao.find(idEquipement);
-		equipement = equipementToModify;
-		if(equipement.getDateGarantie().length() > 0){
-			LocalDate myDate = LocalDate.parse(equipement.getDateGarantie().substring(6, 10)+"-"+equipement.getDateGarantie().substring(3, 5)+"-"+equipement.getDateGarantie().substring(0, 2));
-			this.dateGarantie = new DatePicker(myDate);
-		}
-		this.marque.setText(equipement.getMarque());
-		this.modele.setText(equipement.getModele());
-		this.calife.setText(equipement.getCalife());
-		this.info.setText(equipement.getInfo());
-		this.prix.setText("" + equipement.getPrix());
-		this.lstLogiciel.getItems().addAll(FXCollections.observableArrayList(FXCollections.observableArrayList(equipement.getLogiciels())));
+	@FXML
+	private void displayEditDelete(ActionEvent event) throws IOException{
+		loader = new FXMLLoader(getClass().getResource("/view/GestionEquipement.fxml"));
+		ManipInterface.chargementBodyPanel(bodyPanel, loader);
+	}
+	
+	@FXML
+	private void addPole(ActionEvent event) throws IOException{
+		Stage stage = new Stage();
+        stage.setTitle("Pole/Service");
+        stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
+        
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/view/PolePopup.fxml"));
+        stage.setScene(new Scene(fxmlLoader.load()));
+        stage.show();
+      
+        PolePopup controllerSelectLogicielPopup = (PolePopup) fxmlLoader.getController();
+        
+        // liaison entre les deux fenetres
+        controllerSelectLogicielPopup.champPoleFormEquipement = poles;
+	}
+	
+	@FXML
+	private void ajoutAgent(ActionEvent event) throws IOException{
+		
+		numCPAgent.clear();
+		
+		Stage stage = new Stage();
+        stage.setTitle("Ajouter un agent");
+        stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
+        
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/view/AjoutAgentPopup.fxml"));
+        stage.setScene(new Scene(fxmlLoader.load()));
+        stage.show();
+      
+        AjoutAgent controllerAgentPopup = (AjoutAgent) fxmlLoader.getController();
+        
+        // liaison entre les deux fenetres
+        controllerAgentPopup.champAgentFormEquipement = numCPAgent;
+        controllerAgentPopup.champPolesEquipement = poles;
 	}
 	
 	@FXML
@@ -132,6 +167,27 @@ public class EditEquipement implements Initializable{
 	}
 	
 	@FXML
+	private void selectAgent(ActionEvent event) throws IOException{
+	
+		numCPAgent.clear();
+		
+		Stage stage = new Stage();
+        stage.setTitle("Selection d'un agent");
+        stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
+        
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/view/SelectionAgentPopup.fxml"));
+        stage.setScene(new Scene(fxmlLoader.load()));
+        stage.show();
+      
+        SelectionAgentPopup controllerSelectAgentPopup = (SelectionAgentPopup) fxmlLoader.getController();
+        
+        // liaison entre les deux fenetres
+        controllerSelectAgentPopup.champAgentFormEquipement = numCPAgent;
+        controllerSelectAgentPopup.champPolesEquipement = poles;
+	}
+	
+	@FXML
 	private void selectLogiciels(ActionEvent event) throws IOException{
 		
 		lstLogiciel.getItems().clear();
@@ -151,20 +207,119 @@ public class EditEquipement implements Initializable{
         controllerSelectLogicielPopup.champLogicielFormEquipement = lstLogiciel;
 	}
 	
-	private boolean validationFormulaire(){
+	@FXML
+	private void addTypeEquipement(ActionEvent event) throws IOException{
+		
+		Stage stage = new Stage();
+        stage.setTitle("Type d'équipement");
+        stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
+        
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/view/TypeEquipementPopup.fxml"));
+        stage.setScene(new Scene(fxmlLoader.load()));
+        stage.show();
+      
+        TypeEquipementPopup controllerSelectLogicielPopup = (TypeEquipementPopup) fxmlLoader.getController();
+        
+        // liaison entre les deux fenetres
+        controllerSelectLogicielPopup.champTypeEquipFormEquipement = typeEquipement;
+	}
+	
+	@FXML
+	private void modifierEquipement(ActionEvent event){
+		
+		errorMessage = "";
+		Agent agent = null;
+		
+		// récupération de l'agent si renseigné
+		if(!numCPAgent.getText().trim().equals("")){
+			Map<String, String> attribut = new HashMap<String, String>();
+			attribut.put("numCP", numCPAgent.getText().trim());
+			agent = agentDao.findByAttributesEquals(attribut).get(0);
+		}
+		
+		if(validationFormulaire(agent)){
+			
+			if(!TransformationDonnees.formatDate(dateLivraison).equals(equipement.getDateLivraison())){
+				// calcul de la date prévisionnelle de renouvellement
+				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+				Calendar calendar = Calendar.getInstance();
+				if(!TransformationDonnees.formatDate(dateLivraison).equals("")){
+					try {
+						Date dateLivr = dateFormat.parse(TransformationDonnees.formatDate(dateLivraison));
+						calendar.setTime(dateLivr);
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+					calendar.add(Calendar.YEAR, typeEquipement.getSelectionModel().getSelectedItem().getNbYearRenewal());
+					String renewalDate = dateFormat.format(calendar.getTime());
+				
+					equipement.setRenewalDate(renewalDate);
+				}
+				equipement.setDateLivraison(TransformationDonnees.formatDate(dateLivraison));
+				
+			}
+			
+		//	if()
+			
+			// TODO à continuer
+			
+			
+			
+			// ajout dans la liste des équipements de l'agent si renseigné
+			/*if(!numCPAgent.getText().trim().equals("")){
+				agent.addEquipement(newEquipement);
+				agentDao.update(agent);
+			}*/
+			//equipement.setTypeEquipement(type.getSelectionModel().getSelectedItem());
+			equipement.setCalife(calife.getText());
+			equipement.setDateGarantie(TransformationDonnees.formatDate(dateGarantie));
+			equipement.setMarque(marque.getText());
+			equipement.setPrix(Double.parseDouble(prix.getText()));
+			equipement.setModele(modele.getText());
+			//equipement.setAgent(numCPAgent.getSelectionModel().getSelectedItem());
+			equipement.setInfo(info.getText());
+			
+			//equipementDao.save(newEquipement);
+			informerValidation();
+
+			Stage stage = (Stage) editButton.getScene().getWindow();
+		    stage.close();
+		}
+		else{
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erreur modification equipement");
+			alert.setHeaderText("Les erreurs sont les suivantes: ");
+			alert.setContentText(errorMessage);
+			alert.showAndWait();
+		}
+	}
+	
+	private boolean validationFormulaire(Agent agent){
 		
 		boolean formValid = true;
 		
-		if(type.getSelectionModel().getSelectedItem() == null){
-			errorMessage += "Type d'Ã©quipement non renseignÃ©.\n";
+		// vérification s'il n'existe pas déja un équipement avec le même calife
+		if(!calife.getText().trim().equals("")){
+				Map<String, String> attribut = new HashMap<String, String>();
+				attribut.put("nomCalife", calife.getText().trim());
+						
+				if(!equipementDao.findByAttributesEquals(attribut).isEmpty()){
+					errorMessage += "Il y a déja un équipement enregistré avec ce nom de calife.\n";
+					return false;
+				}
+		}
+		
+		if(typeEquipement.getSelectionModel().getSelectedItem() == null){
+			errorMessage += "Type d'équipement non renseigné.\n";
 			formValid = false;
 		}
 		if(calife.getText().trim().equals("")){
-			errorMessage += "Calife non renseignÃ©.\n";
+			errorMessage += "Calife non renseigné.\n";
 			formValid = false;
 		}
 		if(prix.getText().trim().equals("")){
-			errorMessage += "Valeur non renseignÃ©.\n";
+			errorMessage += "Valeur non renseigné.\n";
 			formValid = false;
 		}
 		else{
@@ -174,58 +329,54 @@ public class EditEquipement implements Initializable{
 			}
 		}
 		
-		if(numCPAgent.getSelectionModel().getSelectedItem() == null){
-			errorMessage += "Agent non renseignÃ©.\n";
+		if(numCPAgent.getText().trim().equals("") && poles.getSelectionModel().getSelectedItem() == null){
+			errorMessage += "Vous devez renseigner l'agent ou le pole.\n";
 			formValid = false;
 		}
 		
-		if(logicielsOuiNon.isSelected()){
-			if(lstLogiciel.getItems().isEmpty()){
-				errorMessage += "Aucun logiciel associÃ© Ã  l'Ã©quipement, dÃ©cochez la case.\n";
+		if(!numCPAgent.getText().trim().equals("") && poles.getSelectionModel().getSelectedItem() != null){
+			if(agent.getPole() != poles.getSelectionModel().getSelectedItem()){
+				errorMessage += "L'agent sélectionné n'est pas lié au pole choisi.\n";
 				formValid = false;
 			}
 		}
+		
 		return formValid;
 	}
-
-	@FXML
-	public void validate(){
+	
+	public void setValues(Equipement equipementToModify){
 		
-		if(validationFormulaire()){
-			// todo recupÃ©ration de l'agent
-			
-			/*ObservableList<Logiciel> selectedLog =  lstLogiciel.getSelectionModel().getSelectedItems();
-            for(Logiciel l : selectedLog){
-                
-            }*/
-			
-			equipement.setTypeEquipement(type.getSelectionModel().getSelectedItem());
-			equipement.setCalife(calife.getText());
-			equipement.setDateGarantie(TransformationDonnees.formatDate(dateGarantie));
-			equipement.setMarque(marque.getText());
-			equipement.setPrix(Double.parseDouble(prix.getText()));
-			equipement.setModele(modele.getText());
-			equipement.setAgent(numCPAgent.getSelectionModel().getSelectedItem());
-			equipement.setInfo(info.getText());
-			informerValidation();
-		}
-		else{
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Erreur enregistrement equipement");
-			alert.setHeaderText("Les champs ci-dessous sont incorrectes ou non renseignÃ©s.");
-			alert.setContentText(errorMessage);
-			alert.showAndWait();
+		equipement = equipementToModify;
+		if(equipement.getDateGarantie().trim().length() > 0){
+			LocalDate myDate = LocalDate.parse(equipement.getDateGarantie().split("/")[2]+"-"+equipement.getDateGarantie().split("/")[1]+"-"+equipement.getDateGarantie().split("/")[0]);
+			this.dateGarantie.setValue(myDate);
 		}
 		
-		Stage stage = (Stage) btnEnregistrer.getScene().getWindow();
-	    stage.close();
+		if(equipement.getDateLivraison().trim().length() > 0){
+			LocalDate myDate = LocalDate.parse(equipement.getDateLivraison().split("/")[2]+"-"+equipement.getDateLivraison().split("/")[1]+"-"+equipement.getDateLivraison().split("/")[0]);
+			this.dateLivraison.setValue(myDate);
+		}
+		
+		if(equipement.getAgent() != null){
+			this.numCPAgent.setText(equipement.getAgent().getNumCP());
+		}
+		this.typeEquipement.getSelectionModel().select(equipement.getTypeEquipement());
+		this.poles.getSelectionModel().select(equipement.getPole());
+		this.marque.setText(equipement.getMarque());
+		this.modele.setText(equipement.getModele());
+		this.calife.setText(equipement.getCalife());
+		this.info.setText(equipement.getInfo());
+		this.prix.setText("" + equipement.getPrix());
+		this.lstLogiciel.getItems().addAll(FXCollections.observableArrayList(FXCollections.observableArrayList(equipement.getLogiciels())));
 	}
 	
 	private void informerValidation(){
+		
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Ajout equipement");
 		alert.setHeaderText(null);
-		alert.setContentText("Equipement modifiÃ© avec succÃ¨s !\n Pensez Ã  rafraichir la liste d'Ã©quipement !");
+		alert.setContentText("Equipement modifié avec succès !");
 		alert.showAndWait();
 	}
+	
 }

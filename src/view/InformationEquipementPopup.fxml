@@ -17,7 +17,7 @@
     <Label layoutX="53.0" layoutY="89.0" text="Modèle:" />
     <Label layoutX="42.0" layoutY="157.0" text="Agent" />
     <Label layoutX="42.0" layoutY="37.0" text="Equipement" />
-    <Label layoutX="53.0" layoutY="176.0" text="Nom:" />
+    <Label layoutX="53.0" layoutY="176.0" prefHeight="21.0" prefWidth="54.0" text="Nom:" />
     <Label layoutX="53.0" layoutY="192.0" text="Prénom:" />
     <Label layoutX="53.0" layoutY="208.0" text="N° CP:" />
     <Label layoutX="53.0" layoutY="105.0" text="Nom Calife:" />
@@ -31,9 +31,9 @@
     <Label fx:id="marque" font="$x1" layoutX="106.0" layoutY="73.0" prefWidth="246.0" />
     <Label fx:id="modele" font="$x1" layoutX="106.0" layoutY="89.0" prefWidth="246.0" />
     <Label fx:id="calife" font="$x1" layoutX="127.0" layoutY="105.0" prefWidth="225.0" />
-    <Label fx:id="nom" font="$x1" layoutX="87.0" layoutY="176.0" prefWidth="265.0" text="-" />
-    <Label fx:id="prenom" font="$x1" layoutX="106.0" layoutY="192.0" prefWidth="246.00009999999747" text="-" />
-    <Label fx:id="cp" font="$x1" layoutX="93.0" layoutY="208.0" prefWidth="258.9999000000025" text="-" />
+    <Label fx:id="nom" font="$x1" layoutX="87.0" layoutY="176.0" prefWidth="265.0" />
+    <Label fx:id="prenom" font="$x1" layoutX="106.0" layoutY="192.0" prefWidth="246.00009999999747" />
+    <Label fx:id="cp" font="$x1" layoutX="93.0" layoutY="208.0" prefWidth="258.9999000000025" />
     <Label layoutX="376.0" layoutY="42.0" text="Autres Informations:" />
     <TextArea fx:id="info" editable="false" layoutX="375.0" layoutY="65.0" prefHeight="156.0" prefWidth="130.0" wrapText="true" />
     <Label layoutX="53.0" layoutY="122.0" text="Date livraison:" />

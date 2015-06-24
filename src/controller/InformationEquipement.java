@@ -16,7 +16,6 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import model.Equipement;
 import model.Logiciel;
-import dao.EquipementDao;
 
 public class InformationEquipement implements Initializable{
 
@@ -56,14 +55,11 @@ public class InformationEquipement implements Initializable{
 	@FXML
 	private ListView<Logiciel> logiciels;
 	
-	private int idEquipement;
-	
-	private EquipementDao equipementDao;
 	private Equipement equipement;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		this.equipementDao = new EquipementDao();
+	
 	}
 
 	@FXML
@@ -79,17 +75,16 @@ public class InformationEquipement implements Initializable{
 		Parent root;
 		root = (Parent)fxmlLoader.load();
 		EditEquipement controller = fxmlLoader.<EditEquipement>getController();
-		//controller.setValues(equipement.getId());
+		controller.setValues(equipement);
 		Scene scene = new Scene(root); 
 	    stage.setScene(scene);    
 	    stage.show(); 
 	    validate();	
 	}
 	
-	public void setValues(int id){
-		this.idEquipement = id;
+	public void setValues(Equipement equipementSelect){
 
-		this.equipement = equipementDao.find(idEquipement);
+		this.equipement = equipementSelect;
 		
 		this.type.setText(equipement.getTypeEquipement().getNom());
 		this.marque.setText(equipement.getMarque());
