@@ -77,17 +77,11 @@ public class Main extends Application {
                 SPLASH_IMAGE
         ));
         loadProgress = new ProgressBar();
-        loadProgress.setPrefWidth(SPLASH_WIDTH - 20);
+        loadProgress.setPrefWidth(SPLASH_WIDTH);
         progressText = new Label("Chargement . . .");
         splashLayout = new VBox();
         splashLayout.getChildren().addAll(splash, loadProgress, progressText);
         progressText.setAlignment(Pos.CENTER);
-        splashLayout.setStyle(
-                "-fx-padding: 5; " +
-                "-fx-background-color: cornsilk; " +
-                "-fx-border-width:5; " +
-                ");"
-        );
         splashLayout.setEffect(new DropShadow());
     }
 	
