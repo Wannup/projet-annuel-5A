@@ -58,23 +58,23 @@ public class PDFLogicielListExport extends PDFDataExport {
 		
 		PdfPTable table = new PdfPTable(3);
 
-	    PdfPCell c1 = new PdfPCell(new Phrase("Libelle logiciel"));
+	    PdfPCell c1 = new PdfPCell(new Phrase("Nom logiciel"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 
-	    c1 = new PdfPCell(new Phrase("Valeur licence (�)"));
+	    c1 = new PdfPCell(new Phrase("N° licence"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 
-	    c1 = new PdfPCell(new Phrase("Numero licence"));
+	    c1 = new PdfPCell(new Phrase("Prix licence (€)"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 	    table.setHeaderRows(1);
 	    
 	    for (Logiciel logiciel : logiciels) {
 	    	table.addCell(logiciel.getNom());
-		    table.addCell(String.valueOf(logiciel.getPrix()));
 		    table.addCell(String.valueOf(logiciel.getLicenceNumber()));
+		    table.addCell(String.valueOf(logiciel.getPrix()));
 	    }
 	    
 	    table.setHorizontalAlignment(Element.ALIGN_CENTER);

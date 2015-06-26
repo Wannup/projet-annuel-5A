@@ -62,19 +62,19 @@ public class PDFAgentListExport extends PDFDataExport {
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 
-	    c1 = new PdfPCell(new Phrase("Pr�nom"));
+	    c1 = new PdfPCell(new Phrase("Prénom"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 
-	    c1 = new PdfPCell(new Phrase("Tel"));
+	    c1 = new PdfPCell(new Phrase("Pôle/Service"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 
-	    c1 = new PdfPCell(new Phrase("N� de CP"));
+	    c1 = new PdfPCell(new Phrase("N° de CP"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 
-	    c1 = new PdfPCell(new Phrase("N� de poste"));
+	    c1 = new PdfPCell(new Phrase("Téléphone"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 	    table.setHeaderRows(1);
@@ -82,9 +82,9 @@ public class PDFAgentListExport extends PDFDataExport {
 	    for (Agent agent : agents) {
 	    	table.addCell(agent.getNom());
 		    table.addCell(agent.getPrenom());
-		    table.addCell(agent.getTel());
+		    table.addCell(agent.getPole().getNom());
 		    table.addCell(agent.getNumCP());
-		    //table.addCell(agent.getNumPoste());
+		    table.addCell(agent.getTel());
 	    }
 	    
 	    table.setHorizontalAlignment(Element.ALIGN_CENTER);

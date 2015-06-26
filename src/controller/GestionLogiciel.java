@@ -259,14 +259,15 @@ public class GestionLogiciel implements Initializable {
 		File file;
 		file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
 		if (file != null) {
+			pdfGenerator.generate(file, new PDFLogicielListExport(listLogiciel));
 			/*if (checkBoxExportTable.isSelected()) {
 				pdfGenerator.generate(file, new PDFLogicielListExport(listLogiciel));
 			} else if (maxResult == listLogiciel.size()) {
 				pdfGenerator.generate(file, new PDFLogicielListExport(listLogiciel));
-			} else {*/
+			} else {
 				List<Logiciel> results = logicielDao.findByAttributesLike(null);
 				pdfGenerator.generate(file, new PDFLogicielListExport(results));
-			//}
+			}*/
 		}
 	}
 

@@ -3,7 +3,6 @@ package application.pdf.export;
 import java.util.List;
 
 import model.Equipement;
-import model.Logiciel;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -57,38 +56,39 @@ public class PDFEquipementListExport extends PDFDataExport {
 		document.add(new Paragraph(" "));
 		document.add(new Paragraph(" "));
 		
-		PdfPTable table = new PdfPTable(4);
+		PdfPTable table = new PdfPTable(5);
 
-	    PdfPCell c1 = new PdfPCell(new Phrase("N� d'�quipement"));
+	    PdfPCell c1 = new PdfPCell(new Phrase("Nom Calife"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 
-	    c1 = new PdfPCell(new Phrase("Valeur (�)"));
+	    c1 = new PdfPCell(new Phrase("Type"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 
-	    c1 = new PdfPCell(new Phrase("N� CP Agent"));
+	    c1 = new PdfPCell(new Phrase("Valeur (€)"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 
-	    c1 = new PdfPCell(new Phrase("Logiciel(s) install�(s)"));
+	    c1 = new PdfPCell(new Phrase("Pole"));
+	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+	    table.addCell(c1);
+
+	    c1 = new PdfPCell(new Phrase("N° CP Agent"));
 	    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    table.addCell(c1);
 	    table.setHeaderRows(1);
 	    
 	    for (Equipement equipement : equipements) {
 		    table.addCell(String.valueOf(equipement.getNomCalife()));
+		    table.addCell(String.valueOf(equipement.getTypeEquipement().getNom()));
 		    table.addCell(String.valueOf(equipement.getPrix()));
+		    table.addCell(String.valueOf(equipement.getPole().getNom()));
 		    if (equipement.getAgent() != null) {
 		    	table.addCell(equipement.getAgent().getNumCP());
 		    } else {
 		    	table.addCell("");
 		    }
-		    String logiciels = "";
-		    for (Logiciel logiciel : equipement.getLogiciels()) {
-		    	logiciels += ","+logiciel.getNom();
-		    }
-		    table.addCell(logiciels);
 	    }
 	    
 	    table.setHorizontalAlignment(Element.ALIGN_CENTER);
