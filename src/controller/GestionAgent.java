@@ -272,14 +272,11 @@ public class GestionAgent implements Initializable {
 		File file;
 		file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
 		if (file != null) {
-			/*if (checkBoxExportTable.isSelected()) {
+			if (checkBoxExportTable.isSelected()) {
+				pdfGenerator.generate(file, new PDFAgentListExport(this.tableViewAgent));
+			} else {
 				pdfGenerator.generate(file, new PDFAgentListExport(listAgent));
-			} else if (maxResult == listAgent.size()) {
-				pdfGenerator.generate(file, new PDFAgentListExport(listAgent));
-			} else {*/
-				List<Agent> results = agentDao.findByAttributesLike(null);
-				pdfGenerator.generate(file, new PDFAgentListExport(results));
-			//}
+			}
 		}
 	}
 

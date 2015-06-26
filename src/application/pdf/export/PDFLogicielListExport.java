@@ -2,6 +2,7 @@ package application.pdf.export;
 
 import java.util.List;
 
+import javafx.scene.control.TableView;
 import model.Logiciel;
 
 import com.itextpdf.text.Document;
@@ -21,6 +22,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 public class PDFLogicielListExport extends PDFDataExport {
 	
 	private List<Logiciel> logiciels;
+	private TableView<Logiciel> tableViewLogiciels;
 	
 	/**
 	 * Constructeur de la classe
@@ -32,6 +34,10 @@ public class PDFLogicielListExport extends PDFDataExport {
 	 */
 	public PDFLogicielListExport (List<Logiciel> logiciels) {
 		this.logiciels = logiciels;
+	}
+
+	public PDFLogicielListExport (TableView<Logiciel> tableViewLogiciels) {
+		this.tableViewLogiciels = tableViewLogiciels;
 	}
 	
 	/**
@@ -71,15 +77,28 @@ public class PDFLogicielListExport extends PDFDataExport {
 	    table.addCell(c1);
 	    table.setHeaderRows(1);
 	    
-	    for (Logiciel logiciel : logiciels) {
-	    	table.addCell(logiciel.getNom());
-		    table.addCell(String.valueOf(logiciel.getLicenceNumber()));
-		    table.addCell(String.valueOf(logiciel.getPrix()));
+	    if (this.logiciels != null) {
+	    	this.insertFromList(table, logiciels);
+	    } else if (this.tableViewLogiciels != null) {
+	    	this.insertFromTable(table, tableViewLogiciels);
 	    }
 	    
 	    table.setHorizontalAlignment(Element.ALIGN_CENTER);
 
 	    document.add(table);
+	}
+	
+	private void insertFromList (PdfPTable table, List<Logiciel> logiciels) {
+		for (Logiciel logiciel : logiciels) {
+	    	table.addCell(logiciel.getNom());
+		    table.addCell(String.valueOf(logiciel.getLicenceNumber()));
+		    table.addCell(String.valueOf(logiciel.getPrix()));
+	    }
+	}
+	
+	private void insertFromTable (PdfPTable table, TableView<Logiciel> logiciels) {
+		List<Logiciel> list = logiciels.getItems();
+		this.insertFromList(table, list);
 	}
 
 }

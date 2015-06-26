@@ -2,6 +2,7 @@ package application.pdf.export;
 
 import java.util.List;
 
+import javafx.scene.control.TableView;
 import model.Agent;
 
 import com.itextpdf.text.Document;
@@ -21,6 +22,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 public class PDFAgentListExport extends PDFDataExport {
 	
 	private List<Agent> agents;
+	private TableView<Agent> tableViewAgent;
 	
 	/**
 	 * Constructeur de la classe
@@ -32,6 +34,19 @@ public class PDFAgentListExport extends PDFDataExport {
 	 */
 	public PDFAgentListExport (List<Agent> agents) {
 		this.agents = agents;
+	}
+
+	
+	/**
+	 * Constructeur de la classe
+	 *
+	 * @param tableViewAgent
+	 *     La liste des agents
+	 * @see TableView
+	 * @see Agent
+	 */
+	public PDFAgentListExport (TableView<Agent> tableViewAgent) {
+		this.tableViewAgent = tableViewAgent;
 	}
 	
 	/**
@@ -79,17 +94,30 @@ public class PDFAgentListExport extends PDFDataExport {
 	    table.addCell(c1);
 	    table.setHeaderRows(1);
 	    
-	    for (Agent agent : agents) {
+	    if (this.agents != null) {
+	    	this.insertFromList(table, agents);
+	    } else if (this.tableViewAgent != null) {
+	    	this.insertFromTable(table, tableViewAgent);
+	    }
+	    
+	    table.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+	    document.add(table);
+	}
+	
+	private void insertFromList (PdfPTable table, List<Agent> agents) {
+		for (Agent agent : agents) {
 	    	table.addCell(agent.getNom());
 		    table.addCell(agent.getPrenom());
 		    table.addCell(agent.getPole().getNom());
 		    table.addCell(agent.getNumCP());
 		    table.addCell(agent.getTel());
 	    }
-	    
-	    table.setHorizontalAlignment(Element.ALIGN_CENTER);
-
-	    document.add(table);
+	}
+	
+	private void insertFromTable (PdfPTable table, TableView<Agent> agents) {
+		List<Agent> list = agents.getItems();
+		this.insertFromList(table, list);
 	}
 
 }

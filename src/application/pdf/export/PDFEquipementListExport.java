@@ -2,6 +2,7 @@ package application.pdf.export;
 
 import java.util.List;
 
+import javafx.scene.control.TableView;
 import model.Equipement;
 
 import com.itextpdf.text.Document;
@@ -21,6 +22,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 public class PDFEquipementListExport extends PDFDataExport {
 	
 	private List<Equipement> equipements;
+	private TableView<Equipement> tableViewEquipement;
 	
 	/**
 	 * Constructeur de la classe
@@ -32,6 +34,10 @@ public class PDFEquipementListExport extends PDFDataExport {
 	 */
 	public PDFEquipementListExport (List<Equipement> equipements) {
 		this.equipements = equipements;
+	}
+	
+	public PDFEquipementListExport (TableView<Equipement> tableViewEquipement) {
+		this.tableViewEquipement = tableViewEquipement;
 	}
 	
 	/**
@@ -48,7 +54,7 @@ public class PDFEquipementListExport extends PDFDataExport {
 		
 		Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
 		
-		Paragraph title = new Paragraph("Liste des �quipements", catFont);
+		Paragraph title = new Paragraph("Liste des équipements", catFont);
 		title.setAlignment(Element.ALIGN_CENTER);
 		
 		document.add(title);
@@ -79,7 +85,19 @@ public class PDFEquipementListExport extends PDFDataExport {
 	    table.addCell(c1);
 	    table.setHeaderRows(1);
 	    
-	    for (Equipement equipement : equipements) {
+	    if (this.equipements != null) {
+	    	this.insertFromList(table, equipements);
+	    } else if (this.tableViewEquipement != null) {
+	    	this.insertFromTable(table, tableViewEquipement);
+	    }
+	    
+	    table.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+	    document.add(table);
+	}
+	
+	private void insertFromList (PdfPTable table, List<Equipement> equipements) {
+		for (Equipement equipement : equipements) {
 		    table.addCell(String.valueOf(equipement.getNomCalife()));
 		    table.addCell(String.valueOf(equipement.getTypeEquipement().getNom()));
 		    table.addCell(String.valueOf(equipement.getPrix()));
@@ -90,10 +108,11 @@ public class PDFEquipementListExport extends PDFDataExport {
 		    	table.addCell("");
 		    }
 	    }
-	    
-	    table.setHorizontalAlignment(Element.ALIGN_CENTER);
-
-	    document.add(table);
+	}
+	
+	private void insertFromTable (PdfPTable table, TableView<Equipement> equipements) {
+		List<Equipement> list = equipements.getItems();
+		this.insertFromList(table, list);
 	}
 
 }
