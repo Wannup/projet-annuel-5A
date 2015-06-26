@@ -26,9 +26,9 @@ public class PDFGenerator {
 	public void generate (File file, PDFDataExport dataExport) {
 		try {
 			Document document = new Document();
-			PdfWriter.getInstance(document, new FileOutputStream(file));
+			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
 			document.open();
-			dataExport.write(document);
+			dataExport.write(document, writer);
 			document.close();
 		} catch (Exception e) {
 			e.printStackTrace();

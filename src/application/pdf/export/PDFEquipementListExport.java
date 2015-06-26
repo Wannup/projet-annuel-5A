@@ -13,6 +13,7 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
 /**
  * PDFEquipementListExport est la classe permettant d'exporter une liste équipement au format PDF.
@@ -58,7 +59,7 @@ public class PDFEquipementListExport extends PDFDataExport {
 	 * @throws DocumentException  Si jamais le document est incorect
 	 */
 	@Override
-	public void write (Document document) throws DocumentException {
+	public void write (Document document, PdfWriter writer) throws DocumentException {
 		
 		Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
 		
