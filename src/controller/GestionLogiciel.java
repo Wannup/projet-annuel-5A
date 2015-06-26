@@ -88,9 +88,6 @@ public class GestionLogiciel implements Initializable {
 	private ObservableList<Logiciel> itemsLogiciel;
 	private  FilteredList<Logiciel> filteredData;
 	private  SortedList<Logiciel> sortedData;
-	
-	/*private int maxResult;
-	private int limit;*/
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -277,14 +274,11 @@ public class GestionLogiciel implements Initializable {
 		File file;
 		file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
 		if (file != null) {
-			/*if (checkBoxExportTable.isSelected()) {
+			if (checkBoxExportTable.isSelected()) {
+				excelGenerator.generate(file, new ExcelLogicielListExport(tableViewLogiciel));
+			} else {
 				excelGenerator.generate(file, new ExcelLogicielListExport(listLogiciel));
-			} else if (maxResult == listLogiciel.size()) {
-				excelGenerator.generate(file, new ExcelLogicielListExport(listLogiciel));
-			} else {*/
-				List<Logiciel> results = logicielDao.findByAttributesLike(null);
-				excelGenerator.generate(file, new ExcelLogicielListExport(results));
-			//}
+			}
 		}
 	}
 

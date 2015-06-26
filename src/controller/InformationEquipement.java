@@ -1,9 +1,13 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.pdf.export.PDFEquipementExport;
+import application.pdf.export.PDFGenerator;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,7 +17,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.FileChooser.ExtensionFilter;
 import model.Equipement;
 import model.Logiciel;
 
@@ -101,6 +107,20 @@ public class InformationEquipement implements Initializable{
 			this.nom.setText(equipement.getAgent().getNom());
 			this.prenom.setText(equipement.getAgent().getPrenom());
 			this.cp.setText(equipement.getAgent().getNumCP());
+		}
+	}
+
+	@FXML
+	private void exportEquipement(ActionEvent event) throws IOException {
+		PDFGenerator pdfGenerator = new PDFGenerator();
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Pdf", "*.pdf"));
+		fileChooser.setInitialFileName("Equipement - " + equipement.getNomCalife());
+		fileChooser.setTitle("Save PDF");
+		File file;
+		file = fileChooser.showSaveDialog(root.getScene().getWindow());
+		if (file != null) {
+			pdfGenerator.generate(file, new PDFEquipementExport(this.equipement));
 		}
 	}
 }

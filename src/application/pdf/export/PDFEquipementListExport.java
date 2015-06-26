@@ -35,7 +35,15 @@ public class PDFEquipementListExport extends PDFDataExport {
 	public PDFEquipementListExport (List<Equipement> equipements) {
 		this.equipements = equipements;
 	}
-	
+
+	/**
+	 * Constructeur de la classe
+	 *
+	 * @param tableViewEquipement
+	 *     La liste des equipements
+	 * @see TableView
+	 * @see Equipement
+	 */
 	public PDFEquipementListExport (TableView<Equipement> tableViewEquipement) {
 		this.tableViewEquipement = tableViewEquipement;
 	}

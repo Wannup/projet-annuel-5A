@@ -293,14 +293,11 @@ public class GestionEquipement implements Initializable{
         File file;
         file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
         if (file != null) {
-        	/*if (checkBoxExportTable.isSelected()) {
-        		excelGenerator.generate(file, new ExcelEquipementListExport(listEquipement));
-    		} else if (maxResult == listEquipement.size()) {
+        	if (checkBoxExportTable.isSelected()) {
+        		excelGenerator.generate(file, new ExcelEquipementListExport(tableViewEquipement));
+    		} else {
     			excelGenerator.generate(file, new ExcelEquipementListExport(listEquipement));
-    		} else {*/
-    			List<Equipement> results = equipementDao.findByAttributesLike(null);
-    			excelGenerator.generate(file, new ExcelEquipementListExport(results));
-    		//}
+    		}
         }
 	}
 	

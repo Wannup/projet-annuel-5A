@@ -36,6 +36,14 @@ public class PDFLogicielListExport extends PDFDataExport {
 		this.logiciels = logiciels;
 	}
 
+	/**
+	 * Constructeur de la classe
+	 *
+	 * @param tableViewLogiciels
+	 *     La liste des logiciels
+	 * @see TableView
+	 * @see Logiciel
+	 */
 	public PDFLogicielListExport (TableView<Logiciel> tableViewLogiciels) {
 		this.tableViewLogiciels = tableViewLogiciels;
 	}

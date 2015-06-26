@@ -98,8 +98,6 @@ public class GestionAgent implements Initializable {
 	private ObservableList<Agent> itemsAgent;
 	private  FilteredList<Agent> filteredData;
 	private  SortedList<Agent> sortedData;
-	/*private int maxResult;
-	private int limit;*/
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -288,17 +286,13 @@ public class GestionAgent implements Initializable {
 		fileChooser.setInitialFileName("agents");
 		fileChooser.setTitle("Save Excel");
 		File file;
-		file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene()
-				.getWindow());
+		file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());
 		if (file != null) {
-			/*if (checkBoxExportTable.isSelected()) {
+			if (checkBoxExportTable.isSelected()) {
 				excelGenerator.generate(file, new ExcelAgentListExport(listAgent));
-			} else if (maxResult == listAgent.size()) {
+			} else {
 				excelGenerator.generate(file, new ExcelAgentListExport(listAgent));
-			} else {*/
-				List<Agent> results = agentDao.findByAttributesLike(null);
-				excelGenerator.generate(file, new ExcelAgentListExport(results));
-			//}
+			}
 		}
 	}
 

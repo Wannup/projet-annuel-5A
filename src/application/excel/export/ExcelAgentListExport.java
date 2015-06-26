@@ -2,6 +2,7 @@ package application.excel.export;
 
 import java.util.List;
 
+import javafx.scene.control.TableView;
 import model.Agent;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -17,6 +18,7 @@ import org.apache.poi.ss.usermodel.Cell;
 public class ExcelAgentListExport extends ExcelDataExport {
 	
 	private List<Agent> agents;
+	private TableView<Agent> tableViewAgent;
 	
 	/**
 	 * Constructeur de la classe
@@ -28,6 +30,19 @@ public class ExcelAgentListExport extends ExcelDataExport {
 	 */
 	public ExcelAgentListExport (List<Agent> agents) {
 		this.agents = agents;
+	}
+
+	
+	/**
+	 * Constructeur de la classe
+	 *
+	 * @param tableViewAgent
+	 *     La liste des agents
+	 * @see TableView
+	 * @see Agent
+	 */
+	public ExcelAgentListExport (TableView<Agent> tableViewAgent) {
+		this.tableViewAgent = tableViewAgent;
 	}
 	
 	/**
@@ -45,20 +60,33 @@ public class ExcelAgentListExport extends ExcelDataExport {
 		
 		row.createCell(0, Cell.CELL_TYPE_STRING).setCellValue("Nom");
 		row.createCell(1, Cell.CELL_TYPE_STRING).setCellValue("Prénom");
-		row.createCell(2, Cell.CELL_TYPE_STRING).setCellValue("Tel");
+		row.createCell(2, Cell.CELL_TYPE_STRING).setCellValue("Pôle/Service");
 		row.createCell(3, Cell.CELL_TYPE_STRING).setCellValue("N° de CP");
-		row.createCell(4, Cell.CELL_TYPE_STRING).setCellValue("N° de poste");
+		row.createCell(4, Cell.CELL_TYPE_STRING).setCellValue("Téléphone");
 	    
+		if (this.agents != null) {
+	    	this.insertFromList(sheet, row, agents);
+	    } else if (this.tableViewAgent != null) {
+	    	this.insertFromTable(sheet, row, tableViewAgent);
+	    }
+	}
+	
+	private void insertFromList (HSSFSheet sheet, HSSFRow row, List<Agent> agents) {
 		int ligne = 1;
-	    for (Agent agent : agents) {
+		for (Agent agent : agents) {
 	    	row = sheet.createRow(ligne);
 	    	row.createCell(0, Cell.CELL_TYPE_STRING).setCellValue(agent.getNom());
 			row.createCell(1, Cell.CELL_TYPE_STRING).setCellValue(agent.getPrenom());
-			row.createCell(2, Cell.CELL_TYPE_STRING).setCellValue(agent.getTel());
+			row.createCell(2, Cell.CELL_TYPE_STRING).setCellValue(agent.getPole().getNom());
 			row.createCell(3, Cell.CELL_TYPE_STRING).setCellValue(agent.getNumCP());
-			//row.createCell(4, Cell.CELL_TYPE_STRING).setCellValue(agent.getNumPoste());
+			row.createCell(4, Cell.CELL_TYPE_STRING).setCellValue(agent.getTel());
 			ligne++;
 	    }
+	}
+	
+	private void insertFromTable (HSSFSheet sheet, HSSFRow row, TableView<Agent> agents) {
+		List<Agent> list = agents.getItems();
+		this.insertFromList(sheet, row, list);
 	}
 	
 }
