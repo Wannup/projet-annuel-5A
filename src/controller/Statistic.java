@@ -42,6 +42,11 @@ public class Statistic implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+		loader = new FXMLLoader(getClass().getResource("/view/GraphType.fxml"));
+		try {
+			ManipInterface.chargementBodyPanel(graphPanel, loader);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
