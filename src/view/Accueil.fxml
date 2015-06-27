@@ -6,22 +6,30 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.Accueil">
   <children>
     <AnchorPane fx:id="menuPanel" prefHeight="750.0" prefWidth="203.0" style="-fx-background-color: #FFFFFF" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="897.0" AnchorPane.topAnchor="0.0">
       <children>
-        <Button id="btnAjoutEquip" layoutX="3.0" layoutY="176.0" mnemonicParsing="false" onAction="#equipementGest" prefHeight="31.0" prefWidth="195.0" text="Gestion des équipements" />
-        <Button id="btnLogicielGest" layoutX="3.0" layoutY="233.0" mnemonicParsing="false" onAction="#logicielGest" prefHeight="31.0" prefWidth="195.0" text="Gestion des logiciels" />
-        <Button id="btnAgentGest" layoutX="3.0" layoutY="290.0" mnemonicParsing="false" onAction="#agentGest" prefHeight="31.0" prefWidth="195.0" text="Gestion des agents" />
-        <Button id="btnStatPrev" layoutX="3.0" layoutY="347.0" mnemonicParsing="false" onAction="#statPrev" prefHeight="31.0" prefWidth="195.0" text="Statistiques/Prévisions" />
+        <Button id="btnAjoutEquip" layoutX="4.0" layoutY="176.0" mnemonicParsing="false" onAction="#equipementGest" prefHeight="31.0" prefWidth="195.0" style="-fx-background-color: transparent;&#10;-fx-cursor: hand;" text="Gestion des équipements">
+          <font>
+            <Font name="Arial Bold" size="14.0" fx:id="x1" />
+          </font>
+          <textFill>
+            <Color blue="0.482" green="0.149" red="0.431" fx:id="x2" />
+          </textFill>
+        </Button>
+        <Button id="btnLogicielGest" font="$x1" layoutX="4.0" layoutY="233.0" mnemonicParsing="false" onAction="#logicielGest" prefHeight="31.0" prefWidth="195.0" style="-fx-background-color: transparent;&#10;-fx-cursor: hand;" text="Gestion des logiciels" textFill="$x2" />
+        <Button id="btnAgentGest" font="$x1" layoutX="4.0" layoutY="290.0" mnemonicParsing="false" onAction="#agentGest" prefHeight="31.0" prefWidth="195.0" style="-fx-background-color: transparent;&#10;-fx-cursor: hand;" text="Gestion des agents" textFill="$x2" />
+        <Button id="btnStatPrev" font="$x1" layoutX="4.0" layoutY="347.0" mnemonicParsing="false" onAction="#statPrev" prefHeight="31.0" prefWidth="195.0" style="-fx-background-color: transparent;&#10;-fx-cursor: hand;" text="Statistiques/Prévisions" textFill="$x2" />
         <ImageView fitHeight="92.0" fitWidth="122.66666666666666" layoutX="39.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
           <image>
             <Image url="@../res/logo-sncf.jpg" />
           </image>
         </ImageView>
-        <Button layoutX="46.0" layoutY="700.0" mnemonicParsing="false" onAction="#configuration" prefHeight="31.0" text="Configuration" />
-        <MenuButton layoutX="26.0" layoutY="644.0" mnemonicParsing="false" prefHeight="31.0" text="Base de données" textAlignment="CENTER">
+        <Button font="$x1" layoutX="42.0" layoutY="700.0" mnemonicParsing="false" onAction="#configuration" prefHeight="31.0" style="-fx-background-color: transparent;&#10;-fx-cursor: hand;" text="Configuration" textFill="$x2" />
+        <MenuButton font="$x1" layoutX="16.0" layoutY="654.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="169.0" style="-fx-background-color: transparent;&#10;-fx-cursor: hand;&#10;" text="Base de données" textAlignment="CENTER" textFill="$x2">
           <items>
             <MenuItem mnemonicParsing="false" onAction="#importDatabase" text="Importer" />
             <MenuItem mnemonicParsing="false" onAction="#exportDatabase" text="Exporter" />
