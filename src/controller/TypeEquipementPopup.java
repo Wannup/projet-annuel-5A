@@ -77,7 +77,7 @@ public class TypeEquipementPopup implements Initializable{
 			if(!equipementDao.getEquipementByType(typeEquip).isEmpty()){
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Erreur suppression du type");
-				alert.setContentText("Il y a des �quipements enregistr�s avec ce type.");
+				alert.setContentText("Il y a des équipements enregistrés avec ce type.");
 				alert.showAndWait();
 			}
 			else{
@@ -89,7 +89,7 @@ public class TypeEquipementPopup implements Initializable{
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Erreur action suppression");
 			alert.setHeaderText(null);
-			alert.setContentText("Veuillez s�lectionner un �l�ment dans la liste pour la suppression !");
+			alert.setContentText("Veuillez sélectionner un élément dans la liste pour la suppression !");
 			alert.showAndWait();
 		}
 	}
@@ -107,7 +107,7 @@ public class TypeEquipementPopup implements Initializable{
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Modification type equipement");
 				alert.setHeaderText(null);
-				alert.setContentText("Type equipement modifi� avec succ�s.");
+				alert.setContentText("Type equipement modifié avec succès.");
 				alert.showAndWait();
 			}
 			btnAddOrUpdate.setText("Ajouter");

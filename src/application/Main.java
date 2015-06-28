@@ -52,13 +52,8 @@ public class Main extends Application {
 		 final Task<Boolean> task = new Task<Boolean>() {
 	            @Override
 	            protected Boolean call() throws InterruptedException {
-	            	updateMessage("Connexion à la base de données . . .");
-	            	updateMessage("Connexion réussie . . .");
 	            	updateMessage("Chargement des données . . .");
 	            	DatabaseConnection.startConnection();
-	                updateMessage("Données récupérées.");
-	                updateMessage("Lancement du logiciel.");
-	 
 	                return true;
 	            }
 	        };
