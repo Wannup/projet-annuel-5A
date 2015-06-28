@@ -44,48 +44,49 @@ import dao.TypeEquipementDao;
 public class EditEquipement implements Initializable{
 	
 	@FXML 
-	private TextField prix;
+	protected TextField prix;
 
 	@FXML
-	private TextField modele;
+	protected TextField modele;
 	
 	@FXML
-	private TextField marque;
+	protected TextField marque;
 	
 	@FXML
-	private TextArea info;
+	protected TextArea info;
 	
 	@FXML
-	private TextField calife;
+	protected TextField calife;
 	
 	@FXML
-	private ComboBox<TypeEquipement> typeEquipement;
+	protected ComboBox<TypeEquipement> typeEquipement;
 	
 	@FXML
-	private DatePicker dateGarantie;
+	protected DatePicker dateGarantie;
 	
 	@FXML
-	private DatePicker dateLivraison;
-	
-	@FXML 
-	private ListView<Logiciel> lstLogiciel;
+	protected DatePicker dateLivraison;
 	
 	@FXML
-	private ComboBox<Pole> poles;
+	protected ListView<Logiciel> lstLogiciel;
 	
 	@FXML
-	private TextField numCPAgent;
+	protected ComboBox<Pole> poles;
+	
+	@FXML
+	protected TextField numCPAgent;
 	
 	@FXML
 	private Button editButton;
 	
 	private TypeEquipementDao typeEquipementDao;
-	private EquipementDao equipementDao;
+	protected EquipementDao equipementDao;
 	
-	private String errorMessage = "";	
-	private AgentDao agentDao;
+	protected String errorMessage = "";	
+	protected AgentDao agentDao;
 	private PoleDao poleDao;
 	private Equipement equipement;
+	public GestionEquipement ControllerMainWindow;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -99,6 +100,9 @@ public class EditEquipement implements Initializable{
 		typeEquipement.getItems().addAll(FXCollections.observableArrayList(typeEquipementDao.findByAttributesLike(null)));
 	}
 	
+	/**
+	 * function associate with the button "+" for the "pole"
+	 * */
 	@FXML
 	private void addPole() throws IOException{
 		Stage stage = new Stage();
@@ -116,6 +120,9 @@ public class EditEquipement implements Initializable{
         controllerSelectLogicielPopup.champPoleFormEquipement = poles;
 	}
 	
+	/**
+	 * function associate with the button "Nouveau" for the "Agent"
+	 * */
 	@FXML
 	private void ajoutAgent() throws IOException{
 		
@@ -137,6 +144,9 @@ public class EditEquipement implements Initializable{
         controllerAgentPopup.champPolesEquipement = poles;
 	}
 	
+	/**
+	 * function associate with the button "Nouveau" for the "logiciel"
+	 * */
 	@FXML
 	private void ajoutLogiciel() throws IOException{
 		
@@ -156,6 +166,9 @@ public class EditEquipement implements Initializable{
         
 	}
 	
+	/**
+	 * function associate with the button "Selection" for the "Agent"
+	 * */
 	@FXML
 	private void selectAgent() throws IOException{
 	
@@ -177,6 +190,9 @@ public class EditEquipement implements Initializable{
         controllerSelectAgentPopup.champPolesEquipement = poles;
 	}
 	
+	/**
+	 * function associate with the button "Selection" for the "Logiciels"
+	 * */
 	@FXML
 	private void selectLogiciels() throws IOException{
 		
@@ -197,6 +213,9 @@ public class EditEquipement implements Initializable{
         controllerSelectLogicielPopup.champLogicielFormEquipement = lstLogiciel;
 	}
 	
+	/**
+	 * function associate with the button "+" for the "TypeEquipement"
+	 * */
 	@FXML
 	private void addTypeEquipement() throws IOException{
 		
@@ -215,13 +234,15 @@ public class EditEquipement implements Initializable{
         controllerSelectLogicielPopup.champTypeEquipFormEquipement = typeEquipement;
 	}
 	
+	/**
+	 * function associate with the button "Modifier"
+	 * */
 	@FXML
 	private void modifierEquipement(){
 		
 		errorMessage = "";
 		Agent agent = null;
 		
-		// récupération de l'agent si renseigné
 		if(!numCPAgent.getText().trim().equals("")){
 			Map<String, String> attribut = new HashMap<String, String>();
 			attribut.put("numCP", numCPAgent.getText().trim());
@@ -247,32 +268,39 @@ public class EditEquipement implements Initializable{
 					equipement.setRenewalDate(renewalDate);
 				}
 				equipement.setDateLivraison(TransformationDonnees.formatDate(dateLivraison));
-				
 			}
 			
-		//	if()
-			
-			// TODO à continuer
-			
-			
-			
-			// ajout dans la liste des équipements de l'agent si renseigné
-			/*if(!numCPAgent.getText().trim().equals("")){
-				agent.addEquipement(newEquipement);
+			// changement de l'agent
+			if(equipement.getAgent() != null && agent != null && !equipement.getAgent().getNumCP().equals(numCPAgent.getText().trim())){
+				Agent oldAgent = equipement.getAgent();
+				oldAgent.getEquipements().remove(equipement);
+				agentDao.update(oldAgent);
+				agent.addEquipement(equipement);
 				agentDao.update(agent);
-			}*/
-			//equipement.setTypeEquipement(type.getSelectionModel().getSelectedItem());
-			equipement.setNomCalife(calife.getText());
-			equipement.setDateGarantie(TransformationDonnees.formatDate(dateGarantie));
-			equipement.setMarque(marque.getText());
-			equipement.setPrix(Double.parseDouble(prix.getText()));
-			equipement.setModele(modele.getText());
-			//equipement.setAgent(numCPAgent.getSelectionModel().getSelectedItem());
-			equipement.setInfo(info.getText());
+				equipement.setAgent(agent);	
+			}
+			// ajout agent, pas d'agent ultérieurement 
+			else if(equipement.getAgent() == null && agent != null){
+				agent.addEquipement(equipement);
+				agentDao.update(agent);
+				equipement.setAgent(agent);	
+			}	
 			
-			//equipementDao.save(newEquipement);
+			equipement.setTypeEquipement(typeEquipement.getSelectionModel().getSelectedItem());
+			equipement.setDateGarantie(TransformationDonnees.formatDate(dateGarantie));
+			equipement.setMarque(marque.getText().trim());
+			equipement.setModele(modele.getText().trim());
+			equipement.setNomCalife(calife.getText().trim());
+			equipement.setInfo(info.getText());
+			equipement.setPole(poles.getSelectionModel().getSelectedItem());
+			equipement.setPole(poles.getSelectionModel().getSelectedItem());
+			equipement.setPrix(Double.parseDouble(prix.getText().trim()));
+			equipement.setLogiciels(lstLogiciel.getItems());
+			
+			equipementDao.update(equipement);
+			
 			informerValidation();
-
+			ControllerMainWindow.refreshTable();
 			Stage stage = (Stage) editButton.getScene().getWindow();
 		    stage.close();
 		}
@@ -285,29 +313,45 @@ public class EditEquipement implements Initializable{
 		}
 	}
 	
-	private boolean validationFormulaire(Agent agent){
+	/**
+	 * @return true if "calife" is ok
+	 * */
+	protected boolean verificationCalife(){
+		
+		if(calife.getText().trim().equals("")){
+			errorMessage += "Calife non renseigné.\n";
+			return false;
+		}
+		
+		// vérification s'il n'existe pas déjà un équipement avec le même calife si le calife a changé.
+		if(!equipement.getNomCalife().equals(calife.getText().trim())){
+			Map<String, String> attribut = new HashMap<String, String>();
+			attribut.put("nomCalife", calife.getText().trim());
+								
+			if(!equipementDao.findByAttributesEquals(attribut).isEmpty()){
+				errorMessage += "Il y a déjà un équipement enregistré avec ce nom de calife.\n";
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * function use for the form validation
+	 * @return boolean 
+	 * 	true if the entries are correct
+	 * */
+	protected boolean validationFormulaire(Agent agent){
 		
 		boolean formValid = true;
 		
-		// vérification s'il n'existe pas déjà un équipement avec le même calife
-		if(!calife.getText().trim().equals("")){
-				Map<String, String> attribut = new HashMap<String, String>();
-				attribut.put("nomCalife", calife.getText().trim());
-						
-				if(!equipementDao.findByAttributesEquals(attribut).isEmpty()){
-					errorMessage += "Il y a déjà un équipement enregistré avec ce nom de calife.\n";
-					return false;
-				}
-		}
+		formValid = verificationCalife();
 		
 		if(typeEquipement.getSelectionModel().getSelectedItem() == null){
 			errorMessage += "Type d'équipement non renseigné.\n";
 			formValid = false;
 		}
-		if(calife.getText().trim().equals("")){
-			errorMessage += "Calife non renseigné.\n";
-			formValid = false;
-		}
+		
 		if(prix.getText().trim().equals("")){
 			errorMessage += "Valeur non renseigné.\n";
 			formValid = false;
@@ -334,6 +378,9 @@ public class EditEquipement implements Initializable{
 		return formValid;
 	}
 	
+	/**
+	 * function call by the controller InformationEquipement to populate the form
+	 * */
 	public void setValues(Equipement equipementToModify){
 		
 		equipement = equipementToModify;
@@ -356,15 +403,17 @@ public class EditEquipement implements Initializable{
 		this.modele.setText(equipement.getModele());
 		this.calife.setText(equipement.getNomCalife());
 		this.info.setText(equipement.getInfo());
-		this.prix.setText("" + equipement.getPrix());
-		this.lstLogiciel.getItems().addAll(FXCollections.observableArrayList(FXCollections.observableArrayList(equipement.getLogiciels())));
+		this.prix.setText(String.valueOf(equipement.getPrix()));
+		this.lstLogiciel.setItems(FXCollections.observableArrayList(equipement.getLogiciels()));
 	}
 	
+	/**
+	 * function call to inform the modification validation
+	 * */
 	private void informerValidation(){
 		
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Ajout equipement");
-		alert.setHeaderText(null);
 		alert.setContentText("Equipement modifié avec succès !");
 		alert.showAndWait();
 	}

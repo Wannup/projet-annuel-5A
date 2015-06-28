@@ -21,7 +21,6 @@ public class Equipement {
 	private String renewalDate; 
 	private String dateGarantie;
 	private String dateLivraison;
-	private String dateAjoutEquipement;
 	private String marque;
 	private String modele;
 	private String nomCalife;
@@ -164,20 +163,6 @@ public class Equipement {
 	 */
 	public void setDateLivraison(String dateLivraison) {
 		this.dateLivraison = dateLivraison;
-	}
-
-	/**
-	 * @return the dateAjoutEquipement
-	 */
-	public String getDateAjoutEquipement() {
-		return dateAjoutEquipement;
-	}
-
-	/**
-	 * @param dateAjoutEquipement the dateAjoutEquipement to set
-	 */
-	public void setDateAjoutEquipement(String dateAjoutEquipement) {
-		this.dateAjoutEquipement = dateAjoutEquipement;
 	}
 
 	/**

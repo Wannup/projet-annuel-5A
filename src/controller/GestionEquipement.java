@@ -95,8 +95,6 @@ public class GestionEquipement implements Initializable{
 	private ObservableList<Equipement> itemsEquipement;
 	private  FilteredList<Equipement> filteredData;
 	private  SortedList<Equipement> sortedData;
-	/*private int maxResult;
-	private int limit;*/
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -320,36 +318,7 @@ public class GestionEquipement implements Initializable{
         }
 	}
 	
-
-	
-	/*@FXML
-	private void viewMore(ActionEvent event) throws IOException {
-		List<Equipement> results = equipementDao.findByAttributesLikeWithLimits(null, listEquipement.size(), limit);
-		for (Equipement equipement : results) {
-			listEquipement.add(equipement);
-		}
-		refreshTable ();
-	}*/
-
-	/*private void getListEquipement(){
-		
-	    boolean isLimit = Config.getPropertie("tableau_limite").equals("yes");
-	    if (isLimit) {
-		    maxResult = equipementDao.getNbResultLike(null);
-		    limit = Integer.parseInt(Config.getPropertie("tableau_nb_ligne"));
-		    if (maxResult < limit) {
-		    	listEquipement = equipementDao.findByAttributesLike(null);
-		    } else {
-		    	listEquipement = equipementDao.findByAttributesLikeWithLimits(null, 0, limit);
-		    }
-	    } else {
-	    	listEquipement = equipementDao.findByAttributesLike(null);
-	    	maxResult = listEquipement.size();
-	    }
-		listEquipement = equipementDao.findByAttributesLike(null);
-	}*/
-	
-	private void refreshTable() {
+	public void refreshTable() {
 		
 		listEquipement = equipementDao.findByAttributesLike(null);
 		itemsEquipement = FXCollections.observableArrayList(listEquipement);
@@ -358,11 +327,5 @@ public class GestionEquipement implements Initializable{
         sortedData.comparatorProperty().bind(tableViewEquipement.comparatorProperty());
         tableViewEquipement.setItems(sortedData);
 		
-        /*//tableViewEquipement.setItems(itemsEquipement);
-		if (maxResult > listEquipement.size()) {
-			buttonNext.setDisable(false);
-		} else {
-			buttonNext.setDisable(true);
-		}*/
 	}
 }

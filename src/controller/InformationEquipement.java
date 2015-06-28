@@ -5,8 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import application.pdf.export.PDFEquipementExport;
-import application.pdf.export.PDFGenerator;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,10 +17,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
 import model.Equipement;
 import model.Logiciel;
+import application.pdf.export.PDFEquipementExport;
+import application.pdf.export.PDFGenerator;
 
 /**
  * class controller for the interface InformationEquipementPopup.fxml
@@ -68,7 +69,7 @@ public class InformationEquipement implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-	
+		
 	}
 
 	@FXML
@@ -101,7 +102,7 @@ public class InformationEquipement implements Initializable{
 		this.calife.setText(equipement.getNomCalife());
 		this.info.setText(equipement.getInfo());
 		this.dateLivraison.setText(equipement.getDateLivraison());
-		this.logiciels.getItems().addAll(equipement.getLogiciels());
+		this.logiciels.setItems(FXCollections.observableArrayList(equipement.getLogiciels()));
 		
 		if(equipement.getAgent() != null){
 			this.nom.setText(equipement.getAgent().getNom());
