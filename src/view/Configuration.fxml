@@ -5,22 +5,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="495.0" prefWidth="553.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Configuration">
+<AnchorPane prefHeight="532.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Configuration">
   <!-- TODO Add Nodes -->
   <children>
     <TabPane layoutX="0.0" layoutY="0.0" prefHeight="416.0" prefWidth="516.0" tabClosingPolicy="UNAVAILABLE">
       <tabs>
-        <Tab text="Tableau">
-          <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-              <children>
-                <CheckBox fx:id="checkBoxTableauNbLigne" layoutX="138.0" layoutY="58.0" mnemonicParsing="false" onAction="#changeTableauLimite" text="Limiter le nombre d'enregistrement" />
-                <Label layoutX="76.0" layoutY="124.0" prefWidth="105.0" text="Nombre de ligne" />
-                <TextField fx:id="textFieldTableauNbLigne" layoutX="241.0" layoutY="121.0" prefWidth="200.0" />
-              </children>
-            </AnchorPane>
-          </content>
-        </Tab>
         <Tab text="Database">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -44,7 +33,7 @@
         </Tab>
         <Tab text="Types d'équipements">
           <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="320.0" prefWidth="462.0">
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="377.0" prefWidth="533.0">
               <children>
                 <ListView fx:id="listType" layoutX="33.0" layoutY="31.0" prefHeight="326.0" prefWidth="200.0" />
                 <Button layoutX="241.0" layoutY="31.0" mnemonicParsing="false" onAction="#deleteType" prefHeight="31.0" prefWidth="91.0" text="Supprimer" />
@@ -53,13 +42,27 @@
                         <Label layoutX="242.0" layoutY="194.0" text="Durée avant renouvellement (en années)" />
                         <TextField fx:id="nbYearRenew" layoutX="273.0" layoutY="224.0" prefHeight="31.0" prefWidth="180.0" />
                         <Button fx:id="btnAddOrUpdate" layoutX="330.0" layoutY="285.0" mnemonicParsing="false" onAction="#saveOrUpdateType" text="Ajout" />
+                        <Label layoutX="33.0" layoutY="353.0" text="Double clic sur un élément de la liste pour le modifier." />
               </children>
             </AnchorPane>
           </content>
         </Tab>
+            <Tab text="Poles">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="18.0" layoutY="342.0" text="Double clic sur un élément de la liste pour le modifier." />
+                        <Button fx:id="btnAddOrUpdatePole" layoutX="320.0" layoutY="173.0" mnemonicParsing="false" onAction="#saveOrUpdatePole" text="Ajout" />
+                        <Label layoutX="285.0" layoutY="85.0" text="Nom du pole/service" />
+                        <TextField fx:id="nomPole" layoutX="259.0" layoutY="122.0" prefWidth="177.0" />
+                        <Button layoutX="222.0" layoutY="14.0" mnemonicParsing="false" onAction="#deletePole" prefHeight="31.0" prefWidth="91.0" text="Supprimer" />
+                        <ListView fx:id="listPole" layoutX="14.0" layoutY="14.0" prefHeight="326.0" prefWidth="200.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
       </tabs>
     </TabPane>
     <Button layoutX="191.0" layoutY="442.0" mnemonicParsing="false" onAction="#saveConfig" text="Enregistrement" />
-      <Label layoutX="39.0" layoutY="406.0" text="Double clic sur un élément de la liste pour le modifier." />
   </children>
 </AnchorPane>

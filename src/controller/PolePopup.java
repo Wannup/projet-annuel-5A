@@ -48,7 +48,7 @@ public class PolePopup implements Initializable{
 		
 		poleDao = new PoleDao();
 		equipementDao = new EquipementDao();
-		listPole.getItems().addAll(FXCollections.observableArrayList(poleDao.findByAttributesLike(null)));
+		listPole.setItems(FXCollections.observableArrayList(poleDao.findByAttributesLike(null)));
 		
 		listPole.setOnMouseClicked(new EventHandler<MouseEvent>() {
 		    @Override
@@ -94,7 +94,7 @@ public class PolePopup implements Initializable{
 		
 		// modifier
 		if(pole != null){
-			if(formIsValid() && updateControlIsOk()){
+			if(formPoleIsValid() && updatePoleControlIsOk()){
 				pole.setNom(nomPole.getText().trim());
 				poleDao.update(pole);
 				
@@ -108,7 +108,7 @@ public class PolePopup implements Initializable{
 		}
 		//ajouter
 		else{
-		   if(formIsValid() && typeEquipementNotExist()){
+		   if(formPoleIsValid() && poleNotExist()){
 			   pole = new Pole(nomPole.getText().trim());
 			   poleDao.save(pole);
 		   }
@@ -133,15 +133,15 @@ public class PolePopup implements Initializable{
 		champPoleFormEquipement.getItems().addAll(FXCollections.observableArrayList(poleDao.findByAttributesLike(null)));	
 	}
 	
-	private boolean updateControlIsOk(){
+	private boolean updatePoleControlIsOk(){
 		return (!pole.getNom().trim().equals(nomPole.getText().trim()));
 	}
 	
-	private boolean formIsValid(){
+	private boolean formPoleIsValid(){
 		return (!nomPole.getText().trim().equals(""));
 	}
 	
-	private boolean typeEquipementNotExist(){
+	private boolean poleNotExist(){
 		Map<String, String> attribut = new HashMap<String, String>();
 		attribut.put("nom", nomPole.getText().trim());
 		return(poleDao.findByAttributesEquals(attribut).isEmpty());

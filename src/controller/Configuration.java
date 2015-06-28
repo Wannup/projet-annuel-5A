@@ -1,6 +1,5 @@
 package controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,24 +13,19 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import model.Pole;
 import model.TypeEquipement;
 import tools.Config;
 import tools.TransformationDonnees;
 import dao.EquipementDao;
+import dao.PoleDao;
 import dao.TypeEquipementDao;
 
 public class Configuration implements Initializable {
-	
-	@FXML
-	private CheckBox checkBoxTableauNbLigne;
-	
-	@FXML
-	private TextField textFieldTableauNbLigne;
 
 	@FXML
 	private TextField textFieldDatabaseDriver;
@@ -55,10 +49,21 @@ public class Configuration implements Initializable {
 	private Button btnAddOrUpdate;
 	
 	@FXML
+	private Button btnAddOrUpdatePole;
+	
+	@FXML
+	private TextField nomPole;
+	
+	@FXML
 	private ListView<TypeEquipement> listType;
+	
+	@FXML
+	private ListView<Pole> listPole;
 	
 	private TypeEquipementDao typeEquipementDao;
 	private EquipementDao equipementDao;
+	private PoleDao poleDao;
+	private Pole pole;
 	
 	private TypeEquipement typeEquipement;
 
@@ -67,16 +72,11 @@ public class Configuration implements Initializable {
 		
 		typeEquipementDao = new TypeEquipementDao();
 		equipementDao = new EquipementDao();
+		poleDao = new PoleDao();
 		
-		listType.getItems().addAll(FXCollections.observableArrayList(typeEquipementDao.findByAttributesLike(null)));
+		listType.setItems(FXCollections.observableArrayList(typeEquipementDao.findByAttributesLike(null)));
+		listPole.setItems(FXCollections.observableArrayList(poleDao.findByAttributesLike(null)));
 		
-		String limiteTableau = Config.getPropertie("tableau_limite");
-		if ("yes".equals(limiteTableau)) {
-			checkBoxTableauNbLigne.setSelected(true);
-		} else {
-			textFieldTableauNbLigne.setDisable(true);
-		}
-		textFieldTableauNbLigne.setText(Config.getPropertie("tableau_nb_ligne"));
 		textFieldDatabaseDriver.setText(Config.getPropertie("db_driver"));
 		textFieldDatabaseLocation.setText(Config.getPropertie("db_location"));
 		textFieldDatabaseUser.setText(Config.getPropertie("db_user"));
@@ -95,22 +95,23 @@ public class Configuration implements Initializable {
 		        }
 		    }
 		});
-	}
-	
-	@FXML
-	private void changeTableauLimite(){		
-		if (checkBoxTableauNbLigne.isSelected()) {
-			textFieldTableauNbLigne.setDisable(false);
-		} else {
-			textFieldTableauNbLigne.setDisable(true);
-		}
+		
+		listPole.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		    @Override
+		    public void handle(MouseEvent mouseEvent) {
+		        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+		            if(mouseEvent.getClickCount() == 2){
+		            	pole = listPole.getSelectionModel().getSelectedItem();
+		            	nomPole.setText(pole.getNom());
+		            	btnAddOrUpdatePole.setText("Modifier");
+		            }
+		        }
+		    }
+		});
 	}
 	
 	@FXML
 	private void saveConfig(){
-		String tableau_limite = checkBoxTableauNbLigne.isSelected() ? "yes" : "no";
-		Config.modifyProperties("tableau_limite", tableau_limite);
-		Config.modifyProperties("tableau_nb_ligne", textFieldTableauNbLigne.getText());
 		Config.modifyProperties("db_driver", textFieldDatabaseDriver.getText());
 		Config.modifyProperties("db_location", textFieldDatabaseLocation.getText());
 		Config.modifyProperties("db_user", textFieldDatabaseUser.getText());
@@ -198,5 +199,86 @@ public class Configuration implements Initializable {
 		Map<String, String> attribut = new HashMap<String, String>();
 		attribut.put("nom", nomType.getText().trim());
 		return(typeEquipementDao.findByAttributesEquals(attribut).isEmpty());
+	}
+	
+	@FXML
+	private void deletePole(ActionEvent event){
+		
+		Pole pole = listPole.getSelectionModel().getSelectedItem();
+		if(pole != null){
+			if(!equipementDao.getEquipementByPole(pole).isEmpty()){
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Erreur suppression du pole");
+				alert.setContentText("Il y a des équipements enregistrés avec ce pole.");
+				alert.showAndWait();
+			}
+			else{
+				poleDao.remove(pole);
+				refreshListPole();
+			}
+		}
+		else{
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Erreur action suppression");
+			alert.setHeaderText(null);
+			alert.setContentText("Veuillez sélectionner un élément dans la liste pour la suppression !");
+			alert.showAndWait();
+		}
+	}
+	
+	@FXML
+	private void saveOrUpdatePole(ActionEvent event){
+		
+		// modifier
+		if(pole != null){
+			if(formPoleIsValid() && updatePoleControlIsOk()){
+				pole.setNom(nomPole.getText().trim());
+				poleDao.update(pole);
+				
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Modification du pole");
+				alert.setHeaderText(null);
+				alert.setContentText("Pole modifié avec succès.");
+				alert.showAndWait();
+			}
+			btnAddOrUpdate.setText("Ajouter");
+		}
+		//ajouter
+		else{
+		   if(formPoleIsValid() && poleNotExist()){
+			   pole = new Pole(nomPole.getText().trim());
+			   poleDao.save(pole);
+		   }
+		   else{
+			   Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Erreur ajout type");
+				alert.setContentText("Pole existant ou saisie incorrecte.");
+				alert.showAndWait();
+		   }
+		}
+		
+		pole = null;
+		nomPole.clear();
+		
+		refreshListPole();
+	}
+	
+	private void refreshListPole(){
+		listPole.getItems().clear();
+		listPole.getItems().addAll(FXCollections.observableArrayList(poleDao.findByAttributesLike(null)));
+	}
+	
+	private boolean updatePoleControlIsOk(){
+		return (!pole.getNom().trim().equals(nomPole.getText().trim()));
+	}
+	
+	private boolean formPoleIsValid(){
+		return (!nomPole.getText().trim().equals(""));
+	}
+	
+	private boolean poleNotExist(){
+		Map<String, String> attribut = new HashMap<String, String>();
+		attribut.put("nom", nomPole.getText().trim());
+		return(poleDao.findByAttributesEquals(attribut).isEmpty());
 	}
 }
