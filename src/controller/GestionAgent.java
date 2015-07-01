@@ -31,9 +31,12 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
@@ -304,14 +307,52 @@ public class GestionAgent implements Initializable {
 		File file;
 		file = fileChooser.showOpenDialog(bodyPanel.getParent().getScene().getWindow());
 		if (file != null) {
+			List<String> errors = new ArrayList<>();
 			ExcelImport excelImport = new ExcelImport();
-			excelImport.importFile(file, new ExcelAgentImport(listAgent));
+			excelImport.importFile(file, new ExcelAgentImport(listAgent, errors));
 			for (Agent agent : listAgent) {
 				if (agentDao.find(agent.getIdAgent()) == null) {
 					agentDao.save(agent);
 				}
 			}
 			refreshTable();
+			if (errors.isEmpty()) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Import Excel");
+				alert.setHeaderText(null);
+				alert.setContentText("L'import a été éffectué avec succès.");
+				alert.showAndWait();
+			} else {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("Import Excel");
+				alert.setHeaderText("L'import a été éffectué avec succès.");
+				alert.setContentText("Certaine ligne n'ont pas été correctement importer");
+
+				// Create expandable Exception.
+				String newline = System.getProperty("line.separator");
+				String text = "";
+				for (String string : errors) {
+					text += string + newline;
+				}
+
+				TextArea textArea = new TextArea(text);
+				textArea.setEditable(false);
+				textArea.setWrapText(true);
+
+				textArea.setMaxWidth(Double.MAX_VALUE);
+				textArea.setMaxHeight(Double.MAX_VALUE);
+				GridPane.setVgrow(textArea, Priority.ALWAYS);
+				GridPane.setHgrow(textArea, Priority.ALWAYS);
+
+				GridPane expContent = new GridPane();
+				expContent.setMaxWidth(Double.MAX_VALUE);
+				expContent.add(textArea, 0, 0);
+
+				// Set expandable Exception into the dialog pane.
+				alert.getDialogPane().setExpandableContent(expContent);
+
+				alert.showAndWait();
+			}
 		}
 	}
 

@@ -23,7 +23,8 @@ public class ExcelLogicielImport extends ExcelDataImport {
 	
 	private final int ID_CELL_NOM = 1;
 	private final int ID_CELL_PRIX = 2;
-	private final int ID_CELL_JOUR = 3;
+	private final int ID_CELL_NUMBER = 3;
+	private final int ID_CELL_VALIDITY = 4;
 	
 	/**
 	 * Constructeur de la classe
@@ -68,11 +69,18 @@ public class ExcelLogicielImport extends ExcelDataImport {
 								logiciel.setPrix(Double.valueOf(cell.getStringCellValue()));
 							}
 							break;
-						case ID_CELL_JOUR :
+						case ID_CELL_NUMBER :
 							if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
 								logiciel.setLicenceNumber(cell.getStringCellValue());
 							} else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
 								logiciel.setLicenceNumber(cell.getStringCellValue());
+							}
+							break;
+						case ID_CELL_VALIDITY :
+							if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+								logiciel.setDateEndValidityLicence(String.valueOf(cell.getNumericCellValue()));
+							} else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
+								logiciel.setDateEndValidityLicence(cell.getStringCellValue());
 							}
 							break;
 					}
