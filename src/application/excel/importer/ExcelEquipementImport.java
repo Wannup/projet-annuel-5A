@@ -109,14 +109,14 @@ public class ExcelEquipementImport extends ExcelDataImport {
 							break;
 						case ID_CELL_GARANTIE :
 							if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-								equipement.setDateGarantie(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(cell.getDateCellValue()));
+								equipement.setDateGarantie(new SimpleDateFormat("dd/MM/yyyy").format(cell.getDateCellValue()));
 							} else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
 								equipement.setDateGarantie(cell.getStringCellValue());
 							}
 							break;
 						case ID_CELL_LIVRAISON :
 							if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-								equipement.setDateLivraison(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(cell.getDateCellValue()));
+								equipement.setDateLivraison(new SimpleDateFormat("dd/MM/yyyy").format(cell.getDateCellValue()));
 							} else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
 								equipement.setDateLivraison(cell.getStringCellValue());
 							}
@@ -136,14 +136,16 @@ public class ExcelEquipementImport extends ExcelDataImport {
 						case ID_CELL_AGENT :
 							String cp = "";
 							if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-								cp = String.valueOf((int)cell.getNumericCellValue());
+								Double dbl = cell.getNumericCellValue();
+								cp = String.valueOf(dbl.intValue());
 							} else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
 								cp = cell.getStringCellValue();
 							}
+							System.out.println(cp);
 							Map<String, String> attributes = new HashMap<String, String>();
 							attributes.put("numCP", cp);
 							List<Agent> agents = agentDao.findByAttributesLike(attributes);
-							if (agents.size() == 1) {
+							if (!agents.isEmpty()) {
 								equipement.setAgent(agents.get(0));
 							}
 							break;
@@ -162,20 +164,23 @@ public class ExcelEquipementImport extends ExcelDataImport {
 							equipement.setPole(pole);
 							break;
 						case ID_CELL_LOGICIELS :
-							String logiciels = cell.getStringCellValue();
-							String[] array = logiciels.split(",");
-							List<Logiciel> logicielsList = new ArrayList<>();
-							for (String string : array) {
-								Map<String, String> attributesLogiciel = new HashMap<>();
-								attributesLogiciel.put("nom", string);
-								List<Logiciel> results = logicielDao.findByAttributesEquals(attributesLogiciel);
-								Logiciel logiciel;
-								if (!results.isEmpty()) {
-									logiciel = results.get(0);
-									logicielsList.add(logiciel);
+							if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
+								String logiciels = cell.getStringCellValue();
+								String[] array = logiciels.split(",");
+								List<Logiciel> logicielsList = new ArrayList<>();
+								for (String string : array) {
+									string = string.trim();
+									Map<String, String> attributesLogiciel = new HashMap<>();
+									attributesLogiciel.put("nom", string);
+									List<Logiciel> results = logicielDao.findByAttributesEquals(attributesLogiciel);
+									Logiciel logiciel;
+									if (!results.isEmpty()) {
+										logiciel = results.get(0);
+										logicielsList.add(logiciel);
+									}
 								}
+								equipement.setLogiciels(logicielsList);
 							}
-							equipement.setLogiciels(logicielsList);
 							break;
 						case ID_CELL_PRIX :
 							if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
