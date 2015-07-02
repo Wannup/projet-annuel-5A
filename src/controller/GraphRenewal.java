@@ -19,6 +19,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
+import model.Equipement;
 import model.TypeEquipement;
 
 /**
@@ -74,8 +75,8 @@ public class GraphRenewal implements Initializable{
 		ArrayList<String> gap = new ArrayList<String>();
 		ObservableList<XYChart.Series> s = FXCollections.observableArrayList();
 		
-		for(int i=0; i< (Integer.parseInt((String) cbEYear.getSelectionModel().getSelectedItem()) - Integer.parseInt((String) cbSYear.getSelectionModel().getSelectedItem())) ; i++){
-			gap.add("" + Integer.parseInt((String) cbEYear.getSelectionModel().getSelectedItem()) + i);
+		for(int i=0; i<= (Integer.parseInt((String) cbEYear.getSelectionModel().getSelectedItem()) - Integer.parseInt((String) cbSYear.getSelectionModel().getSelectedItem())) ; i++){
+			gap.add("" + (Integer.parseInt((String) cbSYear.getSelectionModel().getSelectedItem()) + i));
 		}
 		
 		for(int i = 0; i< this.lstTypeEquipement.size(); i++){
@@ -83,46 +84,19 @@ public class GraphRenewal implements Initializable{
 			type.setName(this.lstTypeEquipement.get(i).getNom());
 			
 			for(int j=0; j<gap.size(); j++){
-				int count = equipementDao.getEquipementByType(this.lstTypeEquipement.get(i)).size();
-				type.getData().add(new XYChart.Data<String, Number>(gap.get(j), 25601.34));
+				// int count = equipementDao.getEquipementByType(this.lstTypeEquipement.get(i)).size();
+				
+				List<Equipement> equipementByYear = equipementDao.getEquipementByRenewalDateAndType(gap.get(j), this.lstTypeEquipement.get(i).getNom());
+				for(int k=0; k<equipementByYear.size(); k++){
+					type.getData().add(new XYChart.Data<String, Number>(gap.get(j), equipementByYear.get(k).getPrix()));
+				}
 			}
 			
 			s.add(type);			
 		}
-        
-        XYChart.Series<String, Number> series1 = new XYChart.Series<String, Number>();
-        XYChart.Series<String, Number> series2 = new XYChart.Series<String, Number>();
-        XYChart.Series<String, Number> series3 = new XYChart.Series<String, Number>();
-        
-        series1.setName("PC Portable");
-        series2.setName("PC Fixe");
-        series3.setName("Imprimante");
-        
-        series1.getData().add(new XYChart.Data<String, Number>("2016", 25601.34));
-        series1.getData().add(new XYChart.Data<String, Number>("2017", 20148.82));
-        series1.getData().add(new XYChart.Data<String, Number>("2018", 10000));
-        series1.getData().add(new XYChart.Data<String, Number>("2019", 35407.15));
-        series1.getData().add(new XYChart.Data<String, Number>("2020", 12000));
-        
-        series2.getData().add(new XYChart.Data<String, Number>("2016", 57401.85));
-        series2.getData().add(new XYChart.Data<String, Number>("2017", 41941.19));
-        series2.getData().add(new XYChart.Data<String, Number>("2018", 45263.37));
-        series2.getData().add(new XYChart.Data<String, Number>("2019", 117320.16));
-        series2.getData().add(new XYChart.Data<String, Number>("2020", 14845.27));
-        
-        series3.getData().add(new XYChart.Data<String, Number>("2016", 45000.65));
-        series3.getData().add(new XYChart.Data<String, Number>("2017", 44835.76));
-        series3.getData().add(new XYChart.Data<String, Number>("2018", 18722.18));
-        series3.getData().add(new XYChart.Data<String, Number>("2019", 17557.31));
-        series3.getData().add(new XYChart.Data<String, Number>("2020", 92633.68));
-        
-        xAxis.setCategories(FXCollections.<String>observableArrayList(gap));
+			
+		xAxis.setCategories(FXCollections.<String>observableArrayList(gap));
         yAxis.setLabel("Prix");
-        
-        
-        s.add(series1);
-        s.add(series2);
-        s.add(series3);
 		
 		return s;
 	}
