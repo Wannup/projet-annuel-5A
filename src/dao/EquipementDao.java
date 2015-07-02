@@ -98,7 +98,7 @@ public class EquipementDao extends AbstractDao<Equipement>{
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public List<Equipement> getEquipementByRenewalDateAndType(String date, String type) {
+	public List<Equipement> getEquipementByRenewalDateAndType(String date, TypeEquipement type) {
 
 		List<Equipement> results;
 		// set up the Criteria query
@@ -111,7 +111,7 @@ public class EquipementDao extends AbstractDao<Equipement>{
 		
 		predicates.add(
 				cb.or(cb.like(cb.lower((Expression) table.get("renewalDate")), "%"+ date.toLowerCase() + "%"), 
-						cb.like(cb.lower((Expression)  table.get("typeEquipement")), "%"+ type.toLowerCase() + "%")));
+						cb.equal(table.get("typeEquipement"), type)));
 
 		
 		cq.where(predicates.toArray(new Predicate[] {}));

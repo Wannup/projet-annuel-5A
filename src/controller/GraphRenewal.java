@@ -9,6 +9,8 @@ import java.util.ResourceBundle;
 
 import dao.EquipementDao;
 import dao.TypeEquipementDao;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -49,6 +51,7 @@ public class GraphRenewal implements Initializable{
     private TypeEquipementDao typeEquipementDao;
     private EquipementDao equipementDao;
     private List<TypeEquipement> lstTypeEquipement;
+    private String tGraph;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -70,9 +73,12 @@ public class GraphRenewal implements Initializable{
 	}
 	
 	private ObservableList<XYChart.Series> getChartDataPrice() {
+		tGraph = "price";
 		
-		xAxis.setLabel("Années");
 		ArrayList<String> gap = new ArrayList<String>();
+		xAxis.setLabel("Années");
+        yAxis.setLabel("Prix");
+        xAxis.setCategories(FXCollections.<String>observableArrayList(gap));
 		ObservableList<XYChart.Series> s = FXCollections.observableArrayList();
 		
 		for(int i=0; i<= (Integer.parseInt((String) cbEYear.getSelectionModel().getSelectedItem()) - Integer.parseInt((String) cbSYear.getSelectionModel().getSelectedItem())) ; i++){
@@ -86,7 +92,7 @@ public class GraphRenewal implements Initializable{
 			for(int j=0; j<gap.size(); j++){
 				// int count = equipementDao.getEquipementByType(this.lstTypeEquipement.get(i)).size();
 				
-				List<Equipement> equipementByYear = equipementDao.getEquipementByRenewalDateAndType(gap.get(j), this.lstTypeEquipement.get(i).getNom());
+				List<Equipement> equipementByYear = equipementDao.getEquipementByRenewalDateAndType(gap.get(j), this.lstTypeEquipement.get(i));
 				for(int k=0; k<equipementByYear.size(); k++){
 					type.getData().add(new XYChart.Data<String, Number>(gap.get(j), equipementByYear.get(k).getPrix()));
 				}
@@ -95,14 +101,50 @@ public class GraphRenewal implements Initializable{
 			s.add(type);			
 		}
 			
-		xAxis.setCategories(FXCollections.<String>observableArrayList(gap));
-        yAxis.setLabel("Prix");
+		
 		
 		return s;
 	}
 	
 	private ObservableList<XYChart.Series> getChartDataQuantity() {
+		String tGraph = "quantity";
 		
+		ArrayList<String> gap = new ArrayList<String>();
+		yAxis.setLabel("Prix");
+		xAxis.setLabel("Années");
+		xAxis.setCategories(FXCollections.<String>observableArrayList(gap));
+		ObservableList<XYChart.Series> s = FXCollections.observableArrayList();
+		
+		for(int i=0; i<= (Integer.parseInt((String) cbEYear.getSelectionModel().getSelectedItem()) - Integer.parseInt((String) cbSYear.getSelectionModel().getSelectedItem())) ; i++){
+			gap.add("" + (Integer.parseInt((String) cbSYear.getSelectionModel().getSelectedItem()) + i));
+		}
+		
+		for(int i = 0; i< this.lstTypeEquipement.size(); i++){
+			XYChart.Series<String, Number> type = new XYChart.Series<String, Number>();
+			type.setName(this.lstTypeEquipement.get(i).getNom());
+			
+			for(int j=0; j<gap.size(); j++){
+				
+				
+				List<Equipement> equipementByYear = equipementDao.getEquipementByRenewalDateAndType(gap.get(j), this.lstTypeEquipement.get(i));
+				for(int k=0; k<equipementByYear.size(); k++){
+					//if(this.lstTypeEquipement.get(i).getNom().equals("Imprimante")){
+					//	System.out.println(this.lstTypeEquipement.get(i).getNom() + " - " +equipementByYear.size());
+					//}
+					
+					type.getData().add(new XYChart.Data<String, Number>(gap.get(j), equipementByYear.size()));
+				}
+			}
+			
+			s.add(type);			
+		}
+			
+		
+        
+		
+		return s;
+		
+		/*
 		xAxis.setLabel("Années");
         xAxis.setCategories(FXCollections.<String>observableArrayList(
                 Arrays.asList("2016", "2017", "2018", "2019", "2020")));
@@ -138,15 +180,32 @@ public class GraphRenewal implements Initializable{
         s.add(series2);
         s.add(series3);
 		
-		return s;
+		return s;*/
 	}
 	
 	public void displayByPrice(){
+		this.renewalSBchart.getData().removeAll();
 		this.renewalSBchart.setData(getChartDataPrice());
 	}
 	
 	public void displayByQuantity(){
+		this.renewalSBchart.getData().removeAll();
 		this.renewalSBchart.setData(getChartDataQuantity());
 	}
 
+	public void changeGap(){
+		if((Integer.parseInt((String) cbEYear.getSelectionModel().getSelectedItem()) - Integer.parseInt((String) cbSYear.getSelectionModel().getSelectedItem())) >0){
+			ArrayList<String> gap = new ArrayList<String>();
+			for(int i=0; i<= (Integer.parseInt((String) cbEYear.getSelectionModel().getSelectedItem()) - Integer.parseInt((String) cbSYear.getSelectionModel().getSelectedItem())) ; i++){
+				gap.add("" + (Integer.parseInt((String) cbSYear.getSelectionModel().getSelectedItem()) + i));
+			}
+			xAxis.setCategories(FXCollections.<String>observableArrayList(gap));
+			
+			if(tGraph.equals("price")){
+				getChartDataPrice();
+			}else{
+				getChartDataQuantity();
+			}
+		}
+	}
 }
