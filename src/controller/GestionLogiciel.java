@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -29,16 +30,20 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Logiciel;
+import tools.LoadingFrame;
 import tools.ManipInterface;
 import application.excel.export.ExcelGenerator;
 import application.excel.export.ExcelLogicielListExport;
@@ -285,20 +290,16 @@ public class GestionLogiciel implements Initializable {
 	@FXML
 	private void importExcel(ActionEvent event) throws IOException {
 		FileChooser fileChooser = new FileChooser();
-		fileChooser.getExtensionFilters().add(
-				new ExtensionFilter("Excel", "*.xls"));
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Excel", "*.xls"));
 		fileChooser.setTitle("Load Excel");
 		File file;
 		file = fileChooser.showOpenDialog(bodyPanel.getParent().getScene().getWindow());
 		if (file != null) {
-			ExcelImport excelImport = new ExcelImport();
-			excelImport.importFile(file, new ExcelLogicielImport(listLogiciel));
-			for (Logiciel logiciel : listLogiciel) {
-				if (logicielDao.find(logiciel.getId()) == null) {
-					logicielDao.save(logiciel);
-				}
-			}
-			refreshTable();
+			LoadingFrame loadingFrame = new LoadingFrame(bodyPanel.getParent().getScene().getWindow(), LoadingFrame.PROGRESS_INDICATOR);
+			loadingFrame.setText("Import en cours, veuillez patientez...");
+			loadingFrame.show();
+			ImportExcelAction importExcelAction = new ImportExcelAction(file, loadingFrame);
+			importExcelAction.start();
 		}
 	}
 
@@ -310,39 +311,79 @@ public class GestionLogiciel implements Initializable {
         sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(tableViewLogiciel.comparatorProperty());
         tableViewLogiciel.setItems(sortedData);
-		
-		/*ObservableList<Logiciel> items = FXCollections.observableArrayList(listLogiciel);
-		tableLogiciel.setItems(items);
-		if (maxResult > listLogiciel.size()) {
-			buttonNext.setDisable(false);
-		} else {
-			buttonNext.setDisable(true);
-		}*/
 	}
+	
 
-	/*private void getListLogiciel() {
-		boolean isLimit = Config.getPropertie("tableau_limite").equals("yes");
-		if (isLimit) {
-			/*maxResult = logicielDao.getNbResultLike(null);
-			limit = Integer.parseInt(Config.getPropertie("tableau_nb_ligne"));
-			if (maxResult < limit) {
-				listLogiciel = logicielDao.findByAttributesLike(null);
-			} else {
-				listLogiciel = logicielDao.findByAttributesLikeWithLimits(null, 0,limit);
-			}
+	private void showAlert (List<String> errors) {
+		if (errors.isEmpty()) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Import Excel");
+			alert.setHeaderText(null);
+			alert.setContentText("L'import a été éffectué avec succès.");
+			alert.showAndWait();
 		} else {
-			listLogiciel = logicielDao.findByAttributesLike(null);
-		//	maxResult = listLogiciel.size();
-		//}
-	}*/
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Import Excel");
+			alert.setHeaderText("L'import a été éffectué avec succès.");
+			alert.setContentText("Certaine ligne n'ont pas été correctement importer");
 
-	/*@FXML
-	private void viewMore(ActionEvent event) throws IOException {
+			String newline = System.getProperty("line.separator");
+			String message = "";
+			for (String string : errors) {
+				message += string + newline;
+			}
 
-		List<Logiciel> results = logicielDao.findByAttributesLikeWithLimits(null, listLogiciel.size(), limit);
-		for (Logiciel logiciel : results)
-			listLogiciel.add(logiciel);
+			TextArea textArea = new TextArea(message);
+			textArea.setEditable(false);
+			textArea.setWrapText(true);
+
+			textArea.setMaxWidth(Double.MAX_VALUE);
+			textArea.setMaxHeight(Double.MAX_VALUE);
+			GridPane.setVgrow(textArea, Priority.ALWAYS);
+			GridPane.setHgrow(textArea, Priority.ALWAYS);
+
+			GridPane expContent = new GridPane();
+			expContent.setMaxWidth(Double.MAX_VALUE);
+			expContent.add(textArea, 0, 0);
+
+			alert.getDialogPane().setExpandableContent(expContent);
+
+			alert.showAndWait();
+			
+		}
+	}
+	
+	public class ImportExcelAction extends Thread {
 		
-		refreshTable();
-	}*/
+		private File file;
+		private LoadingFrame loadingFrame;
+		
+		public ImportExcelAction (File file, LoadingFrame loadingFrame) {
+			this.file = file;
+			this.loadingFrame = loadingFrame;
+		}
+
+		@Override
+		public void run() {
+			List<String> errors = new ArrayList<>();
+			ExcelImport excelImport = new ExcelImport();
+			excelImport.importFile(file, new ExcelLogicielImport(listLogiciel, errors, loadingFrame));
+			for (Logiciel logiciel : listLogiciel) {
+				if (logicielDao.find(logiciel.getId()) == null) {
+					logicielDao.save(logiciel);
+				}
+			}
+			refreshTable();
+			Platform.runLater(new Runnable() {
+				
+				@Override
+				public void run() {
+					showAlert(errors);
+					loadingFrame.close();
+				}
+			});
+			
+		}
+		
+	}
 }

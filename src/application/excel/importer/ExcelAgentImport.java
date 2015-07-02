@@ -15,6 +15,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
+import tools.LoadingFrame;
 import dao.AgentDao;
 import dao.PoleDao;
 
@@ -27,6 +28,7 @@ public class ExcelAgentImport extends ExcelDataImport {
 	
 	private List<Agent> agents;
 	private List<String> errors;
+	private LoadingFrame loadingFrame;
 	
 	private final int ID_CELL_NOM = 1;
 	private final int ID_CELL_PRENOM = 2;
@@ -42,9 +44,10 @@ public class ExcelAgentImport extends ExcelDataImport {
 	 * @see List
 	 * @see Agent
 	 */
-	public ExcelAgentImport (List<Agent> agents, List<String> errors) {
+	public ExcelAgentImport (List<Agent> agents, List<String> errors, LoadingFrame loadingFrame) {
 		this.agents = agents;
 		this.errors = errors;
+		this.loadingFrame = loadingFrame;
 	}
 
 	/**
@@ -62,7 +65,9 @@ public class ExcelAgentImport extends ExcelDataImport {
 		int numLigne = 1;
 		PoleDao poleDao = new PoleDao();
 		AgentDao agentDao = new AgentDao();
+		int maxRow = sheet.getLastRowNum();
 		for (Iterator<Row> rowIt = sheet.rowIterator(); rowIt.hasNext();) {
+			this.loadingFrame.setProgress((double)numLigne / (double)maxRow);
 			row = (HSSFRow) rowIt.next();
 			if (numLigne > 1) {
 				Agent agent = new Agent ();

@@ -1,7 +1,9 @@
 package application.excel.importer;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import model.Logiciel;
 
@@ -12,6 +14,9 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
+import tools.LoadingFrame;
+import dao.LogicielDao;
+
 /**
  * ExcelLogicielImport est la classe permettant d'importer des logiciels depuis un fichier excel.
  * 
@@ -20,6 +25,8 @@ import org.apache.poi.ss.usermodel.Row;
 public class ExcelLogicielImport extends ExcelDataImport {
 	
 	private List<Logiciel> logiciels;
+	private List<String> errors;
+	private LoadingFrame loadingFrame;
 	
 	private final int ID_CELL_NOM = 1;
 	private final int ID_CELL_PRIX = 2;
@@ -34,8 +41,10 @@ public class ExcelLogicielImport extends ExcelDataImport {
 	 * @see List
 	 * @see Logiciel
 	 */
-	public ExcelLogicielImport (List<Logiciel> logiciels) {
+	public ExcelLogicielImport (List<Logiciel> logiciels, List<String> errors, LoadingFrame loadingFrame) {
 		this.logiciels = logiciels;
+		this.errors = errors;
+		this.loadingFrame = loadingFrame;
 	}
 
 	/**
@@ -51,7 +60,10 @@ public class ExcelLogicielImport extends ExcelDataImport {
 		HSSFRow row = null;
 		HSSFCell cell = null;
 		int numLigne = 1;
+		LogicielDao logicielDao = new LogicielDao();
+		int maxRow = sheet.getLastRowNum();
 		for (Iterator<Row> rowIt = sheet.rowIterator(); rowIt.hasNext();) {
+			this.loadingFrame.setProgress((double)numLigne / (double)maxRow);
 			row = (HSSFRow) rowIt.next();
 			if (numLigne > 1) {
 				Logiciel logiciel = new Logiciel ();
@@ -86,7 +98,16 @@ public class ExcelLogicielImport extends ExcelDataImport {
 					}
 					numCell++;
 				}
-				this.logiciels.add(logiciel);
+				Map<String, String> attributes = new HashMap<>();
+				attributes.put("nom", logiciel.getNom());
+				attributes.put("licenceNumber", logiciel.getLicenceNumber());
+				List<Logiciel> results = logicielDao.findByAttributesEquals(attributes);
+				if (results.isEmpty()) {
+					this.logiciels.add(logiciel);
+				} else {
+					errors.add("le logiciel " + logiciel.getNom() + " (" + logiciel.getLicenceNumber() + ") existe déjà");
+				}
+				
 			}
 			numLigne++;
 		}
