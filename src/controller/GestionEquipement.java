@@ -172,7 +172,8 @@ public class GestionEquipement implements Initializable{
 			                    		stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
 			                    		stage.setTitle("Information equipement");
 			                    		Scene scene = new Scene(root); 
-					                    stage.setScene(scene);    
+					                    stage.setScene(scene);
+					                    stage.setAlwaysOnTop(true);
 					                    stage.show();
 			                    	
 				                    } catch (IOException e) {
