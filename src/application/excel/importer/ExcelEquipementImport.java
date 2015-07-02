@@ -1,5 +1,7 @@
 package application.excel.importer;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.Map;
 
 import model.Agent;
 import model.Equipement;
+import model.Logiciel;
 import model.Pole;
 import model.TypeEquipement;
 
@@ -17,7 +20,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
-import application.database.DatabaseConnection;
+import tools.LoadingFrame;
 import dao.AgentDao;
 import dao.EquipementDao;
 import dao.LogicielDao;
@@ -33,6 +36,7 @@ public class ExcelEquipementImport extends ExcelDataImport {
 	
 	private List<Equipement> equipements;
 	private List<String> errors;
+	private LoadingFrame loadingFrame;
 	
 	private final int ID_CELL_TYPE = 1;
 	private final int ID_CELL_GARANTIE = 2;
@@ -54,9 +58,10 @@ public class ExcelEquipementImport extends ExcelDataImport {
 	 * @see List
 	 * @see Equipement
 	 */
-	public ExcelEquipementImport (List<Equipement> equipements, List<String> errors) {
+	public ExcelEquipementImport (List<Equipement> equipements, List<String> errors, LoadingFrame loadingFrame) {
 		this.equipements = equipements;
 		this.errors = errors;
+		this.loadingFrame = loadingFrame;
 	}
 
 	/**
@@ -77,8 +82,9 @@ public class ExcelEquipementImport extends ExcelDataImport {
 		EquipementDao equipementDao = new EquipementDao();
 		PoleDao poleDao = new PoleDao();
 		LogicielDao logicielDao = new LogicielDao();
-		DatabaseConnection.startConnection();
+		int maxRow = sheet.getLastRowNum();
 		for (Iterator<Row> rowIt = sheet.rowIterator(); rowIt.hasNext();) {
+			this.loadingFrame.setProgress((double)numLigne / (double)maxRow);
 			row = (HSSFRow) rowIt.next();
 			if (numLigne > 1) {
 				Equipement equipement = new Equipement ();
@@ -103,28 +109,37 @@ public class ExcelEquipementImport extends ExcelDataImport {
 							break;
 						case ID_CELL_GARANTIE :
 							if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-								equipement.setNomCalife(cell.getStringCellValue());
+								equipement.setDateGarantie(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(cell.getDateCellValue()));
 							} else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
-								equipement.setNomCalife(cell.getStringCellValue());
+								equipement.setDateGarantie(cell.getStringCellValue());
 							}
 							break;
 						case ID_CELL_LIVRAISON :
-							//equipement.setNom(cell.getStringCellValue());
+							if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+								equipement.setDateLivraison(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(cell.getDateCellValue()));
+							} else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
+								equipement.setDateLivraison(cell.getStringCellValue());
+							}
 							break;
 						case ID_CELL_MARQUE :
-							//equipement.setNom(cell.getStringCellValue());
+							equipement.setMarque(cell.getStringCellValue());
 							break;
 						case ID_CELL_MODELE :
-							//equipement.setNom(cell.getStringCellValue());
+							equipement.setModele(cell.getStringCellValue());
 							break;
 						case ID_CELL_CALIFE :
-							//equipement.setNom(cell.getStringCellValue());
+							equipement.setNomCalife(cell.getStringCellValue());
 							break;
 						case ID_CELL_INFO :
-							//equipement.setNom(cell.getStringCellValue());
+							equipement.setInfo(cell.getStringCellValue());
 							break;
 						case ID_CELL_AGENT :
-							String cp = cell.getStringCellValue();
+							String cp = "";
+							if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+								cp = String.valueOf((int)cell.getNumericCellValue());
+							} else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
+								cp = cell.getStringCellValue();
+							}
 							Map<String, String> attributes = new HashMap<String, String>();
 							attributes.put("numCP", cp);
 							List<Agent> agents = agentDao.findByAttributesLike(attributes);
@@ -133,22 +148,56 @@ public class ExcelEquipementImport extends ExcelDataImport {
 							}
 							break;
 						case ID_CELL_POLE :
+							String poleName = cell.getStringCellValue();
+							Map<String, String> attributesPole = new HashMap<>();
+							attributesPole.put("nom", poleName);
+							List<Pole> poles = poleDao.findByAttributesEquals(attributesPole);
+							Pole pole;
+							if (poles.isEmpty()) {
+								pole = new Pole(poleName);
+								poleDao.save(pole);
+							} else {
+								pole = poles.get(0);
+							}
+							equipement.setPole(pole);
 							break;
 						case ID_CELL_LOGICIELS :
+							String logiciels = cell.getStringCellValue();
+							String[] array = logiciels.split(",");
+							List<Logiciel> logicielsList = new ArrayList<>();
+							for (String string : array) {
+								Map<String, String> attributesLogiciel = new HashMap<>();
+								attributesLogiciel.put("nom", string);
+								List<Logiciel> results = logicielDao.findByAttributesEquals(attributesLogiciel);
+								Logiciel logiciel;
+								if (!results.isEmpty()) {
+									logiciel = results.get(0);
+									logicielsList.add(logiciel);
+								}
+							}
+							equipement.setLogiciels(logicielsList);
 							break;
 						case ID_CELL_PRIX :
 							if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
 								equipement.setPrix(cell.getNumericCellValue());
 							} else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
-								equipement.setPrix(Integer.valueOf(cell.getStringCellValue()));
+								equipement.setPrix(Double.valueOf(cell.getStringCellValue()));
 							}
+							break;
 					}
 					numCell++;
 				}
-				this.equipements.add(equipement);
+				Map<String, String> attributes = new HashMap<>();
+				attributes.put("nomCalife", equipement.getNomCalife());
+				List<Equipement> results = equipementDao.findByAttributesEquals(attributes);
+				if (results.isEmpty()) {
+					this.equipements.add(equipement);
+				} else {
+					errors.add("L'equipement " + equipement.getNomCalife() + " existe déjà");
+				}
+				
 			}
 			numLigne++;
 		}
-		DatabaseConnection.closeConnection();
 	}
 }
