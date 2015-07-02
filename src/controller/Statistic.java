@@ -35,8 +35,26 @@ public class Statistic implements Initializable{
 	}
 	
 	@FXML
-	private void renewalGraph(ActionEvent event) throws IOException{
+	private void renewalTypeGraph(ActionEvent event) throws IOException{
 		loader = new FXMLLoader(getClass().getResource("/view/GraphRenewal.fxml"));
+		ManipInterface.chargementBodyPanel(graphPanel, loader);
+	}
+	
+	@FXML
+	private void nbTypeGraph(ActionEvent event) throws IOException{
+		loader = new FXMLLoader(getClass().getResource("/view/GraphNbType.fxml"));
+		ManipInterface.chargementBodyPanel(graphPanel, loader);
+	}
+	
+	@FXML
+	private void nbEquipPoleGraph(ActionEvent event) throws IOException{
+		loader = new FXMLLoader(getClass().getResource("/view/GraphNbEquipPole.fxml"));
+		ManipInterface.chargementBodyPanel(graphPanel, loader);
+	}
+	
+	@FXML
+	private void renewalPoleGraph(ActionEvent event) throws IOException{
+		loader = new FXMLLoader(getClass().getResource("/view/GraphRenewalPole.fxml"));
 		ManipInterface.chargementBodyPanel(graphPanel, loader);
 	}
 	

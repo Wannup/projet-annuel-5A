@@ -96,4 +96,29 @@ public class EquipementDao extends AbstractDao<Equipement>{
 		
 		return results;
 	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public List<Equipement> getEquipementByRenewalDateAndType(String date, TypeEquipement type) {
+
+		List<Equipement> results;
+		// set up the Criteria query
+		CriteriaBuilder cb = DatabaseConnection.em.getCriteriaBuilder();
+		CriteriaQuery cq = cb.createQuery();
+		Root<Equipement> table = cq.from(Equipement.class);
+
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		
+		predicates.add(
+				cb.or(cb.like(cb.lower((Expression) table.get("renewalDate")), "%"+ date.toLowerCase() + "%"), 
+						cb.equal(table.get("typeEquipement"), type)));
+
+		
+		cq.where(predicates.toArray(new Predicate[] {}));
+		TypedQuery q = DatabaseConnection.em.createQuery(cq);
+        
+		results = q.getResultList();
+		
+		return results;
+	}
 }

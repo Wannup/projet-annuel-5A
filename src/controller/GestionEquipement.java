@@ -29,11 +29,14 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
@@ -308,14 +311,50 @@ public class GestionEquipement implements Initializable{
         File file;
         file = fileChooser.showOpenDialog(bodyPanel.getParent().getScene().getWindow());
         if (file != null) {
+			List<String> errors = new ArrayList<>();
         	ExcelImport excelImport = new ExcelImport();
-        	excelImport.importFile(file, new ExcelEquipementImport(listEquipement));
+        	excelImport.importFile(file, new ExcelEquipementImport(listEquipement, errors));
 			for (Equipement equipement : listEquipement) {
 				if (equipementDao.find(equipement.getIdEquipement()) == null) {
 					equipementDao.save(equipement);
 				}
 			}
         	refreshTable();
+			if (errors.isEmpty()) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Import Excel");
+				alert.setHeaderText(null);
+				alert.setContentText("L'import a été éffectué avec succès.");
+				alert.showAndWait();
+			} else {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("Import Excel");
+				alert.setHeaderText("L'import a été éffectué avec succès.");
+				alert.setContentText("Certaine ligne n'ont pas été correctement importer");
+
+				String newline = System.getProperty("line.separator");
+				String text = "";
+				for (String string : errors) {
+					text += string + newline;
+				}
+
+				TextArea textArea = new TextArea(text);
+				textArea.setEditable(false);
+				textArea.setWrapText(true);
+
+				textArea.setMaxWidth(Double.MAX_VALUE);
+				textArea.setMaxHeight(Double.MAX_VALUE);
+				GridPane.setVgrow(textArea, Priority.ALWAYS);
+				GridPane.setHgrow(textArea, Priority.ALWAYS);
+
+				GridPane expContent = new GridPane();
+				expContent.setMaxWidth(Double.MAX_VALUE);
+				expContent.add(textArea, 0, 0);
+
+				alert.getDialogPane().setExpandableContent(expContent);
+
+				alert.showAndWait();
+			}
         }
 	}
 	
