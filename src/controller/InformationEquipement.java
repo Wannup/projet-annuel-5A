@@ -87,7 +87,8 @@ public class InformationEquipement implements Initializable{
 		EditEquipement controller = fxmlLoader.<EditEquipement>getController();
 		controller.setValues(equipement);
 		Scene scene = new Scene(root); 
-	    stage.setScene(scene);    
+	    stage.setScene(scene);
+	    stage.setAlwaysOnTop(true);
 	    stage.show(); 
 	    validate();	
 	}

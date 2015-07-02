@@ -12,13 +12,13 @@
   <children>
     <Label layoutX="659.0" layoutY="373.0" text="Année de début:" />
     <Label layoutX="659.0" layoutY="433.0" text="Année de fin:" />
-    <ComboBox layoutX="779.0" layoutY="371.0">
+    <ComboBox fx:id="cbSYear" onAction="#changeGap" layoutX="779.0" layoutY="371.0">
       <items>
         <FXCollections fx:id="sYear" fx:factory="observableArrayList">
         </FXCollections>
       </items>
     </ComboBox>
-    <ComboBox layoutX="779.0" layoutY="430.0">
+    <ComboBox fx:id="cbEYear" onAction="#changeGap" layoutX="779.0" layoutY="430.0">
       <items>
         <FXCollections fx:id="eYear" fx:factory="observableArrayList">
         </FXCollections>
