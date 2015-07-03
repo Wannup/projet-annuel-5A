@@ -86,7 +86,8 @@ public class EditEquipement implements Initializable{
 	protected AgentDao agentDao;
 	private PoleDao poleDao;
 	private Equipement equipement;
-	public GestionEquipement ControllerMainWindow;
+	
+	public Button fieldOnMainWindows;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -277,15 +278,19 @@ public class EditEquipement implements Initializable{
 				agentDao.update(oldAgent);
 				agent.addEquipement(equipement);
 				agentDao.update(agent);
-				equipement.setAgent(agent);	
 			}
 			// ajout agent, pas d'agent ultérieurement 
 			else if(equipement.getAgent() == null && agent != null){
 				agent.addEquipement(equipement);
-				agentDao.update(agent);
-				equipement.setAgent(agent);	
-			}	
+				agentDao.update(agent);		
+			}
+			else if(numCPAgent.getText().trim().equals("") && equipement.getAgent() != null){
+				Agent oldAgent = equipement.getAgent();
+				oldAgent.getEquipements().remove(equipement);
+				agentDao.update(oldAgent);	
+			}
 			
+			equipement.setAgent(agent);
 			equipement.setTypeEquipement(typeEquipement.getSelectionModel().getSelectedItem());
 			equipement.setDateGarantie(TransformationDonnees.formatDate(dateGarantie));
 			equipement.setMarque(marque.getText().trim());
@@ -298,9 +303,9 @@ public class EditEquipement implements Initializable{
 			equipement.setLogiciels(lstLogiciel.getItems());
 			
 			equipementDao.update(equipement);
-			
+			fieldOnMainWindows.setVisible(true);
 			informerValidation();
-			ControllerMainWindow.refreshTable();
+			
 			Stage stage = (Stage) editButton.getScene().getWindow();
 		    stage.close();
 		}
@@ -391,20 +396,20 @@ public class EditEquipement implements Initializable{
 		
 		if(equipement.getDateLivraison().trim().length() > 0){
 			LocalDate myDate = LocalDate.parse(equipement.getDateLivraison().split("/")[2]+"-"+equipement.getDateLivraison().split("/")[1]+"-"+equipement.getDateLivraison().split("/")[0]);
-			this.dateLivraison.setValue(myDate);
+			dateLivraison.setValue(myDate);
 		}
 		
 		if(equipement.getAgent() != null){
-			this.numCPAgent.setText(equipement.getAgent().getNumCP());
+			numCPAgent.setText(equipement.getAgent().getNumCP());
 		}
-		this.typeEquipement.getSelectionModel().select(equipement.getTypeEquipement());
-		this.poles.getSelectionModel().select(equipement.getPole());
-		this.marque.setText(equipement.getMarque());
-		this.modele.setText(equipement.getModele());
-		this.calife.setText(equipement.getNomCalife());
-		this.info.setText(equipement.getInfo());
-		this.prix.setText(String.valueOf(equipement.getPrix()));
-		this.lstLogiciel.setItems(FXCollections.observableArrayList(equipement.getLogiciels()));
+		typeEquipement.getSelectionModel().select(equipement.getTypeEquipement());
+		poles.getSelectionModel().select(equipement.getPole());
+		marque.setText(equipement.getMarque());
+		modele.setText(equipement.getModele());
+		calife.setText(equipement.getNomCalife());
+		info.setText(equipement.getInfo());
+		prix.setText(String.valueOf(equipement.getPrix()));
+		lstLogiciel.setItems(FXCollections.observableArrayList(equipement.getLogiciels()));
 	}
 	
 	/**

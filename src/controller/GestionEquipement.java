@@ -29,9 +29,9 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -69,9 +69,6 @@ public class GestionEquipement implements Initializable{
 	private TableColumn<Equipement, String> columnPole;
 	
 	@FXML
-	private TableColumn<Equipement, String> columnPrix;
-	
-	@FXML
 	private TableColumn<Equipement, String> columnAgent;
 	
 	@FXML
@@ -81,11 +78,16 @@ public class GestionEquipement implements Initializable{
 	private TableColumn<Equipement, String> columnCalife;
 	
 	@FXML
-	private TableColumn<Equipement, Equipement> columnModifier;
+	private TableColumn<Equipement, Equipement> columnOpen;
 	
 	@FXML
-	private TableColumn<Equipement, Equipement> columnSupprimer;
+	private TableColumn<Equipement, Equipement> columnEdit;
 	
+	@FXML
+	private TableColumn<Equipement, Equipement> columnDelete;
+	
+	@FXML
+	public Button fieldRefresh;
 	
 	@FXML
 	private TextField searchBar;
@@ -104,18 +106,12 @@ public class GestionEquipement implements Initializable{
 		
 		listEquipement = new ArrayList<Equipement>();
 		equipementDao = new EquipementDao();
+		fieldRefresh.setVisible(false);
 		
 		columnPole.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<Equipement, String> equipement) {
 				return new SimpleStringProperty(equipement.getValue().getPole().getNom());
-			}
-		});
-		 
-		columnPrix.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
-			@Override
-			public ObservableValue<String> call(CellDataFeatures<Equipement, String> equipement) {
-				return new SimpleStringProperty(String.valueOf(equipement.getValue().getPrix()));
 			}
 		});
 				
@@ -143,14 +139,14 @@ public class GestionEquipement implements Initializable{
 			}
 		});
 		
-		columnModifier.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Equipement, Equipement>, ObservableValue<Equipement>>() {
+		columnOpen.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Equipement, Equipement>, ObservableValue<Equipement>>() {
 		      @Override 
 		      public ObservableValue<Equipement> call(TableColumn.CellDataFeatures<Equipement, Equipement> features) {
 		    	  return new ReadOnlyObjectWrapper<Equipement>(features.getValue());
 		      }
 		});
 		 
-		    columnModifier.setCellFactory(new Callback<TableColumn<Equipement, Equipement>, TableCell<Equipement, Equipement>>() {
+		    columnOpen.setCellFactory(new Callback<TableColumn<Equipement, Equipement>, TableCell<Equipement, Equipement>>() {
 		      @Override 
 		      public TableCell<Equipement, Equipement> call(TableColumn<Equipement, Equipement> personBooleanTableColumn) {
 		    	  return new TableCell<Equipement, Equipement>() {
@@ -192,14 +188,63 @@ public class GestionEquipement implements Initializable{
 		          }
 		    });
 		    
-		    columnSupprimer.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Equipement, Equipement>, ObservableValue<Equipement>>() {
+		    columnEdit.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Equipement, Equipement>, ObservableValue<Equipement>>() {
 			      @Override 
 			      public ObservableValue<Equipement> call(TableColumn.CellDataFeatures<Equipement, Equipement> features) {
 			    	  return new ReadOnlyObjectWrapper<Equipement>(features.getValue());
 			      }
 			});
 			 
-		    columnSupprimer.setCellFactory(new Callback<TableColumn<Equipement, Equipement>, TableCell<Equipement, Equipement>>() {
+			    columnEdit.setCellFactory(new Callback<TableColumn<Equipement, Equipement>, TableCell<Equipement, Equipement>>() {
+			      @Override 
+			      public TableCell<Equipement, Equipement> call(TableColumn<Equipement, Equipement> personBooleanTableColumn) {
+			    	  return new TableCell<Equipement, Equipement>() {
+			             
+			              final Button button = new Button("Modifier"); 
+			                
+			              @Override
+			              public void updateItem(Equipement equipement, boolean empty) {
+				            	super.updateItem(equipement, empty);
+				                if (equipement != null) {
+				                	button.setMinWidth(70);
+				                	setGraphic(button);
+				                	button.setOnAction(new EventHandler<ActionEvent>() {
+				                    @Override 
+				                    public void handle(ActionEvent event){
+				                    	try {
+				                    		Stage stage = new Stage();
+				                    		FXMLLoader fxmlLoader =  new FXMLLoader(getClass().getResource("/view/EditEquipement.fxml"));
+				                    		Parent root = (Parent)fxmlLoader.load(); 
+				                    		EditEquipement controller = fxmlLoader.<EditEquipement>getController();
+				                    		controller.setValues(equipement);
+				                    		controller.fieldOnMainWindows=fieldRefresh;
+				                    		stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
+				                    		stage.setTitle("Modiciation equipement");
+				                    		Scene scene = new Scene(root); 
+						                    stage.setScene(scene);
+						                   
+						                    stage.show();
+				                    	
+					                    } catch (IOException e) {
+											e.printStackTrace();
+										}	                    	
+				                    }
+				                  });
+			                } else {
+			                  setGraphic(null);
+			                }
+			              }
+			            };
+			          }
+			    });
+		    columnDelete.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Equipement, Equipement>, ObservableValue<Equipement>>() {
+			      @Override 
+			      public ObservableValue<Equipement> call(TableColumn.CellDataFeatures<Equipement, Equipement> features) {
+			    	  return new ReadOnlyObjectWrapper<Equipement>(features.getValue());
+			      }
+			});
+			 
+		    columnDelete.setCellFactory(new Callback<TableColumn<Equipement, Equipement>, TableCell<Equipement, Equipement>>() {
 			      @Override 
 			      public TableCell<Equipement, Equipement> call(TableColumn<Equipement, Equipement> equipementTableColumn) {
 			    	  return new TableCell<Equipement, Equipement>() {
@@ -248,8 +293,6 @@ public class GestionEquipement implements Initializable{
 		                    return true; 
 		                 else if (equipement.getTypeEquipement().getNom().toLowerCase().contains(lowerCaseFilter)) 
 		                    return true;
-		                 else if(String.valueOf(equipement.getPrix()).contains(lowerCaseFilter))
-		                	 return true;
 		                 else if(equipement.getAgent() != null && equipement.getAgent().getNumCP().toLowerCase().contains(lowerCaseFilter))
 		                	 return true;
 		                 else if(equipement.getPole().getNom().toLowerCase().contains(lowerCaseFilter))
@@ -358,14 +401,17 @@ public class GestionEquipement implements Initializable{
         }
 	}
 	
-	public void refreshTable() {
+	@FXML
+	private void refreshTable() {
 		
 		listEquipement = equipementDao.findByAttributesLike(null);
 		itemsEquipement = FXCollections.observableArrayList(listEquipement);
         filteredData = new FilteredList<>(itemsEquipement, p -> true);
         sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(tableViewEquipement.comparatorProperty());
+        tableViewEquipement.setItems(null); 
+        tableViewEquipement.layout(); 
         tableViewEquipement.setItems(sortedData);
-		
+		fieldRefresh.setVisible(false);
 	}
 }

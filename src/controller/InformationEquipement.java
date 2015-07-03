@@ -1,17 +1,13 @@
 package controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -63,7 +59,19 @@ public class InformationEquipement implements Initializable{
 	private Label dateLivraison;
 	
 	@FXML
+	private Label dateRenewal;
+	
+	@FXML
+	private Label service;
+	
+	@FXML
 	private ListView<Logiciel> logiciels;
+	
+	@FXML
+	private Label dateEndWarranty;
+	
+	@FXML
+	private Label price;
 	
 	private Equipement equipement;
 	
@@ -78,42 +86,31 @@ public class InformationEquipement implements Initializable{
 	    stage.close();
 	}
 	
-	@FXML
-	private void editEquipement() throws IOException{		
-		Stage stage = new Stage();
-		FXMLLoader fxmlLoader =  new FXMLLoader(getClass().getResource("/view/EditEquipement.fxml"));
-		Parent root;
-		root = (Parent)fxmlLoader.load();
-		EditEquipement controller = fxmlLoader.<EditEquipement>getController();
-		controller.setValues(equipement);
-		Scene scene = new Scene(root); 
-	    stage.setScene(scene);
-	    stage.setAlwaysOnTop(true);
-	    stage.show(); 
-	    validate();	
-	}
-	
 	public void setValues(Equipement equipementSelect){
 
-		this.equipement = equipementSelect;
+		equipement = equipementSelect;
 		
-		this.type.setText(equipement.getTypeEquipement().getNom());
-		this.marque.setText(equipement.getMarque());
-		this.modele.setText(equipement.getModele());
-		this.calife.setText(equipement.getNomCalife());
-		this.info.setText(equipement.getInfo());
-		this.dateLivraison.setText(equipement.getDateLivraison());
-		this.logiciels.setItems(FXCollections.observableArrayList(equipement.getLogiciels()));
+		type.setText(equipement.getTypeEquipement().getNom());
+		marque.setText(equipement.getMarque());
+		modele.setText(equipement.getModele());
+		calife.setText(equipement.getNomCalife());
+		info.setText(equipement.getInfo());
+		dateLivraison.setText(equipement.getDateLivraison());
+		logiciels.setItems(FXCollections.observableArrayList(equipement.getLogiciels()));
+		dateRenewal.setText(equipement.getRenewalDate());
+		service.setText(equipement.getPole().getNom());
+		dateEndWarranty.setText(equipement.getDateGarantie());
+		price.setText(String.valueOf(equipement.getPrix()));
 		
 		if(equipement.getAgent() != null){
-			this.nom.setText(equipement.getAgent().getNom());
-			this.prenom.setText(equipement.getAgent().getPrenom());
-			this.cp.setText(equipement.getAgent().getNumCP());
+			nom.setText(equipement.getAgent().getNom());
+			prenom.setText(equipement.getAgent().getPrenom());
+			cp.setText(equipement.getAgent().getNumCP());
 		}
 	}
 
 	@FXML
-	private void exportEquipement(ActionEvent event) throws IOException {
+	private void exportEquipement(){
 		PDFGenerator pdfGenerator = new PDFGenerator();
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Pdf", "*.pdf"));
@@ -122,7 +119,7 @@ public class InformationEquipement implements Initializable{
 		File file;
 		file = fileChooser.showSaveDialog(root.getScene().getWindow());
 		if (file != null) {
-			pdfGenerator.generate(file, new PDFEquipementExport(this.equipement));
+			pdfGenerator.generate(file, new PDFEquipementExport(equipement));
 		}
 	}
 }

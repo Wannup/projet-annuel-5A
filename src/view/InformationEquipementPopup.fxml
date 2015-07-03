@@ -8,37 +8,58 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="542.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.InformationEquipement">
+<AnchorPane id="AnchorPane" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="804.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InformationEquipement">
   <children>
-    <ImageView fitHeight="66.5" fitWidth="88.66666876751444" layoutX="26.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" />
-    <Button fx:id="ok" layoutX="53.0" layoutY="428.0" mnemonicParsing="false" onAction="#validate" prefWidth="104.0" text="OK" />
-    <Label layoutX="53.0" layoutY="57.0" text="Type:" />
-    <Label layoutX="53.0" layoutY="73.0" text="Marque:" />
-    <Label layoutX="53.0" layoutY="89.0" text="Modèle:" />
-    <Label layoutX="42.0" layoutY="157.0" text="Agent" />
-    <Label layoutX="42.0" layoutY="37.0" text="Equipement" />
-    <Label layoutX="53.0" layoutY="176.0" prefHeight="21.0" prefWidth="54.0" text="Nom:" />
-    <Label layoutX="53.0" layoutY="192.0" text="Prénom:" />
-    <Label layoutX="53.0" layoutY="208.0" text="N° CP:" />
-    <Label layoutX="53.0" layoutY="105.0" text="Nom Calife:" />
-    <Label layoutX="42.0" layoutY="238.0" text="Logiciels installés:" />
-    <ListView fx:id="logiciels" layoutX="53.0" layoutY="265.0" prefHeight="143.0" prefWidth="299.0" />
-    <Label fx:id="type" layoutX="93.0" layoutY="57.0" prefWidth="259.0">
+    <Button fx:id="ok" layoutX="142.0" layoutY="541.0" mnemonicParsing="false" onAction="#validate" prefWidth="104.0" text="OK" />
+    <Label layoutX="47.0" layoutY="68.0" text="Type:" />
+    <Label layoutX="47.0" layoutY="84.0" text="Marque:" />
+    <Label layoutX="47.0" layoutY="100.0" text="Modèle:" />
+    <Label layoutX="46.0" layoutY="235.0" text="Agent" />
+    <Label layoutX="339.0" layoutY="25.0" text="Fiche équipement">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+    <Label layoutX="57.0" layoutY="254.0" prefHeight="21.0" prefWidth="54.0" text="Nom:" />
+    <Label layoutX="57.0" layoutY="270.0" text="Prénom:" />
+    <Label layoutX="57.0" layoutY="286.0" text="N° CP:" />
+    <Label layoutX="47.0" layoutY="116.0" text="Nom Calife:" />
+    <Label layoutX="44.0" layoutY="348.0" text="Logiciels installés:" />
+    <ListView fx:id="logiciels" layoutX="44.0" layoutY="376.0" prefHeight="143.0" prefWidth="299.0" />
+    <Label fx:id="type" layoutX="110.0" layoutY="69.0" prefWidth="259.0">
       <font>
         <Font name="System Bold" size="13.0" fx:id="x1" />
       </font>
     </Label>
-    <Label fx:id="marque" font="$x1" layoutX="106.0" layoutY="73.0" prefWidth="246.0" />
-    <Label fx:id="modele" font="$x1" layoutX="106.0" layoutY="89.0" prefWidth="246.0" />
-    <Label fx:id="calife" font="$x1" layoutX="127.0" layoutY="105.0" prefWidth="225.0" />
-    <Label fx:id="nom" font="$x1" layoutX="87.0" layoutY="176.0" prefWidth="265.0" />
-    <Label fx:id="prenom" font="$x1" layoutX="106.0" layoutY="192.0" prefWidth="246.00009999999747" />
-    <Label fx:id="cp" font="$x1" layoutX="93.0" layoutY="208.0" prefWidth="258.9999000000025" />
-    <Label layoutX="376.0" layoutY="42.0" text="Autres Informations:" />
-    <TextArea fx:id="info" editable="false" layoutX="375.0" layoutY="65.0" prefHeight="156.0" prefWidth="130.0" wrapText="true" />
-    <Label layoutX="53.0" layoutY="122.0" text="Date livraison:" />
-    <Label id="calife" fx:id="dateLivraison" font="$x1" layoutX="144.0" layoutY="122.0" prefWidth="225.0" />
-    <Button id="ok" fx:id="edit" layoutX="219.0" layoutY="428.0" mnemonicParsing="false" onAction="#editEquipement" prefWidth="104.0" text="Modifier" />
-    <Button layoutX="384.0" layoutY="429.0" mnemonicParsing="false"  onAction="#exportEquipement" prefWidth="104.0" text="Exporter" />
+    <Label fx:id="marque" font="$x1" layoutX="111.0" layoutY="85.0" prefWidth="246.0" />
+    <Label fx:id="modele" font="$x1" layoutX="111.0" layoutY="100.0" prefWidth="246.0" />
+    <Label fx:id="calife" font="$x1" layoutX="127.0" layoutY="117.0" prefWidth="225.0" />
+    <Label fx:id="nom" font="$x1" layoutX="101.0" layoutY="255.0" prefWidth="265.0" />
+    <Label fx:id="prenom" font="$x1" layoutX="119.0" layoutY="271.0" prefWidth="246.00009999999747" />
+    <Label fx:id="cp" font="$x1" layoutX="113.0" layoutY="287.0" prefWidth="258.9999000000025" />
+    <Label layoutX="580.0" layoutY="68.0" text="Autres Informations:" />
+    <TextArea fx:id="info" editable="false" layoutX="580.0" layoutY="96.0" prefHeight="156.0" prefWidth="207.0" wrapText="true" />
+    <Label layoutX="47.0" layoutY="133.0" text="Date livraison:" />
+    <Label id="calife" fx:id="dateLivraison" font="$x1" layoutX="141.0" layoutY="134.0" prefWidth="225.0" />
+    <Button layoutX="569.0" layoutY="541.0" mnemonicParsing="false" onAction="#exportEquipement" prefWidth="104.0" text="Exporter" />
+      <Label layoutX="47.0" layoutY="154.0" text="Date de renouvellement prévisionnel:" />
+      <Label fx:id="dateRenewal" layoutX="298.0" layoutY="154.0" prefHeight="21.0" prefWidth="161.0">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="42.0" layoutY="313.0" text="Pole/Service:" />
+      <Label fx:id="service" font="$x1" layoutX="142.0" layoutY="314.0" prefWidth="258.9999000000025" />
+      <Label layoutX="46.0" layoutY="175.0" text="Date fin de garantie:" />
+      <Label fx:id="dateEndWarranty" layoutX="192.0" layoutY="176.0" prefHeight="9.0" prefWidth="161.0">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="46.0" layoutY="196.0" prefHeight="21.0" prefWidth="40.0" text="Prix:" />
+      <Label fx:id="price" layoutX="81.0" layoutY="197.0" prefHeight="9.0" prefWidth="161.0">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
   </children>
 </AnchorPane>
