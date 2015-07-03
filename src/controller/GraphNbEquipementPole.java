@@ -17,8 +17,8 @@ import model.TypeEquipement;
 import dao.EquipementDao;
 import dao.TypeEquipementDao;
 
-public class GraphNbEquipementType implements Initializable{
-
+public class GraphNbEquipementPole implements Initializable{
+	
 	@FXML
 	private StackedBarChart SBchart;
 	
@@ -32,7 +32,7 @@ public class GraphNbEquipementType implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		this.typeEquipementDao = new TypeEquipementDao();
+		/*this.typeEquipementDao = new TypeEquipementDao();
 		this.equipementDao = new EquipementDao();
 		this.lstTypeEquipement = typeEquipementDao.findByAttributesLike(null);
 		ArrayList<String> lstEquipName = new ArrayList<String>();
@@ -56,7 +56,7 @@ public class GraphNbEquipementType implements Initializable{
 		xAxis.setCategories(FXCollections.<String>observableArrayList(FXCollections.observableArrayList(lstEquipName)));
         yAxis.setLabel("Quantité");
         
-        this.SBchart.setData(s);	
+        this.SBchart.setData(s);	*/
 		
 	}
 }

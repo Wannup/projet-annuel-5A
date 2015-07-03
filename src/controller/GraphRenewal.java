@@ -74,20 +74,19 @@ public class GraphRenewal implements Initializable{
 		ArrayList<String> gap = new ArrayList<String>();
 		xAxis.setLabel("Années");
         yAxis.setLabel("Prix");
-        xAxis.setCategories(FXCollections.<String>observableArrayList(gap));
 		ObservableList<XYChart.Series> s = FXCollections.observableArrayList();
 		
 		for(int i=0; i<= (Integer.parseInt((String) cbEYear.getSelectionModel().getSelectedItem()) - Integer.parseInt((String) cbSYear.getSelectionModel().getSelectedItem())) ; i++){
-			gap.add("" + (Integer.parseInt((String) cbSYear.getSelectionModel().getSelectedItem()) + i));
+			gap.add("" + (Integer.parseInt((String) cbSYear.getSelectionModel().getSelectedItem()) + i));			
 		}
 		
+		xAxis.setCategories(FXCollections.<String>observableArrayList(gap));
+
 		for(int i = 0; i< this.lstTypeEquipement.size(); i++){
 			XYChart.Series<String, Number> type = new XYChart.Series<String, Number>();
 			type.setName(this.lstTypeEquipement.get(i).getNom());
 			
 			for(int j=0; j<gap.size(); j++){
-				// int count = equipementDao.getEquipementByType(this.lstTypeEquipement.get(i)).size();
-				
 				List<Equipement> equipementByYear = equipementDao.getEquipementByRenewalDateAndType(gap.get(j), this.lstTypeEquipement.get(i));
 				for(int k=0; k<equipementByYear.size(); k++){
 					type.getData().add(new XYChart.Data<String, Number>(gap.get(j), equipementByYear.get(k).getPrix()));
@@ -108,88 +107,44 @@ public class GraphRenewal implements Initializable{
 		ArrayList<String> gap = new ArrayList<String>();
 		yAxis.setLabel("Prix");
 		xAxis.setLabel("Années");
-		xAxis.setCategories(FXCollections.<String>observableArrayList(gap));
 		ObservableList<XYChart.Series> s = FXCollections.observableArrayList();
 		
 		for(int i=0; i<= (Integer.parseInt((String) cbEYear.getSelectionModel().getSelectedItem()) - Integer.parseInt((String) cbSYear.getSelectionModel().getSelectedItem())) ; i++){
 			gap.add("" + (Integer.parseInt((String) cbSYear.getSelectionModel().getSelectedItem()) + i));
 		}
 		
+		xAxis.setCategories(FXCollections.<String>observableArrayList(gap));
+		
 		for(int i = 0; i< this.lstTypeEquipement.size(); i++){
 			XYChart.Series<String, Number> type = new XYChart.Series<String, Number>();
 			type.setName(this.lstTypeEquipement.get(i).getNom());
 			
-			for(int j=0; j<gap.size(); j++){
-				
+			for(int j=0; j<gap.size(); j++){			
 				
 				List<Equipement> equipementByYear = equipementDao.getEquipementByRenewalDateAndType(gap.get(j), this.lstTypeEquipement.get(i));
-				for(int k=0; k<equipementByYear.size(); k++){
-					//if(this.lstTypeEquipement.get(i).getNom().equals("Imprimante")){
-					//	System.out.println(this.lstTypeEquipement.get(i).getNom() + " - " +equipementByYear.size());
-					//}
-					
+				if(equipementByYear.size() != 0){
 					type.getData().add(new XYChart.Data<String, Number>(gap.get(j), equipementByYear.size()));
 				}
 			}
 			
 			s.add(type);			
 		}
-			
-		
-        
-		
+				
 		return s;
-		
-		/*
-		xAxis.setLabel("Années");
-        xAxis.setCategories(FXCollections.<String>observableArrayList(
-                Arrays.asList("2016", "2017", "2018", "2019", "2020")));
-        yAxis.setLabel("Prix");
-        
-        XYChart.Series<String, Number> series1 =
-                new XYChart.Series<String, Number>();
-        XYChart.Series<String, Number> series2 =
-                new XYChart.Series<String, Number>();
-        XYChart.Series<String, Number> series3 =
-                new XYChart.Series<String, Number>();
-        series1.setName("PC Portable");
-        series1.getData().add(new XYChart.Data<String, Number>("2016", 5));
-        series1.getData().add(new XYChart.Data<String, Number>("2017", 20));
-        series1.getData().add(new XYChart.Data<String, Number>("2018", 18));
-        series1.getData().add(new XYChart.Data<String, Number>("2019", 4));
-        series1.getData().add(new XYChart.Data<String, Number>("2020", 6));
-        series2.setName("PC Fixe");
-        series2.getData().add(new XYChart.Data<String, Number>("2016", 5));
-        series2.getData().add(new XYChart.Data<String, Number>("2017", 4));
-        series2.getData().add(new XYChart.Data<String, Number>("2018", 4));
-        series2.getData().add(new XYChart.Data<String, Number>("2019", 1));
-        series2.getData().add(new XYChart.Data<String, Number>("2020", 14));
-        series3.setName("Imprimante");
-        series3.getData().add(new XYChart.Data<String, Number>("2016", 4));
-        series3.getData().add(new XYChart.Data<String, Number>("2017", 4));
-        series3.getData().add(new XYChart.Data<String, Number>("2018", 18));
-        series3.getData().add(new XYChart.Data<String, Number>("2019", 17));
-        series3.getData().add(new XYChart.Data<String, Number>("2020", 9));
-		
-        ObservableList<XYChart.Series> s = FXCollections.observableArrayList();
-        s.add(series1);
-        s.add(series2);
-        s.add(series3);
-		
-		return s;*/
+
 	}
 	
 	public void displayByPrice(){
-		this.renewalSBchart.getData().removeAll();
 		this.renewalSBchart.setData(getChartDataPrice());
 	}
 	
 	public void displayByQuantity(){
-		this.renewalSBchart.getData().removeAll();
 		this.renewalSBchart.setData(getChartDataQuantity());
 	}
 
 	public void changeGap(){
+		
+		System.out.println(cbSYear.getSelectionModel().getSelectedItem() + " - " + cbEYear.getSelectionModel().getSelectedItem());
 		if((Integer.parseInt((String) cbEYear.getSelectionModel().getSelectedItem()) - Integer.parseInt((String) cbSYear.getSelectionModel().getSelectedItem())) >0){
 			ArrayList<String> gap = new ArrayList<String>();
 			for(int i=0; i<= (Integer.parseInt((String) cbEYear.getSelectionModel().getSelectedItem()) - Integer.parseInt((String) cbSYear.getSelectionModel().getSelectedItem())) ; i++){
@@ -198,9 +153,9 @@ public class GraphRenewal implements Initializable{
 			xAxis.setCategories(FXCollections.<String>observableArrayList(gap));
 			
 			if(tGraph.equals("price")){
-				getChartDataPrice();
+				displayByPrice();
 			}else{
-				getChartDataQuantity();
+				displayByQuantity();
 			}
 		}
 	}

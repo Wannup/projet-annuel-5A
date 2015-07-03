@@ -51,7 +51,7 @@ public class Statistic implements Initializable{
 	
 	@FXML
 	private void nbTypeGraph() throws IOException{
-		loader = new FXMLLoader(getClass().getResource("/view/GraphNbType.fxml"));
+		loader = new FXMLLoader(getClass().getResource("/view/GraphNbEquipementType.fxml"));
 		ManipInterface.chargementBodyPanel(graphPanel, loader);
 	}
 	

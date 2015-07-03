@@ -10,6 +10,7 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import model.Agent;
 import model.Equipement;
 import model.Pole;
 import model.TypeEquipement;
@@ -101,17 +102,38 @@ public class EquipementDao extends AbstractDao<Equipement>{
 	public List<Equipement> getEquipementByRenewalDateAndType(String date, TypeEquipement type) {
 
 		List<Equipement> results;
-		// set up the Criteria query
 		CriteriaBuilder cb = DatabaseConnection.em.getCriteriaBuilder();
 		CriteriaQuery cq = cb.createQuery();
 		Root<Equipement> table = cq.from(Equipement.class);
 
 		List<Predicate> predicates = new ArrayList<Predicate>();
-		
-		
+	
 		predicates.add(
-				cb.or(cb.like(cb.lower((Expression) table.get("renewalDate")), "%"+ date.toLowerCase() + "%"), 
+				cb.and(cb.like(cb.lower((Expression) table.get("renewalDate")), "%"+ date.toLowerCase() + "%"), 
 						cb.equal(table.get("typeEquipement"), type)));
+
+		
+		cq.where(predicates.toArray(new Predicate[] {}));
+		TypedQuery q = DatabaseConnection.em.createQuery(cq);
+        
+		results = q.getResultList();
+		
+		return results;
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public List<Equipement> getEquipementByRenewalDateAndPole(String date, Agent agent) {
+
+		List<Equipement> results;
+		CriteriaBuilder cb = DatabaseConnection.em.getCriteriaBuilder();
+		CriteriaQuery cq = cb.createQuery();
+		Root<Equipement> table = cq.from(Equipement.class);
+
+		List<Predicate> predicates = new ArrayList<Predicate>();
+	
+		predicates.add(
+				cb.and(cb.like(cb.lower((Expression) table.get("renewalDate")), "%"+ date.toLowerCase() + "%"), 
+						cb.equal(table.get("agent"), agent)));
 
 		
 		cq.where(predicates.toArray(new Predicate[] {}));
