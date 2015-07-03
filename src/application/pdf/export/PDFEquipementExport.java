@@ -85,21 +85,27 @@ public class PDFEquipementExport extends PDFDataExport {
 		ct.setSimpleColumn(60, 36, 296, 530);
 		ct.addText(new Phrase("Nom : "));
 		ct.go();
-		ct.setSimpleColumn(100, 36, 296, 530);
-		ct.addText(new Phrase(agent.getNom()));
-		ct.go();
+		if (agent != null) {
+			ct.setSimpleColumn(100, 36, 296, 530);
+			ct.addText(new Phrase(agent.getNom()));
+			ct.go();
+		}
 		ct.setSimpleColumn(60, 36, 296, 510);
 		ct.addText(new Phrase("Prénom : "));
 		ct.go();
-		ct.setSimpleColumn(115, 36, 296, 510);
-		ct.addText(new Phrase(agent.getPrenom()));
-		ct.go();
+		if (agent != null) {
+			ct.setSimpleColumn(115, 36, 296, 510);
+			ct.addText(new Phrase(agent.getPrenom()));
+			ct.go();
+		}
 		ct.setSimpleColumn(60, 36, 296, 490);
 		ct.addText(new Phrase("N° CP : "));
 		ct.go();
-		ct.setSimpleColumn(105, 36, 296, 490);
-		ct.addText(new Phrase(agent.getNumCP()));
-		ct.go();
+		if (agent != null) {
+			ct.setSimpleColumn(105, 36, 296, 490);
+			ct.addText(new Phrase(agent.getNumCP()));
+			ct.go();
+		}
 		
 		List<Logiciel> logiciels = equipement.getLogiciels();
 		ct.setSimpleColumn(50, 36, 296, 450);

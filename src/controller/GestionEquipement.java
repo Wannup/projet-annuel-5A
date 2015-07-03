@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -42,6 +43,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Equipement;
+import tools.LoadingFrame;
 import tools.ManipInterface;
 import application.excel.export.ExcelEquipementListExport;
 import application.excel.export.ExcelGenerator;
@@ -354,50 +356,11 @@ public class GestionEquipement implements Initializable{
         File file;
         file = fileChooser.showOpenDialog(bodyPanel.getParent().getScene().getWindow());
         if (file != null) {
-			List<String> errors = new ArrayList<>();
-        	ExcelImport excelImport = new ExcelImport();
-        	excelImport.importFile(file, new ExcelEquipementImport(listEquipement, errors));
-			for (Equipement equipement : listEquipement) {
-				if (equipementDao.find(equipement.getIdEquipement()) == null) {
-					equipementDao.save(equipement);
-				}
-			}
-        	refreshTable();
-			if (errors.isEmpty()) {
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("Import Excel");
-				alert.setHeaderText(null);
-				alert.setContentText("L'import a été éffectué avec succès.");
-				alert.showAndWait();
-			} else {
-				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("Import Excel");
-				alert.setHeaderText("L'import a été éffectué avec succès.");
-				alert.setContentText("Certaine ligne n'ont pas été correctement importer");
-
-				String newline = System.getProperty("line.separator");
-				String text = "";
-				for (String string : errors) {
-					text += string + newline;
-				}
-
-				TextArea textArea = new TextArea(text);
-				textArea.setEditable(false);
-				textArea.setWrapText(true);
-
-				textArea.setMaxWidth(Double.MAX_VALUE);
-				textArea.setMaxHeight(Double.MAX_VALUE);
-				GridPane.setVgrow(textArea, Priority.ALWAYS);
-				GridPane.setHgrow(textArea, Priority.ALWAYS);
-
-				GridPane expContent = new GridPane();
-				expContent.setMaxWidth(Double.MAX_VALUE);
-				expContent.add(textArea, 0, 0);
-
-				alert.getDialogPane().setExpandableContent(expContent);
-
-				alert.showAndWait();
-			}
+        	LoadingFrame loadingFrame = new LoadingFrame(bodyPanel.getParent().getScene().getWindow(), LoadingFrame.PROGRESS_INDICATOR);
+			loadingFrame.setText("Import en cours, veuillez patientez...");
+			loadingFrame.show();
+			ImportExcelAction importExcelAction = new ImportExcelAction(file, loadingFrame);
+			importExcelAction.start();
         }
 	}
 	
@@ -413,5 +376,78 @@ public class GestionEquipement implements Initializable{
         tableViewEquipement.layout(); 
         tableViewEquipement.setItems(sortedData);
 		fieldRefresh.setVisible(false);
+	}
+	
+	private void showAlert (List<String> errors) {
+		if (errors.isEmpty()) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Import Excel");
+			alert.setHeaderText(null);
+			alert.setContentText("L'import a été éffectué avec succès.");
+			alert.showAndWait();
+		} else {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Import Excel");
+			alert.setHeaderText("L'import a été éffectué avec succès.");
+			alert.setContentText("Certaine ligne n'ont pas été correctement importer");
+
+			String newline = System.getProperty("line.separator");
+			String message = "";
+			for (String string : errors) {
+				message += string + newline;
+			}
+
+			TextArea textArea = new TextArea(message);
+			textArea.setEditable(false);
+			textArea.setWrapText(true);
+
+			textArea.setMaxWidth(Double.MAX_VALUE);
+			textArea.setMaxHeight(Double.MAX_VALUE);
+			GridPane.setVgrow(textArea, Priority.ALWAYS);
+			GridPane.setHgrow(textArea, Priority.ALWAYS);
+
+			GridPane expContent = new GridPane();
+			expContent.setMaxWidth(Double.MAX_VALUE);
+			expContent.add(textArea, 0, 0);
+
+			alert.getDialogPane().setExpandableContent(expContent);
+
+			alert.showAndWait();
+			
+		}
+	}
+	
+	public class ImportExcelAction extends Thread {
+		
+		private File file;
+		private LoadingFrame loadingFrame;
+		
+		public ImportExcelAction (File file, LoadingFrame loadingFrame) {
+			this.file = file;
+			this.loadingFrame = loadingFrame;
+		}
+
+		@Override
+		public void run() {
+			List<String> errors = new ArrayList<>();
+        	ExcelImport excelImport = new ExcelImport();
+        	excelImport.importFile(file, new ExcelEquipementImport(listEquipement, errors, loadingFrame));
+			for (Equipement equipement : listEquipement) {
+				if (equipementDao.find(equipement.getIdEquipement()) == null) {
+					equipementDao.save(equipement);
+				}
+			}
+			refreshTable();
+			Platform.runLater(new Runnable() {
+				
+				@Override
+				public void run() {
+					showAlert(errors);
+					loadingFrame.close();
+				}
+			});
+			
+		}
+		
 	}
 }
