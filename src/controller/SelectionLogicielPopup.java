@@ -1,6 +1,5 @@
 package controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -135,7 +134,7 @@ public class SelectionLogicielPopup implements Initializable{
 	}
 
 	@FXML
-	private void validateSelection(ActionEvent event) throws IOException{
+	private void validateSelection(){
 		Stage fenetre =(Stage)btnValidSelect.getScene().getWindow();
    	 	fenetre.close(); 
 	}

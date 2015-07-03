@@ -6,16 +6,15 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import model.TypeEquipement;
@@ -70,7 +69,7 @@ public class TypeEquipementPopup implements Initializable{
 	}
 
 	@FXML
-	private void deleteType(ActionEvent event){
+	private void deleteType(){
 		
 		TypeEquipement typeEquip = listType.getSelectionModel().getSelectedItem();
 		if(typeEquip != null){
@@ -95,7 +94,7 @@ public class TypeEquipementPopup implements Initializable{
 	}
 	
 	@FXML
-	private void saveOrUpdateType(ActionEvent event){
+	private void saveOrUpdateType(){
 		
 		// modifier
 		if(typeEquipement != null){

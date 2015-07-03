@@ -260,13 +260,13 @@ public class GestionAgent implements Initializable {
 	}
 
 	@FXML
-	private void displayAddAgent(ActionEvent event) throws IOException {
+	private void displayAddAgent() throws IOException {
 		loader = new FXMLLoader(getClass().getResource("/view/AjoutAgent.fxml"));
 		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 
 	@FXML
-	private void exportTablePDF(ActionEvent event) throws IOException {
+	private void exportTablePDF() throws IOException {
 		PDFGenerator pdfGenerator = new PDFGenerator();
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Pdf", "*.pdf"));
@@ -284,7 +284,7 @@ public class GestionAgent implements Initializable {
 	}
 
 	@FXML
-	private void exportTableExcel(ActionEvent event) throws IOException {
+	private void exportTableExcel() throws IOException {
 		ExcelGenerator excelGenerator = new ExcelGenerator();
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Excel", "*.xls"));
@@ -302,7 +302,7 @@ public class GestionAgent implements Initializable {
 	}
 
 	@FXML
-	private void importExcel(ActionEvent event) throws IOException {
+	private void importExcel() throws IOException {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Excel", "*.xls"));
 		fileChooser.setTitle("Load Excel");
@@ -317,23 +317,6 @@ public class GestionAgent implements Initializable {
 		}
 	}
 
-/*	private void getListAgent() {
-		/*boolean isLimit = Config.getPropertie("tableau_limite").equals("yes");
-		if (isLimit) {
-			maxResult = agentDao.getNbResultLike(null);
-			limit = Integer.parseInt(Config.getPropertie("tableau_nb_ligne"));
-			if (maxResult < limit) {
-				listAgent = agentDao.findByAttributesLike(null);
-			} else {
-				listAgent = agentDao.findByAttributesLikeWithLimits(null, 0,
-						limit);
-			}
-		} else {
-			listAgent = agentDao.findByAttributesLike(null);
-			//maxResult = listAgent.size();
-		//}
-	}*/
-
 	private void refreshTable() {
 		
 		listAgent = agentDao.findByAttributesLike(null);
@@ -341,26 +324,11 @@ public class GestionAgent implements Initializable {
         filteredData = new FilteredList<>(itemsAgent, p -> true);
         sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(tableViewAgent.comparatorProperty());
+        tableViewAgent.setItems(null); 
+        tableViewAgent.layout(); 
         tableViewAgent.setItems(sortedData);
         
-		/*ObservableList<Agent> items = FXCollections.observableArrayList(listAgent);
-		searchTab.setItems(items);*/
-		/*if (maxResult > listAgent.size()) {
-			buttonNext.setDisable(false);
-		} else {
-			buttonNext.setDisable(true);
-		}*/
 	}
-
-	/*@FXML
-	private void viewMore(ActionEvent event) throws IOException {
-
-		List<Agent> results = agentDao.findByAttributesLikeWithLimits(null,listAgent.size(), limit);
-		for (Agent agent : results)
-			listAgent.add(agent);
-		
-		refreshTable();
-	}*/
 	
 	private void showAlert (List<String> errors) {
 		if (errors.isEmpty()) {

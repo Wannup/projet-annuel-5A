@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -65,7 +64,7 @@ public class PolePopup implements Initializable{
 	}
 
 	@FXML
-	private void deletePole(ActionEvent event){
+	private void deletePole(){
 		
 		Pole pole = listPole.getSelectionModel().getSelectedItem();
 		if(pole != null){
@@ -90,7 +89,7 @@ public class PolePopup implements Initializable{
 	}
 	
 	@FXML
-	private void saveOrUpdatePole(ActionEvent event){
+	private void saveOrUpdatePole(){
 		
 		// modifier
 		if(pole != null){

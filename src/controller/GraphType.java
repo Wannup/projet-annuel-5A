@@ -6,12 +6,9 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javax.imageio.ImageIO;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -21,6 +18,9 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+
+import javax.imageio.ImageIO;
+
 import model.TypeEquipement;
 import dao.EquipementDao;
 import dao.TypeEquipementDao;
@@ -63,7 +63,7 @@ public class GraphType implements Initializable{
     }
 	
 	@FXML
-	private void exportGraph(ActionEvent event) throws IOException {
+	private void exportGraph() throws IOException {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("PNG", "*.png"));
 		fileChooser.setInitialFileName("type d'equipement");

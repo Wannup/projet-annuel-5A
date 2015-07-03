@@ -149,7 +149,7 @@ public class GestionLogiciel implements Initializable {
 					                    		FXMLLoader fxmlLoader =  new FXMLLoader(getClass().getResource("/view/EditLogiciel.fxml"));
 					                    		Parent root = (Parent)fxmlLoader.load(); 
 					                    		EditLogiciel controller = fxmlLoader.<EditLogiciel>getController();
-					                    		controller.setValues(logiciel.getId());
+					                    		controller.setValues(logiciel);
 					                    		stage.getIcons().add(new Image("/res/icon-sncf.jpg"));
 					                    		stage.setTitle("Modifier logiciel");
 					                    		Scene scene = new Scene(root); 
@@ -237,13 +237,13 @@ public class GestionLogiciel implements Initializable {
 	}
 
 	@FXML
-	private void displayAddLogiciel(ActionEvent event) throws IOException {
+	private void displayAddLogiciel() throws IOException {
 		loader = new FXMLLoader(getClass().getResource("/view/AjoutLogiciel.fxml"));
 		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 
 	@FXML
-	private void searchLogiciel(ActionEvent event) {
+	private void searchLogiciel() {
 		if (!searchBar.getText().isEmpty()) {
 			logicielDao = new LogicielDao();
 			listLogiciel = logicielDao.searchWithAttributes(searchBar.getText());
@@ -252,7 +252,7 @@ public class GestionLogiciel implements Initializable {
 	}
 
 	@FXML
-	private void exportTablePDF(ActionEvent event) throws IOException {
+	private void exportTablePDF(){
 		PDFGenerator pdfGenerator = new PDFGenerator();
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Pdf", "*.pdf"));
@@ -270,7 +270,7 @@ public class GestionLogiciel implements Initializable {
 	}
 
 	@FXML
-	private void exportTableExcel(ActionEvent event) throws IOException {
+	private void exportTableExcel(){
 		ExcelGenerator excelGenerator = new ExcelGenerator();
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Excel", "*.xls"));
@@ -288,7 +288,7 @@ public class GestionLogiciel implements Initializable {
 	}
 
 	@FXML
-	private void importExcel(ActionEvent event) throws IOException {
+	private void importExcel(){
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Excel", "*.xls"));
 		fileChooser.setTitle("Load Excel");
@@ -310,6 +310,8 @@ public class GestionLogiciel implements Initializable {
         filteredData = new FilteredList<>(itemsLogiciel, p -> true);
         sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(tableViewLogiciel.comparatorProperty());
+        tableViewLogiciel.setItems(null); 
+        tableViewLogiciel.layout(); 
         tableViewLogiciel.setItems(sortedData);
 	}
 	

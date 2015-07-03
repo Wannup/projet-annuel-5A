@@ -43,8 +43,8 @@ public class EditAgent implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		this.poleDao = new PoleDao();
-		this.pole.getItems().addAll(FXCollections.observableArrayList(poleDao.findByAttributesLike(null)));
+		poleDao = new PoleDao();
+		pole.getItems().addAll(FXCollections.observableArrayList(poleDao.findByAttributesLike(null)));
 	}
 
 	/**
@@ -52,12 +52,12 @@ public class EditAgent implements Initializable{
 	 * */
 	public void setValues(Agent agentParam) {
 		
-		this.agent = agentParam;
-		this.nom.setText(agent.getNom());
-		this.prenom.setText(agent.getPrenom());
-		this.numCP.setText(agent.getNumCP());
-		this.tel.setText(agent.getTel());
-		this.pole.getSelectionModel().select(agent.getPole());
+		agent = agentParam;
+		nom.setText(agent.getNom());
+		prenom.setText(agent.getPrenom());
+		numCP.setText(agent.getNumCP());
+		tel.setText(agent.getTel());
+		pole.getSelectionModel().select(agent.getPole());
 	}
 	
 	/**
@@ -65,11 +65,11 @@ public class EditAgent implements Initializable{
 	 * */
 	@FXML
 	public void saveEditAgent(){
-		this.agent.setNom(nom.getText());
-		this.agent.setPrenom(prenom.getText());
-		this.agent.setNumCP(numCP.getText());
-		this.agent.setTel(tel.getText());
-		this.agent.setPole(pole.getValue());
+		agent.setNom(nom.getText());
+		agent.setPrenom(prenom.getText());
+		agent.setNumCP(numCP.getText());
+		agent.setTel(tel.getText());
+		agent.setPole(pole.getValue());
 		
 		Stage stage = (Stage) btnEnregistrer.getScene().getWindow();
 	    stage.close();

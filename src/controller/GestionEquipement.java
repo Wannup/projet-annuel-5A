@@ -307,13 +307,13 @@ public class GestionEquipement implements Initializable{
 	}
 	
 	@FXML
-	private void displayAddEquipment(ActionEvent event) throws IOException{
+	private void displayAddEquipment() throws IOException{
 		loader = new FXMLLoader(getClass().getResource("/view/AjoutEquipement.fxml"));
 		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
 	
 	@FXML
-	private void exportTablePDF(ActionEvent event) throws IOException {
+	private void exportTablePDF() {
 		PDFGenerator pdfGenerator = new PDFGenerator();
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Pdf", "*.pdf"));
@@ -331,7 +331,7 @@ public class GestionEquipement implements Initializable{
 	}
 	
 	@FXML
-	private void exportTableExcel(ActionEvent event) throws IOException {
+	private void exportTableExcel(){
 		ExcelGenerator excelGenerator = new ExcelGenerator();
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Excel", "*.xls"));
@@ -349,7 +349,7 @@ public class GestionEquipement implements Initializable{
 	}
 	
 	@FXML
-	private void importExcel(ActionEvent event) throws IOException {
+	private void importExcel() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Excel", "*.xls"));
         fileChooser.setTitle("Load Excel");

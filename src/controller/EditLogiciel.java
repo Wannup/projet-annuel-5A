@@ -3,21 +3,18 @@ package controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import model.Logiciel;
-import dao.LogicielDao;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Logiciel;
 
 /**
  * class controller for the interface EditLogiciel.fxml
  * */
 public class EditLogiciel implements Initializable{
 	
-	private LogicielDao lDao;
-	private int idLogiciel;
 	private Logiciel logiciel;
 	
 	@FXML
@@ -34,15 +31,15 @@ public class EditLogiciel implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		this.lDao = new LogicielDao();
+		
 	}
 
-	public void setValues(int id) {
-		this.idLogiciel =  id;		
-		this.logiciel = lDao.find(idLogiciel);
-		this.libelle.setText(logiciel.getNom());
-		this.licenceNumber.setText(logiciel.getLicenceNumber());
-		this.prix.setText(""+logiciel.getPrix());
+	public void setValues(Logiciel logicielSelect) {
+		
+		logiciel = logicielSelect;
+		libelle.setText(logiciel.getNom());
+		licenceNumber.setText(logiciel.getLicenceNumber());
+		prix.setText(String.valueOf(logiciel.getPrix()));
 	}
 	
 	@FXML

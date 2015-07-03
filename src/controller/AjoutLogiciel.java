@@ -6,16 +6,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Logiciel;
@@ -61,7 +60,7 @@ public class AjoutLogiciel implements Initializable{
 	 * function associate with the button "Modifier/Supprimer des logiciels"
 	 * */
 	@FXML
-	private void displayEditDelete(ActionEvent event) throws IOException{
+	private void displayEditDelete() throws IOException{
 		loader = new FXMLLoader(getClass().getResource("/view/GestionLogiciel.fxml"));
 		ManipInterface.chargementBodyPanel(bodyPanel, loader);
 	}
@@ -70,7 +69,7 @@ public class AjoutLogiciel implements Initializable{
 	 * function associate with the button "Ajouter"
 	 * */
 	@FXML
-	private void enregistrerLogiciel(ActionEvent event){
+	private void enregistrerLogiciel(){
 		
 		errorMessage = "";
 		
