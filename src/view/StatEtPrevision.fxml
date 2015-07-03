@@ -9,10 +9,10 @@
   <children>
     <AnchorPane fx:id="graphPanel" layoutX="0.0" layoutY="102.0" prefHeight="648.0" prefWidth="900.0" />
     <Separator layoutX="0.0" layoutY="98.0" prefWidth="900.0" />
-    <Button fx:id="typeEquipement" layoutX="14.0" layoutY="38.0" mnemonicParsing="false" onAction="#typeGraph" text="Type d'équipements" />
-    <Button id="typeEquipement" layoutX="159.0" layoutY="38.0" mnemonicParsing="false" onAction="#nbTypeGraph" text="Nombre d'équipements/Types" />
-    <Button id="renewal" layoutX="353.0" layoutY="38.0" mnemonicParsing="false" onAction="#nbEquipPoleGraph" text="Nombre d'équipements/Poles" />
-    <Button fx:id="renewal" layoutX="543.0" layoutY="38.0" mnemonicParsing="false" onAction="#renewalTypeGraph" text="Renouvellement (par types)" />   
-    <Button id="renewal" layoutX="720.0" layoutY="38.0" mnemonicParsing="false" onAction="#renewalPoleGraph" text="Renouvellement (par pôles)" />
+    <Button fx:id="typeEquipement" layoutX="14.0" layoutY="38.0" mnemonicParsing="false" onAction="#typeGraph" prefWidth="159.0" text="Type d'équipements" />
+    <Button id="typeEquipement" layoutX="183.0" layoutY="38.0" mnemonicParsing="false" onAction="#nbTypeGraph" text="Équipements/Types" />
+    <Button id="renewal" layoutX="340.0" layoutY="38.0" mnemonicParsing="false" onAction="#nbEquipPoleGraph" text="Équipements/Poles" />
+    <Button fx:id="renewal" layoutX="496.0" layoutY="38.0" mnemonicParsing="false" onAction="#renewalTypeGraph" text="Renouvellement (par types)" />
+    <Button id="renewal" layoutX="699.0" layoutY="38.0" mnemonicParsing="false" onAction="#renewalPoleGraph" text="Renouvellement (par pôles)" />
   </children>
 </AnchorPane>
