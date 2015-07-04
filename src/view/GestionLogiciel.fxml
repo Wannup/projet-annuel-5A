@@ -6,19 +6,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="bodyPanel" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="750.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GestionLogiciel">
+<AnchorPane fx:id="bodyPanel" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="750.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.GestionLogiciel">
   <children>
     <Button layoutX="362.0" layoutY="25.0" mnemonicParsing="false" onAction="#displayAddLogiciel" prefHeight="21.0" prefWidth="181.0" text="Ajouter des logiciels" />
-    <TableView fx:id="tableViewLogiciel" layoutX="29.0" layoutY="178.0" prefHeight="492.0" prefWidth="842.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="29.0">
+    <TableView fx:id="tableViewLogiciel" prefHeight="492.0" prefWidth="842.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="29.0">
       <columns>
-        <TableColumn fx:id="columnLibelle" maxWidth="5000.0" minWidth="10.0" prefWidth="238.0" text="Nom logiciel" />
-        <TableColumn fx:id="columnLicenceNumber" maxWidth="5000.0" minWidth="10.0" prefWidth="232.0" text="N° licence" />
-        <TableColumn fx:id="columnPrix" maxWidth="5000.0" minWidth="10.0" prefWidth="165.0" text="Prix licence (€)" />
-        <TableColumn fx:id="columnModifier" maxWidth="5000.0" minWidth="10.0" prefWidth="83.0" text="Modifier" />
-        <TableColumn fx:id="columnSupprimer" maxWidth="5000.0" minWidth="10.0" prefWidth="118.0" text="Supprimer" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="238.0" text="Nom logiciel" fx:id="columnLibelle" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="232.0" text="N° licence" fx:id="columnLicenceNumber" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="165.0" text="Prix licence (€)" fx:id="columnPrix" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="83.0" text="Modifier" fx:id="columnModifier" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="118.0" text="Supprimer" fx:id="columnSupprimer" />
       </columns>
     </TableView>
-    <TextField fx:id="searchBar" layoutX="29.0" layoutY="134.0" prefHeight="31.0" prefWidth="842.0" promptText="Tapez votre recherche selon un critère ci-dessous." />
+    <TextField fx:id="searchBar" layoutY="134.0" prefHeight="31.0" prefWidth="842.0" promptText="Tapez votre recherche selon un critère ci-dessous." AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="29.0" />
     <Separator layoutY="75.0" prefWidth="900.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
     <Label layoutX="300.0" layoutY="91.0" text="Modifier/Supprimer des logiciels">
       <font>
