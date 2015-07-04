@@ -17,6 +17,11 @@ import model.TypeEquipement;
 import dao.EquipementDao;
 import dao.TypeEquipementDao;
 
+/**
+ * class controller for the interface GraphNbEquipementType.fxml
+ * @author Erwan LE GUYADER
+ * @version 1.0
+ */
 public class GraphNbEquipementType implements Initializable{
 
 	@FXML

@@ -27,7 +27,9 @@ import dao.TypeEquipementDao;
 
 /**
  * class controller for the interface GraphType.fxml
- * */
+ * @author Erwan LE GUYADER
+ * @version 1.0
+ */
 public class GraphType implements Initializable{
 
 	@FXML

@@ -57,7 +57,7 @@ public class Statistic implements Initializable{
 	
 	@FXML
 	private void nbEquipPoleGraph() throws IOException{
-		loader = new FXMLLoader(getClass().getResource("/view/GraphNbEquipPole.fxml"));
+		loader = new FXMLLoader(getClass().getResource("/view/GraphNbEquipementPole.fxml"));
 		ManipInterface.chargementBodyPanel(graphPanel, loader);
 	}
 	

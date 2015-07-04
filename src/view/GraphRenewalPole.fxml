@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="723.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.GraphRenewalPole">
+  <children>
+    <Label layoutX="659.0" layoutY="373.0" text="Année de début:" />
+    <Label layoutX="659.0" layoutY="433.0" text="Année de fin:" />
+    <ComboBox fx:id="cbSYear" onAction="#changeGap" layoutX="779.0" layoutY="371.0">
+      <items>
+        <FXCollections fx:id="sYear" fx:factory="observableArrayList">
+        </FXCollections>
+      </items>
+    </ComboBox>
+    <ComboBox fx:id="cbEYear" onAction="#changeGap" layoutX="779.0" layoutY="430.0">
+      <items>
+        <FXCollections fx:id="eYear" fx:factory="observableArrayList">
+        </FXCollections>
+      </items>
+    </ComboBox>
+    <StackedBarChart fx:id="renewalSBchart" layoutX="32.0" layoutY="157.0" prefHeight="525.0" prefWidth="604.0">
+      <xAxis>
+        <CategoryAxis side="BOTTOM" />
+      </xAxis>
+      <yAxis>
+        <NumberAxis side="LEFT" />
+      </yAxis>
+    </StackedBarChart>
+    <Button fx:id="bPrice" layoutX="711.0" layoutY="186.0" mnemonicParsing="false" onAction="#displayByPrice" prefWidth="93.0" text="Prix" />
+    <Button fx:id="bQuantity" layoutX="711.0" layoutY="232.0" mnemonicParsing="false" onAction="#displayByQuantity" prefWidth="93.0" text="Quantité" />
+    <Label layoutX="338.0" layoutY="112.0" text="Renouvellement à prévoir">
+      <font>
+        <Font name="System Bold" size="17.0" />
+      </font>
+    </Label>
+  </children>
+</AnchorPane>

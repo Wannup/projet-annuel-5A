@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,16 +15,17 @@ import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
 import model.Equipement;
-import model.TypeEquipement;
+import model.Pole;
 import dao.EquipementDao;
-import dao.TypeEquipementDao;
+import dao.PoleDao;
 
 /**
- * class controller for the interface GestionRenewal.fxml
+ * class controller for the interface GestionRenewalPole.fxml
  * @author Erwan LE GUYADER
  * @version 1.0
  */
-public class GraphRenewal implements Initializable{
+
+public class GraphRenewalPole implements Initializable{
 
 	@FXML
 	private StackedBarChart renewalSBchart;
@@ -46,18 +46,18 @@ public class GraphRenewal implements Initializable{
     final NumberAxis yAxis = new NumberAxis();
     final StackedBarChart<String, Number> sbc = new StackedBarChart<String, Number>(xAxis, yAxis);
     
-    private TypeEquipementDao typeEquipementDao;
+    private PoleDao poleDao;
     private EquipementDao equipementDao;
-    private List<TypeEquipement> lstTypeEquipement;
+    private List<Pole> lstPole;
     private String tGraph;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		this.typeEquipementDao = new TypeEquipementDao();
+		this.poleDao = new PoleDao();
 		this.equipementDao = new EquipementDao();
 		int year = Calendar.getInstance().get(Calendar.YEAR);
-		this.lstTypeEquipement = typeEquipementDao.findByAttributesLike(null);
+		this.lstPole = poleDao.findByAttributesLike(null);
 		
 		for(int i=year; i<year+20; i++){
 			sYear.add("" + (year + (year-i)));
@@ -84,12 +84,12 @@ public class GraphRenewal implements Initializable{
 		
 		xAxis.setCategories(FXCollections.<String>observableArrayList(gap));
 
-		for(int i = 0; i< this.lstTypeEquipement.size(); i++){
+		for(int i = 0; i< this.lstPole.size(); i++){
 			XYChart.Series<String, Number> type = new XYChart.Series<String, Number>();
-			type.setName(this.lstTypeEquipement.get(i).getNom());
+			type.setName(this.lstPole.get(i).getNom());
 			
 			for(int j=0; j<gap.size(); j++){
-				List<Equipement> equipementByYear = equipementDao.getEquipementByRenewalDateAndType(gap.get(j), this.lstTypeEquipement.get(i));
+				List<Equipement> equipementByYear = equipementDao.getEquipementByRenewalDateAndPole(gap.get(j), this.lstPole.get(i));
 				for(int k=0; k<equipementByYear.size(); k++){
 					type.getData().add(new XYChart.Data<String, Number>(gap.get(j), equipementByYear.get(k).getPrix()));
 				}
@@ -113,11 +113,11 @@ public class GraphRenewal implements Initializable{
 		
 		xAxis.setCategories(FXCollections.<String>observableArrayList(gap));
 		
-		for(int i = 0; i< this.lstTypeEquipement.size(); i++){
+		for(int i = 0; i< this.lstPole.size(); i++){
 			XYChart.Series<String, Number> type = new XYChart.Series<String, Number>();
-			type.setName(this.lstTypeEquipement.get(i).getNom());
+			type.setName(this.lstPole.get(i).getNom());
 			for(int j=0; j<gap.size(); j++){			
-				List<Equipement> equipementByYear = equipementDao.getEquipementByRenewalDateAndType(gap.get(j), this.lstTypeEquipement.get(i));
+				List<Equipement> equipementByYear = equipementDao.getEquipementByRenewalDateAndPole(gap.get(j), this.lstPole.get(i));
 				if(equipementByYear.size() != 0){
 					type.getData().add(new XYChart.Data<String, Number>(gap.get(j), equipementByYear.size()));
 				}

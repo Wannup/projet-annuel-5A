@@ -122,7 +122,7 @@ public class EquipementDao extends AbstractDao<Equipement>{
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public List<Equipement> getEquipementByRenewalDateAndPole(String date, Agent agent) {
+	public List<Equipement> getEquipementByRenewalDateAndPole(String date, Pole pole) {
 
 		List<Equipement> results;
 		CriteriaBuilder cb = DatabaseConnection.em.getCriteriaBuilder();
@@ -133,7 +133,7 @@ public class EquipementDao extends AbstractDao<Equipement>{
 	
 		predicates.add(
 				cb.and(cb.like(cb.lower((Expression) table.get("renewalDate")), "%"+ date.toLowerCase() + "%"), 
-						cb.equal(table.get("agent"), agent)));
+						cb.equal(table.get("pole"), pole)));
 
 		
 		cq.where(predicates.toArray(new Predicate[] {}));

@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
- * Pole est la classe représentant un pôle.
+ * Pole est la classe reprÃ©sentant un pÃ´le.
  * 
  * @version 1.0
  */
@@ -19,7 +19,7 @@ public class Pole {
 	private String nom;
 	
 	/**
-	 * Constructeur par défaut
+	 * Constructeur par dÃ©faut
 	 */
 	public Pole(){}
 	
@@ -27,35 +27,35 @@ public class Pole {
 	 * Constructeur pole
 	 *
 	 * @param nom
-	 *     nom du pôle
+	 *     nom du pÃ´le
 	 */
 	public Pole(String nom) {
 		this.nom = nom;
 	}
 	
 	/**
-     * Retourne l'identifiant du pôle.
+     * Retourne l'identifiant du pÃ´le.
      * 
-     * @return un entier correspondant à l'identifiant du pôle.
+     * @return un entier correspondant Ã  l'identifiant du pÃ´le.
     */
 	public int getId () {
 		return this.idPole;
 	}
 
 	/**
-     * Retourne le nom du pôle.
+     * Retourne le nom du pÃ´le.
      * 
-     * @return une chaine de caractère correspondant au nom du pôle.
+     * @return une chaine de caractÃ¨re correspondant au nom du pÃ´le.
     */
 	public String getNom() {
 		return nom;
 	}
 
 	/**
-	* Affecte un nouveau nom au pôle
+	* Affecte un nouveau nom au pÃ´le
 	*
 	* @param nom
-	*     nom du pôle
+	*     nom du pÃ´le
 	*     
 	*/
 	public void setNom(String nom) {
@@ -63,9 +63,9 @@ public class Pole {
 	}
 	
 	/**
-     * Retourne un pôle sous forme de chaine.
+     * Retourne un pÃ´le sous forme de chaine.
      * 
-     * @return une chaine de caractère correspondant au pôle.
+     * @return une chaine de caractÃ¨re correspondant au pÃ´le.
      */
 	@Override
 	public String toString() {
