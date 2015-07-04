@@ -9,7 +9,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 /**
  * ExcelGenerator est la classe permettant de générer un fichier excel.
- * 
+ * @author: Mike FIARI
  * @version 1.0
  */
 public class ExcelGenerator {

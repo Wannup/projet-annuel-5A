@@ -10,6 +10,11 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * Class ManipInterface.
+ * @author Mike FIARI
+ * @version 1.0
+ */
 public class ManipInterface {
 	
 	public static void chargementBodyPanel(AnchorPane bodyPanel, FXMLLoader loader) throws IOException{

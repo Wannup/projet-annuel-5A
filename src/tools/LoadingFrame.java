@@ -11,6 +11,11 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
+/**
+ * Class LoadingFrame.
+ * @author Mike FIARI
+ * @version 1.0
+ */
 public class LoadingFrame {
 	
 	public final static int PROGRESS_INDICATOR = 1;

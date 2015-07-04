@@ -29,7 +29,7 @@ import dao.TypeEquipementDao;
 
 /**
  * ExcelEquipementImport est la classe permettant d'importer des équipements depuis un fichier excel.
- * 
+ * @author: Mike FIARI
  * @version 1.0
  */
 public class ExcelEquipementImport extends ExcelDataImport {

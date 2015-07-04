@@ -23,7 +23,9 @@ import dao.PoleDao;
 
 /**
  * class controller for the interface PolePopup.fxml
- * */
+ * @author Charly FAROT
+ * @version 1.0
+ */
 public class PolePopup implements Initializable{
 
 	@FXML

@@ -12,7 +12,7 @@ import org.apache.poi.ss.usermodel.Cell;
 
 /**
  * ExcelLogicielListExport est la classe permettant d'exporter une liste de logiciel au format excel.
- * 
+ * @author: Mike FIARI
  * @version 1.0
  */
 public class ExcelLogicielListExport extends ExcelDataExport {

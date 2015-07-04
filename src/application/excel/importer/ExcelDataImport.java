@@ -4,7 +4,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 /**
  * ExcelDataImport est la classe abstraite permettant d'importer des fichiers excel.
- * 
+ * @author: Mike FIARI
  * @version 1.0
  */
 abstract public class ExcelDataImport {

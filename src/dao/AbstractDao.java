@@ -13,6 +13,11 @@ import javax.persistence.criteria.Root;
 
 import application.database.DatabaseConnection;
 
+/**
+ * class AbstractDao
+ * @author Charly FAROT
+ * @version 1.0
+ */
 public abstract class AbstractDao<T> {
 
 	private Class<T> entityClass;

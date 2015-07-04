@@ -27,7 +27,7 @@ import javafx.util.Duration;
 
 /**
  * Main est la classe principal qui permet de lancer l'apllication.
- * 
+ * @author: Erwan LE GUYADER
  * @version 1.0
  */
 public class Main extends Application {
@@ -116,6 +116,7 @@ public class Main extends Application {
 			primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("../res/icon-sncf.jpg")));
 			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
+			primaryStage.setResizable(true);
 			primaryStage.show();
 			primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 		        @Override

@@ -5,8 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
- * Logiciel est la classe reprï¿½sentant un logiciel.
- * 
+ * Logiciel est la classe reprÃ©sentant un logiciel.
+ * @author Erwan LE GUYADER
  * @version 1.0
  */
 @Entity
@@ -25,7 +25,7 @@ public class Logiciel {
 	private String dateEndValidityLicence;
 
 	/**
-	 * Constructeur par défaut
+	 * Constructeur par dÃ©faut
 	 */
 	public Logiciel(){}
 	
@@ -51,7 +51,7 @@ public class Logiciel {
 	/**
      * Retourne l'identifiant du logiciel.
      * 
-     * @return un entier correspondant à l'identifiant du logiciel.
+     * @return un entier correspondant Ã  l'identifiant du logiciel.
     */
 	public int getId () {
 		return idLogiciel;
@@ -60,7 +60,7 @@ public class Logiciel {
 	/**
      * Retourne le nom du logiciel.
      * 
-     * @return une chaine de caractère correspondant au nom du logiciel.
+     * @return une chaine de caractÃ¨re correspondant au nom du logiciel.
     */
 	public String getNom() {
 		return nom;

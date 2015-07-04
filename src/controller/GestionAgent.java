@@ -55,6 +55,8 @@ import dao.AgentDao;
 
 /**
  * class controller for the interface GestionAgent.fxml
+ * @author: Charly Farot
+ * @version 1.0
  * */
 public class GestionAgent implements Initializable {
 

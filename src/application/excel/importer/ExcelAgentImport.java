@@ -21,7 +21,7 @@ import dao.PoleDao;
 
 /**
  * ExcelAgentImport est la classe permettant d'importer des agents depuis un fichier excel.
- * 
+ * @author: Mike FIARI
  * @version 1.0
  */
 public class ExcelAgentImport extends ExcelDataImport {

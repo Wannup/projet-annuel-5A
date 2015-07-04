@@ -6,7 +6,7 @@ import javax.persistence.Persistence;
 
 /**
  * DatabaseConnection est la classe permettant d'instancier et fermer une connexion à la base de données.
- * 
+ * @author: Mike FIARI
  * @version 1.0
  */
 public class DatabaseConnection {

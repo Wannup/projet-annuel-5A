@@ -16,6 +16,11 @@ import model.Pole;
 import model.TypeEquipement;
 import application.database.DatabaseConnection;
 
+/**
+ * class EquipementDao
+ * @author Charly FAROT
+ * @version 1.0
+ */
 public class EquipementDao extends AbstractDao<Equipement>{
 	public EquipementDao() {
 		super(Equipement.class);

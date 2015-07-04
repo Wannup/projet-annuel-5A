@@ -13,6 +13,11 @@ import javax.persistence.criteria.Root;
 import model.TypeEquipement;
 import application.database.DatabaseConnection;
 
+/**
+ * class TypeEquipementDao
+ * @author Charly FAROT
+ * @version 1.0
+ */
 public class TypeEquipementDao extends AbstractDao<TypeEquipement> {
 
 	public TypeEquipementDao() {

@@ -9,7 +9,7 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 /**
  * ExcelImport est la classe permettant d'importer des fichiers excel.
- * 
+ * @author: Mike FIARI
  * @version 1.0
  */
 public class ExcelImport {

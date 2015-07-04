@@ -5,8 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
- * TypeEquipement est la classe représentant un type d'équipement.
- * 
+ * TypeEquipement est la classe reprï¿½sentant un type d'ï¿½quipement.
+ * @author Charly FAROT
  * @version 1.0
  */
 @Entity
@@ -20,7 +20,7 @@ public class TypeEquipement {
 	private int nbYearRenewal;
 	
 	/**
-	 * Constructeur par défaut
+	 * Constructeur par dï¿½faut
 	 */
 	public TypeEquipement(){}
 	

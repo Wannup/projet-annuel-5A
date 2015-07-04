@@ -13,6 +13,11 @@ import javax.persistence.criteria.Root;
 import model.Pole;
 import application.database.DatabaseConnection;
 
+/**
+ * class PoleDao
+ * @author Charly FAROT
+ * @version 1.0
+ */
 public class PoleDao extends AbstractDao<Pole>{
 	public PoleDao() {
 		super(Pole.class);

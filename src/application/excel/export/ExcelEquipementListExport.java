@@ -12,7 +12,7 @@ import org.apache.poi.ss.usermodel.Cell;
 
 /**
  * ExcelEquipementListExport est la classe permettant d'exporter une liste d'equipement au format excel.
- * 
+ * @author: Mike FIARI
  * @version 1.0
  */
 public class ExcelEquipementListExport extends ExcelDataExport {

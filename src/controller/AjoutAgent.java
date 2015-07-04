@@ -27,7 +27,9 @@ import dao.PoleDao;
 
 /**
  * class controller for the interfaces AjoutAgent.fxml and AjoutAgentPopup.fxml
- */
+ * @author: Erwan LE GUYADER
+ * @version 1.0
+ * */
 public class AjoutAgent implements Initializable{
 	
 	@FXML

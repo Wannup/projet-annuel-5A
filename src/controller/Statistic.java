@@ -13,7 +13,9 @@ import tools.ManipInterface;
 
 /**
  * class controller for the interface StatEtPrevision.fxml
- * */
+ * @author Erwan LE GUYADER
+ * @version 1.0
+ */
 public class Statistic implements Initializable{
 
 	@FXML 

@@ -12,6 +12,8 @@ import model.Logiciel;
 
 /**
  * class controller for the interface EditLogiciel.fxml
+ * @author: Erwan LE GUYADER
+ * @version 1.0
  * */
 public class EditLogiciel implements Initializable{
 	

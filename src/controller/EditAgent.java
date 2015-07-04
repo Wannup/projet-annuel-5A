@@ -16,6 +16,8 @@ import dao.PoleDao;
 
 /**
  * class controller for the interface EditAgent.fxml
+ * @author: Erwan LE GUYADER
+ * @version 1.0
  * */
 public class EditAgent implements Initializable{
 	

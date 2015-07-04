@@ -17,7 +17,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 /**
  * PDFEquipementListExport est la classe permettant d'exporter une liste équipement au format PDF.
- * 
+ * @author: Mike FIARI
  * @version 1.0
  */
 public class PDFEquipementListExport extends PDFDataExport {

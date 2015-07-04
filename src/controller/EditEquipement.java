@@ -40,6 +40,8 @@ import dao.TypeEquipementDao;
 
 /**
  * class controller for the interface EditEquipement.fxml
+ * @author: Erwan LE GUYADER
+ * @version 1.0
  * */
 public class EditEquipement implements Initializable{
 	

@@ -8,6 +8,11 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+/**
+ * Class Zip.
+ * @author Mike FIARI
+ * @version 1.0
+ */
 public class Zip {
 
 	public void zipFolder(String srcFolder, File destZipFile) throws Exception {

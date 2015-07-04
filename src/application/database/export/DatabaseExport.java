@@ -6,9 +6,10 @@ import tools.Zip;
 
 /**
  * DatabaseExport est la classe permettant d'exporter la base de données en zip.
- * 
+ * @author: Mike FIARI
  * @version 1.0
  */
+
 public class DatabaseExport {
 	
 	/**

@@ -18,7 +18,10 @@ import application.database.importer.DatabaseImport;
 
 /**
  * class controller for the interface Accueil.fxml
+ * @author: Erwan LE GUYADER
+ * @version 1.0
  * */
+
 public class Accueil implements Initializable{
 
 	@FXML

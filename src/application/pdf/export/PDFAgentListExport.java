@@ -17,7 +17,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 /**
  * PDFAgentListExport est la classe permettant d'exporter une liste d'agent au format PDF.
- * 
+ * @author: Mike FIARI
  * @version 1.0
  */
 public class PDFAgentListExport extends PDFDataExport {

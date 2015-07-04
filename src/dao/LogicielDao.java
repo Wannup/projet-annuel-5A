@@ -13,6 +13,11 @@ import javax.persistence.criteria.Root;
 import application.database.DatabaseConnection;
 import model.Logiciel;
 
+/**
+ * class LogicielDao
+ * @author Charly FAROT
+ * @version 1.0
+ */
 public class LogicielDao extends AbstractDao<Logiciel>{
 
 	public LogicielDao(){

@@ -55,6 +55,8 @@ import dao.LogicielDao;
 
 /**
  * class controller for the interface GestionLogiciel.fxml
+ * @author: Charly Farot
+ * @version 1.0
  * */
 public class GestionLogiciel implements Initializable {
 

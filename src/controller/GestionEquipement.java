@@ -55,6 +55,8 @@ import dao.EquipementDao;
 
 /**
  * class controller for the interface GestionEquipement.fxml
+ * @author: Charly Farot
+ * @version 1.0
  * */
 public class GestionEquipement implements Initializable{
 

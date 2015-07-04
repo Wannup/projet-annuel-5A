@@ -13,6 +13,11 @@ import javax.persistence.criteria.Root;
 import model.Agent;
 import application.database.DatabaseConnection;
 
+/**
+ * class AgentDao
+ * @author Charly FAROT
+ * @version 1.0
+ */
 public class AgentDao extends AbstractDao<Agent> {
 
 	public AgentDao() {

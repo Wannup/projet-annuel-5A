@@ -8,6 +8,11 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Class config.
+ * @author Mike FIARI
+ * @version 1.0
+ */
 public class Config {
     
     public static String getPropertie (String property) {

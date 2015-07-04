@@ -22,7 +22,9 @@ import application.pdf.export.PDFGenerator;
 
 /**
  * class controller for the interface InformationEquipementPopup.fxml
- * */
+ * @author Erwan LE GUYADER
+ * @version 1.0
+ */
 public class InformationEquipement implements Initializable{
 
 	@FXML

@@ -22,6 +22,8 @@ import tools.TransformationDonnees;
 
 /**
  * class controller for the interface AjoutEquipement.fxml
+ * @author: Erwan LE GUYADER
+ * @version 1.0
  * */
 public class AjoutEquipement extends EditEquipement implements Initializable{
 	

@@ -24,7 +24,9 @@ import dao.TypeEquipementDao;
 
 /**
  * class controller for the interface TypeEquipementPopup.fxml
- * */
+ * @author Charly FAROT
+ * @version 1.0
+ */
 public class TypeEquipementPopup implements Initializable{
 
 	@FXML

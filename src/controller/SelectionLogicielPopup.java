@@ -27,7 +27,9 @@ import dao.LogicielDao;
 
 /**
  * class controller for the interface SelectionLogicielPopup.fxml
- * */
+ * @author Charly FAROT
+ * @version 1.0
+ */
 public class SelectionLogicielPopup implements Initializable{
 
 	@FXML

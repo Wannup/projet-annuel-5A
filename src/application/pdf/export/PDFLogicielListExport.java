@@ -17,7 +17,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 /**
  * PDFLogicielListExport est la classe permettant d'exporter une liste de logiciel au format PDF.
- * 
+ * @author: Mike FIARI
  * @version 1.0
  */
 public class PDFLogicielListExport extends PDFDataExport {

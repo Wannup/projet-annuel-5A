@@ -28,7 +28,9 @@ import dao.AgentDao;
 
 /**
  * class controller for the interface SelectionAgentPopup.fxml
- * */
+ * @author Charly FAROT
+ * @version 1.0
+ */
 public class SelectionAgentPopup implements Initializable{
 
 	@FXML

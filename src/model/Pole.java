@@ -6,7 +6,7 @@ import javax.persistence.Id;
 
 /**
  * Pole est la classe représentant un pôle.
- * 
+ * @author Erwan LE GUYADER
  * @version 1.0
  */
 @Entity

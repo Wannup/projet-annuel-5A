@@ -19,7 +19,7 @@ import dao.LogicielDao;
 
 /**
  * ExcelLogicielImport est la classe permettant d'importer des logiciels depuis un fichier excel.
- * 
+ * @author: Mike FIARI
  * @version 1.0
  */
 public class ExcelLogicielImport extends ExcelDataImport {

@@ -6,7 +6,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 /**
  * PDFDataExport est la classe abstraite permettant d'exporter un fichier PDF.
- * 
+ * @author: Mike FIARI
  * @version 1.0
  */
 abstract public class PDFDataExport {
