@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
- * TypeEquipement est la classe repr�sentant un type d'�quipement.
  * @author Charly FAROT
  * @version 1.0
  */
@@ -28,10 +27,10 @@ public class TypeEquipement {
 	 * Constructeur pole
 	 *
 	 * @param nomType
-	 *     nom du type d'�quipement
+	 *     nom du type d'équipement
 	 *     
 	 *  @param nbYear
-	 *     nombre de mois par d�faut pour le renouvellement de ce type d'�quipement 
+	 *     nombre de mois par d�faut pour le renouvellement de ce type d'équipement 
 	 */
 	public TypeEquipement(String nomType, int nbYear) {
 		nom = nomType;
@@ -39,28 +38,28 @@ public class TypeEquipement {
 	}
 	
 	/**
-     * Retourne l'identifiant du type d'�quipement.
+     * Retourne l'identifiant du type d'équipement.
      * 
-     * @return un entier correspondant � l'identifiant du type d'�quipement.
+     * @return un entier correspondant à l'identifiant du type d'équipement.
     */
 	public int getId () {
 		return idType;
 	}
 
 	/**
-     * Retourne le nom du type d'�quipement.
+     * Retourne le nom du type d'équipement.
      * 
-     * @return une chaine de caract�re correspondant au nom du type d'�quipement.
+     * @return une chaine de caractère correspondant au nom du type d'équipement.
     */
 	public String getNom() {
 		return nom;
 	}
 
 	/**
-	* Affecte un nouveau nom au type d'�quipement
+	* Affecte un nouveau nom au type d'équipement
 	*
 	* @param nomType
-	*     nom du type d'�quipement
+	*     nom du type d'équipement
 	*     
 	*/
 	public void setNom(String nomType) {
@@ -68,7 +67,7 @@ public class TypeEquipement {
 	}
 	
 	/**
-     * Retourne le nombre de mois pour le renouvellement de ce type d'�quipement.
+     * Retourne le nombre de mois pour le renouvellement de ce type d'équipement.
      * 
      * @return un entier.
     */
@@ -77,10 +76,10 @@ public class TypeEquipement {
 	}
 
 	/**
-	* Affecte une nouvelle dur�e de renouvellement au type d'�quipement
+	* Affecte une nouvelle durée de renouvellement au type d'équipement
 	*
 	* @param nbYearRenewalType
-	*     nombre de mois par d�faut pour le renouvellement de ce type d'�quipement
+	*     nombre de mois par défaut pour le renouvellement de ce type d'équipement
 	*     
 	*/
 	public void setNbYearRenewal(int nbYearRenewalType) {
@@ -88,9 +87,9 @@ public class TypeEquipement {
 	}
 
 	/**
-     * Retourne un type d'�quipement sous forme de chaine.
+     * Retourne un type d'équipement sous forme de chaine.
      * 
-     * @return une chaine de caract�re correspondant au type d'�quipement.
+     * @return une chaine de caractère correspondant au type d'équipement.
      */
 	@Override
 	public String toString() {

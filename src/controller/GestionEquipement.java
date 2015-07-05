@@ -42,6 +42,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import model.Agent;
 import model.Equipement;
 import tools.LoadingFrame;
 import tools.ManipInterface;
@@ -51,11 +52,12 @@ import application.excel.importer.ExcelEquipementImport;
 import application.excel.importer.ExcelImport;
 import application.pdf.export.PDFEquipementListExport;
 import application.pdf.export.PDFGenerator;
+import dao.AgentDao;
 import dao.EquipementDao;
 
 /**
  * class controller for the interface GestionEquipement.fxml
- * @author: Charly Farot
+ * @author: Charly FAROT
  * @version 1.0
  * */
 public class GestionEquipement implements Initializable{
@@ -100,6 +102,7 @@ public class GestionEquipement implements Initializable{
 	
 	private List<Equipement> listEquipement;
 	private EquipementDao equipementDao;
+	private AgentDao agentDao;
 	
 	private ObservableList<Equipement> itemsEquipement;
 	private  FilteredList<Equipement> filteredData;
@@ -110,6 +113,8 @@ public class GestionEquipement implements Initializable{
 		
 		listEquipement = new ArrayList<Equipement>();
 		equipementDao = new EquipementDao();
+		agentDao = new AgentDao();
+		
 		fieldRefresh.setVisible(false);
 		
 		columnPole.setCellValueFactory(new Callback<CellDataFeatures<Equipement, String>, ObservableValue<String>>() {
@@ -268,11 +273,16 @@ public class GestionEquipement implements Initializable{
 				                    	Alert alert = new Alert(AlertType.CONFIRMATION);
 				                    	alert.setTitle("Suppression equipement");
 				                    	alert.setHeaderText("Confirmation");
-				                    	alert.setContentText("Voulez-vous vraiment supprimer cet �quipement ?");
+				                    	alert.setContentText("Voulez-vous vraiment supprimer cet équipement ?");
 	
 				                    	Optional<ButtonType> result = alert.showAndWait();
 				                    	if (result.get() == ButtonType.OK){
-				                    	    equipementDao.remove(equipement);
+				                    		if(equipement.getAgent() != null){
+				                    			Agent agent = equipement.getAgent();
+				                    			agent.getEquipements().remove(equipement);
+				                    			agentDao.update(agent);
+				                    		}	
+				                    		equipementDao.remove(equipement);	
 				                    		refreshTable();
 				                    	} 
 				                    }

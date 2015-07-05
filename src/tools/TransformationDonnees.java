@@ -5,7 +5,7 @@ import javafx.scene.control.TextField;
 
 /**
  * Class TransformationDonnees.
- * @author Mike FIARI
+ * @author Charly FAROT
  * @version 1.0
  */
 public class TransformationDonnees {
