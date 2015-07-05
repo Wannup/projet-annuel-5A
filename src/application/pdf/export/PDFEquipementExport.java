@@ -34,7 +34,7 @@ public class PDFEquipementExport extends PDFDataExport {
 	public void write(Document document, PdfWriter writer) throws DocumentException {
 		Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
 		
-		Paragraph title = new Paragraph("Information", catFont);
+		Paragraph title = new Paragraph("Fiche équipement", catFont);
 		title.setAlignment(Element.ALIGN_CENTER);
 		
 		document.add(title);
