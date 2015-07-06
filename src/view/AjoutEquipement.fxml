@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="bodyPanel" prefHeight="820.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AjoutEquipement">
+<AnchorPane fx:id="bodyPanel" prefHeight="820.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.AjoutEquipement">
   <children>
     <Label layoutX="373.0" layoutY="85.0" text="Nouvel équipement">
       <font>
@@ -39,8 +39,7 @@
     <Label layoutX="672.0" layoutY="472.0" text="Autres informations" />
     <Label layoutX="506.0" layoutY="201.0" text="Date livraison" />
     <TextField fx:id="numCPAgent" editable="false" layoutX="188.0" layoutY="373.0" prefHeight="31.0" prefWidth="200.0" />
-    <Button layoutX="308.0" layoutY="410.0" mnemonicParsing="false" onAction="#ajoutAgent" text="Nouveau" />
-    <Button layoutX="188.0" layoutY="410.0" mnemonicParsing="false" onAction="#selectAgent" text="Selection" />
+    <Button layoutX="319.0" layoutY="410.0" mnemonicParsing="false" onAction="#selectAgent" text="Selection" />
     <ListView fx:id="lstLogiciel" layoutX="188.0" layoutY="511.0" prefHeight="108.0" prefWidth="200.0" />
     <Label layoutX="86.0" layoutY="521.0" text="Logiciels" />
     <Button layoutX="395.0" layoutY="516.0" mnemonicParsing="false" onAction="#selectLogiciels" text="Selection" />
@@ -60,6 +59,6 @@
     <Separator layoutY="345.0" prefHeight="3.0" prefWidth="900.0" />
     <Separator layoutX="4.0" layoutY="462.0" prefWidth="900.0" />
     <Button layoutX="849.0" layoutY="379.0" mnemonicParsing="false" onAction="#addPole" text="+" />
-      <Label layoutX="71.0" layoutY="665.0" text="*: obligatoire" />
+    <Label layoutX="71.0" layoutY="665.0" text="*: obligatoire" />
   </children>
 </AnchorPane>

@@ -113,7 +113,7 @@ public class Main extends Application {
 			Scene scene = new Scene(root);
 			primaryStage = new Stage();
 			primaryStage.setTitle("LGPI SNCF");
-			primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("../res/icon-sncf.jpg")));
+			primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/res/icon-sncf.jpg")));
 			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(true);
