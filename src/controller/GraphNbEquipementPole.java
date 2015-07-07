@@ -87,7 +87,7 @@ public class GraphNbEquipementPole implements Initializable{
 	private void exportGraph() throws IOException {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("PNG", "*.png"));
-		fileChooser.setInitialFileName("Nombre d'équipement par type");
+		fileChooser.setInitialFileName("Nombre d'équipement par pôle");
         fileChooser.setTitle("Enregister graphique");
         File file;
         file = fileChooser.showSaveDialog(bodyPanel.getParent().getScene().getWindow());

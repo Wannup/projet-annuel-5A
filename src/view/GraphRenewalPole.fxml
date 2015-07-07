@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="723.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.GraphRenewalPole">
+<AnchorPane fx:id="bodyPanel" prefHeight="723.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.GraphRenewalPole">
   <children>
     <Label layoutX="659.0" layoutY="373.0" text="Année de début:" />
     <Label layoutX="659.0" layoutY="433.0" text="Année de fin:" />
@@ -39,5 +39,6 @@
         <Font name="System Bold" size="17.0" />
       </font>
     </Label>
+    <Button layoutX="400.0" layoutY="700.0" mnemonicParsing="false" onAction="#exportGraph" text="Exporter" />
   </children>
 </AnchorPane>
