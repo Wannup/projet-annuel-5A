@@ -22,6 +22,7 @@
                 <TextField fx:id="textFieldDatabaseLocation" layoutX="241.0" layoutY="104.0" prefWidth="200.0" />
                 <TextField fx:id="textFieldDatabaseUser" layoutX="241.0" layoutY="171.0" prefWidth="200.0" />
                 <TextField fx:id="textFieldDatabasePassword" layoutX="241.0" layoutY="237.0" prefWidth="200.0" />
+                      <Button layoutX="202.0" layoutY="306.0" mnemonicParsing="false" onAction="#saveConfig" text="Enregistrement" />
               </children>
             </AnchorPane>
           </content>
@@ -58,6 +59,5 @@
             </Tab>
       </tabs>
     </TabPane>
-    <Button layoutX="191.0" layoutY="442.0" mnemonicParsing="false" onAction="#saveConfig" text="Enregistrement" />
   </children>
 </AnchorPane>

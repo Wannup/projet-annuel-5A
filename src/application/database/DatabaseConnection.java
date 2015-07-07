@@ -33,6 +33,7 @@ public class DatabaseConnection {
     	configurationBdd.put("javax.persistence.jdbc.url", Config.getProperty("javax.persistence.jdbc.url"));
     	configurationBdd.put("javax.persistence.jdbc.user", Config.getProperty("javax.persistence.jdbc.user"));
     	configurationBdd.put("javax.persistence.jdbc.password", Config.getProperty("javax.persistence.jdbc.password"));
+    	
     	emf = Persistence.createEntityManagerFactory("lgpiPersistence", configurationBdd);
     	em = emf.createEntityManager();
     	

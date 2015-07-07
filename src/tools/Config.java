@@ -17,14 +17,14 @@ public class Config {
 	
 	private static Properties prop;
 	private static String propFileName = "config.properties";
+	private static String propFileNameDefault = "configDefault.properties";
     
     public static String getProperty (String property) {
     	
-    	if(prop != null)
-    		return prop.getProperty(property);
+    	prop = new Properties();
     	
         try {
-            prop = new Properties();
+            
             FileInputStream inputStream = null;
             try {
                 inputStream = new FileInputStream(propFileName);
@@ -62,4 +62,20 @@ public class Config {
     	return true;
     }
 
+    public static void goToDefaultConfig(){
+    	  try {
+              
+    		FileInputStream in = new FileInputStream(propFileNameDefault);
+  	    	Properties props = new Properties();
+  	    	props.load(in);
+  	    	in.close();
+            
+  	    	FileOutputStream out = new FileOutputStream(propFileName);
+  	    	props.store(out, null);
+  	    	out.close();
+  	    	
+          } catch (IOException exception) {
+            
+          }
+    }
 }

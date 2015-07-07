@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import application.database.DatabaseConnection;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -76,10 +77,7 @@ public class Configuration implements Initializable {
 		listType.setItems(FXCollections.observableArrayList(typeEquipementDao.findByAttributesLike(null)));
 		listPole.setItems(FXCollections.observableArrayList(poleDao.findByAttributesLike(null)));
 		
-		textFieldDatabaseDriver.setText(Config.getProperty("javax.persistence.jdbc.driver"));
-		textFieldDatabaseLocation.setText(Config.getProperty("javax.persistence.jdbc.url"));
-		textFieldDatabaseUser.setText(Config.getProperty("javax.persistence.jdbc.user"));
-		textFieldDatabasePassword.setText(Config.getProperty("javax.persistence.jdbc.password"));
+		getConfigurationBdd();
 		
 		listType.setOnMouseClicked(new EventHandler<MouseEvent>() {
 		    @Override
@@ -108,13 +106,46 @@ public class Configuration implements Initializable {
 		    }
 		});
 	}
+
+	private void getConfigurationBdd() {
+		textFieldDatabaseDriver.setText(Config.getProperty("javax.persistence.jdbc.driver"));
+		textFieldDatabaseLocation.setText(Config.getProperty("javax.persistence.jdbc.url"));
+		textFieldDatabaseUser.setText(Config.getProperty("javax.persistence.jdbc.user"));
+		textFieldDatabasePassword.setText(Config.getProperty("javax.persistence.jdbc.password"));
+	}
 	
 	@FXML
 	private void saveConfig(){
-		Config.modifyProperties("javax.persistence.jdbc.driver", textFieldDatabaseDriver.getText());
-		Config.modifyProperties("javax.persistence.jdbc.url", textFieldDatabaseLocation.getText());
-		Config.modifyProperties("javax.persistence.jdbc.user", textFieldDatabaseUser.getText());
-		Config.modifyProperties("javax.persistence.jdbc.password", textFieldDatabasePassword.getText());
+		
+		if(!textFieldDatabaseDriver.getText().trim().equals("") && !textFieldDatabaseLocation.getText().trim().equals("") && !textFieldDatabaseUser.getText().trim().equals("")){
+			Config.modifyProperties("javax.persistence.jdbc.driver", textFieldDatabaseDriver.getText().trim());
+			Config.modifyProperties("javax.persistence.jdbc.url", textFieldDatabaseLocation.getText().trim());
+			Config.modifyProperties("javax.persistence.jdbc.user", textFieldDatabaseUser.getText().trim());
+			Config.modifyProperties("javax.persistence.jdbc.password", textFieldDatabasePassword.getText().trim());
+			
+			DatabaseConnection.closeConnection();
+			
+			try{		
+				DatabaseConnection.startConnection();
+			}
+	    	catch(Exception e){
+	    		Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Mauvaise configuration de la base de données");
+				alert.setContentText("Vérifier le paramétrage de la base de données. \n (Retour au paramétrage par défaut)");
+				alert.showAndWait();
+				
+				Config.goToDefaultConfig();
+				getConfigurationBdd();
+				DatabaseConnection.startConnection();
+	    	}
+		}
+		else{
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erreur changement configuration");
+			alert.setContentText("Seul le mot de passe peut ne pas être renseigné.");
+			alert.showAndWait();
+		}
+		
 	}
 	
 	@FXML
