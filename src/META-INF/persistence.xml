@@ -4,12 +4,8 @@
   <persistence-unit name="lgpiPersistence" transaction-type="RESOURCE_LOCAL">
   <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver" />
-      <property name="javax.persistence.jdbc.url"    value="jdbc:hsqldb:file:database/lgpi" />
-      <property name="javax.persistence.jdbc.user" value="lgpi" />
-      <property name="javax.persistence.jdbc.password" value="lgpi" />
       <property name="eclipselink.ddl-generation" value="create-tables" />
-      <property name="eclipselink.ddl-generation.output-mode" value="database" />
+      <property name="eclipselink.ddl-generation.output-mode" value="database" /> 
     </properties>
   </persistence-unit>
-</persistence>
+</persistence> 

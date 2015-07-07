@@ -76,10 +76,10 @@ public class Configuration implements Initializable {
 		listType.setItems(FXCollections.observableArrayList(typeEquipementDao.findByAttributesLike(null)));
 		listPole.setItems(FXCollections.observableArrayList(poleDao.findByAttributesLike(null)));
 		
-		textFieldDatabaseDriver.setText(Config.getPropertie("db_driver"));
-		textFieldDatabaseLocation.setText(Config.getPropertie("db_location"));
-		textFieldDatabaseUser.setText(Config.getPropertie("db_user"));
-		textFieldDatabasePassword.setText(Config.getPropertie("db_password"));
+		textFieldDatabaseDriver.setText(Config.getProperty("javax.persistence.jdbc.driver"));
+		textFieldDatabaseLocation.setText(Config.getProperty("javax.persistence.jdbc.url"));
+		textFieldDatabaseUser.setText(Config.getProperty("javax.persistence.jdbc.user"));
+		textFieldDatabasePassword.setText(Config.getProperty("javax.persistence.jdbc.password"));
 		
 		listType.setOnMouseClicked(new EventHandler<MouseEvent>() {
 		    @Override
@@ -111,10 +111,10 @@ public class Configuration implements Initializable {
 	
 	@FXML
 	private void saveConfig(){
-		Config.modifyProperties("db_driver", textFieldDatabaseDriver.getText());
-		Config.modifyProperties("db_location", textFieldDatabaseLocation.getText());
-		Config.modifyProperties("db_user", textFieldDatabaseUser.getText());
-		Config.modifyProperties("db_password", textFieldDatabasePassword.getText());
+		Config.modifyProperties("javax.persistence.jdbc.driver", textFieldDatabaseDriver.getText());
+		Config.modifyProperties("javax.persistence.jdbc.url", textFieldDatabaseLocation.getText());
+		Config.modifyProperties("javax.persistence.jdbc.user", textFieldDatabaseUser.getText());
+		Config.modifyProperties("javax.persistence.jdbc.password", textFieldDatabasePassword.getText());
 	}
 	
 	@FXML

@@ -6,7 +6,7 @@
 	<classpathentry exported="true" kind="lib" path="lib/hsqldb.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/poi-3.11-20141221.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/itextpdf-5.5.5.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/eclipselink-2.6.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/hibernate-jpa-2.0-api-1.0.1.Final.jar"/>
+	<classpathentry kind="lib" path="lib/eclipselink-2.6.0.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-jpa-2.0-api-1.0.1.Final.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
