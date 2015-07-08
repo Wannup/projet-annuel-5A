@@ -78,6 +78,11 @@ public class AjoutEquipement extends EditEquipement implements Initializable{
 			equipementDao.save(newEquipement);
 			
 			if(!lstLogiciel.getItems().isEmpty()){
+				for(int i=0; i<lstLogiciel.getItems().size(); i++){
+					lstLogiciel.getItems().get(i).addEquipement(newEquipement);
+					logicielDao.update(lstLogiciel.getItems().get(i));
+				}
+				
 				newEquipement.setLogiciels(lstLogiciel.getItems());
 				equipementDao.update(newEquipement);
 			}
@@ -87,6 +92,7 @@ public class AjoutEquipement extends EditEquipement implements Initializable{
 				agent.addEquipement(newEquipement);
 				agentDao.update(agent);
 			}
+			
 			
 			informerValidation();
 		}

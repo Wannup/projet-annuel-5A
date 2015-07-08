@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -23,11 +26,15 @@ public class Logiciel {
 	private String licenceNumber;
 	
 	private String dateEndValidityLicence;
+	
+	private List<Equipement> equipements;
 
 	/**
 	 * Constructeur par défaut
 	 */
-	public Logiciel(){}
+	public Logiciel(){
+		equipements = new ArrayList<Equipement>();
+	}
 	
 	/**
 	 * Constructeur logiciel
@@ -46,6 +53,7 @@ public class Logiciel {
 		prix = prixVal;
 		licenceNumber = licenceNumberVal;
 		dateEndValidityLicence = endValidityLicence;
+		equipements = new ArrayList<Equipement>();
 	}
 	
 	/**
@@ -57,6 +65,15 @@ public class Logiciel {
 		return idLogiciel;
 	}
 
+	/**
+	 * Add a new Equipement for this agent
+	 * @param equipement
+	 */
+	public void addEquipement(Equipement equipement){
+		if(equipement != null)
+			equipements.add(equipement);
+	}
+	
 	/**
      * Retourne le nom du logiciel.
      * 
@@ -124,6 +141,20 @@ public class Logiciel {
 
 	public void setDateEndValidityLicence(String endValidityLicence) {
 		dateEndValidityLicence = endValidityLicence;
+	}
+	
+	/**
+	 * @return the equipements
+	 */
+	public List<Equipement> getEquipements() {
+		return this.equipements;
+	}
+
+	/**
+	 * @param equipements the equipements to set
+	 */
+	public void setEquipements(List<Equipement> equipements) {
+		this.equipements = equipements;
 	}
 
 	@Override

@@ -58,8 +58,6 @@ public class Agent {
 		if(equipement != null)
 			this.equipements.add(equipement);
 	}
-
-
 	
 	/**
 	 * @return the idAgent

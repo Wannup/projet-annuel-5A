@@ -30,9 +30,9 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -51,6 +51,7 @@ import application.excel.importer.ExcelImport;
 import application.excel.importer.ExcelLogicielImport;
 import application.pdf.export.PDFGenerator;
 import application.pdf.export.PDFLogicielListExport;
+import dao.EquipementDao;
 import dao.LogicielDao;
 
 /**
@@ -91,6 +92,7 @@ public class GestionLogiciel implements Initializable {
 
 	private List<Logiciel> listLogiciel;
 	private LogicielDao logicielDao;
+	private EquipementDao equipementDao;
 	
 	private ObservableList<Logiciel> itemsLogiciel;
 	private  FilteredList<Logiciel> filteredData;
@@ -101,6 +103,7 @@ public class GestionLogiciel implements Initializable {
 		
 		listLogiciel = new ArrayList<Logiciel>();
 		logicielDao = new LogicielDao();
+		equipementDao = new EquipementDao();
 		
 		columnLibelle.setCellValueFactory(new Callback<CellDataFeatures<Logiciel, String>, ObservableValue<String>>() {
 			@Override
@@ -203,9 +206,17 @@ public class GestionLogiciel implements Initializable {
 
 											Optional<ButtonType> result = alert.showAndWait();
 											if (result.get() == ButtonType.OK) {
-												logicielDao.remove(logiciel);
 												
+												for(int i =0; i< logiciel.getEquipements().size(); i++){
+													logiciel.getEquipements().get(i).getLogiciels().remove(logiciel);
+													equipementDao.update(logiciel.getEquipements().get(i));
+												}
+												logiciel.setEquipements(null);
+												logicielDao.update(logiciel);
+												
+												logicielDao.remove(logiciel);
 												refreshTable();
+												
 											}
 										}
 									});

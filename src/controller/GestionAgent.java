@@ -52,6 +52,7 @@ import application.excel.importer.ExcelImport;
 import application.pdf.export.PDFAgentListExport;
 import application.pdf.export.PDFGenerator;
 import dao.AgentDao;
+import dao.EquipementDao;
 
 /**
  * class controller for the interface GestionAgent.fxml
@@ -101,6 +102,7 @@ public class GestionAgent implements Initializable {
 
 	private List<Agent> listAgent;
 	private AgentDao agentDao;
+	private EquipementDao equipementDao;
 	
 	private ObservableList<Agent> itemsAgent;
 	private  FilteredList<Agent> filteredData;
@@ -111,6 +113,7 @@ public class GestionAgent implements Initializable {
 		
 		listAgent = new ArrayList<Agent>();
 		agentDao = new AgentDao();
+		equipementDao = new EquipementDao();
 		
 		nomCol.setCellValueFactory(new Callback<CellDataFeatures<Agent, String>, ObservableValue<String>>() {
 			@Override
@@ -224,6 +227,14 @@ public class GestionAgent implements Initializable {
 
 										Optional<ButtonType> result = alert.showAndWait();
 											if (result.get() == ButtonType.OK) {
+												if(!agent.getEquipements().isEmpty()){
+													for(int i =0; i< agent.getEquipements().size(); i++){
+														agent.getEquipements().get(i).setAgent(null);
+														equipementDao.update(agent.getEquipements().get(i));
+													}
+													agent.setEquipements(null);
+													agentDao.update(agent);
+												}
 												agentDao.remove(agent);
 												refreshTable();
 											}

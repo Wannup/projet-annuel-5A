@@ -35,6 +35,7 @@ import model.TypeEquipement;
 import tools.TransformationDonnees;
 import dao.AgentDao;
 import dao.EquipementDao;
+import dao.LogicielDao;
 import dao.PoleDao;
 import dao.TypeEquipementDao;
 
@@ -86,6 +87,7 @@ public class EditEquipement implements Initializable{
 	
 	protected String errorMessage = "";	
 	protected AgentDao agentDao;
+	protected LogicielDao logicielDao;
 	private PoleDao poleDao;
 	private Equipement equipement;
 	
@@ -98,6 +100,7 @@ public class EditEquipement implements Initializable{
 		equipementDao = new EquipementDao();
 		agentDao = new AgentDao();
 		poleDao = new PoleDao();
+		logicielDao = new LogicielDao();
 		
 		poles.getItems().addAll(FXCollections.observableArrayList(poleDao.findByAttributesLike(null)));
 		typeEquipement.getItems().addAll(FXCollections.observableArrayList(typeEquipementDao.findByAttributesLike(null)));
@@ -286,11 +289,24 @@ public class EditEquipement implements Initializable{
 				agent.addEquipement(equipement);
 				agentDao.update(agent);		
 			}
+			//suppression agent précedemment renseigné
 			else if(numCPAgent.getText().trim().equals("") && equipement.getAgent() != null){
 				Agent oldAgent = equipement.getAgent();
 				oldAgent.getEquipements().remove(equipement);
 				agentDao.update(oldAgent);	
 			}
+			
+			//vérification des logiciels
+			
+			for(int j=0; j<equipement.getLogiciels().size(); j++){
+				equipement.getLogiciels().get(j).getEquipements().remove(equipement);
+				logicielDao.update(equipement.getLogiciels().get(j));	
+			}
+			for(int i=0; i<lstLogiciel.getItems().size(); i++){
+				lstLogiciel.getItems().get(i).addEquipement(equipement);
+				logicielDao.update(lstLogiciel.getItems().get(i));
+			}
+			equipement.setLogiciels(lstLogiciel.getItems());
 			
 			equipement.setAgent(agent);
 			equipement.setTypeEquipement(typeEquipement.getSelectionModel().getSelectedItem());
@@ -301,7 +317,7 @@ public class EditEquipement implements Initializable{
 			equipement.setInfo(info.getText());
 			equipement.setPole(poles.getSelectionModel().getSelectedItem());
 			equipement.setPrix(Double.parseDouble(prix.getText().trim()));
-			equipement.setLogiciels(lstLogiciel.getItems());
+			
 			
 			equipementDao.update(equipement);
 			fieldOnMainWindows.setVisible(true);
@@ -419,7 +435,7 @@ public class EditEquipement implements Initializable{
 	private void informerValidation(){
 		
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Ajout equipement");
+		alert.setTitle("Modification équipement");
 		alert.setContentText("Equipement modifié avec succès !");
 		alert.showAndWait();
 	}
