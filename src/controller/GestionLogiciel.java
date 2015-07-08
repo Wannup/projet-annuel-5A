@@ -377,11 +377,11 @@ public class GestionLogiciel implements Initializable {
 					logicielDao.save(logiciel);
 				}
 			}
-			refreshTable();
 			Platform.runLater(new Runnable() {
 				
 				@Override
 				public void run() {
+					refreshTable();
 					showAlert(errors);
 					loadingFrame.close();
 				}
