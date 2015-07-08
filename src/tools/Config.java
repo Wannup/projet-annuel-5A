@@ -14,11 +14,16 @@ import java.util.logging.Logger;
  * @version 1.0
  */
 public class Config {
+	
+	private static Properties prop;
+	private static String propFileName = "config.properties";
+	private static String propFileNameDefault = "configDefault.properties";
     
-    public static String getPropertie (String property) {
+    public static String getProperty (String property) {
+    	
+    	prop = new Properties();
+    	
         try {
-            Properties prop = new Properties();
-            String propFileName = "config.properties";
             
             FileInputStream inputStream = null;
             try {
@@ -30,8 +35,10 @@ public class Config {
             if (inputStream == null) {
                 return "";    
             }
+            
             prop.load(inputStream);
             return prop.getProperty(property);
+            
         } catch (IOException exception) {
             return "";
         }
@@ -39,7 +46,7 @@ public class Config {
     
     public static boolean modifyProperties (String property, String value) {
     	try {
-	    	String propFileName = "config.properties";
+	    
 	    	FileInputStream in = new FileInputStream(propFileName);
 	    	Properties props = new Properties();
 	    	props.load(in);
@@ -55,4 +62,20 @@ public class Config {
     	return true;
     }
 
+    public static void goToDefaultConfig(){
+    	  try {
+              
+    		FileInputStream in = new FileInputStream(propFileNameDefault);
+  	    	Properties props = new Properties();
+  	    	props.load(in);
+  	    	in.close();
+            
+  	    	FileOutputStream out = new FileOutputStream(propFileName);
+  	    	props.store(out, null);
+  	    	out.close();
+  	    	
+          } catch (IOException exception) {
+            
+          }
+    }
 }
