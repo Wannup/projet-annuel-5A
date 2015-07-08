@@ -141,7 +141,6 @@ public class ExcelEquipementImport extends ExcelDataImport {
 							} else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
 								cp = cell.getStringCellValue();
 							}
-							System.out.println(cp);
 							Map<String, String> attributes = new HashMap<String, String>();
 							attributes.put("numCP", cp);
 							List<Agent> agents = agentDao.findByAttributesLike(attributes);

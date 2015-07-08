@@ -391,11 +391,11 @@ public class GestionAgent implements Initializable {
 					agentDao.save(agent);
 				}
 			}
-			refreshTable();
 			Platform.runLater(new Runnable() {
 				
 				@Override
 				public void run() {
+					refreshTable();
 					showAlert(errors);
 					loadingFrame.close();
 				}

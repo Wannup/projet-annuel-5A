@@ -86,7 +86,8 @@ public class ExcelAgentImport extends ExcelDataImport {
 							break;
 						case ID_CELL_CP :
 							if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-								agent.setNumCP(String.valueOf(cell.getNumericCellValue()));
+								Double dbl = cell.getNumericCellValue();
+								agent.setNumCP(String.valueOf(dbl.intValue()));
 							} else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
 								agent.setNumCP(cell.getStringCellValue());
 							}

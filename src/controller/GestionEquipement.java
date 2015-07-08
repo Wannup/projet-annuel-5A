@@ -449,11 +449,11 @@ public class GestionEquipement implements Initializable{
 					equipementDao.save(equipement);
 				}
 			}
-			refreshTable();
 			Platform.runLater(new Runnable() {
 				
 				@Override
 				public void run() {
+					refreshTable();
 					showAlert(errors);
 					loadingFrame.close();
 				}
