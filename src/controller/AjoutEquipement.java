@@ -74,13 +74,14 @@ public class AjoutEquipement extends EditEquipement implements Initializable{
 			
 			// Création de l'équipement
 			Equipement newEquipement;
-			if(lstLogiciel.getItems().isEmpty())
-				newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem(), agent, poles.getSelectionModel().getSelectedItem(), TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), renewalDate, marque.getText(), modele.getText().trim(), calife.getText().trim(), info.getText().trim());
-			else
-				newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem(),lstLogiciel.getItems(), agent, poles.getSelectionModel().getSelectedItem(), TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), renewalDate, marque.getText().trim(), modele.getText().trim(), calife.getText().trim(), info.getText().trim());
-			
+			newEquipement = new Equipement(typeEquipement.getSelectionModel().getSelectedItem(), agent, poles.getSelectionModel().getSelectedItem(), TransformationDonnees.getDoubleValue(prix), TransformationDonnees.formatDate(dateGarantie), TransformationDonnees.formatDate(dateLivraison), renewalDate, marque.getText(), modele.getText().trim(), calife.getText().trim(), info.getText().trim());
 			equipementDao.save(newEquipement);
 			
+			if(!lstLogiciel.getItems().isEmpty()){
+				newEquipement.setLogiciels(lstLogiciel.getItems());
+				equipementDao.update(newEquipement);
+			}
+
 			// ajout dans la liste des équipements de l'agent si renseigné
 			if(!numCPAgent.getText().trim().equals("")){
 				agent.addEquipement(newEquipement);

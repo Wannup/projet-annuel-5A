@@ -300,7 +300,6 @@ public class EditEquipement implements Initializable{
 			equipement.setNomCalife(calife.getText().trim());
 			equipement.setInfo(info.getText());
 			equipement.setPole(poles.getSelectionModel().getSelectedItem());
-			equipement.setPole(poles.getSelectionModel().getSelectedItem());
 			equipement.setPrix(Double.parseDouble(prix.getText().trim()));
 			equipement.setLogiciels(lstLogiciel.getItems());
 			

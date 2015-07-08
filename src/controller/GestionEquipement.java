@@ -181,7 +181,6 @@ public class GestionEquipement implements Initializable{
 			                    		stage.setTitle("Information equipement");
 			                    		Scene scene = new Scene(root); 
 					                    stage.setScene(scene);
-					                    stage.setAlwaysOnTop(true);
 					                    stage.show();
 			                    	
 				                    } catch (IOException e) {
