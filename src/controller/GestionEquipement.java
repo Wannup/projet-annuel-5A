@@ -54,6 +54,7 @@ import application.pdf.export.PDFEquipementListExport;
 import application.pdf.export.PDFGenerator;
 import dao.AgentDao;
 import dao.EquipementDao;
+import dao.LogicielDao;
 
 /**
  * class controller for the interface GestionEquipement.fxml
@@ -103,6 +104,7 @@ public class GestionEquipement implements Initializable{
 	private List<Equipement> listEquipement;
 	private EquipementDao equipementDao;
 	private AgentDao agentDao;
+	private LogicielDao logicielDao;
 	
 	private ObservableList<Equipement> itemsEquipement;
 	private  FilteredList<Equipement> filteredData;
@@ -114,6 +116,7 @@ public class GestionEquipement implements Initializable{
 		listEquipement = new ArrayList<Equipement>();
 		equipementDao = new EquipementDao();
 		agentDao = new AgentDao();
+		logicielDao = new LogicielDao();
 		
 		fieldRefresh.setVisible(false);
 		
@@ -281,6 +284,14 @@ public class GestionEquipement implements Initializable{
 				                    			agent.getEquipements().remove(equipement);
 				                    			agentDao.update(agent);
 				                    		}	
+				                    		
+				                    		for(int i =0; i< equipement.getLogiciels().size(); i++){
+				                    			equipement.getLogiciels().get(i).getEquipements().remove(equipement);
+												logicielDao.update(equipement.getLogiciels().get(i));
+											}
+				                    		equipement.setLogiciels(null);
+											equipementDao.update(equipement);
+				                    		
 				                    		equipementDao.remove(equipement);	
 				                    		refreshTable();
 				                    	} 
