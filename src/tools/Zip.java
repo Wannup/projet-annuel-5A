@@ -15,7 +15,7 @@ import java.util.zip.ZipOutputStream;
  */
 public class Zip {
 
-	public void zipFolder(String srcFolder, File destZipFile) throws Exception {
+	public void zipFolder(String srcFolder, File destZipFile) throws IOException {
 		ZipOutputStream zip = null;
 	    FileOutputStream fileWriter = null;
 	    fileWriter = new FileOutputStream(destZipFile);
@@ -25,7 +25,7 @@ public class Zip {
 	    zip.close();
 	}
 
-	public void addFileToZip(String path, String srcFile, ZipOutputStream zip) throws Exception {
+	public void addFileToZip(String path, String srcFile, ZipOutputStream zip) throws IOException {
 		File folder = new File(srcFile);
 	    if (folder.isDirectory()) {
 	    	addFolderToZip(path, srcFile, zip);
@@ -41,7 +41,7 @@ public class Zip {
 	    }
 	}
 
-	private void addFolderToZip(String path, String srcFolder, ZipOutputStream zip) throws Exception {
+	private void addFolderToZip(String path, String srcFolder, ZipOutputStream zip) throws IOException {
 	    File folder = new File(srcFolder);
 	    for (String fileName : folder.list()) {
 	    	if (path.equals("")) {

@@ -18,7 +18,6 @@ import tools.LoadingFrame;
 import dao.LogicielDao;
 
 /**
- * ExcelLogicielImport est la classe permettant d'importer des logiciels depuis un fichier excel.
  * @author: Mike FIARI
  * @version 1.0
  */
@@ -33,27 +32,13 @@ public class ExcelLogicielImport extends ExcelDataImport {
 	private final int ID_CELL_NUMBER = 3;
 	private final int ID_CELL_VALIDITY = 4;
 	
-	/**
-	 * Constructeur de la classe
-	 *
-	 * @param logiciels
-	 *     La liste des logiciels
-	 * @see List
-	 * @see Logiciel
-	 */
-	public ExcelLogicielImport (List<Logiciel> logiciels, List<String> errors, LoadingFrame loadingFrame) {
-		this.logiciels = logiciels;
-		this.errors = errors;
-		this.loadingFrame = loadingFrame;
+	
+	public ExcelLogicielImport (List<Logiciel> logicielsParam, List<String> errorsParam, LoadingFrame loadingFrameParam) {
+		logiciels = logicielsParam;
+		errors = errorsParam;
+		loadingFrame = loadingFrameParam;
 	}
 
-	/**
-	 * Lit le fichier excel
-	 *
-	 * @param wb
-	 *     FIchier excel
-	 * @see HSSFWorkbook
-	 */
 	@Override
 	public void read(HSSFWorkbook wb) {
 		HSSFSheet sheet = wb.getSheetAt(0);
@@ -63,7 +48,7 @@ public class ExcelLogicielImport extends ExcelDataImport {
 		LogicielDao logicielDao = new LogicielDao();
 		int maxRow = sheet.getLastRowNum();
 		for (Iterator<Row> rowIt = sheet.rowIterator(); rowIt.hasNext();) {
-			this.loadingFrame.setProgress((double)numLigne / (double)maxRow);
+			loadingFrame.setProgress((double)numLigne / (double)maxRow);
 			row = (HSSFRow) rowIt.next();
 			if (numLigne > 1) {
 				Logiciel logiciel = new Logiciel ();
@@ -103,7 +88,7 @@ public class ExcelLogicielImport extends ExcelDataImport {
 				attributes.put("licenceNumber", logiciel.getLicenceNumber());
 				List<Logiciel> results = logicielDao.findByAttributesEquals(attributes);
 				if (results.isEmpty()) {
-					this.logiciels.add(logiciel);
+					logiciels.add(logiciel);
 				} else {
 					errors.add("le logiciel " + logiciel.getNom() + " (" + logiciel.getLicenceNumber() + ") existe déjà");
 				}

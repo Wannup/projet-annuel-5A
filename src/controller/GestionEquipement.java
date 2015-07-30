@@ -353,7 +353,7 @@ public class GestionEquipement implements Initializable{
 	}
 	
 	@FXML
-	private void exportTableExcel(){
+	private void exportTableExcel() throws IOException{
 		ExcelGenerator excelGenerator = new ExcelGenerator();
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Excel", "*.xls"));
@@ -453,7 +453,11 @@ public class GestionEquipement implements Initializable{
 		public void run() {
 			List<String> errors = new ArrayList<>();
         	ExcelImport excelImport = new ExcelImport();
-        	excelImport.importFile(file, new ExcelEquipementImport(listEquipement, errors, loadingFrame));
+        	try {
+				excelImport.importFile(file, new ExcelEquipementImport(listEquipement, errors, loadingFrame));
+			} catch (IOException e) {
+			
+			}
 			for (Equipement equipement : listEquipement) {
 				if (equipementDao.find(equipement.getIdEquipement()) == null) {
 					equipementDao.save(equipement);

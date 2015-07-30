@@ -167,4 +167,7 @@ public class Agent {
 		return numCP + " - " + nom + " " + prenom;
 	}
 
+	public boolean isValidToSave(){
+		return numCP != null && nom != null && prenom != null && pole != null;
+	}
 }

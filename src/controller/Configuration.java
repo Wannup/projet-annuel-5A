@@ -24,7 +24,11 @@ import tools.TransformationDonnees;
 import dao.EquipementDao;
 import dao.PoleDao;
 import dao.TypeEquipementDao;
-
+/**
+ * class controller for the interfaces Configuration.fxml
+ * @author: Mike FIARI
+ * @version 1.0
+ * */
 public class Configuration implements Initializable {
 
 	@FXML
@@ -106,14 +110,10 @@ public class Configuration implements Initializable {
 		    }
 		});
 	}
-
-	private void getConfigurationBdd() {
-		textFieldDatabaseDriver.setText(Config.getProperty("javax.persistence.jdbc.driver"));
-		textFieldDatabaseLocation.setText(Config.getProperty("javax.persistence.jdbc.url"));
-		textFieldDatabaseUser.setText(Config.getProperty("javax.persistence.jdbc.user"));
-		textFieldDatabasePassword.setText(Config.getProperty("javax.persistence.jdbc.password"));
-	}
 	
+	/**
+	 * function associate with the button "Enregistrement"
+	 * */
 	@FXML
 	private void saveConfig(){
 		
@@ -291,6 +291,13 @@ public class Configuration implements Initializable {
 		nomPole.clear();
 		
 		refreshListPole();
+	}
+	
+	private void getConfigurationBdd() {
+		textFieldDatabaseDriver.setText(Config.getProperty("javax.persistence.jdbc.driver"));
+		textFieldDatabaseLocation.setText(Config.getProperty("javax.persistence.jdbc.url"));
+		textFieldDatabaseUser.setText(Config.getProperty("javax.persistence.jdbc.user"));
+		textFieldDatabasePassword.setText(Config.getProperty("javax.persistence.jdbc.password"));
 	}
 	
 	private void refreshListPole(){

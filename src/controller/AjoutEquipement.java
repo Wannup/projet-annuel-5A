@@ -106,9 +106,10 @@ public class AjoutEquipement extends EditEquipement implements Initializable{
 	}
 	
 	/**
-	 * override function verificationCalife
+	 * @override function verificationCalife
 	 * @return true if "calife" is ok
 	 * */
+	@Override
 	protected boolean verificationCalife(){
 		
 		if(calife.getText().trim().equals("")){

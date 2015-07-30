@@ -10,8 +10,7 @@ import javax.persistence.Persistence;
 import tools.Config;
 
 /**
- * DatabaseConnection est la classe permettant d'instancier et fermer une connexion à la base de données.
- * @author: Mike FIARI
+ * @author: Charly FAROT
  * @version 1.0
  */
 public class DatabaseConnection {
@@ -20,8 +19,6 @@ public class DatabaseConnection {
     public static EntityManager em;
     
     /**
-     * Retourne un manager de la base de données.
-     * 
      * @return EntityManager.
      * 
      * @see EntityManager
@@ -36,23 +33,15 @@ public class DatabaseConnection {
     	
     	emf = Persistence.createEntityManagerFactory("lgpiPersistence", configurationBdd);
     	em = emf.createEntityManager();
-    	
         em.getTransaction().begin();
         return em;
     }
     
-    /**
-     * Rafraichi la base de données.
-     * 
-     */
     public static void refresh () {
-    	/*em.getEntityManagerFactory().getCache().evictAll();
-    	em.clear();*/
+    	em.getEntityManagerFactory().getCache().evictAll();
+    	em.clear();
     }
  
-    /**
-     * ferme la connection.
-     */
     public static void closeConnection(){
         em.getTransaction().commit();
         em.close();

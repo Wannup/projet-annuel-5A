@@ -20,7 +20,6 @@ import dao.AgentDao;
 import dao.PoleDao;
 
 /**
- * ExcelAgentImport est la classe permettant d'importer des agents depuis un fichier excel.
  * @author: Mike FIARI
  * @version 1.0
  */
@@ -30,96 +29,98 @@ public class ExcelAgentImport extends ExcelDataImport {
 	private List<String> errors;
 	private LoadingFrame loadingFrame;
 	
-	private final int ID_CELL_NOM = 1;
-	private final int ID_CELL_PRENOM = 2;
-	private final int ID_CELL_TEL = 3;
-	private final int ID_CELL_CP = 4;
-	private final int ID_CELL_POLE = 5;
+	private final int ID_CELL_NOM = 0;
+	private final int ID_CELL_PRENOM = 1;
+	private final int ID_CELL_TEL = 2;
+	private final int ID_CELL_CP = 3;
+	private final int ID_CELL_POLE = 4;
 	
-	/**
-	 * Constructeur de la classe
-	 *
-	 * @param agents
-	 *     La liste des agents
-	 * @see List
-	 * @see Agent
-	 */
-	public ExcelAgentImport (List<Agent> agents, List<String> errors, LoadingFrame loadingFrame) {
-		this.agents = agents;
-		this.errors = errors;
-		this.loadingFrame = loadingFrame;
+	public ExcelAgentImport (List<Agent> agentsParam, List<String> errorsParam, LoadingFrame loadingFrameParam) {
+		agents = agentsParam;
+		errors = errorsParam;
+		loadingFrame = loadingFrameParam;
 	}
-
-	/**
-	 * Lit le fichier excel
-	 *
-	 * @param wb
-	 *     FIchier excel
-	 * @see HSSFWorkbook
-	 */
+	
 	@Override
 	public void read(HSSFWorkbook wb) {
 		HSSFSheet sheet = wb.getSheetAt(0);
 		HSSFRow row = null;
 		HSSFCell cell = null;
-		int numLigne = 1;
+		
 		PoleDao poleDao = new PoleDao();
 		AgentDao agentDao = new AgentDao();
+		
+		int minRow = sheet.getFirstRowNum();
 		int maxRow = sheet.getLastRowNum();
-		for (Iterator<Row> rowIt = sheet.rowIterator(); rowIt.hasNext();) {
-			this.loadingFrame.setProgress((double)numLigne / (double)maxRow);
-			row = (HSSFRow) rowIt.next();
-			if (numLigne > 1) {
+		int numLigne = minRow;
+
+		for (Iterator<Row> rowIt = sheet.rowIterator(); rowIt.hasNext(); row = (HSSFRow) rowIt.next()) {
+			loadingFrame.setProgress((double)numLigne / (double)maxRow);
+			
+			if (numLigne > minRow && !isRowEmpty(row)) {
 				Agent agent = new Agent ();
-				int numCell = 1;
-				for (Iterator<Cell> cellIt = row.cellIterator(); cellIt.hasNext();) {
-					cell = (HSSFCell) cellIt.next();
-					switch (numCell) {
-						case ID_CELL_NOM :
-							agent.setNom(cell.getStringCellValue());
-							break;
-						case ID_CELL_PRENOM :
-							agent.setPrenom(cell.getStringCellValue());
-							break;
-						case ID_CELL_TEL :
-							agent.setTel(cell.getStringCellValue());
-							break;
-						case ID_CELL_CP :
-							if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-								Double dbl = cell.getNumericCellValue();
-								agent.setNumCP(String.valueOf(dbl.intValue()));
-							} else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
-								agent.setNumCP(cell.getStringCellValue());
-							}
-							break;
-						case ID_CELL_POLE :
-							String poleName = cell.getStringCellValue();
-							Map<String, String> attributes = new HashMap<>();
-							attributes.put("nom", poleName);
-							List<Pole> poles = poleDao.findByAttributesEquals(attributes);
-							Pole pole;
-							if (poles.isEmpty()) {
-								pole = new Pole(poleName);
-								poleDao.save(pole);
-							} else {
-								pole = poles.get(0);
-							}
-							agent.setPole(pole);
-							break;
+
+				for(int numCell = 0; numCell<5; numCell++){
+					cell = row.getCell(numCell);
+					
+					if(cell != null && cell.getCellType()!= Cell.CELL_TYPE_BLANK){
+						switch (numCell) {
+							case ID_CELL_NOM :
+								agent.setNom(cell.getStringCellValue());
+								break;
+							case ID_CELL_PRENOM :
+								agent.setPrenom(cell.getStringCellValue());
+								break;
+							case ID_CELL_TEL :
+								agent.setTel(cell.getStringCellValue());
+								break;
+							case ID_CELL_CP :
+								agent.setNumCP(cell.getStringCellValue());	
+								break;
+							case ID_CELL_POLE :
+								String poleName = cell.getStringCellValue();
+								Map<String, String> attributes = new HashMap<>();
+								attributes.put("nom", poleName);
+								List<Pole> poles = poleDao.findByAttributesEquals(attributes);
+								Pole pole;
+								if (poles.isEmpty()) {
+									pole = new Pole(poleName);
+									poleDao.save(pole);
+								} 
+								else
+									pole = poles.get(0);
+								
+								agent.setPole(pole);
+								break;
+						}
 					}
-					numCell++;
 				}
-				Map<String, String> attributes = new HashMap<>();
-				attributes.put("numCP", agent.getNumCP());
-				List<Agent> results = agentDao.findByAttributesEquals(attributes);
-				if (results.isEmpty()) {
-					this.agents.add(agent);
-				} else {
-					errors.add("L'agent " + agent.getNumCP() + " (" + agent.getNom() + " " + agent.getPrenom() + ") existe déjà");
+				
+				// vérification champs obligatoires
+				if(agent.isValidToSave()){
+					// vérification existence agent
+					Map<String, String> attributes = new HashMap<>();
+					attributes.put("numCP", agent.getNumCP());
+					List<Agent> results = agentDao.findByAttributesEquals(attributes);
+					if (results.isEmpty())
+						agents.add(agent);
+					else
+						errors.add("Un agent avec le N°CP : " +agent.getNumCP()+ " existe déjà.");
 				}
+				else
+					errors.add("La ligne n°"+(numLigne+1)+" du fichier excel à importer ne possède pas toutes les informations obligatoires pour un agent.");
 			}
-			numLigne++;
+			if(row != null)
+				numLigne++;
 		}
 	}
 
+	private boolean isRowEmpty(HSSFRow row) {
+	    for (int c = row.getFirstCellNum(); c < row.getLastCellNum(); c++) {
+	        Cell cell = row.getCell(c);
+	        if (cell != null && cell.getCellType() != Cell.CELL_TYPE_BLANK)
+	            return false;
+	    }
+	    return true;
+	}
 }

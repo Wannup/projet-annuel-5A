@@ -17,7 +17,6 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 /**
- * class PDFEquipementExport
  * @author: Mike FIARI
  * @version 1.0
  */
@@ -26,8 +25,8 @@ public class PDFEquipementExport extends PDFDataExport {
 	
 	private Equipement equipement;
 	
-	public PDFEquipementExport (Equipement equipement) {
-		this.equipement = equipement;
+	public PDFEquipementExport (Equipement equipementParam) {
+		equipement = equipementParam;
 	}
 
 	@Override

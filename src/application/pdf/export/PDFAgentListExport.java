@@ -16,7 +16,6 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 /**
- * PDFAgentListExport est la classe permettant d'exporter une liste d'agent au format PDF.
  * @author: Mike FIARI
  * @version 1.0
  */
@@ -25,40 +24,14 @@ public class PDFAgentListExport extends PDFDataExport {
 	private List<Agent> agents;
 	private TableView<Agent> tableViewAgent;
 	
-	/**
-	 * Constructeur de la classe
-	 *
-	 * @param agents
-	 *     La liste des agents
-	 * @see List
-	 * @see Agent
-	 */
-	public PDFAgentListExport (List<Agent> agents) {
-		this.agents = agents;
+	public PDFAgentListExport (List<Agent> agentsParam) {
+		agents = agentsParam;
 	}
 
-	
-	/**
-	 * Constructeur de la classe
-	 *
-	 * @param tableViewAgent
-	 *     La liste des agents
-	 * @see TableView
-	 * @see Agent
-	 */
-	public PDFAgentListExport (TableView<Agent> tableViewAgent) {
-		this.tableViewAgent = tableViewAgent;
+	public PDFAgentListExport (TableView<Agent> tableViewAgentParam) {
+		tableViewAgent = tableViewAgentParam;
 	}
 	
-	/**
-	 * Ecrit le fichier PDF
-	 *
-	 * @param document
-	 *     Fichier PDF
-	 * @see Document
-	 * 
-	 * @throws DocumentException  Si jamais le document est incorect
-	 */
 	@Override
 	public void write (Document document, PdfWriter writer) throws DocumentException {
 		
@@ -95,11 +68,10 @@ public class PDFAgentListExport extends PDFDataExport {
 	    table.addCell(c1);
 	    table.setHeaderRows(1);
 	    
-	    if (this.agents != null) {
-	    	this.insertFromList(table, agents);
-	    } else if (this.tableViewAgent != null) {
-	    	this.insertFromTable(table, tableViewAgent);
-	    }
+	    if (agents != null)
+	    	insertFromList(table, agents);
+	     else if (tableViewAgent != null) 
+	    	insertFromTable(table, tableViewAgent);
 	    
 	    table.setHorizontalAlignment(Element.ALIGN_CENTER);
 
@@ -118,7 +90,7 @@ public class PDFAgentListExport extends PDFDataExport {
 	
 	private void insertFromTable (PdfPTable table, TableView<Agent> agents) {
 		List<Agent> list = agents.getItems();
-		this.insertFromList(table, list);
+		insertFromList(table, list);
 	}
 
 }

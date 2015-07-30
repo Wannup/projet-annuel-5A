@@ -16,7 +16,6 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 /**
- * PDFEquipementListExport est la classe permettant d'exporter une liste équipement au format PDF.
  * @author: Mike FIARI
  * @version 1.0
  */
@@ -25,39 +24,14 @@ public class PDFEquipementListExport extends PDFDataExport {
 	private List<Equipement> equipements;
 	private TableView<Equipement> tableViewEquipement;
 	
-	/**
-	 * Constructeur de la classe
-	 *
-	 * @param equipements
-	 *     La liste des equipements
-	 * @see List
-	 * @see Equipement
-	 */
-	public PDFEquipementListExport (List<Equipement> equipements) {
-		this.equipements = equipements;
+	public PDFEquipementListExport (List<Equipement> equipementsParam) {
+		equipements = equipementsParam;
 	}
 
-	/**
-	 * Constructeur de la classe
-	 *
-	 * @param tableViewEquipement
-	 *     La liste des equipements
-	 * @see TableView
-	 * @see Equipement
-	 */
-	public PDFEquipementListExport (TableView<Equipement> tableViewEquipement) {
-		this.tableViewEquipement = tableViewEquipement;
+	public PDFEquipementListExport (TableView<Equipement> tableViewEquipementParam) {
+		tableViewEquipement = tableViewEquipementParam;
 	}
 	
-	/**
-	 * Ecrit le fichier PDF
-	 *
-	 * @param document
-	 *     Fichier PDF
-	 * @see Document
-	 * 
-	 * @throws DocumentException  Si jamais le document est incorect
-	 */
 	@Override
 	public void write (Document document, PdfWriter writer) throws DocumentException {
 		
@@ -94,11 +68,11 @@ public class PDFEquipementListExport extends PDFDataExport {
 	    table.addCell(c1);
 	    table.setHeaderRows(1);
 	    
-	    if (this.equipements != null) {
-	    	this.insertFromList(table, equipements);
-	    } else if (this.tableViewEquipement != null) {
-	    	this.insertFromTable(table, tableViewEquipement);
-	    }
+	    if (equipements != null)
+	    	insertFromList(table, equipements);
+	    else if (tableViewEquipement != null) 
+	    	insertFromTable(table, tableViewEquipement);
+	    
 	    
 	    table.setHorizontalAlignment(Element.ALIGN_CENTER);
 
@@ -121,7 +95,7 @@ public class PDFEquipementListExport extends PDFDataExport {
 	
 	private void insertFromTable (PdfPTable table, TableView<Equipement> equipements) {
 		List<Equipement> list = equipements.getItems();
-		this.insertFromList(table, list);
+		insertFromList(table, list);
 	}
 
 }

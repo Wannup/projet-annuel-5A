@@ -28,7 +28,6 @@ import dao.PoleDao;
 import dao.TypeEquipementDao;
 
 /**
- * ExcelEquipementImport est la classe permettant d'importer des équipements depuis un fichier excel.
  * @author: Mike FIARI
  * @version 1.0
  */
@@ -50,27 +49,13 @@ public class ExcelEquipementImport extends ExcelDataImport {
 	private final int ID_CELL_LOGICIELS = 10;
 	private final int ID_CELL_PRIX = 11;
 	
-	/**
-	 * Constructeur de la classe
-	 *
-	 * @param equipements
-	 *     La liste des equipements
-	 * @see List
-	 * @see Equipement
-	 */
-	public ExcelEquipementImport (List<Equipement> equipements, List<String> errors, LoadingFrame loadingFrame) {
-		this.equipements = equipements;
-		this.errors = errors;
-		this.loadingFrame = loadingFrame;
+
+	public ExcelEquipementImport (List<Equipement> equipementsParam, List<String> errorsParam, LoadingFrame loadingFrameParam) {
+		equipements = equipementsParam;
+		errors = errorsParam;
+		loadingFrame = loadingFrameParam;
 	}
 
-	/**
-	 * Lit le fichier excel
-	 *
-	 * @param wb
-	 *     FIchier excel
-	 * @see HSSFWorkbook
-	 */
 	@Override
 	public void read(HSSFWorkbook wb) {
 		HSSFSheet sheet = wb.getSheetAt(0);
@@ -84,7 +69,7 @@ public class ExcelEquipementImport extends ExcelDataImport {
 		LogicielDao logicielDao = new LogicielDao();
 		int maxRow = sheet.getLastRowNum();
 		for (Iterator<Row> rowIt = sheet.rowIterator(); rowIt.hasNext();) {
-			this.loadingFrame.setProgress((double)numLigne / (double)maxRow);
+			loadingFrame.setProgress((double)numLigne / (double)maxRow);
 			row = (HSSFRow) rowIt.next();
 			if (numLigne > 1) {
 				Equipement equipement = new Equipement ();
@@ -195,7 +180,7 @@ public class ExcelEquipementImport extends ExcelDataImport {
 				attributes.put("nomCalife", equipement.getNomCalife());
 				List<Equipement> results = equipementDao.findByAttributesEquals(attributes);
 				if (results.isEmpty()) {
-					this.equipements.add(equipement);
+					equipements.add(equipement);
 				} else {
 					errors.add("L'equipement " + equipement.getNomCalife() + " existe déjà");
 				}

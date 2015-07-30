@@ -16,7 +16,6 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 /**
- * PDFLogicielListExport est la classe permettant d'exporter une liste de logiciel au format PDF.
  * @author: Mike FIARI
  * @version 1.0
  */
@@ -25,39 +24,14 @@ public class PDFLogicielListExport extends PDFDataExport {
 	private List<Logiciel> logiciels;
 	private TableView<Logiciel> tableViewLogiciels;
 	
-	/**
-	 * Constructeur de la classe
-	 *
-	 * @param logiciels
-	 *     La liste des logiciels
-	 * @see List
-	 * @see Logiciel
-	 */
-	public PDFLogicielListExport (List<Logiciel> logiciels) {
-		this.logiciels = logiciels;
+	public PDFLogicielListExport (List<Logiciel> logicielsParam) {
+		logiciels = logicielsParam;
 	}
 
-	/**
-	 * Constructeur de la classe
-	 *
-	 * @param tableViewLogiciels
-	 *     La liste des logiciels
-	 * @see TableView
-	 * @see Logiciel
-	 */
-	public PDFLogicielListExport (TableView<Logiciel> tableViewLogiciels) {
-		this.tableViewLogiciels = tableViewLogiciels;
+	public PDFLogicielListExport (TableView<Logiciel> tableViewLogicielsParam) {
+		tableViewLogiciels = tableViewLogicielsParam;
 	}
 	
-	/**
-	 * Ecrit le fichier PDF
-	 *
-	 * @param document
-	 *     Fichier PDF
-	 * @see Document
-	 * 
-	 * @throws DocumentException  Si jamais le document est incorect
-	 */
 	@Override
 	public void write (Document document, PdfWriter writer) throws DocumentException {
 		
@@ -86,14 +60,12 @@ public class PDFLogicielListExport extends PDFDataExport {
 	    table.addCell(c1);
 	    table.setHeaderRows(1);
 	    
-	    if (this.logiciels != null) {
-	    	this.insertFromList(table, logiciels);
-	    } else if (this.tableViewLogiciels != null) {
-	    	this.insertFromTable(table, tableViewLogiciels);
-	    }
-	    
+	    if (logiciels != null)
+	    	insertFromList(table, logiciels);
+	    else if (tableViewLogiciels != null)
+	    	insertFromTable(table, tableViewLogiciels);
+	        
 	    table.setHorizontalAlignment(Element.ALIGN_CENTER);
-
 	    document.add(table);
 	}
 	
@@ -107,7 +79,7 @@ public class PDFLogicielListExport extends PDFDataExport {
 	
 	private void insertFromTable (PdfPTable table, TableView<Logiciel> logiciels) {
 		List<Logiciel> list = logiciels.getItems();
-		this.insertFromList(table, list);
+		insertFromList(table, list);
 	}
 
 }

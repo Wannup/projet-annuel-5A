@@ -1,9 +1,7 @@
 package application;
 
-import application.database.DatabaseConnection;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
-import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
 import javafx.event.EventHandler;
@@ -24,9 +22,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
+import application.database.DatabaseConnection;
 
 /**
- * Main est la classe principal qui permet de lancer l'apllication.
  * @author: Erwan LE GUYADER
  * @version 1.0
  */
@@ -40,37 +38,9 @@ public class Main extends Application {
     private static final int SPLASH_WIDTH = 472;
     private static final int SPLASH_HEIGHT = 298;
 	
-	/**
-	 * Lance l'application
-	 *
-	 * @param primaryStage
-	 *     Stage
-	 * @see Stage
-	 */
-	@Override
-	public void start(Stage initStage) {
-		 final Task<Boolean> task = new Task<Boolean>() {
-	            @Override
-	            protected Boolean call() throws InterruptedException {
-	            	updateMessage("Chargement des données . . .");
-	            	DatabaseConnection.startConnection();
-	                return true;
-	            }
-	        };
-		
-		showSplash(
-                initStage,
-                task,
-                () -> showMainStage(task.valueProperty())
-        );
-        new Thread(task).start();
-	}
-	
 	@Override
     public void init() {
-        ImageView splash = new ImageView(new Image(
-                SPLASH_IMAGE
-        ));
+        ImageView splash = new ImageView(new Image(SPLASH_IMAGE));
         loadProgress = new ProgressBar();
         loadProgress.setPrefWidth(SPLASH_WIDTH);
         progressText = new Label("Chargement . . .");
@@ -80,33 +50,52 @@ public class Main extends Application {
         splashLayout.setEffect(new DropShadow());
     }
 	
-	 private void showSplash(final Stage initStage, Task<?> task, InitCompletionHandler initCompletionHandler) {
-	        progressText.textProperty().bind(task.messageProperty());
-	        loadProgress.progressProperty().bind(task.progressProperty());
-	        task.stateProperty().addListener((observableValue, oldState, newState) -> {
-	            if (newState == Worker.State.SUCCEEDED) {
-	                loadProgress.progressProperty().unbind();
-	                loadProgress.setProgress(1);
-	                initStage.toFront();
-	                FadeTransition fadeSplash = new FadeTransition(Duration.seconds(1.2), splashLayout);
-	                fadeSplash.setFromValue(1.0);
-	                fadeSplash.setToValue(0.0);
-	                fadeSplash.setOnFinished(actionEvent -> initStage.hide());
-	                fadeSplash.play();	 
-	                initCompletionHandler.complete();
-	            }
-	        });
+	@Override
+	public void start(Stage initStage) {
+		 
+		final Task<Boolean> task = new Task<Boolean>() {
+			@Override
+	        protected Boolean call() throws InterruptedException {
+	            updateMessage("Chargement des données . . .");
+	            DatabaseConnection.startConnection();
+	            return true;
+	        }
+	    };
+		
+		showSplash(initStage, task, () -> showMainStage());
+        new Thread(task).start();
+	}
+	
+	private void showSplash(final Stage initStage, Task<?> task, InitCompletionHandler initCompletionHandler) {
+	        
+		progressText.textProperty().bind(task.messageProperty());
+	    loadProgress.progressProperty().bind(task.progressProperty());
+	   
+	    task.stateProperty().addListener((observableValue, oldState, newState) -> {
+	    
+		    if (newState == Worker.State.SUCCEEDED) {
+		    	loadProgress.progressProperty().unbind();
+		        loadProgress.setProgress(1);
+		        initStage.toFront();
+		        FadeTransition fadeSplash = new FadeTransition(Duration.seconds(1.2), splashLayout);
+		        fadeSplash.setFromValue(1.0);
+		        fadeSplash.setToValue(0.0);
+		        fadeSplash.setOnFinished(actionEvent -> initStage.hide());
+		        fadeSplash.play();	 
+		        initCompletionHandler.complete();
+		    }
+	     });
 	 
-	        Scene splashScene = new Scene(splashLayout);
-	        initStage.initStyle(StageStyle.UNDECORATED);
-	        final Rectangle2D bounds = Screen.getPrimary().getBounds();
-	        initStage.setScene(splashScene);
-	        initStage.setX(bounds.getMinX() + bounds.getWidth() / 2 - SPLASH_WIDTH / 2);
-	        initStage.setY(bounds.getMinY() + bounds.getHeight() / 2 - SPLASH_HEIGHT / 2);
-	        initStage.show();
+	     Scene splashScene = new Scene(splashLayout);
+	     initStage.initStyle(StageStyle.UNDECORATED);
+	     final Rectangle2D bounds = Screen.getPrimary().getBounds();
+	     initStage.setScene(splashScene);
+	     initStage.setX(bounds.getMinX() + bounds.getWidth() / 2 - SPLASH_WIDTH / 2);
+	     initStage.setY(bounds.getMinY() + bounds.getHeight() / 2 - SPLASH_HEIGHT / 2);
+	     initStage.show();
 	}
 	 
-	private void showMainStage(ReadOnlyObjectProperty<Boolean> connectSuccess) {
+	private void showMainStage() {
 		try {	
 			// GUI
 			Parent root = FXMLLoader.load(getClass().getResource("/view/Accueil.fxml"));
@@ -125,9 +114,8 @@ public class Main extends Application {
 		        }
 			}); 
 		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		
+			throw new RuntimeException(e);
+		}	
 		
 	}
 	

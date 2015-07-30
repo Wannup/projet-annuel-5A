@@ -11,7 +11,6 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 
 /**
- * ExcelLogicielListExport est la classe permettant d'exporter une liste de logiciel au format excel.
  * @author: Mike FIARI
  * @version 1.0
  */
@@ -20,37 +19,14 @@ public class ExcelLogicielListExport extends ExcelDataExport {
 	private List<Logiciel> logiciels;
 	private TableView<Logiciel> tableViewLogiciels;
 	
-	/**
-	 * Constructeur de la classe
-	 *
-	 * @param logiciels
-	 *     La liste des logiciels
-	 * @see List
-	 * @see Logiciel
-	 */
-	public ExcelLogicielListExport (List<Logiciel> logiciels) {
-		this.logiciels = logiciels;
+	public ExcelLogicielListExport (List<Logiciel> logicielsParam) {
+		logiciels = logicielsParam;
 	}
 
-	/**
-	 * Constructeur de la classe
-	 *
-	 * @param tableViewLogiciels
-	 *     La liste des logiciels
-	 * @see TableView
-	 * @see Logiciel
-	 */
 	public ExcelLogicielListExport (TableView<Logiciel> tableViewLogiciels) {
 		this.tableViewLogiciels = tableViewLogiciels;
 	}
 	
-	/**
-	 * Ecrit le fichier excel
-	 *
-	 * @param wb
-	 *     FIchier excel
-	 * @see HSSFWorkbook
-	 */
 	@Override
 	public void write (HSSFWorkbook wb) {
 		
@@ -81,7 +57,7 @@ public class ExcelLogicielListExport extends ExcelDataExport {
 	
 	private void insertFromTable (HSSFSheet sheet, HSSFRow row, TableView<Logiciel> logiciels) {
 		List<Logiciel> list = logiciels.getItems();
-		this.insertFromList(sheet, row, list);
+		insertFromList(sheet, row, list);
 	}
 	
 }

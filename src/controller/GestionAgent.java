@@ -354,7 +354,7 @@ public class GestionAgent implements Initializable {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Import Excel");
 			alert.setHeaderText("L'import a été éffectué avec succès.");
-			alert.setContentText("Certaine ligne n'ont pas été correctement importer");
+			alert.setContentText("Certaines lignes n'ont pas été importé: ");
 
 			String newline = System.getProperty("line.separator");
 			String message = "";
@@ -396,7 +396,11 @@ public class GestionAgent implements Initializable {
 		public void run() {
 			List<String> errors = new ArrayList<>();
 			ExcelImport excelImport = new ExcelImport();
-			excelImport.importFile(file, new ExcelAgentImport(listAgent, errors, loadingFrame));
+			try {
+				excelImport.importFile(file, new ExcelAgentImport(listAgent, errors, loadingFrame));
+			} catch (IOException e) {
+				
+			}
 			for (Agent agent : listAgent) {
 				if (agentDao.find(agent.getIdAgent()) == null) {
 					agentDao.save(agent);

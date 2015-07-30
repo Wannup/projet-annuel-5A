@@ -7,19 +7,17 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.pdf.PdfWriter;
 
 /**
- * PDFGenerator est la classe permettant de générer un fichier PDF.
  * @author: Mike FIARI
  * @version 1.0
  */
 public class PDFGenerator {
 	
 	/**
-	 * genere le fichier PDF
+	 * generate the PDF file
 	 *
 	 * @param file
-	 *     Le fichier de sortie
+	 *    out file
 	 * @param dataExport
-	 *     Class export
 	 * @see File
 	 * @see PDFDataExport
 	 */

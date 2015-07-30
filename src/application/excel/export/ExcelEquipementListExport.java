@@ -11,7 +11,6 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 
 /**
- * ExcelEquipementListExport est la classe permettant d'exporter une liste d'equipement au format excel.
  * @author: Mike FIARI
  * @version 1.0
  */
@@ -21,36 +20,25 @@ public class ExcelEquipementListExport extends ExcelDataExport {
 	private TableView<Equipement> tableViewEquipement;
 	
 	/**
-	 * Constructeur de la classe
+	 * Constructor
 	 *
-	 * @param equipements
-	 *     La liste des equipements
-	 * @see List
-	 * @see Equipement
+	 * @param equipementsParam
+	 *     list of equipements
 	 */
-	public ExcelEquipementListExport (List<Equipement> equipements) {
-		this.equipements = equipements;
+	public ExcelEquipementListExport (List<Equipement> equipementsParam) {
+		equipements = equipementsParam;
 	}
 
 	/**
-	 * Constructeur de la classe
+	 * Constructor
 	 *
-	 * @param tableViewEquipement
-	 *     La liste des equipements
-	 * @see TableView
-	 * @see Equipement
+	 * @param tableViewEquipementParam
+	 *      list of equipements
 	 */
-	public ExcelEquipementListExport (TableView<Equipement> tableViewEquipement) {
-		this.tableViewEquipement = tableViewEquipement;
+	public ExcelEquipementListExport (TableView<Equipement> tableViewEquipementParam) {
+		tableViewEquipement = tableViewEquipementParam;
 	}
-	
-	/**
-	 * Ecrit le fichier excel
-	 *
-	 * @param wb
-	 *     FIchier excel
-	 * @see HSSFWorkbook
-	 */
+
 	@Override
 	public void write (HSSFWorkbook wb) {
 		
@@ -63,12 +51,11 @@ public class ExcelEquipementListExport extends ExcelDataExport {
 		row.createCell(3, Cell.CELL_TYPE_STRING).setCellValue("Pole");
 		row.createCell(4, Cell.CELL_TYPE_STRING).setCellValue("N° CP Agent");
 	    
-		if (this.equipements != null) {
-	    	this.insertFromList(sheet, row, equipements);
-	    } else if (this.tableViewEquipement != null) {
-	    	this.insertFromTable(sheet, row, tableViewEquipement);
-	    }
-	    
+		if (equipements != null)
+	    	insertFromList(sheet, row, equipements);
+	    else if (tableViewEquipement != null)
+	    	insertFromTable(sheet, row, tableViewEquipement);
+	        
 	}
 	
 	private void insertFromList (HSSFSheet sheet, HSSFRow row, List<Equipement> equipements) {
@@ -79,18 +66,17 @@ public class ExcelEquipementListExport extends ExcelDataExport {
 			row.createCell(1, Cell.CELL_TYPE_STRING).setCellValue(equipement.getTypeEquipement().getNom());
 			row.createCell(2, Cell.CELL_TYPE_NUMERIC).setCellValue(equipement.getPrix());
 			row.createCell(3, Cell.CELL_TYPE_STRING).setCellValue(equipement.getPole().getNom());
-			if (equipement.getAgent() != null) {
+			if (equipement.getAgent() != null) 
 				row.createCell(4, Cell.CELL_TYPE_STRING).setCellValue(equipement.getAgent().getNumCP());
-			} else {
+			else
 				row.createCell(4, Cell.CELL_TYPE_STRING).setCellValue("");
-			}
 			ligne++;
 	    }
 	}
 	
 	private void insertFromTable (HSSFSheet sheet, HSSFRow row, TableView<Equipement> equipements) {
 		List<Equipement> list = equipements.getItems();
-		this.insertFromList(sheet, row, list);
+		insertFromList(sheet, row, list);
 	}
 	
 }
